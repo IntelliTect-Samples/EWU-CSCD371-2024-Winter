@@ -8,4 +8,4 @@ on:
 
 jobs:
   build-and-test:
-  uses: IntelliTect-Samples/EWU-CSCD371-2024-Winter/.github/workflows/build-and-test.yml
+    uses: IntelliTect-Samples/EWU-CSCD371-2024-Winter/.github/workflows/build-and-test.yml@main
