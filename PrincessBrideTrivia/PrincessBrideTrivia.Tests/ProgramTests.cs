@@ -1,4 +1,4 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace PrincessBrideTrivia.Tests;
 
@@ -6,33 +6,31 @@ namespace PrincessBrideTrivia.Tests;
 public class ProgramTests
 {
     [TestMethod]
-    public void LoadQuestions_RetrievesQuestionsFromFile()
-    {
-        string filePath = Path.GetRandomFileName();
+    public void LoadQuestions_RetrievesQuestionsFromFile() {
+        string FILEPATH = Path.GetRandomFileName();
         try
         {
             // Arrange
-            GenerateQuestionsFile(filePath, 2);
+            GenerateQuestionsFile(FILEPATH, 2);
 
             // Act
-            Question[] questions = Program.LoadQuestions(filePath);
+            Question[] questions = Program.LoadQuestions(FILEPATH);
 
             // Assert 
             Assert.AreEqual(2, questions.Length);
         }
         finally
         {
-            File.Delete(filePath);
+            File.Delete((string)FILEPATH);
         }
     }
-
     [TestMethod]
     [DataRow("1", true)]
     [DataRow("2", false)]
     public void DisplayResult_ReturnsTrueIfCorrect(string userGuess, bool expectedResult)
     {
         // Arrange
-        Question question = new();
+        Question question = new Question();
         question.CorrectAnswerIndex = "1";
 
         // Act
@@ -59,13 +57,13 @@ public class ProgramTests
     [DataRow(5, 10, "50%")]
     [DataRow(1, 10, "10%")]
     [DataRow(0, 10, "0%")]
-    public void GetPercentCorrect_ReturnsExpectedPercentage(int numberOfCorrectGuesses, 
+    public void GetPercentCorrect_ReturnsExpectedPercentage(int NumberOfCorrectGuesses, 
         int numberOfQuestions, string expectedString)
     {
         // Arrange
 
         // Act
-        string percentage = Program.GetPercentCorrect(numberOfCorrectGuesses, numberOfQuestions);
+        string percentage = Program.GetPercentCorrect(NumberOfCorrectGuesses, numberOfQuestions);
 
         // Assert
         Assert.AreEqual(expectedString, percentage);
