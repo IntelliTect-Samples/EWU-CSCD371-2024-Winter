@@ -6,7 +6,8 @@ namespace PrincessBrideTrivia.Tests;
 public class ProgramTests
 {
     [TestMethod]
-    public void LoadQuestions_RetrievesQuestionsFromFile() {
+    public void LoadQuestions_RetrievesQuestionsFromFile()
+    {
         string FILEPATH = Path.GetRandomFileName();
         try
         {
@@ -57,7 +58,7 @@ public class ProgramTests
     [DataRow(5, 10, "50%")]
     [DataRow(1, 10, "10%")]
     [DataRow(0, 10, "0%")]
-    public void GetPercentCorrect_ReturnsExpectedPercentage(int NumberOfCorrectGuesses, 
+    public void GetPercentCorrect_ReturnsExpectedPercentage(int NumberOfCorrectGuesses,
         int numberOfQuestions, string expectedString)
     {
         // Arrange
