@@ -2,8 +2,6 @@ name: Build and Test .NET
 
 on:
   pull_request:
-    branches: 
-        - Assignment**
 
 jobs:
   build-and-test:
