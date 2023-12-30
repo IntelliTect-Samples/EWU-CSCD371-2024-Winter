@@ -10,4 +10,4 @@ jobs:
     with:
       working-directory: './PrincessBrideTrivia/'
       check-formatting: false
-      dotnet-build-enforce-code-style: false
+      dotnet-build-enforce-code-style: true
