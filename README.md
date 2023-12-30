@@ -12,7 +12,7 @@ Read [Essential C#](https://EssentialCSharp.com) - Chapters 1-3.  This will take
 
 * Pull Request title includes "Assignment 1" in the title ✔❌
 * Pull Request targets Assignment 1 branch ✔❌
-* Issue 1: Application no longer crashes ✔❌
+* Issue 1: Application no longer crashes ✔❌asdfasdf
 * Issue 2: Unit test properly passes ✔❌
 
 ## Extra Credit
