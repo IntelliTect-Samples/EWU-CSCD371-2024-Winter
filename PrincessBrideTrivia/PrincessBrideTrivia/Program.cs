@@ -21,7 +21,7 @@ public class Program
 
     public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
     {
-        return (numberCorrectAnswers / numberOfQuestions * 100) + "%";
+        return ((numberCorrectAnswers * 1.0) / (numberOfQuestions * 1.0) * 100) + "%";
     }
 
     public static bool AskQuestion(Question question)
@@ -46,6 +46,7 @@ public class Program
         }
 
         Console.WriteLine("Incorrect");
+        Console.WriteLine("This was the correct answer: " + question.CorrectAnswerIndex);
         return false;
     }
 
@@ -86,6 +87,8 @@ public class Program
             question.Answers[1] = answer2;
             question.Answers[2] = answer3;
             question.CorrectAnswerIndex = correctAnswerIndex;
+
+            questions[i] = question;
         }
         return questions;
     }
