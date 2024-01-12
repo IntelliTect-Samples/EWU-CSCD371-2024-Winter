@@ -21,7 +21,7 @@ public class Program
 
     public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
     {
-        return ((float)numberCorrectAnswers / (float)numberOfQuestions * 100) + "%";
+        return (numberCorrectAnswers / (float)numberOfQuestions * 100) + "%";
     }
 
     public static bool AskQuestion(Question question)
