@@ -86,6 +86,9 @@ public class Program
             question.Answers[1] = answer2;
             question.Answers[2] = answer3;
             question.CorrectAnswerIndex = correctAnswerIndex;
+
+            //new line
+            questions[i] = question;
         }
         return questions;
     }
