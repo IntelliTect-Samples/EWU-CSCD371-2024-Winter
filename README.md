@@ -22,5 +22,5 @@ Next Week the reading is Chapters 4-6 so schedule accordingly. (It is a lot of r
 * Come up with a new feature for the application
   * Issue 3: Add a new feature request implemented ✔❌
   * Issue 3: Feature request unit tested ✔❌
-
+asdfasdf
 See [Docs](https://github.com/IntelliTect-Samples/EWU-CSCD371-2024-Winter/blob/main/Docs)
