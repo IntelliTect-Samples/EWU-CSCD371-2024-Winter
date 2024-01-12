@@ -5,6 +5,7 @@ public class Program
     public static void Main(string[] args)
     {
         string filePath = GetFilePath();
+
         Question[] questions = LoadQuestions(filePath);
 
         int numberCorrect = 0;
@@ -21,7 +22,7 @@ public class Program
 
     public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
     {
-        return (numberCorrectAnswers / numberOfQuestions * 100) + "%";
+        return ((float)numberCorrectAnswers / numberOfQuestions * 100) + "%";
     }
 
     public static bool AskQuestion(Question question)
@@ -51,10 +52,19 @@ public class Program
 
     public static void DisplayQuestion(Question question)
     {
-        Console.WriteLine("Question: " + question.Text);
+        if (question != null)
+        {
+            Console.WriteLine("Question: " + question.Text);
+        }
+        else
+        {
+            Console.WriteLine("Question is null.");
+        }
+
+      //  Console.WriteLine("Question: " + question.Text);
         for (int i = 0; i < question.Answers.Length; i++)
         {
-            Console.WriteLine((i + 1) + ": " + question.Answers[i]);
+                Console.WriteLine((i + 1) + ": " + question.Answers[i]);
         }
     }
 
