@@ -4,8 +4,8 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        string filePath = GetFilePath();
-        Question[] questions = LoadQuestions(filePath);
+        string questionsFilePath = GetQuestionsFilePath();
+        Question[] questions = LoadQuestions(questionsFilePath);
 
         int numberCorrect = 0;
         for (int i = 0; i < questions.Length; i++)
@@ -16,12 +16,54 @@ public class Program
                 numberCorrect++;
             }
         }
-        Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct");
+        string percentCorrect = GetPercentCorrect(numberCorrect, questions.Length);
+        Console.WriteLine("You got " + percentCorrect + "% correct");
+
+        string highPercentFilePath = GetHighestPercentFilePath();
+        string highestPercent = GetHighestPercent(highPercentFilePath);
+        int comparedPercent = PercentCompare(percentCorrect, highestPercent);
+        if (comparedPercent > 0)
+        {
+            Console.WriteLine($"Congratulations! Your percentage score of {percentCorrect}% is the highest percent!");
+        } else if (comparedPercent < 0)
+        {
+            Console.WriteLine($"You fell short of the highest percent scored. The highest percent scored is {highestPercent}%");
+        } else
+        {
+            Console.WriteLine("Congratulations! You tied the highest percent!");
+        }
+        
+    }
+
+    public static string GetHighestPercent(string filePath)
+    {
+        string[] lines = File.ReadAllLines(filePath);
+        decimal highPercent = decimal.Parse(lines[0].Trim());
+        return Math.Ceiling(highPercent) + "";
+    }
+
+    public static int PercentCompare(string percentCorrect, string highestPercent)
+    {
+        int intPercentCorrect = int.Parse(percentCorrect);
+        int intHighestPercent = int.Parse(highestPercent);
+        if (intPercentCorrect > intHighestPercent) 
+        { 
+            return 1; 
+        }
+        else if (intPercentCorrect < intHighestPercent) 
+        { 
+            return -1;
+        }
+        else
+        {
+            return 0;
+        }
     }
 
     public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
     {
-        return (((double) numberCorrectAnswers / numberOfQuestions) * 100) + "%";
+        decimal percentCorrect = (((decimal)numberCorrectAnswers / numberOfQuestions) * 100);
+        return Math.Ceiling(percentCorrect) + "";
     }
 
     public static bool AskQuestion(Question question)
@@ -58,9 +100,14 @@ public class Program
         }
     }
 
-    public static string GetFilePath()
+    public static string GetQuestionsFilePath()
     {
         return "Trivia.txt";
+    }
+
+    public static string GetHighestPercentFilePath()
+    {
+        return "HighScore.txt";
     }
 
     public static Question[] LoadQuestions(string filePath)

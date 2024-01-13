@@ -48,7 +48,7 @@ public class ProgramTests
         // Arrange
 
         // Act
-        string filePath = Program.GetFilePath();
+        string filePath = Program.GetQuestionsFilePath();
 
         // Assert
         Assert.IsTrue(File.Exists(filePath));
@@ -65,10 +65,43 @@ public class ProgramTests
         // Arrange
 
         // Act
-        string percentage = Program.GetPercentCorrect(numberOfCorrectGuesses, numberOfQuestions);
+        string percentage = Program.GetPercentCorrect(numberOfCorrectGuesses, numberOfQuestions) + "%";
 
         // Assert
         Assert.AreEqual(expectedString, percentage);
+    }
+
+    [TestMethod]
+    public void GetHighScore_ReturnsHighScore()
+    {
+        string filePath = Path.GetRandomFileName();
+        try
+        {
+            // Arrange
+            GenerateHighScoreFile(filePath, "100");
+            // Act
+            string highPercent = Program.GetHighestPercent(filePath);
+            // Assert
+            Assert.AreEqual("100", highPercent);
+        }
+        finally
+        {
+            File.Delete(filePath);
+        }
+    }
+
+    [TestMethod]
+    [DataRow("100", "50", 1)]
+    [DataRow("50", "100", -1)]
+    [DataRow("50", "50", 0)]
+    public void PercentCompare(string percentCorrect, string highPercent, int expectedInt)
+    {
+        // Arrange
+
+        // Act
+        int beatHighPercent = Program.PercentCompare(percentCorrect, highPercent);
+        // Assert
+        Assert.AreEqual(expectedInt, beatHighPercent);
     }
 
 
@@ -86,5 +119,11 @@ public class ProgramTests
             ];
             File.AppendAllLines(filePath, lines);
         }
+    }
+
+    private static void GenerateHighScoreFile(string filePath, string highScore)
+    {
+        string[] line = { highScore };
+        File.AppendAllLines(filePath, line);
     }
 }
