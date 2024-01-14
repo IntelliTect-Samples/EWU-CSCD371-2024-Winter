@@ -89,6 +89,10 @@ public class Program
             question.Answers[1] = answer2;
             question.Answers[2] = answer3;
             question.CorrectAnswerIndex = correctAnswerIndex;
+<<<<<<< HEAD
+=======
+
+>>>>>>> bae59c6ccdddb740da2fc6579b0ef9bd29bb6b18
             questions[i] = question;
         }
         return questions;
