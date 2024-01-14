@@ -11,10 +11,12 @@ public class Program
         int numberCorrect = 0;
         for (int i = 0; i < questions.Length; i++)
         {
+         
             bool result = AskQuestion(questions[i]);
             if (result)
             {
                 numberCorrect++;
+
             }
         }
         Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct");
@@ -52,22 +54,13 @@ public class Program
 
     public static void DisplayQuestion(Question question)
     {
-        if (question != null)
-        {
-            Console.WriteLine("Question: " + question.Text);
-        }
-        else
-        {
-            Console.WriteLine("Question is null.");
-        }
-
-      //  Console.WriteLine("Question: " + question.Text);
-        for (int i = 0; i < question.Answers.Length; i++)
+        Console.WriteLine("Question: " + question.Text);
+       for (int i = 0; i < question.Answers.Length; i++)
         {
                 Console.WriteLine((i + 1) + ": " + question.Answers[i]);
         }
-    }
-
+        }
+   
     public static string GetFilePath()
     {
         return "Trivia.txt";
@@ -96,6 +89,7 @@ public class Program
             question.Answers[1] = answer2;
             question.Answers[2] = answer3;
             question.CorrectAnswerIndex = correctAnswerIndex;
+            questions[i] = question;
         }
         return questions;
     }

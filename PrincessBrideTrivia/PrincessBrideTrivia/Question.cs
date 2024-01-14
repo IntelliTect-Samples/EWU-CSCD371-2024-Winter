@@ -6,5 +6,4 @@ public class Question
     public string[] Answers { get; set; }
     public string CorrectAnswerIndex { get; set; }
 
-  
 }
