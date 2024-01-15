@@ -115,7 +115,7 @@ public class Program
 
     public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
     {
-        return ((double)numberCorrectAnswers/numberOfQuestions * 100).ToString("0.##") + "%";
+        return ((double)numberCorrectAnswers / numberOfQuestions * 100).ToString("0.##") + "%";
     }
 
     public static bool AskQuestion(Question question)
