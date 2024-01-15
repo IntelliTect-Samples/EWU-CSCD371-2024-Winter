@@ -8,6 +8,7 @@ public class Program
 
         Question[] questions = LoadQuestions(filePath);
 
+        Console.WriteLine("Welcome to Princess Bride Trivia!");
         string PlayerName = GetPlayerName();
 
         int numberCorrect = 0;
@@ -31,11 +32,10 @@ public class Program
     }
     public static string GetPlayerName()
     {
-        string PlayerName = " ";
-        Console.WriteLine("Welcome to Princess Bride Trivia!");
+        string playerName = " ";
         Console.WriteLine("Please enter your name: ");
-        PlayerName = Console.ReadLine();
-        return PlayerName;
+        playerName = Console.ReadLine();
+        return playerName;
 
     }
 
