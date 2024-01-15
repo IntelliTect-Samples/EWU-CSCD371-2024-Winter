@@ -8,6 +8,8 @@ public class Program
 
         Question[] questions = LoadQuestions(filePath);
 
+        string PlayerName = GetPlayerName();
+
         int numberCorrect = 0;
         for (int i = 0; i < questions.Length; i++)
         {
@@ -19,12 +21,22 @@ public class Program
 
             }
         }
+        Console.WriteLine("Congrats " + PlayerName + "!");
         Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct");
     }
 
     public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
     {
         return ((float)numberCorrectAnswers / numberOfQuestions * 100) + "%";
+    }
+    public static string GetPlayerName()
+    {
+        string PlayerName = " ";
+        Console.WriteLine("Welcome to Princess Bride Trivia!");
+        Console.WriteLine("Please enter your name: ");
+        PlayerName = Console.ReadLine();
+        return PlayerName;
+
     }
 
     public static bool AskQuestion(Question question)
@@ -49,6 +61,7 @@ public class Program
         }
 
         Console.WriteLine("Incorrect");
+        Console.WriteLine("The correct answer was: " + question.CorrectAnswerIndex);
         return false;
     }
 
@@ -89,10 +102,6 @@ public class Program
             question.Answers[1] = answer2;
             question.Answers[2] = answer3;
             question.CorrectAnswerIndex = correctAnswerIndex;
-<<<<<<< HEAD
-=======
-
->>>>>>> bae59c6ccdddb740da2fc6579b0ef9bd29bb6b18
             questions[i] = question;
         }
         return questions;

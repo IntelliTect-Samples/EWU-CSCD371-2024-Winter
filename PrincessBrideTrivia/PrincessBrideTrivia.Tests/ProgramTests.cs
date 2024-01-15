@@ -70,6 +70,32 @@ public class ProgramTests
         // Assert
         Assert.AreEqual(expectedString, percentage);
     }
+    [TestMethod]
+    public void PrintCorrectName()
+    {
+        string expected1 = "Juan", input1 = "Juan";
+        string expected2 = "Your mom", input2 = "Your mom";
+
+        // Act
+        using (StringReader sr = new StringReader(input1))
+        {
+            Console.SetIn(sr);
+            string actualName = Program.GetPlayerName();
+
+            // Assert
+            Assert.AreEqual(expected1, actualName);
+
+            // Act
+            using (StringReader sr1 = new StringReader(input2))
+            {
+                Console.SetIn(sr1);
+                string actualName1 = Program.GetPlayerName();
+
+                // Assert
+                Assert.AreEqual(expected2, actualName1);
+            }
+        }
+    }
 
 
     private static void GenerateQuestionsFile(string filePath, int numberOfQuestions)
