@@ -2,7 +2,7 @@
 
 ## Overview
 
-In this assignment, we are looking to become familiar with Git, GitHub, Pull-Requests (PR), and the basics of working with Visual Studio including creating new projects, running, debugging, and writing unit tests.
+In this assignment we are looking to become familiar with Git, GitHub, Pull-Requests (PR), and the basics of working with Visual Studio including creating new projects, running, debugging, and writing unit tests.
 
 ## Reading
 
