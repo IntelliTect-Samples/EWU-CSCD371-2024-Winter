@@ -21,7 +21,7 @@ public class Program
 
             }
         }
-        Console.WriteLine("Congrats " + PlayerName + "!");
+        Console.WriteLine("Congratulations " + PlayerName + "!");
         Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct");
     }
 
