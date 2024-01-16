@@ -21,8 +21,14 @@ public class Program
 
     public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
     {
-        return (numberCorrectAnswers / numberOfQuestions * 100) + "%";
+        double percent = ((double)numberCorrectAnswers / numberOfQuestions) * 100;
+    	return $"{percent}%";
+
+	//must ensure that the percentage is not calculated as a integer 
+	//since that'll result in 0 being returned, instead of the percent
+	//To fix it I casted the equation into a double
     }
+
 
     public static bool AskQuestion(Question question)
     {
@@ -79,13 +85,15 @@ public class Program
 
             string correctAnswerIndex = lines[lineIndex + 4];
 
-            Question question = new();
+            Question question = new Question();  //Added Question(); to intialize
             question.Text = questionText;
             question.Answers = new string[3];
             question.Answers[0] = answer1;
             question.Answers[1] = answer2;
             question.Answers[2] = answer3;
             question.CorrectAnswerIndex = correctAnswerIndex;
+
+	    questions[i] = question;	//Added each question in Questions array at end of each loop
         }
         return questions;
     }
