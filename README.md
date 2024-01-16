@@ -24,3 +24,11 @@ Next Week the reading is Chapters 4-6 so schedule accordingly. (It is a lot of r
   * Issue 3: Feature request unit tested ❌
 
 See [Docs](https://github.com/IntelliTect-Samples/EWU-CSCD371-2024-Winter/blob/main/Docs)
+
+## Execution 
+
+* Done on Linux command line, without the use of an IDE.
+   
+* Go into cloned repo directory
+* input "dotnet build"
+* then "dotnet test"
