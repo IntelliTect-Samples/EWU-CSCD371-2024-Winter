@@ -21,8 +21,6 @@ public class Program
 
     public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
     {
-        // double percent = ((double)numberCorrectAnswers / numberOfQuestions) * 100;
-    	// return $"{percent}%"; 
         //return (numberCorrectAnswers / numberOfQuestions * 100) + "%"; This Line returns a int and will be 0% if they miss one question
         double result = (int)(((double)numberCorrectAnswers / (double)numberOfQuestions) * 100);
         return result + "%";
