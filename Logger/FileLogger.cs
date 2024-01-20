@@ -11,6 +11,7 @@ namespace Logger
         public FileLogger(string filePath)
         {
             this.filePath = filePath;
+            this.ClassName = nameof(FileLogger);
         }
         public override void Log(LogLevel logLevel, string message)
         {
