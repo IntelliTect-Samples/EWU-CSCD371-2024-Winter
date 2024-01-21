@@ -26,7 +26,7 @@ public class BaseLoggerMixinsTests
         var logger = new TestLogger();
 
         // Act
-        //logger.Error("Message {0}", 42);
+        BaseLoggerMixins.Error(logger,"Message 42");
 
         // Assert
         Assert.AreEqual(1, logger.LoggedMessages.Count);
