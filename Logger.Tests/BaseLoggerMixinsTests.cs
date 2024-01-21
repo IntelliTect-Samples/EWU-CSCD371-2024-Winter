@@ -11,18 +11,16 @@ public class BaseLoggerMixinsTests
     [ExpectedException(typeof(ArgumentNullException))]
     public void Error_WithNullLogger_ThrowsException()
     {
-        // Arrange
 
         // Act
         BaseLoggerMixins.Error(null, "");
 
-        // Assert
     }
 
     [TestMethod]
     [DataRow("Message 42", "Message 42", null)]
     [DataRow("Checking Server Software Router", "Checking", new string[] {"Server", "Software", "Router" })]
-    public void Error_WithData_LogsMessage(string expectedMessage, string message, string [] arguments)
+    public void Error_WithData_LogsMessage(string expectedMessage, string message, params string [] arguments)
     {
         // Arrange
         var logger = new TestLogger();
@@ -34,6 +32,17 @@ public class BaseLoggerMixinsTests
         Assert.AreEqual(1, logger.LoggedMessages.Count);
         Assert.AreEqual(LogLevel.Error, logger.LoggedMessages[0].LogLevel);
         Assert.AreEqual(expectedMessage, logger.LoggedMessages[0].Message);
+    }
+
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Warning_WithNullLogger_ThrowsException()
+    {
+
+        // Act
+        BaseLoggerMixins.Warning(null, "");
+
     }
 
 }

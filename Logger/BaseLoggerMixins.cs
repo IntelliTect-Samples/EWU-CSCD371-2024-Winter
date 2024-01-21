@@ -25,4 +25,9 @@ public static class BaseLoggerMixins
 
 
     }
+
+    public static void Warning(object? value, string v)
+    {
+        throw new NotImplementedException();
+    }
 }
