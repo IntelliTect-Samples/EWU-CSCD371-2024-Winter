@@ -23,7 +23,7 @@ namespace Logger
 
             using StreamWriter streamWrite = File.AppendText(PathName);
 
-            string log = DateTime.Now.ToString() + " " + nameof(this.ClassName) + " "
+            string log = DateTime.Now.ToString() + " " + ClassName + " "
                 + logLevel.ToString() + ": " + message;
 
             streamWrite.WriteLine(log);

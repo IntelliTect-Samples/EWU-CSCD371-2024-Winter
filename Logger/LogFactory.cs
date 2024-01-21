@@ -16,7 +16,7 @@ public class LogFactory
         }
 
         return new FileLogger(_pathName) {
-            ClassName = nameof(LogFactory)
+            ClassName = className
         };
     }
 

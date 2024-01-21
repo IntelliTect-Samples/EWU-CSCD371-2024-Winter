@@ -12,7 +12,7 @@ public class FileLoggerTests
 
     [TestMethod]
     [DataRow("FileLoggerTests Warning: Test message", LogLevel.Warning, "@FakePath", "Test message" )]
-    public void Log_ValidMessage_WritesToFileCorrectly(string expectedContent, LogLevel level, string pathname, string className, string message)
+    public void Log_ValidMessage_WritesToFileCorrectly(string expectedContent, LogLevel level, string pathname, string message)
     {
 
         string filePath = String.Join(@"\", (Environment.CurrentDirectory.Split(@"\")[..^3]));
