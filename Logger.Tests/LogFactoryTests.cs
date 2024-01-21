@@ -22,7 +22,6 @@ public class LogFactoryTests
     {
         //Act
         FileLogger? fileLogger = LogFactory.CreateLogger(className) as FileLogger;
-
         //Assert
         Assert.IsNull(fileLogger);
 

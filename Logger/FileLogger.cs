@@ -21,12 +21,12 @@ namespace Logger
         public override void Log(LogLevel logLevel, string message)
         {
 
-            using StreamWriter streamWrite = File.CreateText(PathName);
+            using StreamWriter streamWrite = File.AppendText(PathName);
 
             string log = DateTime.Now.ToString() + " " + nameof(this.ClassName) + " "
                 + logLevel.ToString() + ": " + message;
 
-            streamWrite.Write(log);
+            streamWrite.WriteLine(log);
 
         }
     }

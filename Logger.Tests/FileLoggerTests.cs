@@ -28,7 +28,7 @@ public class FileLoggerTests
 
         // Act
         fileLogger?.Log(level, message);
-        string fileContents = File.ReadAllText(path);
+        string fileContents = File.ReadLines(path).Last();
 
         // Assert
          Assert.AreEqual(trueLoggedMessage, fileContents);
