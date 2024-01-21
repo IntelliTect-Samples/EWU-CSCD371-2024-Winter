@@ -8,7 +8,6 @@ public class LogFactory
     {
         this.fileLoggerPath = filePath;
     }
-
     public BaseLogger? CreateLogger(string className)
     {
         if(fileLoggerPath != null) {
