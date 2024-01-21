@@ -26,9 +26,9 @@ public static class BaseLoggerMixins
 
     }
 
-    public static void Warning(object? value, string v)
+    public static void Warning(BaseLogger? logger, string message, params string[] arguments)
     {
-        if (value == null)
+        if (logger == null)
             throw new ArgumentNullException();
     }
 }
