@@ -30,5 +30,17 @@ public static class BaseLoggerMixins
     {
         if (logger == null)
             throw new ArgumentNullException();
+
+        if(arguments == null)
+        {
+            logger.Log(LogLevel.Warning, message);
+        }
+        else
+        {
+            string argumentsAsString = string.Join(" ", arguments);
+            string combinedMessage = message + " " + argumentsAsString;
+            logger.Log(LogLevel.Warning, combinedMessage);
+
+        }
     }
 }
