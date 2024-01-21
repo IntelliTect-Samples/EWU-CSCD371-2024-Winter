@@ -18,7 +18,7 @@ public class LogFactoryTests
     [DataRow("Logger")]
     //if the LogFactory has been not been configured, CreateLogger should
     //return null
-    public void CreateLogger_UnconfigurredPath_ReturnsFileLogger(string className)
+    public void CreateLogger_UnconfigurredPath_ReturnsNull(string className)
     {
         //Act
         FileLogger? fileLogger = LogFactory.CreateLogger(className) as FileLogger;
