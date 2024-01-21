@@ -1,4 +1,6 @@
-﻿namespace Logger;
+﻿using System;
+
+namespace Logger;
 
 public class LogFactory
 {
@@ -7,5 +9,10 @@ public class LogFactory
     {
 
         return null;
+    }
+
+    public void ConfigureFileLogger(string pathName)
+    {
+        throw new NotImplementedException();
     }
 }
