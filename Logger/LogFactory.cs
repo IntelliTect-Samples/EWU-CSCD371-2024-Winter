@@ -2,14 +2,14 @@ namespace Logger;
 
 public class LogFactory
 {
-    private string fileLoggerPath;
+    private string? fileLoggerPath;
 
     public void ConfigureFileLogger(string filePath)
     {
         this.fileLoggerPath = filePath;
     }
 
-    public BaseLogger CreateLogger(string className)
+    public BaseLogger? CreateLogger(string className)
     {
         if(fileLoggerPath != null) {
             var fileLogger = new FileLogger(fileLoggerPath);
