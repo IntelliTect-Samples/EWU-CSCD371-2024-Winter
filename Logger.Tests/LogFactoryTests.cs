@@ -7,14 +7,16 @@ public class LogFactoryTests
 {
     [TestMethod]
     [DataRow("/Files/Log.txt", "Logger")]
-    public void ConfigureLogger_ValidPathName_ReturnsFileLogger(string pathName, string className)
+    //if the LogFactory has been configured using ConfigureLogger
+    //then it should return a FileLogger
+    public void CreateLogger_ConfigurredPath_ReturnsFileLogger(string pathName, string className)
     {
         // Arrange
         var logger = new LogFactory();
 
         //Act
         logger.ConfigureFileLogger(pathName);
-        BaseLogger? fileLogger = logger.CreateLogger(className);
+        FileLogger? fileLogger = logger.CreateLogger(className) as FileLogger;
 
         //Assert
         Assert.IsNotNull(fileLogger);
