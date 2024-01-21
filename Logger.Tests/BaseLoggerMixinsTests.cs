@@ -14,7 +14,7 @@ public class BaseLoggerMixinsTests
         // Arrange
 
         // Act
-        //BaseLoggerMixins.Error(null, "");
+        BaseLoggerMixins.Error(null, "");
 
         // Assert
     }
