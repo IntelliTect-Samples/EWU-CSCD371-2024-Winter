@@ -15,10 +15,10 @@ public class LogFactoryTests
 
 
     [TestMethod]
-    [DataRow("/Files/Log.txt", "Logger")]
+    [DataRow("Logger")]
     //if the LogFactory has been not been configured, CreateLogger should
     //return null
-    public void CreateLogger_UnconfigurredPath_ReturnsFileLogger(string pathName, string className)
+    public void CreateLogger_UnconfigurredPath_ReturnsFileLogger(string className)
     {
         //Act
         FileLogger? fileLogger = LogFactory.CreateLogger(className) as FileLogger;
