@@ -6,17 +6,22 @@ namespace Logger.Tests;
 public class LogFactoryTests
 {
 
+    public LogFactory LogFactory {get; set;}
+
+    public LogFactoryTests() {
+        //Arrange
+        LogFactory = new LogFactory();
+    }
+
+
     [TestMethod]
     [DataRow("/Files/Log.txt", "Logger")]
-    //if the LogFactory has been configured using ConfigureLogger
-    //then it should return a FileLogger
+    //if the LogFactory has been not been configured, CreateLogger should
+    //return null
     public void CreateLogger_UnconfigurredPath_ReturnsFileLogger(string pathName, string className)
     {
-        // Arrange
-        var logger = new LogFactory();
-
         //Act
-        FileLogger? fileLogger = logger.CreateLogger(className) as FileLogger;
+        FileLogger? fileLogger = LogFactory.CreateLogger(className) as FileLogger;
 
         //Assert
         Assert.IsNull(fileLogger);
@@ -29,12 +34,10 @@ public class LogFactoryTests
     //then it should return a FileLogger
     public void CreateLogger_ConfigurredPath_ReturnsFileLogger(string pathName, string className)
     {
-        // Arrange
-        var logger = new LogFactory();
 
         //Act
-        logger.ConfigureFileLogger(pathName);
-        FileLogger? fileLogger = logger.CreateLogger(className) as FileLogger;
+        LogFactory.ConfigureFileLogger(pathName);
+        FileLogger? fileLogger = LogFactory.CreateLogger(className) as FileLogger;
 
         //Assert
         Assert.IsNotNull(fileLogger);
