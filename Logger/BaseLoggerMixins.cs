@@ -62,5 +62,18 @@ public static class BaseLoggerMixins
     }
     public static void Debug(BaseLogger? logger, string message, params string[] arguments)
     {
+        if (logger == null)
+            throw new ArgumentNullException();
+
+        if (arguments == null)
+        {
+            logger.Log(LogLevel.Debug, message);
+        }
+        else
+        {
+            string argumentsAsString = string.Join(" ", arguments);
+            string combinedMessage = message + " " + argumentsAsString;
+            logger.Log(LogLevel.Debug, combinedMessage);
+        }
     }
 }
