@@ -22,6 +22,10 @@ public class FileLoggerTests
 
     [TestMethod]
     [DataRow("FileLoggerTests Warning: Test message", LogLevel.Warning, "Test message")]
+    [DataRow("FileLoggerTests Error: FileNotFound", LogLevel.Error, "FileNotFound")]
+    [DataRow("FileLoggerTests Debug: 3 Bug(s) Found", LogLevel.Debug, "3 Bug(s) Found")]
+    [DataRow("FileLoggerTests Information: Software Update Applied", LogLevel.Information, "Software Update Applied")]
+
     public void Log_ValidMessage_WritesToFileCorrectly(string expectedContent, LogLevel level, string message)
     {
 
@@ -30,14 +34,14 @@ public class FileLoggerTests
         logFactory.ConfigureFileLogger(TestPathName);
         FileLogger? fileLogger = logFactory.CreateLogger(nameof(FileLoggerTests)) as FileLogger;
 
-        String trueLoggedMessage = DateTime.Now.ToString() + " " + expectedContent;
+        String loggedMessageWithDate = DateTime.Now.ToString() + " " + expectedContent;
 
         // Act
         fileLogger?.Log(level, message);
         string fileContents = File.ReadLines(TestPathName).Last();
 
         // Assert
-         Assert.AreEqual(trueLoggedMessage, fileContents);
+         Assert.AreEqual(loggedMessageWithDate, fileContents);
 
     }
 

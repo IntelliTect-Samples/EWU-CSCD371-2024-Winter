@@ -1,6 +1,4 @@
-1/21/2024 3:10:18 PM ClassName Warning: Test message
-1/21/2024 3:12:55 PM ClassName Warning: Test message
-1/21/2024 3:13:14 PM LogFactory Warning: Test message
-1/21/2024 3:13:39 PM FileLoggerTests Warning: Test message
-1/21/2024 3:22:52 PM FileLoggerTests Warning: Test message
-1/21/2024 3:24:03 PM FileLoggerTests Warning: Test message
+1/21/2024 3:33:04 PM FileLoggerTests Warning: Test message
+1/21/2024 3:33:04 PM FileLoggerTests Error: FileNotFound
+1/21/2024 3:33:04 PM FileLoggerTests Debug: 3 Bug(s) Found
+1/21/2024 3:33:04 PM FileLoggerTests Information: Software Update Applied
