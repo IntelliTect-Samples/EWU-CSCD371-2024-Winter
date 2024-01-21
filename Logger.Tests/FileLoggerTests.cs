@@ -11,7 +11,7 @@ public class FileLoggerTests
 {
 
     [TestMethod]
-    [DataRow("ClassName Warning: Test message", LogLevel.Warning, "@FakePath", "Logger", "Test message" )]
+    [DataRow("FileLoggerTests Warning: Test message", LogLevel.Warning, "@FakePath", "Test message" )]
     public void Log_ValidMessage_WritesToFileCorrectly(string expectedContent, LogLevel level, string pathname, string className, string message)
     {
 
@@ -22,7 +22,7 @@ public class FileLoggerTests
         // Arrange
         LogFactory logFactory = new LogFactory();
         logFactory.ConfigureFileLogger(path);
-        FileLogger? fileLogger = logFactory.CreateLogger(className) as FileLogger;
+        FileLogger? fileLogger = logFactory.CreateLogger(nameof(FileLoggerTests)) as FileLogger;
 
         String trueLoggedMessage = DateTime.Now.ToString() + " " + expectedContent;
 

@@ -28,15 +28,15 @@ public class LogFactoryTests
     }
 
     [TestMethod]
-    [DataRow("/Files/Log.txt", "Logger")]
+    [DataRow("/Files/Log.txt")]
     //if the LogFactory has been configured using ConfigureLogger
     //then it should return a FileLogger
-    public void CreateLogger_ConfigurredPath_ReturnsFileLogger(string pathName, string className)
+    public void CreateLogger_ConfigurredPath_ReturnsFileLogger(string pathName)
     {
 
         //Act
         LogFactory.ConfigureFileLogger(pathName);
-        FileLogger? fileLogger = LogFactory.CreateLogger(className) as FileLogger;
+        FileLogger? fileLogger = LogFactory.CreateLogger(nameof(LogFactory)) as FileLogger;
 
         //Assert
         Assert.IsNotNull(fileLogger);
