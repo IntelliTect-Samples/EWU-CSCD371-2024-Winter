@@ -20,18 +20,20 @@ public class BaseLoggerMixinsTests
     }
 
     [TestMethod]
-    public void Error_WithData_LogsMessage()
+    [DataRow("Message 42", "Message 42", null)]
+    [DataRow("Checking Server Software Router", "Checking", new string[] {"Server", "Software", "Router" })]
+    public void Error_WithData_LogsMessage(string expectedMessage, string message, string [] arguments)
     {
         // Arrange
         var logger = new TestLogger();
 
         // Act
-        BaseLoggerMixins.Error(logger,"Message 42");
+        BaseLoggerMixins.Error(logger, message, arguments);
 
         // Assert
         Assert.AreEqual(1, logger.LoggedMessages.Count);
         Assert.AreEqual(LogLevel.Error, logger.LoggedMessages[0].LogLevel);
-        Assert.AreEqual("Message 42", logger.LoggedMessages[0].Message);
+        Assert.AreEqual(expectedMessage, logger.LoggedMessages[0].Message);
     }
 
 }
