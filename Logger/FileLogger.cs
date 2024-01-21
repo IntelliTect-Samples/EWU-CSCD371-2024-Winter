@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net.Http;
 using System.Text;
+
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Logger
 {
@@ -16,7 +20,14 @@ namespace Logger
 
         public override void Log(LogLevel logLevel, string message)
         {
-            throw new NotImplementedException();
+
+            using StreamWriter streamWrite = File.CreateText(PathName);
+
+            string log = DateTime.Now.ToString() + " " + nameof(this.ClassName) + " "
+                + logLevel.ToString() + ": " + message;
+
+            streamWrite.Write(log);
+
         }
     }
 }
