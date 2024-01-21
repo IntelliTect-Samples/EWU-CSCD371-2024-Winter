@@ -5,12 +5,12 @@ namespace Logger;
 
 public static class BaseLoggerMixins
 {
-    public static void Error(BaseLogger? logger, string message,params string [] arguments)
+    public static void Error(BaseLogger? logger, string message, params string[] arguments)
     {
-        if(logger == null)
+        if (logger == null)
             throw new ArgumentNullException();
 
-        if(arguments == null)
+        if (arguments == null)
         {
             logger.Log(LogLevel.Error, message);
 
@@ -31,7 +31,7 @@ public static class BaseLoggerMixins
         if (logger == null)
             throw new ArgumentNullException();
 
-        if(arguments == null)
+        if (arguments == null)
         {
             logger.Log(LogLevel.Warning, message);
         }
@@ -41,6 +41,39 @@ public static class BaseLoggerMixins
             string combinedMessage = message + " " + argumentsAsString;
             logger.Log(LogLevel.Warning, combinedMessage);
 
+        }
+    }
+
+    public static void Information(BaseLogger? logger, string message, params string[] arguments)
+    {
+        if (logger == null)
+            throw new ArgumentNullException();
+
+        if (arguments == null)
+        {
+            logger.Log(LogLevel.Information, message);
+        }
+        else
+        {
+            string argumentsAsString = string.Join(" ", arguments);
+            string combinedMessage = message + " " + argumentsAsString;
+            logger.Log(LogLevel.Information, combinedMessage);
+        }
+    }
+    public static void Debug(BaseLogger? logger, string message, params string[] arguments)
+    {
+        if (logger == null)
+            throw new ArgumentNullException();
+
+        if (arguments == null)
+        {
+            logger.Log(LogLevel.Debug, message);
+        }
+        else
+        {
+            string argumentsAsString = string.Join(" ", arguments);
+            string combinedMessage = message + " " + argumentsAsString;
+            logger.Log(LogLevel.Debug, combinedMessage);
         }
     }
 }
