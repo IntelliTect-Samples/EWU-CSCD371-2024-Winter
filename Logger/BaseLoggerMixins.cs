@@ -8,5 +8,7 @@ public static class BaseLoggerMixins
     {
         if(logger == null)
             throw new ArgumentNullException();
+
+        logger.Log(LogLevel.Error, message);
     }
 }
