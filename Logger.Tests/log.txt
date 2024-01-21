@@ -1,4 +1,0 @@
-1/21/2024 3:44:32 PM FileLoggerTests Warning: Test message
-1/21/2024 3:44:32 PM FileLoggerTests Error: FileNotFound
-1/21/2024 3:44:59 PM FileLoggerTests Warning: Test message
-1/21/2024 3:44:59 PM FileLoggerTests Error: FileNotFound
