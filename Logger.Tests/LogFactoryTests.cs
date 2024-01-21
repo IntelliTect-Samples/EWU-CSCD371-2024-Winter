@@ -5,6 +5,24 @@ namespace Logger.Tests;
 [TestClass]
 public class LogFactoryTests
 {
+
+    [TestMethod]
+    [DataRow("/Files/Log.txt", "Logger")]
+    //if the LogFactory has been configured using ConfigureLogger
+    //then it should return a FileLogger
+    public void CreateLogger_UnconfigurredPath_ReturnsFileLogger(string pathName, string className)
+    {
+        // Arrange
+        var logger = new LogFactory();
+
+        //Act
+        FileLogger? fileLogger = logger.CreateLogger(className) as FileLogger;
+
+        //Assert
+        Assert.IsNull(fileLogger);
+
+    }
+
     [TestMethod]
     [DataRow("/Files/Log.txt", "Logger")]
     //if the LogFactory has been configured using ConfigureLogger
