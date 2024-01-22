@@ -11,12 +11,28 @@ public class BaseLoggerMixinsTests
     [ExpectedException(typeof(ArgumentNullException))]
     public void Error_WithNullLogger_ThrowsException()
     {
-        // Arrange
+        BaseLoggerMixins.Error(null, "");
+    }
 
-        // Act
-        //BaseLoggerMixins.Error(null, "");
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Warning_WithNullLogger_ThrowsException()
+    {
+        BaseLoggerMixins.Warning(null, "");
+    }
 
-        // Assert
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Information_WithNullLogger_ThrowsException()
+    {
+        BaseLoggerMixins.Information(null, "");
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Debug_WithNullLogger_ThrowsException()
+    {
+        BaseLoggerMixins.Debug(null, "");
     }
 
     [TestMethod]
