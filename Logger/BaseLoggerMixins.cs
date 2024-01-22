@@ -8,7 +8,7 @@ public static class BaseLoggerMixins
     public static void Error(BaseLogger? logger, string message, params string[] arguments)
     {
         if (logger == null)
-            throw new ArgumentNullException();
+            throw new ArgumentNullException(nameof(logger), "Logger is null");
 
         if (arguments == null)
         {
@@ -29,7 +29,7 @@ public static class BaseLoggerMixins
     public static void Warning(BaseLogger? logger, string message, params string[] arguments)
     {
         if (logger == null)
-            throw new ArgumentNullException();
+            throw new ArgumentNullException(nameof(logger), "Logger is null");
 
         if (arguments == null)
         {
@@ -47,7 +47,7 @@ public static class BaseLoggerMixins
     public static void Information(BaseLogger? logger, string message, params string[] arguments)
     {
         if (logger == null)
-            throw new ArgumentNullException();
+            throw new ArgumentNullException(nameof(logger), "Logger is null");
 
         if (arguments == null)
         {
@@ -63,7 +63,7 @@ public static class BaseLoggerMixins
     public static void Debug(BaseLogger? logger, string message, params string[] arguments)
     {
         if (logger == null)
-            throw new ArgumentNullException();
+            throw new ArgumentNullException(nameof(logger), "Logger is null");
 
         if (arguments == null)
         {

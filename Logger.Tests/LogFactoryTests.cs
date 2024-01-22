@@ -15,8 +15,6 @@ public class LogFactoryTests
 
 
     [TestMethod]
-    //if the LogFactory has been not been configured, CreateLogger should
-    //return null
     public void CreateLogger_UnconfigurredPath_ReturnsNull()
     {
         //Act
@@ -28,8 +26,6 @@ public class LogFactoryTests
 
     [TestMethod]
     [DataRow("/Files/Log.txt")]
-    //if the LogFactory has been configured using ConfigureLogger
-    //then it should return a FileLogger
     public void CreateLogger_ConfigurredPath_ReturnsFileLogger(string pathName)
     {
 

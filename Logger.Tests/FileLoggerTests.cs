@@ -27,7 +27,7 @@ public class FileLoggerTests
 
         // Arrange
         string path = Path.Combine(TestPathName, fileName);
-        LogFactory logFactory = new LogFactory();
+        LogFactory logFactory = new();
         logFactory.ConfigureFileLogger(path);
         FileLogger? fileLogger = logFactory.CreateLogger(nameof(FileLoggerTests)) as FileLogger;
         string loggedMessageWithDate = DateTime.Now.ToString() + " " + expectedContent;
