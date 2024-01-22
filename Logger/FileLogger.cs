@@ -6,11 +6,14 @@ public class FileLogger : BaseLogger
     string filePath;
     public FileLogger(string filePath)
     {
-        this,.filePath = filePath;
+        this.filePath = filePath;
     }
     public override void Log(LogLevel logLevel, string message)
     {
-        string logAppend = $"{System.DateTime.Now} {nameof(ClassName)} {logLevel} {message}"
-        throw new System.NotImplementedException();
+        string dateTime = System.DateTime.Now.ToString("M/d/yyyy hh:mm:ss tt");
+        string logEntry = $"{dateTime} [{logLevel}]: {message}";
+
+        //File.AppendAllText(filePath, logEntry + Environment.NewLine);
+        
     }
 }
