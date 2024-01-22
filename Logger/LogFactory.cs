@@ -1,6 +1,6 @@
 ﻿namespace Logger;
 
-public class LogFactory : BaseLogger
+public class LogFactory
 {
     string filePath;
 
