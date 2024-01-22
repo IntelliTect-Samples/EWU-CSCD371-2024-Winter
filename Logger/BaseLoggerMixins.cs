@@ -2,6 +2,7 @@ namespace Logger;
 
 public static class BaseLoggerMixins
 {
+    //Ethan Guerin
     public static void Error(this BaseLogger logger, string message, params object[] args)
     {
         if(logger == null)

@@ -7,6 +7,7 @@ namespace Logger.Tests;
 [TestClass]
 public class BaseLoggerMixinsTests
 {
+    //Ethan Guerin
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void Error_WithNullLogger_ThrowsException()

@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 
 namespace Logger
+//Ethan Guerin
 {
     public class FileLogger : BaseLogger
     {

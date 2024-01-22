@@ -1,4 +1,5 @@
 namespace Logger;
+//Ethan Guerin
 
 public class LogFactory
 {
