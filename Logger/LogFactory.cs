@@ -5,6 +5,6 @@ public class LogFactory
     public BaseLogger CreateLogger(string className)
     {
 
-        return new FileLogger{className = className};
+        return new FileLogger{ClassName = className};
     }
 }
