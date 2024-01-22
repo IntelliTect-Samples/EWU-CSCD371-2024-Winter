@@ -13,7 +13,7 @@ public class FileLoggerTests
     public string TestPathName {get; set;}
 
     public FileLoggerTests(){
-        string filePath = String.Join(@"\", (Environment.CurrentDirectory.Split(@"\")[..^3]));
+        string filePath = string.Join(@"\", (Environment.CurrentDirectory.Split(@"\")[..^3]));
         TestPathName = filePath;
     }
 
@@ -25,22 +25,19 @@ public class FileLoggerTests
     public void Log_ValidMessage_WritesToFileCorrectly(string expectedContent, LogLevel level, string message, string fileName)
     {
 
-     
-        string path = Path.Combine(TestPathName, fileName);
-
         // Arrange
+        string path = Path.Combine(TestPathName, fileName);
         LogFactory logFactory = new LogFactory();
         logFactory.ConfigureFileLogger(path);
         FileLogger? fileLogger = logFactory.CreateLogger(nameof(FileLoggerTests)) as FileLogger;
-
-        String loggedMessageWithDate = DateTime.Now.ToString() + " " + expectedContent;
+        string loggedMessageWithDate = DateTime.Now.ToString() + " " + expectedContent;
 
         // Act
         fileLogger?.Log(level, message);
         string fileContents = File.ReadLines(path).Last();
 
         // Assert
-         Assert.AreEqual(loggedMessageWithDate, fileContents);
+        Assert.AreEqual(loggedMessageWithDate, fileContents);
 
     }
 
