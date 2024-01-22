@@ -7,18 +7,14 @@ namespace Logger.Tests;
 [TestClass]
 public class BaseLoggerMixinsTests
 {
-    //Ethan Guerin
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void Error_WithNullLogger_ThrowsException()
     {
         // Arrange
+        BaseLogger logger = null;
 
-
-        // Act
-        BaseLoggerMixins.Error(null, "");
-
-        // Assert
+        // Act and Assert
+        Assert.ThrowsException<ArgumentNullException>(() => logger.Error("", 42));
     }
 
     [TestMethod]
@@ -37,11 +33,10 @@ public class BaseLoggerMixinsTests
     }
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void Warning_WithNullLogger_ThrowsException()
     {
         BaseLogger logger = null;
-        logger.Warning("");
+        Assert.ThrowsException<ArgumentNullException>(() => logger.Warning("", 42));
     }
 
     [TestMethod]
@@ -56,11 +51,10 @@ public class BaseLoggerMixinsTests
     }
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void Information_WithNullLogger_ThrowsException()
     {
         BaseLogger logger = null;
-        logger.Information("");
+        Assert.ThrowsException<ArgumentNullException>(() => logger.Information("", 42));
     }
 
     [TestMethod]
@@ -76,11 +70,10 @@ public class BaseLoggerMixinsTests
     }
 
     [TestMethod]
-    [ExpectedException (typeof(ArgumentNullException))]
     public void Debug_WithNullLogger_ThrowsException()
     {
         BaseLogger logger = null;
-        logger.Debug("");
+        Assert.ThrowsException<ArgumentNullException>(() => logger.Debug("", 42));
     }
     [TestMethod]
     public void Debug_WithData_LogsMessage()

@@ -6,7 +6,6 @@ namespace Logger.Tests;
 [TestClass]
 public class FileLoggerTests
 {
-    //Ethan Guerin
     [TestMethod]
     public void FileLogger_Log_MessageAppendedToFile()
     {

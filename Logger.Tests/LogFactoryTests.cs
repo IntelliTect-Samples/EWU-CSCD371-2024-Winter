@@ -5,7 +5,7 @@ namespace Logger.Tests;
 [TestClass]
 public class LogFactoryTests
 {
-    //Ethan Guerin
+    
 
     [TestMethod]
     public void LogFactory_CreateLoggerWithClassName_ClassNameSetCorrectly()
