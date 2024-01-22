@@ -10,5 +10,6 @@ public class LogFactory
         return new FileLogger{ClassName = className};
     }
     
+    //enviorment.getcurrentdirctory
 
 }
