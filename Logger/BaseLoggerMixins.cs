@@ -17,10 +17,7 @@ public static class BaseLoggerMixins
         }
         else
         {
-            string argumentsAsString = string.Join(" ", arguments);
-            string combinedMessage = message + " " + argumentsAsString;
-            logger.Log(LogLevel.Error, combinedMessage);
-
+            logger.Log(LogLevel.Debug, string.Format(message, arguments));
         }
 
 
@@ -37,10 +34,7 @@ public static class BaseLoggerMixins
         }
         else
         {
-            string argumentsAsString = string.Join(" ", arguments);
-            string combinedMessage = message + " " + argumentsAsString;
-            logger.Log(LogLevel.Warning, combinedMessage);
-
+            logger.Log(LogLevel.Debug, string.Format(message, arguments));
         }
     }
 
@@ -55,9 +49,7 @@ public static class BaseLoggerMixins
         }
         else
         {
-            string argumentsAsString = string.Join(" ", arguments);
-            string combinedMessage = message + " " + argumentsAsString;
-            logger.Log(LogLevel.Information, combinedMessage);
+            logger.Log(LogLevel.Debug, string.Format(message, arguments));
         }
     }
     public static void Debug(BaseLogger? logger, string message, params string[] arguments)
@@ -71,9 +63,7 @@ public static class BaseLoggerMixins
         }
         else
         {
-            string argumentsAsString = string.Join(" ", arguments);
-            string combinedMessage = message + " " + argumentsAsString;
-            logger.Log(LogLevel.Debug, combinedMessage);
+            logger.Log(LogLevel.Debug, string.Format(message, arguments));
         }
     }
 }
