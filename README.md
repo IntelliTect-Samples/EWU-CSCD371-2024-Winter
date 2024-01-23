@@ -1,4 +1,4 @@
-# Assignment 3 (EWU-CSCD371-2022-Winter)
+# Assignment 3 (EWU-CSCD371-2024-Winter)
 
 ## Overview
 
@@ -44,4 +44,4 @@ For this assignment do the following:
 - [coverlet](https://github.com/coverlet-coverage/coverlet#Quick-Start) code coverage tool
 - [Geek jokes API](https://github.com/sameerkumar18/geek-joke-api)
 
-## See [Docs](https://github.com/IntelliTect-Samples/EWU-CSCD371-2023-Winter/blob/main/Docs/README.md)
+## See [Docs](https://github.com/IntelliTect-Samples/EWU-CSCD371-2024-Winter/blob/main/Docs/README.md)
