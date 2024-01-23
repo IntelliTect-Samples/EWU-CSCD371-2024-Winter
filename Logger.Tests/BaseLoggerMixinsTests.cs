@@ -19,7 +19,7 @@ public class BaseLoggerMixinsTests
 
     [TestMethod]
     [DataRow("Message 42", "Message 42")]
-    public void Error_WithDataNoParams_LogsMessage(string expectedMessage, string message)
+    public void Error_WithDataNoArguments_LogsMessage(string expectedMessage, string message)
     {
         // Arrange
         var logger = new TestLogger();
@@ -34,14 +34,14 @@ public class BaseLoggerMixinsTests
     }
 
     [TestMethod]
-    [DataRow("Checking Server Software Router", "Checking", "Server", "Software", "Router")]
-    public void Error_WithDataWithParams_LogsMessage(string expectedMessage, string message, params string[] arguments)
+    [DataRow("Checking Server Software Router", "Checking")]
+    public void Error_WithDataWithParams_LogsMessage(string expectedMessage, string message)
     {
         // Arrange
         var logger = new TestLogger();
 
         // Act
-        BaseLoggerMixins.Error(logger, message, arguments);
+        BaseLoggerMixins.Error(logger, message, "Server", "Software", "Router");
 
         // Assert
         Assert.AreEqual(1, logger.LoggedMessages.Count);
@@ -61,14 +61,29 @@ public class BaseLoggerMixinsTests
 
     [TestMethod]
     [DataRow("Message 42", "Message 42")]
-    [DataRow("Checking Server Software Router", "Checking", "Server", "Software", "Router")]
-    public void Warning_WithData_LogsMessage(string expectedMessage, string message, params string[] arguments)
+    public void Warning_WithDataNoArguments_LogsMessage(string expectedMessage, string message)
     {
         // Arrange
         var logger = new TestLogger();
 
         // Act
-        BaseLoggerMixins.Warning(logger, message, arguments);
+        BaseLoggerMixins.Warning(logger, message);
+
+        // Assert
+        Assert.AreEqual(1, logger.LoggedMessages.Count);
+        Assert.AreEqual(LogLevel.Warning, logger.LoggedMessages[0].LogLevel);
+        Assert.AreEqual(expectedMessage, logger.LoggedMessages[0].Message);
+    }
+
+    [TestMethod]
+    [DataRow("Checking Server Software Router", "Checking")]
+    public void Warning_WithDataWithParams_LogsMessage(string expectedMessage, string message)
+    {
+        // Arrange
+        var logger = new TestLogger();
+
+        // Act
+        BaseLoggerMixins.Warning(logger, message, "Server", "Software", "Router");
 
         // Assert
         Assert.AreEqual(1, logger.LoggedMessages.Count);
@@ -88,14 +103,29 @@ public class BaseLoggerMixinsTests
 
     [TestMethod]
     [DataRow("Message 42", "Message 42")]
-    [DataRow("Checking Server Software Router", "Checking", "Server", "Software", "Router")]
-    public void Information_WithData_LogsMessage(string expectedMessage, string message, params string[] arguments)
+    public void Information_WithDataNoArguments_LogsMessage(string expectedMessage, string message)
     {
         // Arrange
         var logger = new TestLogger();
 
         // Act
-        BaseLoggerMixins.Information(logger, message, arguments);
+        BaseLoggerMixins.Information(logger, message);
+
+        // Assert
+        Assert.AreEqual(1, logger.LoggedMessages.Count);
+        Assert.AreEqual(LogLevel.Information, logger.LoggedMessages[0].LogLevel);
+        Assert.AreEqual(expectedMessage, logger.LoggedMessages[0].Message);
+    }
+
+    [TestMethod]
+    [DataRow("Checking Server Software Router", "Checking")]
+    public void Information_WithDataWithParams_LogsMessage(string expectedMessage, string message)
+    {
+        // Arrange
+        var logger = new TestLogger();
+
+        // Act
+        BaseLoggerMixins.Information(logger, message, "Server", "Software", "Router");
 
         // Assert
         Assert.AreEqual(1, logger.LoggedMessages.Count);
@@ -116,14 +146,29 @@ public class BaseLoggerMixinsTests
 
     [TestMethod]
     [DataRow("Message 42", "Message 42")]
-    [DataRow("Checking Server Software Router", "Checking","Server", "Software", "Router")]
-    public void Debug_WithData_LogsMessage(string expectedMessage, string message, params string[] arguments)
+    public void Debug_WithDataNoArguments_LogsMessage(string expectedMessage, string message)
     {
         // Arrange
         var logger = new TestLogger();
 
         // Act
-        BaseLoggerMixins.Debug(logger, message, arguments);
+        BaseLoggerMixins.Debug(logger, message);
+
+        // Assert
+        Assert.AreEqual(1, logger.LoggedMessages.Count);
+        Assert.AreEqual(LogLevel.Debug, logger.LoggedMessages[0].LogLevel);
+        Assert.AreEqual(expectedMessage, logger.LoggedMessages[0].Message);
+    }
+
+    [TestMethod]
+    [DataRow("Checking Server Software Router", "Checking")]
+    public void Debug_WithDataWithParams_LogsMessage(string expectedMessage, string message)
+    {
+        // Arrange
+        var logger = new TestLogger();
+
+        // Act
+        BaseLoggerMixins.Debug(logger, message, "Server", "Software", "Router");
 
         // Assert
         Assert.AreEqual(1, logger.LoggedMessages.Count);
