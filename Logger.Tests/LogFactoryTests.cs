@@ -11,7 +11,7 @@ public class LogFactoryTests
         //test for making for auto property/object intialization 
         
         //create logFactory object
-        LogFactory logFactory = new LogFactory();
+        LogFactory logFactory = new();
 
         //make pathName value to input
         string pathName = "TestPath.txt";
@@ -31,7 +31,7 @@ public class LogFactoryTests
         //test for when configure file logger is not called or path is null (should return null) 
         
         //create logFactory object
-        LogFactory logFactory = new LogFactory();
+        LogFactory logFactory = new();
 
         //Make sure null is returned
         Assert.IsNull(logFactory.createLogger());
