@@ -1,9 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
+	 <LangVersion>11.0</LangVersion>
+
+  <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  <EnableNETAnalyzers>true</EnableNETAnalyzers>
+  <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+  <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+  <Nullable>enable</Nullable>
+
   </PropertyGroup>
 
   <ItemGroup>
