@@ -8,6 +8,7 @@ namespace Logger.Tests;
 public class BaseLoggerMixinsTests
 {
     [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
     public void Error_WithNullLogger_ThrowsException()
     {
         // Arrange
@@ -18,6 +19,7 @@ public class BaseLoggerMixinsTests
     }
 
     [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
     public void Error_WithData_LogsMessage()
     {
         // Arrange
@@ -33,6 +35,7 @@ public class BaseLoggerMixinsTests
     }
 
     [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
     public void Warning_WithNullLogger_ThrowsException()
     {
         BaseLogger logger = null;
@@ -40,6 +43,7 @@ public class BaseLoggerMixinsTests
     }
 
     [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
     public void Warning_WithData_LogsMessage() {
         var logger = new TestLogger();
 
@@ -51,6 +55,7 @@ public class BaseLoggerMixinsTests
     }
 
     [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
     public void Information_WithNullLogger_ThrowsException()
     {
         BaseLogger logger = null;
@@ -58,6 +63,7 @@ public class BaseLoggerMixinsTests
     }
 
     [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
     public void Information_WithData_LogsMessage()
     {
         var logger = new TestLogger();
@@ -70,12 +76,14 @@ public class BaseLoggerMixinsTests
     }
 
     [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
     public void Debug_WithNullLogger_ThrowsException()
     {
         BaseLogger logger = null;
         Assert.ThrowsException<ArgumentNullException>(() => logger?.Debug("", 42));
     }
     [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
     public void Debug_WithData_LogsMessage()
     {
         var logger = new TestLogger();
