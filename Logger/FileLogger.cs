@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Net.Http;
-using System.Text;
 
-using static System.Net.Mime.MediaTypeNames;
+namespace Logger;
 
-namespace Logger
-{
     public class FileLogger : BaseLogger
     {
 
@@ -31,4 +26,3 @@ namespace Logger
 
         }
     }
-}
