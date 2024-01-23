@@ -2,9 +2,24 @@
 
 public class LogFactory
 {
-    public BaseLogger CreateLogger(string className)
+    private string? _file;
+    public BaseLogger? CreateLogger(string className)
     {
 
-        return null;
+        if (string.IsNullOrWhiteSpace(_file))
+        {
+            return null;
+        }
+        else
+        {
+            return new FileLogger(_file!)
+            { 
+                ClassName = className
+            };
+        }
+    }
+    public void ConfigureFileLogger(string file)
+    {
+        _file = file;
     }
 }
