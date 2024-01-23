@@ -11,8 +11,10 @@ public class LogFactory
     public BaseLogger? CreateLogger(string className)
     {
         if(fileLoggerPath != null) {
-            var fileLogger = new FileLogger(fileLoggerPath);
-            fileLogger.ClassName = className;
+            var fileLogger = new FileLogger(fileLoggerPath)
+            {
+                ClassName = className
+            };
             return fileLogger;
         }
         return null;
