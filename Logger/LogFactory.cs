@@ -1,4 +1,3 @@
-#nullable enable
 namespace Logger;
 
 public class LogFactory
@@ -12,10 +11,8 @@ public class LogFactory
     public BaseLogger? CreateLogger(string className)
     {
         if(fileLoggerPath != null) {
-            var fileLogger = new FileLogger(fileLoggerPath)
-            {
-                ClassName = className
-            };
+            var fileLogger = new FileLogger(fileLoggerPath);
+            fileLogger.ClassName = className;
             return fileLogger;
         }
         return null;

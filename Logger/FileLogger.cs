@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Logger;
-
-
-public class FileLogger : BaseLogger
+namespace Logger
 {
-    private readonly string _filePath;
-    public FileLogger(string filePath)
+    public class FileLogger : BaseLogger
     {
-        this._filePath = filePath;
-        this.ClassName = nameof(FileLogger);
-    }
-    public override void Log(LogLevel logLevel, string message)
-    {
-        string logEntry = $"{DateTime.Now} {ClassName} {logLevel}: {message}";
+        private readonly string filePath;
+        public FileLogger(string filePath)
+        {
+            this.filePath = filePath;
+            this.ClassName = nameof(FileLogger);
+        }
+        public override void Log(LogLevel logLevel, string message)
+        {
+            string logEntry = $"{DateTime.Now} {ClassName} {logLevel}: {message}";
 
-        File.AppendAllText(_filePath, logEntry + Environment.NewLine);
+            File.AppendAllText(filePath, logEntry + Environment.NewLine);
+        }
     }
 }

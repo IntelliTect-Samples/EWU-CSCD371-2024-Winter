@@ -8,34 +8,32 @@ namespace Logger.Tests;
 public class BaseLoggerMixinsTests
 {
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void Error_WithNullLogger_ThrowsException()
     {
-        // Arrange
         BaseLogger? logger = null;
-
-        // Act and Assert
-       logger.Error("", 42);
+        Assert.ThrowsException<ArgumentNullException>(() => logger.Error(""));
     }
 
     [TestMethod]
     public void Error_WithData_LogsMessage()
     {
+        // Arrange
         var logger = new TestLogger();
 
+        // Act
         logger.Error("Message {0}", 42);
 
+        // Assert
         Assert.AreEqual(1, logger.LoggedMessages.Count);
         Assert.AreEqual(LogLevel.Error, logger.LoggedMessages[0].LogLevel);
         Assert.AreEqual("Message 42", logger.LoggedMessages[0].Message);
     }
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void Warning_WithNullLogger_ThrowsException()
     {
         BaseLogger? logger = null;
-        logger.Warning("", 42);
+        Assert.ThrowsException<ArgumentNullException>(() => logger.Warning(""));
     }
 
     [TestMethod]
@@ -50,11 +48,10 @@ public class BaseLoggerMixinsTests
     }
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
-    public void Information_WithNullLogger_ThrowException()
+    public void Information_WithNullLogger_ThrowsException()
     {
         BaseLogger? logger = null;
-        logger.Information("", 42);
+        Assert.ThrowsException<ArgumentNullException>(() => logger.Information(""));
     }
 
     [TestMethod]
@@ -64,17 +61,16 @@ public class BaseLoggerMixinsTests
 
         logger.Information("Message {0}", 42);
 
-        Assert.AreEqual(1, logger.LoggedMessages.Count);
+        Assert.AreEqual (1, logger.LoggedMessages.Count);
         Assert.AreEqual(LogLevel.Information, logger.LoggedMessages[0].LogLevel);
         Assert.AreEqual("Message 42", logger.LoggedMessages[0].Message);
     }
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void Debug_WithNullLogger_ThrowsException()
     {
         BaseLogger? logger = null;
-        logger.Debug("", 42);
+        Assert.ThrowsException<ArgumentNullException>(() => logger.Debug(""));
     }
     [TestMethod]
     public void Debug_WithData_LogsMessage()
