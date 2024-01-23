@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>11.0</LangVersion>
-	 <nullable>enable</nullable>
-    <netanalyzers>enable</netanalyzers>
+    <TargetFramework>netstandard8.0</TargetFramework>
+    <LangVersion>12.0</LangVersion>
+	 <nullable>true</nullable>
+    <netanalyzers>true</netanalyzers>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
