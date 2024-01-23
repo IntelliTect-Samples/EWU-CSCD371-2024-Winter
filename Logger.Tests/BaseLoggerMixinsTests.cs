@@ -19,8 +19,23 @@ public class BaseLoggerMixinsTests
 
     [TestMethod]
     [DataRow("Message 42", "Message 42")]
+    public void Error_WithDataNoParams_LogsMessage(string expectedMessage, string message)
+    {
+        // Arrange
+        var logger = new TestLogger();
+
+        // Act
+        BaseLoggerMixins.Error(logger, message);
+
+        // Assert
+        Assert.AreEqual(1, logger.LoggedMessages.Count);
+        Assert.AreEqual(LogLevel.Error, logger.LoggedMessages[0].LogLevel);
+        Assert.AreEqual(expectedMessage, logger.LoggedMessages[0].Message);
+    }
+
+    [TestMethod]
     [DataRow("Checking Server Software Router", "Checking", "Server", "Software", "Router")]
-    public void Error_WithDataNoParams_LogsMessage(string expectedMessage, string message, params string[] arguments)
+    public void Error_WithDataWithParams_LogsMessage(string expectedMessage, string message, params string[] arguments)
     {
         // Arrange
         var logger = new TestLogger();
@@ -33,7 +48,6 @@ public class BaseLoggerMixinsTests
         Assert.AreEqual(LogLevel.Error, logger.LoggedMessages[0].LogLevel);
         Assert.AreEqual(expectedMessage, logger.LoggedMessages[0].Message);
     }
-
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
