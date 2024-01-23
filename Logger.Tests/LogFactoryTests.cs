@@ -27,7 +27,7 @@ public class LogFactoryTests
     [TestMethod]
     public void CreateLoggerObject_WithInvalidPath_ReturnsNull()
     {
-        //test for when configure file logger is not called (should return null) 
+        //test for when configure file logger is not called or path is null (should return null) 
         
         //create logFactory object
         LogFactory logFactory = new LogFactory();
