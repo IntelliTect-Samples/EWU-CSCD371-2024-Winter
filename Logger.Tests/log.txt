@@ -1,6 +1,0 @@
-01/22/2024 19:59:50 FileLoggerTests Warning: Test message
-01/22/2024 19:59:50 FileLoggerTests Error: FileNotFound
-01/22/2024 20:00:03 FileLoggerTests Warning: Test message
-01/22/2024 20:00:03 FileLoggerTests Error: FileNotFound
-01/22/2024 20:09:47 FileLoggerTests Warning: Test message
-01/22/2024 20:09:47 FileLoggerTests Error: FileNotFound

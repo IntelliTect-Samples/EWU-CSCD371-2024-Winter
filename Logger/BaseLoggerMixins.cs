@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 
 namespace Logger;
@@ -10,7 +11,7 @@ public static class BaseLoggerMixins
         if (logger == null)
             throw new ArgumentNullException(nameof(logger), "Logger is null");
 
-            logger.Log(LogLevel.Error, string.Format(message, arguments));
+            logger.Log(LogLevel.Error, string.Format(CultureInfo.InvariantCulture, message, arguments));
 
     }
 
@@ -20,7 +21,7 @@ public static class BaseLoggerMixins
             throw new ArgumentNullException(nameof(logger), "Logger is null");
 
 
-            logger.Log(LogLevel.Warning, string.Format(message, arguments));
+            logger.Log(LogLevel.Warning, string.Format(CultureInfo.InvariantCulture, message, arguments));
     }
 
     public static void Information(BaseLogger? logger, string message, params string[] arguments)
@@ -28,7 +29,7 @@ public static class BaseLoggerMixins
         if (logger == null)
             throw new ArgumentNullException(nameof(logger), "Logger is null");
 
-            logger.Log(LogLevel.Information, string.Format(message, arguments));
+            logger.Log(LogLevel.Information, string.Format(CultureInfo.InvariantCulture, message, arguments));
      
     }
     public static void Debug(BaseLogger? logger, string message, params string[] arguments)
@@ -36,6 +37,6 @@ public static class BaseLoggerMixins
         if (logger == null)
             throw new ArgumentNullException(nameof(logger), "Logger is null");
 
-            logger.Log(LogLevel.Debug, string.Format(message, arguments));
+            logger.Log(LogLevel.Debug, string.Format(CultureInfo.InvariantCulture, message, arguments));
     }
 }
