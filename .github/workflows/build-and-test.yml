@@ -10,3 +10,4 @@ jobs:
     with:
       check-formatting: false
       add-analyzers: false
+      post-code-coverage-comment: false
