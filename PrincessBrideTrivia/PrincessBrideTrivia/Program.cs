@@ -51,10 +51,22 @@ public class Program
 
     public static void DisplayQuestion(Question question)
     {
-        Console.WriteLine("Question: " + question.Text);
-        for (int i = 0; i < question.Answers.Length; i++)
+        if(question != null)
         {
-            Console.WriteLine((i + 1) + ": " + question.Answers[i]);
+            Console.WriteLine("Question: " + (question.Text ?? "No question text available"));
+            if(question.Answers != null)
+            {
+                for(int i = 0; i < question.Answers.Length; i++)
+                {
+                    Console.WriteLine((i + 1) + ": " + (question.Answers[i] ?? "No answer available"));
+                }
+            } else
+            {
+                Console.WriteLine("No Answers available");
+            }
+        } else
+        {
+            Console.WriteLine("No Question available");
         }
     }
 
