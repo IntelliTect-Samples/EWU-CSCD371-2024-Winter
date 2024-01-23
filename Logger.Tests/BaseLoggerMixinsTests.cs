@@ -18,9 +18,9 @@ public class BaseLoggerMixinsTests
     }
 
     [TestMethod]
-    [DataRow("Message 42", "Message 42", null)]
-    [DataRow("Checking Server Software Router", "Checking", new string[] { "Server", "Software", "Router" })]
-    public void Error_WithData_LogsMessage(string expectedMessage, string message, params string[] arguments)
+    [DataRow("Message 42", "Message 42")]
+    [DataRow("Checking Server Software Router", "Checking", "Server", "Software", "Router")]
+    public void Error_WithDataNoParams_LogsMessage(string expectedMessage, string message, params string[] arguments)
     {
         // Arrange
         var logger = new TestLogger();
@@ -46,8 +46,8 @@ public class BaseLoggerMixinsTests
     }
 
     [TestMethod]
-    [DataRow("Message 42", "Message 42", null)]
-    [DataRow("Checking Server Software Router", "Checking", new string[] { "Server", "Software", "Router" })]
+    [DataRow("Message 42", "Message 42")]
+    [DataRow("Checking Server Software Router", "Checking", "Server", "Software", "Router")]
     public void Warning_WithData_LogsMessage(string expectedMessage, string message, params string[] arguments)
     {
         // Arrange
@@ -73,8 +73,8 @@ public class BaseLoggerMixinsTests
     }
 
     [TestMethod]
-    [DataRow("Message 42", "Message 42", null)]
-    [DataRow("Checking Server Software Router", "Checking", new string[] { "Server", "Software", "Router" })]
+    [DataRow("Message 42", "Message 42")]
+    [DataRow("Checking Server Software Router", "Checking", "Server", "Software", "Router")]
     public void Information_WithData_LogsMessage(string expectedMessage, string message, params string[] arguments)
     {
         // Arrange
@@ -101,8 +101,8 @@ public class BaseLoggerMixinsTests
     }
 
     [TestMethod]
-    [DataRow("Message 42", "Message 42", null)]
-    [DataRow("Checking Server Software Router", "Checking", new string[] { "Server", "Software", "Router" })]
+    [DataRow("Message 42", "Message 42")]
+    [DataRow("Checking Server Software Router", "Checking","Server", "Software", "Router")]
     public void Debug_WithData_LogsMessage(string expectedMessage, string message, params string[] arguments)
     {
         // Arrange
