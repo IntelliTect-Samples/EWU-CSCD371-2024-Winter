@@ -9,5 +9,8 @@ jobs:
     uses: IntelliTect-Samples/EWU-CSCD371-2024-Winter/.github/workflows/build-and-test.yml@BMichaelis/TestMain
     with:
       check-formatting: false
+      dotnet-build-enforce-code-style: false
+      add-editorconfig: false
       add-analyzers: false
-      post-code-coverage-comment: true
+      enable-net-analyzers: false
+      enable-nullability: false

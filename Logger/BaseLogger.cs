@@ -2,6 +2,8 @@
 
 public abstract class BaseLogger
 {
-    public abstract void Log(LogLevel logLevel, string message);
+    public abstract void Log(LogLevel LogLevel, string Message);
+
+    public string? ClassName { get; set; }
 }
 
