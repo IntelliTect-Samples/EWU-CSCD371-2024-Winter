@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Net.Http;
 using System.Text;
@@ -23,7 +24,7 @@ namespace Logger
 
             using StreamWriter streamWrite = File.AppendText(PathName);
 
-            string log = DateTime.Now.ToString() + " " + ClassName + " "
+            string log = DateTime.Now.ToString(CultureInfo.InvariantCulture) + " " + ClassName + " "
                 + logLevel.ToString() + ": " + message;
 
             streamWrite.WriteLine(log);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 
@@ -30,7 +31,7 @@ public class FileLoggerTests
         LogFactory logFactory = new();
         logFactory.ConfigureFileLogger(path);
         FileLogger? fileLogger = logFactory.CreateLogger(nameof(FileLoggerTests)) as FileLogger;
-        string loggedMessageWithDate = DateTime.Now.ToString() + " " + expectedContent;
+        string loggedMessageWithDate = DateTime.Now.ToString(CultureInfo.InvariantCulture) + " " + expectedContent;
 
         // Act
         fileLogger?.Log(level, message);
