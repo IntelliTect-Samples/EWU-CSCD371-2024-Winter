@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net60</TargetFramework>
+    <Nullable>enable</Nullable>
 		<IsPackable>false</IsPackable>
 		<LangVersion>11.0</LangVersion>
 	</PropertyGroup>
