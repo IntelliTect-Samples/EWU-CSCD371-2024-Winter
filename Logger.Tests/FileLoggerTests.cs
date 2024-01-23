@@ -20,7 +20,7 @@ public class FileLoggerTests
     {
 
         // Arrange
-        string filePath = string.Join(@"\", (Environment.CurrentDirectory.Split(@"\")[..^3]));
+        string filePath = string.Join(@"\", (Environment.CurrentDirectory));
         string path = Path.Combine(filePath, fileName);
         LogFactory logFactory = new();
         logFactory.ConfigureFileLogger(path);
