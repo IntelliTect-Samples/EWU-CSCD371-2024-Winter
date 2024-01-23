@@ -11,13 +11,6 @@ namespace Logger.Tests;
 public class FileLoggerTests
 {
 
-    public string TestPathName {get; set;}
-
-    public FileLoggerTests(){
-        string filePath = string.Join(@"\", (Environment.CurrentDirectory.Split(@"\")[..^3]));
-        TestPathName = filePath;
-    }
-
     [TestMethod]
     [DataRow("FileLoggerTests Warning: Test message", LogLevel.Warning, "Test message","log.txt")]
     [DataRow("FileLoggerTests Error: FileNotFound", LogLevel.Error, "FileNotFound", "log.txt")]
@@ -27,7 +20,8 @@ public class FileLoggerTests
     {
 
         // Arrange
-        string path = Path.Combine(TestPathName, fileName);
+        string filePath = string.Join(@"\", (Environment.CurrentDirectory.Split(@"\")[..^3]));
+        string path = Path.Combine(filePath, fileName);
         LogFactory logFactory = new();
         logFactory.ConfigureFileLogger(path);
         FileLogger? fileLogger = logFactory.CreateLogger(nameof(FileLoggerTests)) as FileLogger;
