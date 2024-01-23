@@ -51,7 +51,7 @@ public class BaseLoggerMixinsTests
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
-    public void Information_WithNullLogger_ThrowaException()
+    public void Information_WithNullLogger_ThrowException()
     {
         BaseLogger? logger = null;
         logger.Information("", 42);
