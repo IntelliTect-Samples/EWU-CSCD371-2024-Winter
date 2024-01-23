@@ -71,7 +71,7 @@ public class BaseLoggerMixinsTests
         logger?.Information("Message {0}", 42);
 
         Assert.AreEqual (1, logger?.LoggedMessages.Count);
-        Assert.AreEqual(LogLevel.Information, logger? loggedMessages[0].LogLevel);
+        Assert.AreEqual(LogLevel.Information, logger?.LoggedMessages[0].LogLevel);
         Assert.AreEqual("Message 42", logger?.LoggedMessages[0].Message);
     }
 
