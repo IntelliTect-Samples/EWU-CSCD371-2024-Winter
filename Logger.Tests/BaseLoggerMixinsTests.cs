@@ -12,7 +12,7 @@ public class BaseLoggerMixinsTests
     public void Error_WithNullLogger_ThrowsException()
     {
         // Arrange
-        BaseLogger logger = null;
+        BaseLogger? logger = null;
 
         // Act and Assert
         Assert.ThrowsException<ArgumentNullException>(() => logger?.Error("", 42));
@@ -38,7 +38,7 @@ public class BaseLoggerMixinsTests
     [ExpectedException(typeof(ArgumentNullException))]
     public void Warning_WithNullLogger_ThrowsException()
     {
-        BaseLogger logger = null;
+        BaseLogger? logger = null;
         Assert.ThrowsException<ArgumentNullException>(() => logger?.Warning("", 42));
     }
 
@@ -58,7 +58,7 @@ public class BaseLoggerMixinsTests
     [ExpectedException(typeof(ArgumentNullException))]
     public void Information_WithNullLogger_ThrowsException()
     {
-        BaseLogger logger = null;
+        BaseLogger? logger = null;
         Assert.ThrowsException<ArgumentNullException>(() => logger?.Information("", 42));
     }
 
@@ -79,7 +79,7 @@ public class BaseLoggerMixinsTests
     [ExpectedException(typeof(ArgumentNullException))]
     public void Debug_WithNullLogger_ThrowsException()
     {
-        BaseLogger logger = null;
+        BaseLogger? logger = null;
         Assert.ThrowsException<ArgumentNullException>(() => logger?.Debug("", 42));
     }
     [TestMethod]
