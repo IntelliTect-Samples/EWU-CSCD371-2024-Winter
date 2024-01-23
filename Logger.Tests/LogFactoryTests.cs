@@ -8,12 +8,13 @@ public class LogFactoryTests
     [TestMethod]
     public void CreateLogger_WithConfiguredFileLogger_ReturnsFileLoggerInstance()
     {
-        var logger = new LogFactory();
+        //Arrange
+        var logFactory = new LogFactory();
         string filePath = "TestLogFile.txt";
         logFactory.ConfigureFileLogger(filePath);
 
         //Act
-        var logger = LogFactory.CreateLogger("ExampleClass");
+        var logger = logFactory.CreateLogger("ExampleClass");
         
         //Assert
         Assert.IsNotNull(logger);

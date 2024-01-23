@@ -1,35 +1,38 @@
 ﻿using Microsoft.VisualBasic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.IO;
 
-namespace Logger.Tests;
-
-[TestClass]
-public class FileLoggerTests
+namespace Logger.Tests
 {
-    [TestMethod]
-    public void Log_ValidInput_LogsMessageToFile()
+
+    [TestClass]
+    public class FileLoggerTests
     {
-        //Arrange 
-        string filePath = "TestLogFile.txt";
-        var logger = new FileLogger(filePath);
+        [TestMethod]
+        public void Log_ValidInput_LogsMessageToFile()
+        {
+            //Arrange 
+            string filePath = "TestLogFile.txt";
+            var logger = new FileLogger(filePath);
 
-        // Act 
-        logger.Log(LogLevel.Information, "Test message");
+            // Act 
+            logger.Log(LogLevel.Information, "Test message");
 
-        //Assert
-        Assert.IsTrue(File.Exists(filePath));
+            //Assert
+            Assert.IsTrue(File.Exists(filePath));
+        }
+
+        [TestMethod]
+        public void Log_NullMessage_ThrowsException()
+        {
+            //Arrange
+            string filePath = "TestLogFile.txt";
+            var logger = new FileLogger(filePath);
+
+            //Act and Assert
+            Assert.ThrowsException<ArgumentNullException>(() => logger.Log(LogLevel.Information, ""));
+        }
     }
-
-    [TestMethod]
-    public void Log_NullMessage_ThrowsException()
-    {
-        //Arrange
-        string filePath = "TestLogFile.txt";
-        var logger = new FileLogger(filePath);
-
-        //Act and Assert
-        Assert.ThrowsException<ArgumentNullException>(() => logger.Log(LogLevel.Information, null));
-
-    }
+        
 }
