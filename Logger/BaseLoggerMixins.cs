@@ -17,7 +17,7 @@ public static class BaseLoggerMixins
         }
         else
         {
-            logger.Log(LogLevel.Debug, string.Format(message, arguments));
+            logger.Log(LogLevel.Error, string.Format(message, arguments));
         }
 
 
@@ -34,7 +34,7 @@ public static class BaseLoggerMixins
         }
         else
         {
-            logger.Log(LogLevel.Debug, string.Format(message, arguments));
+            logger.Log(LogLevel.Warning, string.Format(message, arguments));
         }
     }
 
@@ -49,7 +49,7 @@ public static class BaseLoggerMixins
         }
         else
         {
-            logger.Log(LogLevel.Debug, string.Format(message, arguments));
+            logger.Log(LogLevel.Information, string.Format(message, arguments));
         }
     }
     public static void Debug(BaseLogger? logger, string message, params string[] arguments)

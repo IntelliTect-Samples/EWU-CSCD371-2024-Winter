@@ -34,14 +34,14 @@ public class BaseLoggerMixinsTests
     }
 
     [TestMethod]
-    [DataRow("Checking Server Software Router", "Checking")]
+    [DataRow("Intellij is installed on computer number 468 at Alpha Station", "{0} is installed on computer number {1} at {2} Station")]
     public void Error_WithDataWithParams_LogsMessage(string expectedMessage, string message)
     {
         // Arrange
         var logger = new TestLogger();
 
         // Act
-        BaseLoggerMixins.Error(logger, message, "Server", "Software", "Router");
+        BaseLoggerMixins.Error(logger, message, "Intellij", "468", "Alpha");
 
         // Assert
         Assert.AreEqual(1, logger.LoggedMessages.Count);
@@ -76,14 +76,14 @@ public class BaseLoggerMixinsTests
     }
 
     [TestMethod]
-    [DataRow("Checking Server Software Router", "Checking")]
+    [DataRow("Intellij is installed on computer number 468 at Alpha Station", "{0} is installed on computer number {1} at {2} Station")]
     public void Warning_WithDataWithParams_LogsMessage(string expectedMessage, string message)
     {
         // Arrange
         var logger = new TestLogger();
 
         // Act
-        BaseLoggerMixins.Warning(logger, message, "Server", "Software", "Router");
+        BaseLoggerMixins.Warning(logger, message, "Intellij", "468", "Alpha");
 
         // Assert
         Assert.AreEqual(1, logger.LoggedMessages.Count);
@@ -118,14 +118,14 @@ public class BaseLoggerMixinsTests
     }
 
     [TestMethod]
-    [DataRow("Checking Server Software Router", "Checking")]
+    [DataRow("Intellij is installed on computer number 468 at Alpha Station", "{0} is installed on computer number {1} at {2} Station")]
     public void Information_WithDataWithParams_LogsMessage(string expectedMessage, string message)
     {
         // Arrange
         var logger = new TestLogger();
 
         // Act
-        BaseLoggerMixins.Information(logger, message, "Server", "Software", "Router");
+        BaseLoggerMixins.Information(logger, message, "Intellij", "468", "Alpha");
 
         // Assert
         Assert.AreEqual(1, logger.LoggedMessages.Count);
@@ -161,14 +161,14 @@ public class BaseLoggerMixinsTests
     }
 
     [TestMethod]
-    [DataRow("Checking Server Software Router", "Checking")]
+    [DataRow("Intellij is installed on computer number 468 at Alpha Station", "{0} is installed on computer number {1} at {2} Station")]
     public void Debug_WithDataWithParams_LogsMessage(string expectedMessage, string message)
     {
         // Arrange
         var logger = new TestLogger();
 
         // Act
-        BaseLoggerMixins.Debug(logger, message, "Server", "Software", "Router");
+        BaseLoggerMixins.Debug(logger, message, "Intellij", "468", "Alpha");
 
         // Assert
         Assert.AreEqual(1, logger.LoggedMessages.Count);
