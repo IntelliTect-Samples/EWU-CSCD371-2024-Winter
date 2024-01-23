@@ -1,4 +1,5 @@
 ﻿namespace Logger;
+using System.Globalization;
 #nullable enable
 
 public static class BaseLoggerMixins
@@ -13,7 +14,7 @@ public static class BaseLoggerMixins
         }
         
         //format string to return, use string.format so the argument is placed into the {0} spot
-        string formattedString = string.Format(message, arguments);
+        string formattedString = string.Format(CultureInfo.CurrentCulture, message, arguments);
         
         //Call log with specified loglevel for method and string
         logger.Log(LogLevel.Error, formattedString);
@@ -27,7 +28,7 @@ public static class BaseLoggerMixins
             throw new System.ArgumentNullException(nameof(logger));
         }
         
-        string formattedString = string.Format(message, arguments);
+        string formattedString = string.Format(CultureInfo.CurrentCulture, message, arguments);
     
         logger.Log(LogLevel.Warning, formattedString); 
     }
@@ -40,7 +41,7 @@ public static class BaseLoggerMixins
             throw new System.ArgumentNullException(nameof(logger));
         }
         
-        string formattedString = string.Format(message, arguments);
+        string formattedString = string.Format(CultureInfo.CurrentCulture, message, arguments);
         
         logger.Log(LogLevel.Information, formattedString);
     }
@@ -53,7 +54,7 @@ public static class BaseLoggerMixins
             throw new System.ArgumentNullException(nameof(logger));
         }
         
-        string formattedString = string.Format(message, arguments);
+        string formattedString = string.Format(CultureInfo.CurrentCulture, message, arguments);
         
         logger.Log(LogLevel.Debug, formattedString);
     }

@@ -4,7 +4,7 @@
 public class LogFactory
 {
     //create nullable path string
-    public string? path;   
+    private string? path;   
 
     //Configure given filePath as path
     public void ConfigureFileLogger(string filePath)
