@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace CanHazFunny
 {
-    internal interface IOutputToScreen
+    public class Jester
     {
-        void WriteJokeToScreen(string joke);
 
     }
 }
