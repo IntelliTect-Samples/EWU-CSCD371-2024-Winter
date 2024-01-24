@@ -18,7 +18,7 @@ public class BaseLoggerMixinsTests
     [TestMethod]
     public void Error_WithData_LogsMessage()
     {
-        var logger = new TestLogger();
+        TestLogger logger = new TestLogger();
 
         // Act
         logger.Error("Message {0}", 42);
@@ -40,7 +40,7 @@ public class BaseLoggerMixinsTests
     [TestMethod]
     public void Warning_WithData_LogsMessage()
     {
-        var logger = new TestLogger();
+        TestLogger logger = new TestLogger();
 
         logger.Warning("Message {0}", 42);
 
@@ -59,7 +59,7 @@ public class BaseLoggerMixinsTests
     [TestMethod]
     public void Information_WithData_LogsMessage()
     {
-        var logger = new TestLogger();
+        TestLogger logger = new TestLogger();
 
         logger.Information("Message {0}", 42);
 
@@ -78,7 +78,7 @@ public class BaseLoggerMixinsTests
     [TestMethod]
     public void Debug_WithData_LogsMessage()
     {
-        var logger = new TestLogger();
+        TestLogger logger = new TestLogger();
 
         logger.Debug("Message {0}", 42);
 
