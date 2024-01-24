@@ -5,7 +5,7 @@ using System.Globalization;
 
 public class FileLogger (string? fileName) : BaseLogger
 {
-    private string FilePath { get; set; } = fileName;
+    private string? FilePath { get; set; } = fileName;
 
     private readonly string? filePath = fileName;
 
