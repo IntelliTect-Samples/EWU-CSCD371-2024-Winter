@@ -1,14 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <LangVersion>12.0</LangVersion>
-	 <nullable>true</nullable>
-    <netanalyzers>true</netanalyzers>
+    <Nullable>enable</Nullable>
+    <NetAnalyzers>true</NetAnalyzers>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
-    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
 </Project>
