@@ -1,10 +1,12 @@
-﻿using System.Net.Http;
+using System.Net.Http;
 
 namespace CanHazFunny;
 
 public class JokeService
 {
-    private HttpClient HttpClient { get; } = new();
+    public class JokeService : IJoke
+    {
+        private HttpClient HttpClient { get; } = new();
 
     public string GetJoke()
     {
