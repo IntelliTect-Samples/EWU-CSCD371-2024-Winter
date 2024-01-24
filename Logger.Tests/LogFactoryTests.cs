@@ -12,7 +12,7 @@ public class LogFactoryTests
         BaseLogger? logger = logFactory.CreateLogger("");
         if (logger == null)
         {
-            Assert.AreEqual("", fileLogger.ClassName)
+            Assert.AreEqual("", fileLogger.ClassName);
         }
     }
     [TestMethod]
@@ -22,7 +22,7 @@ public class LogFactoryTests
         BaseLogger? logger = logFactory.CreateLogger("Logger");
         if (logger != null)
         {
-            Assert.AreEqual("Logger", fileLogger.ClassName)
+            Assert.AreEqual("Logger", fileLogger.ClassName);
         }
     }
 }
