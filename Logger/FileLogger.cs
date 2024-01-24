@@ -7,16 +7,16 @@ namespace Logger;
 
 public class FileLogger : BaseLogger
 {
-    private readonly string filePath;
+    private readonly string _filePath;
     public FileLogger(string filePath)
     {
-        this.filePath = filePath;
-        this.ClassName = nameof(FileLogger);
+        this._filePath = filePath;
+        ClassName = nameof(FileLogger);
     }
     public override void Log(LogLevel logLevel, string message)
     {
         string logEntry = $"{DateTime.Now} {ClassName} {logLevel}: {message}";
 
-        File.AppendAllText(filePath, logEntry + Environment.NewLine);
+        File.AppendAllText(_filePath, logEntry + Environment.NewLine);
     }
 }

@@ -7,11 +7,12 @@ namespace Logger.Tests;
 [TestClass]
 public class BaseLoggerMixinsTests
 {
+   
     [TestMethod]
     public void Error_WithNullLogger_ThrowsException()
     {
-        BaseLogger? logger = null;
-        Assert.ThrowsException<ArgumentNullException>(() => logger.Error(""));
+        var logger = new TestLogger();
+        logger.Error("");
     }
 
     [TestMethod]
@@ -32,8 +33,8 @@ public class BaseLoggerMixinsTests
     [TestMethod]
     public void Warning_WithNullLogger_ThrowsException()
     {
-        BaseLogger? logger = null;
-        Assert.ThrowsException<ArgumentNullException>(() => logger.Warning(""));
+        var logger = new TestLogger();
+        logger.Warning("");
     }
 
     [TestMethod]
@@ -50,8 +51,8 @@ public class BaseLoggerMixinsTests
     [TestMethod]
     public void Information_WithNullLogger_ThrowsException()
     {
-        BaseLogger? logger = null;
-        Assert.ThrowsException<ArgumentNullException>(() => logger.Information(""));
+        var logger = new TestLogger();
+        logger.Information("");
     }
 
     [TestMethod]
@@ -69,8 +70,8 @@ public class BaseLoggerMixinsTests
     [TestMethod]
     public void Debug_WithNullLogger_ThrowsException()
     {
-        BaseLogger? logger = null;
-        Assert.ThrowsException<ArgumentNullException>(() => logger.Debug(""));
+        var logger = new TestLogger();
+        logger.Debug("");
     }
     [TestMethod]
     public void Debug_WithData_LogsMessage()

@@ -7,7 +7,7 @@ namespace Logger.Tests;
 public class FileLoggerTests
 {
     [TestMethod]
-    public void FileLogger_Log_MessageAppendedToFile()
+    public void Log_MessageAppendsTofile_Success()
     {
         var filePath = "test.log";
         var logger = new FileLogger(filePath) { ClassName = "TestClass" };

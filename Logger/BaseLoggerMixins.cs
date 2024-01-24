@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace Logger;
 
-public static class BaseLoggerMixins
+public static class TestLogger
 {
     public static void Error(this BaseLogger? logger, string message, params object[] args)
     {
