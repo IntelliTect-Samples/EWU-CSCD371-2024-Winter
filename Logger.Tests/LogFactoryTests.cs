@@ -9,7 +9,7 @@ public class LogFactoryTests
     public void createLogger_NotConfigured_ReturnsNull()
     {
         // Arrange
-        var logger = new LogFactory();
+        LogFactory logger = new();
 
         // Act
 

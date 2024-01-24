@@ -10,14 +10,6 @@ public class FileLogger : BaseLogger
     public FileLogger(string filePath)
     {
         this._filePaths = filePath;
-
-        //if (File.Exists(filePaths))
-        //{
-        //    File.Delete("file.txt");
-        //}
-        //// Don't really need but keeping
-        //FileStream fs = File.Create(filePaths) ;
-        //fs.Close();
     }
 
     public override void Log(LogLevel logLevel, string message)
