@@ -3,7 +3,7 @@ using System;
 
 public class LogFactory
 {
-    private string? logPath;
+    private string? logPath = null;
     public string configure(string logPath)
     {
         if (logPath == null)
@@ -11,8 +11,8 @@ public class LogFactory
             throw new ArgumentNullException(nameof(logPath), " File path can not be null"); ;
         }
         else
-        {
-            //logPath = logPath;
+        {   
+            this.logPath = logPath;
             return logPath;
         }
     }
