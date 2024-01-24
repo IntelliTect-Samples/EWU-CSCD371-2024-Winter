@@ -10,6 +10,6 @@ public class FileLogger(string filePath) : BaseLogger
 
     public override void Log(LogLevel logLevel, string message)
     {
-        File.AppendAllText(FilePath, $"{DateTime.Now} {ClassName} {logLevel}: {message}");
+        File.AppendAllText(FilePath, $"{DateTime.Now} {nameof(FileLogger)} {logLevel}: {message}");
     }
 }
