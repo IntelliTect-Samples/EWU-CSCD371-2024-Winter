@@ -12,7 +12,7 @@ public class LogFactory
         }
         else
         {
-            logPath = logPath;
+            //logPath = logPath;
             return logPath;
         }
     }
@@ -27,12 +27,12 @@ public class LogFactory
         }
         else
         {
-            FileLogger logg = new(logPath!)
+            FileLogger log = new(logPath!)
             {
                 ClassName = className,
 
             };
-            return logg;
+            return log;
         }
     }
 }
