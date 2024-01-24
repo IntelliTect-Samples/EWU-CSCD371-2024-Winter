@@ -6,7 +6,7 @@ public static class BaseLoggerMixins
     {
         if (baseLogger == null)
         {
-            throw new System .ArgumentNullException(nameof(baseLogger));
+            throw new System.ArgumentNullException(nameof(baseLogger));
         }
         else
         {
@@ -18,7 +18,7 @@ public static class BaseLoggerMixins
     {
         if (baseLogger == null)
         {
-            throw new System .ArgumentNullException(nameof(baseLogger));
+            throw new System.ArgumentNullException(nameof(baseLogger));
         }
         else
         {
@@ -30,7 +30,7 @@ public static class BaseLoggerMixins
     {
         if (baseLogger == null)
         {
-            throw new System .ArgumentNullException(nameof(baseLogger));
+            throw new System.ArgumentNullException(nameof(baseLogger));
         }
         else
         {
@@ -42,7 +42,7 @@ public static class BaseLoggerMixins
     {
         if (baseLogger == null)
         {
-            throw new System .ArgumentNullException(nameof(baseLogger));
+            throw new System.ArgumentNullException(nameof(baseLogger));
         }
         else
         {
