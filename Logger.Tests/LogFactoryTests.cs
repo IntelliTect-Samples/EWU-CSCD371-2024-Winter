@@ -23,4 +23,12 @@ public class LogFactoryTests
         Assert.AreEqual(validPath, res);
     }
 
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void CreateLogger_WithNullLogPath_ReturnsNull()
+    {
+        LogFactory LogFactory = new();
+        LogFactory.Configure(null!);
+    }
+
 }
