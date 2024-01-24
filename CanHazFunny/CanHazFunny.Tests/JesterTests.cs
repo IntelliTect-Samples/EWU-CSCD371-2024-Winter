@@ -1,10 +1,7 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace CanHazFunny.Tests
+namespace CanHazFunny.Tests;
+
+public class JesterTests
 {
-    [TestClass]
-    public class JesterTests
-    {
-        
-    }
 }

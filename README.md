@@ -27,7 +27,11 @@ For this assignment do the following:
 - Be sure you enable:
   - Nullability for all projects  ❌✔
   - Set `LangVersion` and the `TargetFramework` to the latest released versions available (preview versions optional) ❌✔
-  - Ensure that you turn on code analysis for all projects(EnableNETAnalyzers) ❌✔
+  - Ensure that you turn on code analysis for all projects(`EnableNETAnalyzers`) ❌✔
+  - Ensure that you turn on treat warnings as errors for all projects ❌✔
+  - Ensure that you turn on `CodeAnalysisTreatWarningsAsErrors`
+  - Ensure that you turn on `EnforceCodeStyleInBuild`
+  - Ensure that you turn on Nullability (`Nullable`)
 - For this assignment, always use `Assert.AreEqual<T>()` (the generic version)  ❌✔
 - **Ensure there are no errors or warnings (including code analysis warnings)** ❌✔
 - **All of the above should be unit tested** ❌✔
