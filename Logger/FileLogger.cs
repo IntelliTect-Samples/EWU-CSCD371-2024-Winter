@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+
 namespace Logger;
 
 public class FileLogger : BaseLogger
@@ -13,7 +16,6 @@ public class FileLogger : BaseLogger
         string dateTime = System.DateTime.Now.ToString("M/d/yyyy hh:mm:ss tt");
         string logEntry = $"{dateTime} {nameof(this.ClassName)} {logLevel}: {message}";
 
-        //appending to file
         File.AppendAllText(filePath, logEntry + Environment.NewLine);
         
     }
