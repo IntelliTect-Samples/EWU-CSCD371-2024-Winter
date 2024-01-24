@@ -9,9 +9,15 @@ public class JokeService
     {
         private HttpClient HttpClient { get; } = new();
 
-    public string GetJoke()
-    {
-        string joke = HttpClient.GetStringAsync("https://geek-jokes.sameerkumar.website/api").Result;
-        return joke;
+        public string GetJoke()
+        {
+            string joke = HttpClient.GetStringAsync("https://geek-jokes.sameerkumar.website/api").Result;
+            return joke;
+        }
+
+        public void SetJoke(string expResult)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
