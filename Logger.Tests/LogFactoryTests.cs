@@ -10,7 +10,6 @@ public class LogFactoryTests
     public void Configure_NullLogPath_ThrowsArgumentNullException()
     {
         LogFactory logFactory = new LogFactory();
-        Assert.ThrowsException<ArgumentNullException>(() => logFactory.configure(null));
+        Assert.ThrowsException<ArgumentNullException>(() => logFactory.Configure(null!));
     }
-
 }

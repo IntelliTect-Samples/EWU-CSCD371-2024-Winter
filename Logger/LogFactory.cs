@@ -4,7 +4,7 @@ using System;
 public class LogFactory
 {
     private string? logPath;
-    public string configure(string logPath)
+    public string Configure(string logPath)
     {
         if (logPath == null)
         {
