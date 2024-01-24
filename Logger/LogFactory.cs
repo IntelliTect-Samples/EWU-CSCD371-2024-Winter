@@ -1,6 +1,5 @@
 ﻿namespace Logger;
 using System;
-#nullable enable
 
 public class LogFactory
 {

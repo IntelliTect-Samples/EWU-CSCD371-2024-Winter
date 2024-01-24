@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Dynamic;
-#nullable enable
 namespace Logger;
 
 public static class BaseLoggerMixins

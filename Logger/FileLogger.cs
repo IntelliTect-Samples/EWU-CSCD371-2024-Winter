@@ -2,10 +2,10 @@
 using System;
 using System.IO;
 using System.Globalization;
-#nullable enable
 
 public class FileLogger (string? fileName) : BaseLogger
 {
+    private string FilePath { get; set; } = fileName;
 
     private readonly string? filePath = fileName;
 

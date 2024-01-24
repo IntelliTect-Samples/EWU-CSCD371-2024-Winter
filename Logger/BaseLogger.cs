@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-#nullable enable
 namespace Logger;
 
 public abstract class BaseLogger
