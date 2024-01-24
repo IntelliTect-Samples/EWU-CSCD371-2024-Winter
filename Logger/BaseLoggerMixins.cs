@@ -1,3 +1,5 @@
+#pragma warning disable IDE0056
+#pragma warning enable IDE0056
 using System;
 using System.Globalization;
 
