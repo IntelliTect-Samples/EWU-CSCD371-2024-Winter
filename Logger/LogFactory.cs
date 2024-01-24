@@ -2,7 +2,7 @@
 
 public class LogFactory
 {
-    private string filePath;
+    private string? filePath;
 
     public BaseLogger? CreateLogger(string className)
     {
@@ -19,9 +19,13 @@ public class LogFactory
         
     }
     
-    public void ConfigureFileLogger(string filePath)
+    public void ConfigureFileLogger(string? newFilePath)
     {
-        this.filePath = filePath;
+        if (newFilePath != null)
+        {
+            this.filePath = newFilePath;
+        }
+    
     }
     //enviorment.getcurrentdirctory
 
