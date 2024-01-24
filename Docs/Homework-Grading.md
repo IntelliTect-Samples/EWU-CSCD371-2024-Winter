@@ -8,9 +8,11 @@
 ## Pairing ##
 
 Students are ***HIGHLY*** encouraged to [pair program](https://en.wikipedia.org/wiki/Pair_programming) on assignments. Collaboration is different from copying someone else' work. When collaborating with another student should do the following:
+
+* Both students **Must** have commits on the PR.
 * Only **one** of you should submit the pull request
 * In the description explicitly **[mention](https://blog.github.com/2011-03-23-mention-somebody-they-re-notified/)** (just @ their GitHub name) with a comment indicating you collaborated on the assignment.
-* If you pair with someone on an assignment, you both do the peer review on **your** pull request. You do not need to do a peer review of anyone elses assignment.
+* If you pair with someone on an assignment, you both need to do a peer review independently on someone elses pull request.
 
 ## Grading ##
 
@@ -51,4 +53,4 @@ Each assignment is a total of 70 points. Assignment may contain up to 10 points 
 
 Our policy is to not accept work turned in after the due date. If there are extenuating circumstances, either talk to one of the instructors or send an email to EWU-Instructors@IntelliTect.com as early as possible. Exceptions may be made at the instructors discretion on a case-by-case basis.
 
-If you have questions/comments/concerns about your grade please come talk to one of the instructors.
+If you have questions/comments/concerns about your grade please come email (<EWU-Instructors@IntelliTect.com>) or talk with one of the instructors.

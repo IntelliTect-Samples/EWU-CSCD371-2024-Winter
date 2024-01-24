@@ -1,0 +1,31 @@
+{
+	"name": "C# (.NET)",
+	"image": "mcr.microsoft.com/devcontainers/dotnet:1-8.0-bookworm",
+	"features": {
+        "ghcr.io/devcontainers/features/github-cli:1": {
+            "version": "2"
+        },
+		"ghcr.io/devcontainers/features/powershell:1": {
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/common-utils:2": {},
+        "ghcr.io/devcontainers/features/dotnet:2": {
+            "version": "8.0",
+            "dotnetRuntimeVersions": "8.0",
+            "aspNetCoreRuntimeVersions": "8.0"
+        },
+    },
+	"postCreateCommand": "dotnet restore ",
+
+	"customizations": {
+        "vscode": {
+            "extensions": [
+                "GitHub.vscode-github-actions",
+                "ms-dotnettools.vscode-dotnet-runtime",
+                "ms-dotnettools.csdevkit",
+                "ms-dotnetools.csharp",
+                "streetsidesoftware.code-spell-checker",
+            ]
+        }
+    }
+}

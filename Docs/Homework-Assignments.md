@@ -1,8 +1,8 @@
 # Homework
 
-- Homework assignments will show up as a new branch on the main IntelliTect repository.
+- Homework assignments will show up as a new branch on the main IntelliTect repository (if they are not already there).
+- Aside from the reading, do not assume homework assignments are current until class time on Tuesday of the week the assignment correlates to.
 - The README.md file at the root of the repository will contain all of the details for the assignment.
-- The Assignment.md file at the root of the repository will contain the [peer review report](#Peer-Review) to submit.
 
 ## Creating an Assignment Branch
 
@@ -38,18 +38,18 @@ Do not open a pull request until you are ready to have someone else [review it](
 
 ## Peer Review
 
-All students are expected to perform a [code review](https://help.github.com/articles/about-pull-request-reviews/) of *someone else's PR* (exception if you are [pairing](Homework-Grading#Pairing)). Ensure that you are marked as a reviewer on the PR (GitHub should do this automatically after you submit a review or comment). You can submit a review using the Comment status (it is not necessary to mark it as Approve or Request Changes). Make sure you submit the review. **Failing to submit the review, may result in the review not being counted.** 
+All students are expected to perform a [code review](https://help.github.com/articles/about-pull-request-reviews/) of *someone else's PR*. Ensure that you are marked as a reviewer on the PR (GitHub should do this automatically after you submit a review or comment). You can submit a review using the Comment status (it is not necessary to mark it as Approve or Request Changes). Make sure you submit the review. **Failing to submit the review, may result in the review not being counted.** 
 
 Before starting a review, **immediately submit** a comment on the PR saying "I will review this", so other people do not start reviewing the same PR. 
 
 No code review should be empty. There **must be at least one comment** (even if it is just indicating that you reviewed the work and it looked good). Be aware that [part of your grade](Homework-Grading.md#peer-review) is dependent on doing good code reviews.
 [Code Review Guidelines](https://intellitect.com/code-reviews/)
 
-A Peer Review, is simply a code review where you fill out the table in the `Assignment.md` file. After filling it out, copy and paste the content of it into a comment on the pull request.
+A Peer Review, is simply a code review where you fill out the table in the `ReadMe.md` file. After filling it out, copy and paste the content of it into a comment on the pull request.
 
 Feel free to do multiple code reviews for an assignment but no more than one peer review.
 
-If your assignment fails to get a Peer Review, please post in the gitter chat requesting one.
+If your assignment fails to get a Peer Review, please post in the Teams Chat requesting one.
 
 If you [pair](Homework-Grading.md#pairing) with someone on the assignment **you both perform your own peer review**.
 

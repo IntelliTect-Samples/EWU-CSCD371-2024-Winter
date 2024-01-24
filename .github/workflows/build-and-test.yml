@@ -1,6 +1,7 @@
 name: Build and Test .NET
 
 on:
+<<<<<<< HEAD
   pull_request_target:
 
 jobs:
@@ -10,3 +11,181 @@ jobs:
     with:
       check-formatting: false
       add-analyzers: false
+=======
+  workflow_call:
+    inputs:
+      working-directory:
+        description: "The working directory to execute from"
+        required: false
+        type: string
+        default: "./"
+      add-editorconfig:
+        description: "Condition for whether the .editorconfig gets added"
+        required: false
+        type: boolean
+        default: true
+      add-runsettings:
+        description: "Condition for whether the .runsettings gets added"
+        required: false
+        type: boolean
+        default: true
+      check-formatting:
+        description: "Condition for whether dotnet format gets run"
+        required: false
+        type: boolean
+        default: true
+      dotnet-build-enforce-code-style:
+        description: "Condition for whether to turn on EnforceCodeStyleInBuild msbuild property"
+        required: false
+        type: boolean
+        default: true
+      add-analyzers:
+        description: "Condition for whether analyzers gets verified that they are added"
+        required: false
+        type: boolean
+        default: true
+      add-dependencies:
+        description: "Condition for whether analyzers gets verified that they are added"
+        required: false
+        type: boolean
+        default: true
+      enable-net-analyzers:
+        description: "Condition for whether .net analyzers get enabled"
+        required: false
+        type: boolean
+        default: true
+      enable-nullability:
+        description: "Condition for whether .nullability gets enabled"
+        required: false
+        type: boolean
+        default: true
+  pull_request:
+    branches:
+      - Assignment**
+
+jobs:
+  build-and-test:
+    permissions:
+      pull-requests: write
+      contents: read
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+            ref: ${{ github.event.pull_request.head.sha }}
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      # .editorconfig and .runsettings files getting added
+      - name: Download .editorconfig file
+        uses: actions/checkout@v4
+        with:
+          repository: "IntelliTect-Samples/EWU-CSCD371-2024-Winter"
+          ref: "main"
+          path: "temp"
+          sparse-checkout: |
+            Shared/.editorconfig
+            Shared/.runsettings
+            Shared/analyzers.txt
+          sparse-checkout-cone-mode: true
+      - name: Copy .editorconfig file
+        working-directory: "."
+        if: ${{ inputs.add-editorconfig }}
+        run: cp temp/Shared/.editorconfig ${{ inputs.working-directory }}
+      - name: Copy .runsettings file
+        working-directory: "."
+        if: ${{ inputs.add-runsettings }}
+        run: cp temp/Shared/.runsettings ${{ inputs.working-directory }}
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      # Check for Analyzers
+      - name: Check if analyzer packages are installed and add if not
+        if: ${{ inputs.add-analyzers }}
+        working-directory: "."
+        shell: pwsh
+        run: |
+          $analyzersPath = "${{ github.workspace }}/temp/Shared/analyzers.txt"
+          if (-not (Test-Path -Path $analyzersPath)) {
+          Write-Error "File not found: $analyzersPath"
+          exit 1
+          }
+          $testDirectories = Get-ChildItem -Path "${{ inputs.working-directory }}" -Filter "*Tests" -Directory
+          if ($testDirectories.Count -eq 0) {
+            Write-Error "No directories with '*Tests' found in '${{ inputs.working-directory }}'"
+            exit 1
+          }
+          $testDirectories | ForEach-Object {
+          Set-Location -Path $_.FullName
+          $analyzers = Get-Content $analyzersPath
+          foreach ($analyzer in $analyzers) {
+              $package = dotnet list package | Select-String -Pattern $analyzer
+              if ($null -eq $package) {
+              dotnet add package $analyzer
+              }
+          }
+          Set-Location -Path ${{ github.workspace }}
+          }
+
+      # Check for certain dependencies
+      - name: Check if dependent packages are installed and add if not
+        if: ${{ inputs.add-dependencies }}
+        working-directory: "."
+        shell: pwsh
+        run: |
+          $analyzersPath = "${{ github.workspace }}/temp/Shared/dependencies.txt"
+          if (-not (Test-Path -Path $analyzersPath)) {
+          Write-Error "File not found: $analyzersPath"
+          exit 1
+          }
+          $testDirectories = Get-ChildItem -Path "${{ inputs.working-directory }}" -Filter "*Tests" -Directory
+          if ($testDirectories.Count -eq 0) {
+            Write-Error "No directories with '*Tests' found in '${{ inputs.working-directory }}'"
+            exit 1
+          }
+          $testDirectories | ForEach-Object {
+          Set-Location -Path $_.FullName
+          $analyzers = Get-Content $analyzersPath
+          foreach ($analyzer in $analyzers) {
+              $package = dotnet list package | Select-String -Pattern $analyzer
+              if ($null -eq $package) {
+              dotnet add package $analyzer
+              }
+          }
+          Set-Location -Path ${{ github.workspace }}
+          }
+
+      - name: Run dotnet format
+        if: ${{ inputs.check-formatting }}
+        run: dotnet format --verify-no-changes --verbosity diagnostic
+
+      - name: Build
+        run: dotnet build --no-restore -p:Nullable=${{ inputs.enable-nullability == true && 'enable' || 'disable' }} -p:TreatWarningsAsErrors=true -p:EnableNETAnalyzers=${{ inputs.enable-net-analyzers }} -p:CodeAnalysisTreatWarningsAsErrors=true -p:NoWarn=EnableGenerateDocumentationFile -p:AnalysisLevel=latest-Recommended -p:EnforceCodeStyleInBuild=${{ inputs.dotnet-build-enforce-code-style }}
+      - name: Test
+        run: dotnet test --no-build --verbosity normal --settings ${{github.workspace}}/.runsettings /p:CollectCoverage=true --collect:"XPlat Code Coverage" --logger trx --results-directory coveragereport
+
+      - name: ReportGenerator
+        id: reportgenerator
+        if: github.event_name == 'pull_request_target'
+        uses: danielpalme/ReportGenerator-GitHub-Action@5.2.0
+        with:
+          reports: '**/coverage.cobertura.xml'
+          targetdir: coveragereport
+          reporttypes: MarkdownSummaryGithub
+
+      - name: Post comment to PR
+        if: github.event_name == 'pull_request_target'
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          recreate: true
+          path: coveragereport/SummaryGithub.md
+
+      - name: Write to Job Summary
+        run: cat coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
+>>>>>>> 3e784dcd084da8c63dd038bb3e8e6ac500e3c6c6

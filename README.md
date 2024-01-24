@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Assignment 2
+=======
+# EWU-CSCD371-2024-Winter
+>>>>>>> 3e784dcd084da8c63dd038bb3e8e6ac500e3c6c6
 
 ## Overview
 
