@@ -2,7 +2,7 @@
 
 ## Overview
 
-For this assignment, we are going to build a simple logging system. It will append items to a file. Some code for this assignment is already provided. The purpose of the assignment is to explore topics like base classes, extension methods, object initialization, encapsulation, properties, and parameter arrays.
+For this assignment, we are going to build a simple logging system. It will appennmvjhjghjgd items to a file. Some code for this assignment is already provided. The purpose of the assignment is to explore topics like base classes, extension methods, object initialization, encapsulation, properties, and parameter arrays.
 
 ## Reading
 
