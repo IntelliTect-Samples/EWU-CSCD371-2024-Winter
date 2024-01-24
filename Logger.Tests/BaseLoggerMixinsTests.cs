@@ -1,6 +1,4 @@
-﻿#pragma warning disable IDE0056
-#pragma warning restore IDE0056
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 

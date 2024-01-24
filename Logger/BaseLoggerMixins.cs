@@ -1,5 +1,4 @@
-#pragma warning disable IDE0056
-#pragma warning enable IDE0056
+
 using System;
 using System.Globalization;
 
@@ -7,6 +6,7 @@ namespace Logger;
 
 public static class TestLogger
 {
+#pragma warning disable IDE0056
     public static void Error(this BaseLogger? logger, string message, params object[] args)
     {
         ArgumentNullException.ThrowIfNull(logger, nameof(logger));
@@ -30,4 +30,5 @@ public static class TestLogger
         ArgumentNullException.ThrowIfNull(logger, nameof(logger));
         logger.Log(LogLevel.Debug, string.Format(CultureInfo.InvariantCulture, message, args));
     }
+#pragma warning restore IDE0056
 }
