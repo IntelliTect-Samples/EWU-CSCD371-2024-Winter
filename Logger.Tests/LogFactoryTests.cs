@@ -9,14 +9,14 @@ public class LogFactoryTests
     [TestMethod]
     public void Configure_NullLogPath_ThrowsArgumentNullException()
     {
-        var logFactory = new LogFactory();
+        LogFactory logFactory = new();
         Assert.ThrowsException<ArgumentNullException>(() => logFactory.Configure(null!));
     }
 
     [TestMethod]
     public void Configure_ValidPath_SetsLogFileLocation()
     {
-        var logFactory = new LogFactory();
+        LogFactory logFactory = new();
 
         string validPath = "LogFile.txt";
         string res = logFactory.Configure(validPath);

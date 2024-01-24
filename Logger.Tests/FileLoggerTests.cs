@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting.Logging;
 using System.IO;
 
 namespace Logger.Tests;
@@ -20,6 +21,16 @@ public class FileLoggerTests
         Logger!.Log(LogLevel.Information, "yo, I am testing stuff");
         string output = File.ReadAllText("test.txt");
         Assert.IsTrue(output.Contains("yo, I am testing stuff"));
+
+        File.Delete("test.txt");
+    }
+
+    [TestMethod]
+    public void Log_MessageGiven_IsEmpty()
+    {
+        Logger!.Log(LogLevel.Information, "yo, I am testing more stuff");
+        string output = File.ReadAllText("test.txt");
+        Assert.IsFalse(output.Contains("This is not the same"));
 
         File.Delete("test.txt");
     }
