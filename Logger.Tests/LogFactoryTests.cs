@@ -24,7 +24,6 @@ public class LogFactoryTests
     }
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void CreateLogger_WithNullLogPath_ReturnsNull()
     {
         LogFactory LogFactory = new();
