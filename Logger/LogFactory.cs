@@ -5,6 +5,10 @@ public class LogFactory
 {
     private string? logPath;
     public void ConfigureFileLogger(string logPath)
+<<<<<<< HEAD
+=======
+
+>>>>>>> cd4cecc722f31e5a2714f61f9bb389390f3a3645
     {
         if (logPath == null)
         {
@@ -22,7 +26,11 @@ public class LogFactory
     {
         if (logPath == null)
         {
+<<<<<<< HEAD
             return null;
+=======
+return null;
+>>>>>>> cd4cecc722f31e5a2714f61f9bb389390f3a3645
         }
         else
         {

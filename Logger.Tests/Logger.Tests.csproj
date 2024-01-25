@@ -6,9 +6,15 @@
 		<LangVersion>12.0</LangVersion>
 		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+<<<<<<< HEAD
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>
 		<CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
 		<Nullable>enable</Nullable>
+=======
+                <EnableNETAnalyzers>true</EnableNETAnalyzers
+                <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+                <Nullable>enable</Nullable>
+>>>>>>> cd4cecc722f31e5a2714f61f9bb389390f3a3645
 	</PropertyGroup>
 
 	<ItemGroup>
