@@ -1,29 +1,40 @@
-﻿[TestMethod]
-public void LogFactory_SetClassName_Fail()
-{
-    LogFactory logFactory = new LogFactory();
-    BaseLogger? logger = logFactory.CreateLogger("");
-    if (logger != null)
-    {
-        Assert.AreEqual("", logger.ClassName);
-    }
-    else
-    {
-        Assert.Fail("Logger should not be null.");
-    }
-}
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-[TestMethod]
-public void LogFactory_SetClassName_Success()
+namespace Logger.Tests
 {
-    LogFactory logFactory = new LogFactory();
-    BaseLogger? logger = logFactory.CreateLogger("Logger");
-    if (logger != null)
+    [TestClass]
+    public class LogFactoryTests
     {
-        Assert.AreEqual("Logger", logger.ClassName);
-    }
-    else
-    {
-        Assert.Fail("Logger should not be null.");
+        [TestMethod]
+        public void LogFactory_SetClassName_Fail()
+        {
+            LogFactory logFactory = new LogFactory();
+            BaseLogger? logger = logFactory.CreateLogger("");
+            if (logger != null)
+            {
+                Assert.AreEqual("", logger.ClassName);
+            }
+            else
+            {
+                Assert.Fail("Logger should not be null.");
+            }
+        }
+
+        [TestMethod]
+        public void LogFactory_SetClassName_Success()
+        {
+            LogFactory logFactory = new LogFactory();
+            BaseLogger? logger = logFactory.CreateLogger("Logger");
+            if (logger != null)
+            {
+                Assert.AreEqual("Logger", logger.ClassName);
+            }
+            else
+            {
+                Assert.Fail("Logger should not be null.");
+            }
+        }
+
+        
     }
 }
