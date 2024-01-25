@@ -4,7 +4,7 @@ using System;
 public class LogFactory
 {
     private string? logPath;
-    public string Configure(string logPath)
+    public void ConfigureFileLogger(string logPath)
     {
         if (logPath == null)
         {
@@ -13,7 +13,6 @@ public class LogFactory
         else
         {   
             this.logPath = logPath;
-            return logPath;
         }
     }
 
@@ -23,7 +22,7 @@ public class LogFactory
     {
         if (logPath == null)
         {
-            throw new ArgumentNullException(nameof(className), " File path can not be null"); ;
+            return null;
         }
         else
         {

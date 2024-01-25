@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Dynamic;
+using System.Globalization;
 namespace Logger;
 
 public static class BaseLoggerMixins
@@ -24,20 +25,13 @@ public static class BaseLoggerMixins
         LogInstructions(logger, LogLevel.Debug, message, parms);
     }
 
-    public static System.Globalization.CultureInfo? CulInfo
-    {
-        get; 
-        set;
-    }
-
     public static void LogInstructions(this BaseLogger? logger, LogLevel level, string message, params object[] yo)
     {
         if (logger == null)
         {
             throw new ArgumentNullException(nameof(logger), "Logger cant be null");
         }
-        string output = string.Format(CulInfo, message, yo);
-
+        string output = string.Format(CultureInfo.InvariantCulture, message, yo);
         logger.Log(level, output);
     }
 
