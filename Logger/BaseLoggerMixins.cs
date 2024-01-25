@@ -31,7 +31,8 @@ public static class BaseLoggerMixins
         {
             throw new ArgumentNullException(nameof(logger), "Logger cant be null");
         }
-        string output = string.Format(CulInfo, message, yo);
+        string output = string.Format(CultureInfo.InvariantCulture, message, yo);
+
 
         logger.Log(level, output);
     }
