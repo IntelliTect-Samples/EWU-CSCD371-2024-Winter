@@ -6,25 +6,25 @@ using System.Threading.Tasks;
 
 namespace CanHazFunny
 {
-    public class Jester : IJoke,IOutputToScreen
+    public class Jester : IJoke, IOutputToScreen
     {
         private readonly IJoke IJokeDependency;
         private readonly IOutputToScreen IOutputDependency;
 
 
         public Jester(IJoke IJokeDependency, IOutputToScreen IOutputDependency)
-            {
-                IJokeDependency = IJokeDependency ?? throw new ArgumentNullException(nameof(IJokeDependency));
+        {
+            IJokeDependency = IJokeDependency ?? throw new ArgumentNullException(nameof(IJokeDependency));
             IOutputDependency = IOutputDependency ?? throw new ArgumentNullException(nameof(IOutputDependency));
             this.IJokeDependency = IJokeDependency;
             this.IOutputDependency = IOutputDependency;
 
-            }
-        
+        }
+
         public string GetJoke()
         {
             JokeService jokeService = new JokeService();
-            string joke= jokeService.GetJoke();
+            string joke = jokeService.GetJoke();
             if (joke == null)
                 throw new ArgumentNullException();
             return joke;
@@ -48,7 +48,6 @@ namespace CanHazFunny
             {
                 joke = _jokeService.GetJoke();
                 TellJoke();
-
             }
             else
             {
@@ -61,6 +60,5 @@ namespace CanHazFunny
             Console.Write(joke);
         }
     }
-
     
 }

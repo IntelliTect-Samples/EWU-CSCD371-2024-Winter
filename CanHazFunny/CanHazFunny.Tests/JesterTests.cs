@@ -40,7 +40,7 @@ public class JesterTests
             
         }
 
-        /*  [TestMethod]
+       /*   [TestMethod]
           public void TellJoke_ChuckNorrisJoke_SuccessfulSkip()
           {
               // Arrange
@@ -59,7 +59,6 @@ public class JesterTests
               // Ensure WriteToScreen is not called when the joke contains "Chuck Norris"
               outputDependencyMock.Verify(o => o.WriteJokeToScreen(It.IsAny<string>()), Times.Never());
           }
-
 
          /* [Test]
           public void Ping_invokes_DoSomething()
