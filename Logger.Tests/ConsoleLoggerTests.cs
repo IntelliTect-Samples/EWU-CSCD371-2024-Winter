@@ -11,13 +11,13 @@ namespace Logger.Tests;
     public class ConsoleLoggerTests{
 
     public StringWriter? MockConsole { get; set; }
-    public StringBuilder? MockConsoleText { get; set; }
+    public ConsoleLogger? Logger { get; set; }
 
     [TestInitialize]
     public void SetNewConsoleOut()
     {
-        MockConsoleText = new StringBuilder();
-        MockConsole = new StringWriter(MockConsoleText!);
+        Logger = new() { ClassName = nameof(ConsoleLoggerTests) };
+        MockConsole = new StringWriter();
         Console.SetOut(MockConsole);
     }
 
@@ -28,13 +28,14 @@ namespace Logger.Tests;
 
     public void Log_ValidMessage_WritesToConsoleSuccssfully(string expected, LogLevel level, string input)
     {
-        ConsoleLogger logger = new() { ClassName = nameof(ConsoleLoggerTests)};
-        logger.Log(level, input);
-
+        // Arrange
         string expectedMessageWithDate = $"{DateTime.Now.ToString(CultureInfo.InvariantCulture)} {expected}{Environment.NewLine}";
 
-        Assert.AreEqual(expectedMessageWithDate, MockConsole!.ToString());
+        // Act
+        Logger!.Log(level, input);
 
+        // Assert
+        Assert.AreEqual(expectedMessageWithDate, MockConsole!.ToString());
 
     }
 
