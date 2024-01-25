@@ -25,11 +25,4 @@ public class FileLoggerTests
         File.Delete("test.txt");
     }
 
-<<<<<<< HEAD
-   
-
 }
-=======
-
-}
->>>>>>> cd4cecc722f31e5a2714f61f9bb389390f3a3645
