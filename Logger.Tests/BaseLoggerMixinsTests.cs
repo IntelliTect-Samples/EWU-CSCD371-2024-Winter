@@ -12,28 +12,28 @@ public class BaseLoggerMixinsTests
     [ExpectedException(typeof(ArgumentNullException))]
     public void Error_WithNullLogger_ThrowsException()
     {
-        BaseLoggerMixins.Error(null, "");
+        BaseLoggerMixins.Error(null!, "");
     }
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void Warning_WithNullLogger_ThrowsException()
     {
-        BaseLoggerMixins.Warning(null, "");
+        BaseLoggerMixins.Warning(null!, "");
     }
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void Information_WithNullLogger_ThrowsException()
     {
-        BaseLoggerMixins.Information(null, "");
+        BaseLoggerMixins.Information(null!, "");
     }
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void Debug_WithNullLogger_ThrowsException()
     {
-        BaseLoggerMixins.Debug(null, "");
+        BaseLoggerMixins.Debug(null!, "");
     }
 
     [TestMethod]
@@ -95,11 +95,6 @@ public class BaseLoggerMixinsTests
         Assert.AreEqual(LogLevel.Debug, logger.LoggedMessages[0].LogLevel);
         Assert.AreEqual("Message 16", logger.LoggedMessages[0].Message);
     }
-
-
-
-
-
 }
 
 public class TestLogger : BaseLogger
