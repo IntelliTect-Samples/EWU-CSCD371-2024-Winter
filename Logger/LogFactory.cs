@@ -25,7 +25,7 @@ public class LogFactory
         {
             this.filePath = newFilePath;
         }
-    
+        
     }
     //enviorment.getcurrentdirctory
 
