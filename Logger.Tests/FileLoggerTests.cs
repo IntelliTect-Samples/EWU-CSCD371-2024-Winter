@@ -1,5 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using System;
 using System.IO;
+using System.Linq;
 
 namespace Logger.Tests;
 
@@ -11,20 +14,21 @@ public class FileLoggerTests
     {
         //string fileName = @"C:\file.txt";
 
-        string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
+        //string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
+        string path = string.Join(@"\", (Environment.CurrentDirectory));
         string fileName = Path.Combine(path, "file.txt");
 
         FileLogger fileLogger = new FileLogger(fileName);
-        fileLogger.Log(LogLevel.Warning, "Warnings");
-        string? log = null;  // Updated to string?
+        fileLogger.Log(LogLevel.Error, "ERROR");
+        string log = File.ReadLines(fileName).Last();  // Updated to string?
 
-        using (StreamReader sr = File.OpenText(fileName))
-        {
-            while (!sr.EndOfStream)
-            {
-                log = sr.ReadLine();
-            }
-        }
-        Assert.AreEqual($"{System.DateTime.Now} {"FileLoggerTests"} {LogLevel.Warning}: {"Warnings"}", log);
+        //using (StreamReader sr = File.OpenText(fileName))
+        //{
+        //    while (!sr.EndOfStream)
+        //    {
+        //        log = sr.ReadLine();
+        //    }
+        //}
+        Assert.AreEqual($"{System.DateTime.Now} {nameof(FileLoggerTests)} {LogLevel.Error}: {"ERROR"}", log);
     }
 }

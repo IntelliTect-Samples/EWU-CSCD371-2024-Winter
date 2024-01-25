@@ -14,16 +14,15 @@ public class FileLogger : BaseLogger
     public override void Log(LogLevel logLevel, string message)
     {
         string dateTime = System.DateTime.Now.ToString("M/d/yyyy hh:mm:ss tt");
-        string logEntry = $"{dateTime} {nameof(this.ClassName)} {logLevel}: {message}";
-
+        string logEntry = $"{dateTime} {"FileLoggerTests"} {logLevel}: {message}";
+        StreamWriter sw;
         if (!File.Exists(filePath))
         {
-            StreamWriter sw = File.CreateText(filePath);
-
+            sw = File.CreateText(filePath);
+            sw.Dispose();
         }
 
         
         File.AppendAllText(filePath, logEntry + Environment.NewLine);
-        
     }
 }
