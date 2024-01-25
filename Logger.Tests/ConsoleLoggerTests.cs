@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -13,23 +11,29 @@ namespace Logger.Tests;
     public class ConsoleLoggerTests{
 
     public StringWriter? MockConsole { get; set; }
+    public StringBuilder? MockConsoleText { get; set; }
 
     [TestInitialize]
     public void SetNewConsoleOut()
     {
-        MockConsole = new StringWriter();
+        MockConsoleText = new StringBuilder();
+        MockConsole = new StringWriter(MockConsoleText!);
         Console.SetOut(MockConsole);
     }
 
 
     [TestMethod]
-    [DataRow("FileLoggerTests Warning: Test message", LogLevel.Warning, "Test message")]
+    [DataRow("ConsoleLoggerTests Warning: Test message", LogLevel.Warning, "Test message")]
+    [DataRow("ConsoleLoggerTests Error: Test Error", LogLevel.Error, "Test Error")]
+
     public void Log_ValidMessage_WritesToConsoleSuccssfully(string expected, LogLevel level, string input)
     {
-        ConsoleLogger logger = new();
+        ConsoleLogger logger = new() { ClassName = nameof(ConsoleLoggerTests)};
         logger.Log(level, input);
 
-        Assert.Equals(expected, MockConsole!.ToString());
+        string expectedMessageWithDate = $"{DateTime.Now.ToString(CultureInfo.InvariantCulture)} {expected}{Environment.NewLine}";
+
+        Assert.AreEqual(expectedMessageWithDate, MockConsole!.ToString());
 
 
     }
