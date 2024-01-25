@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;  // Add this line
+using System.IO;
 
 namespace Logger.Tests;
 
@@ -9,18 +9,23 @@ public class FileLoggerTests
     [TestMethod]
     public void Log_Path_AppendToLine()
     {
-        string fileName = @"C:\file.txt";
+        // Define the file path for the log
+        string fileName = @"C:\file.txt";  // Consider using a path that is not system-specific
         FileLogger fileLogger = new FileLogger(fileName);
         fileLogger.Log(LogLevel.Warning, "Warnings");
-        string log = null;  // Initialize 'log' to null
+        
+        // Initialize 'log' to null
+        string log = null;
 
+        // Read from the file
         using (StreamReader sr = File.OpenText(fileName))
         {
-            while (!sr.EndOfStream)  // Change 'while (sr.EndOfStream)' to 'while (!sr.EndOfStream)'
+            while (!sr.EndOfStream)  // Ensure it reads until the end of the stream
             {
-                log = sr.ReadLine();
+                log = sr.ReadLine();  // Read each line from the stream
             }
         }
-        Assert.AreEqual($"{System.DateTime.Now} {"FileLoggerTests"} {LogLevel.Warning}: {"Warnings"}", log);
+
+         Assert.AreEqual($"{System.DateTime.Now:yyyy-MM-dd HH:mm:ss} {"FileLoggerTests"} {LogLevel.Warning}: {"Warnings"}", log);
     }
 }
