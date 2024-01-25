@@ -22,10 +22,10 @@ public class LogFactoryTests
     }
 
     [TestMethod]
-    public void CreateBaseLogger_FileGiven_LoggerCreated()
+    public void CreateBaseLogger_FileGiven_FileLoggerCreated()
     {
         LogFactory.ConfigureFileLogger("test");
-        BaseLogger? logger = LogFactory.CreateLogger(nameof(LogFactoryTests));
+        BaseLogger? logger = LogFactory.CreateLogger(nameof(FileLogger));
         Assert.IsInstanceOfType(logger, typeof(FileLogger));
     }
 }

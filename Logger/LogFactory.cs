@@ -1,4 +1,6 @@
-﻿namespace Logger;
+﻿using System;
+
+namespace Logger;
 
 public class LogFactory
 {
@@ -6,20 +8,22 @@ public class LogFactory
     public BaseLogger? CreateLogger(string className)
     {
 
-        if (string.IsNullOrWhiteSpace(_file))
+        if (className == nameof(FileLogger))
         {
-            return null;
+            FileLogger fileLogger = new(ConfigureFileLogger(_file!)) { ClassName = className };
+            return fileLogger;
+            
         }
-        else
-        {
-            return new FileLogger(_file!)
-            { 
-                ClassName = className
-            };
-        }
+        return null;
     }
-    public void ConfigureFileLogger(string file)
+    public string ConfigureFileLogger(string file)
     {
-        _file = file;
+        if(!string.IsNullOrWhiteSpace(file))
+        {
+            _file = file;
+            return _file;
+        }
+        _file = null;
+        throw new ArgumentNullException(_file, "File Path not set");
     }
 }

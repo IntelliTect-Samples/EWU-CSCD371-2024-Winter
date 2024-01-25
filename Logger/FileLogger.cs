@@ -4,12 +4,12 @@ using System.IO;
 
 namespace Logger;
 
-public class FileLogger(string filePath) : BaseLogger
+public class FileLogger(string file) : BaseLogger
 {
-    private string FilePath { get; set; } = filePath;
+    private string _file { get; set; } = file;
 
     public override void Log(LogLevel logLevel, string message)
     {
-        File.AppendAllText(FilePath, $"{DateTime.Now} {ClassName} {logLevel}: {message}");
+        File.AppendAllText(_file, $"{DateTime.Now} {nameof(FileLogger)} {logLevel}: {message}");
     }
 }
