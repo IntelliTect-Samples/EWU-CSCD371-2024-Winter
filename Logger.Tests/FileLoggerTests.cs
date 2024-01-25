@@ -20,19 +20,32 @@ public class FileLoggerTests
     {
 
         // Arrange
-        string filePath = string.Join(@"\", (Environment.CurrentDirectory));
-        string path = Path.Combine(filePath, fileName);
-        LogFactory logFactory = new();
-        logFactory.ConfigureFileLogger(path);
-        FileLogger? fileLogger = logFactory.CreateLogger(nameof(FileLoggerTests)) as FileLogger;
+        MockFileLogger fileLogger = new(fileName); 
         string loggedMessageWithDate = $"{DateTime.Now.ToString(CultureInfo.InvariantCulture)} {expectedContent}";
 
         // Act
-        fileLogger?.Log(level, message);
-        string fileContents = File.ReadLines(path).Last();
+        fileLogger.Log(level, message);
+        string fileContents = File.ReadLines(GetCorrectPath(fileName)).Last();
 
         // Assert
         Assert.AreEqual(loggedMessageWithDate, fileContents);
+
+    }
+
+    public static string GetCorrectPath(string fileName)
+    {
+        string filePath = string.Join(@"\", (Environment.CurrentDirectory));
+        string path = Path.Combine(filePath, fileName);
+        return path;
+    }
+
+    public class MockFileLogger : FileLogger
+    {
+
+        public MockFileLogger(string fileName) : base(GetCorrectPath(fileName))
+        {
+            ClassName = nameof(FileLoggerTests);
+        }
 
     }
 
