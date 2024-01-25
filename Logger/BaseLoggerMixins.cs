@@ -7,47 +7,30 @@ public static class BaseLoggerMixins
 
     public static void Error(this BaseLogger? logger, string message, params object[] arguments)
     {
-        //check if null if so throw error
-        if(logger is null)
-        {
-            throw new System.ArgumentNullException(nameof(logger));
-        }
-        
-        //format string to return, use string.format so the argument is placed into the {0} spot
-        string formattedString = string.Format(CultureInfo.CurrentCulture, message, arguments);
-        
-        //Call log with specified loglevel for method and string
-        logger.Log(LogLevel.Error, formattedString);
+        LogGivenLevel(logger, LogLevel.Error, message, arguments);
     }
 
     
     public static void Warning(this BaseLogger? logger, string message, params object[] arguments)
     {
-        if(logger is null)
-        {
-            throw new System.ArgumentNullException(nameof(logger));
-        }
-        
-        string formattedString = string.Format(CultureInfo.CurrentCulture, message, arguments);
-    
-        logger.Log(LogLevel.Warning, formattedString); 
+        LogGivenLevel(logger, LogLevel.Warning, message, arguments);
     }
 
 
     public static void Information(this BaseLogger? logger, string message, params object[] arguments)
     {
-        if(logger is null)
-        {
-            throw new System.ArgumentNullException(nameof(logger));
-        }
-        
-        string formattedString = string.Format(CultureInfo.CurrentCulture, message, arguments);
-        
-        logger.Log(LogLevel.Information, formattedString);
+        LogGivenLevel(logger, LogLevel.Information, message, arguments);
     }
 
 
     public static void Debug(this BaseLogger? logger, string message, params object[] arguments)
+    {
+        LogGivenLevel(logger, LogLevel.Debug, message, arguments);
+    }
+
+
+    //Helper method 
+    public static void LogGivenLevel(BaseLogger? logger, LogLevel logLevel, string message, params object[] arguments)
     {
         if(logger is null)
         {
@@ -56,6 +39,7 @@ public static class BaseLoggerMixins
         
         string formattedString = string.Format(CultureInfo.CurrentCulture, message, arguments);
         
-        logger.Log(LogLevel.Debug, formattedString);
+        logger.Log(logLevel, formattedString);
+
     }
 }
