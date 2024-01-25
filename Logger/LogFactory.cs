@@ -10,10 +10,10 @@ public class LogFactory
         {
             FileLogger FileLogger = new(_loggerPath!) { ClassName = className };
             return FileLogger;
-        } else
-        {
-            return null;
         }
+        
+        return null;
+        
     }
     public void ConfigureFileLogger(string FilePath)
     {
