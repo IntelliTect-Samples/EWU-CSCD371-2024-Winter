@@ -23,6 +23,6 @@ namespace Logger;
                 + logLevel.ToString() + ": " + message;
 
             streamWrite.WriteLine(log);
-
+streamWrite.Close();
         }
     }
