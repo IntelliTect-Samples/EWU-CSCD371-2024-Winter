@@ -17,7 +17,7 @@ public class LogFactoryTests
     [TestMethod]
     public void CreateBaseLogger_NoFileGiven_IsNull()
     {
-        BaseLogger? logger = LogFactory.CreateLogger(nameof(LogFactoryTests));
+        BaseLogger? logger = LogFactory.CreateLogger(nameof(FileLogger));
         Assert.IsNull(logger);
     }
 

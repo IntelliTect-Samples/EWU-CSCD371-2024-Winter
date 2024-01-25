@@ -7,8 +7,11 @@ public class LogFactory
     private string? _file;
     public BaseLogger? CreateLogger(string className)
     {
-
-        if (className == nameof(FileLogger))
+        if(_file == null) 
+        { 
+            return null; 
+        }
+        else if (className == nameof(FileLogger))
         {
             FileLogger fileLogger = new(ConfigureFileLogger(_file!)) { ClassName = className };
             return fileLogger;
@@ -24,6 +27,6 @@ public class LogFactory
             return _file;
         }
         _file = null;
-        throw new ArgumentNullException(_file, "File Path not set");
+        return "";
     }
 }
