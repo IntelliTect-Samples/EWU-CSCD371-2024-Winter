@@ -14,7 +14,6 @@ public class LogFactory
         else
         {   
             this.logPath = logPath;
-            return logPath;
         }
     }
 
