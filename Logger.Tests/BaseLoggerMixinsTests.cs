@@ -4,6 +4,7 @@ using System.Collections.Generic;
 // testing this only shows on my branch
 namespace Logger.Tests;
 
+// just wanna make sure
 [TestClass]
 public class BaseLoggerMixinsTests
 {
