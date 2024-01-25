@@ -23,6 +23,6 @@ public class FileLogger : BaseLogger
         }
 
         
-        File.AppendAllText(filePath, logEntry + Environment.NewLine);
+        File.AppendAllText(filePath, logEntry);
     }
 }
