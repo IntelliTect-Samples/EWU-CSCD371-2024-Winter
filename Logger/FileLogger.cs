@@ -18,10 +18,6 @@ public class FileLogger (string? fileName) : BaseLogger
         DateTime date = DateTime.Now;
         string currentDate = date.ToString("MM-dd-yyyy HH:mm:ss tt", CultureInfo.CurrentCulture);
         string m = $"{currentDate} {this.ClassName} {logLevel}: {message}";
-<<<<<<< HEAD
-=======
-
->>>>>>> cd4cecc722f31e5a2714f61f9bb389390f3a3645
         File.AppendAllText(path: filePath, contents: m + Environment.NewLine + message);
     }
 
