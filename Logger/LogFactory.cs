@@ -13,7 +13,7 @@ public class LogFactory
         }
         else if (className == nameof(FileLogger))
         {
-            FileLogger fileLogger = new(ConfigureFileLogger(_file!)) { ClassName = className };
+            FileLogger fileLogger = new(ConfigureFileLogger(_file!));
             return fileLogger;
             
         }
