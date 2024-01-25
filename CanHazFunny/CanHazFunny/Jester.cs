@@ -33,6 +33,11 @@ namespace CanHazFunny
             throw new NotImplementedException();
         }
 
+        public void TellJoke()
+        {
+            throw new NotImplementedException();
+        }
+
         public void WriteJokeToScreen(string joke)
         {
             throw new NotImplementedException();
