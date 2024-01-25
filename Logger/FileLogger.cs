@@ -5,8 +5,6 @@ using System.Globalization;
 
 public class FileLogger (string? fileName) : BaseLogger
 {
-    private string? FilePath { get; set; } = fileName;
-
     private readonly string? filePath = fileName;
 
     public override void Log(LogLevel logLevel, string message)
