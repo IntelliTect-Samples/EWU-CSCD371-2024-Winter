@@ -19,10 +19,9 @@ namespace Logger;
 
             using StreamWriter streamWrite = File.AppendText(PathName);
 
-            string log = DateTime.Now.ToString(CultureInfo.InvariantCulture) + " " + ClassName + " "
-                + logLevel.ToString() + ": " + message;
+            string log = $"{DateTime.Now.ToString(CultureInfo.InvariantCulture)} ClassName logLevel.ToString(): {message}";
 
             streamWrite.WriteLine(log);
-streamWrite.Close();
+            streamWrite.Close();
         }
     }
