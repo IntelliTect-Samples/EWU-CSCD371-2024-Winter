@@ -9,7 +9,11 @@ public class FileLoggerTests
     [TestMethod]
     public void Log_Path_AppendToLine()
     {
-        string fileName = @"C:\file.txt";
+        //string fileName = @"C:\file.txt";
+
+        string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
+        string fileName = Path.Combine(path, "file.txt");
+
         FileLogger fileLogger = new FileLogger(fileName);
         fileLogger.Log(LogLevel.Warning, "Warnings");
         string? log = null;  // Updated to string?
