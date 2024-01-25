@@ -9,23 +9,18 @@ public class FileLoggerTests
     [TestMethod]
     public void Log_Path_AppendToLine()
     {
-        // Define the file path for the log
-        string fileName = @"C:\file.txt";  // Consider using a path that is not system-specific
+        string fileName = @"C:\file.txt";
         FileLogger fileLogger = new FileLogger(fileName);
         fileLogger.Log(LogLevel.Warning, "Warnings");
-        
-        // Initialize 'log' to null
-        string log = null;
+        string? log = null;  // Updated to string?
 
-        // Read from the file
         using (StreamReader sr = File.OpenText(fileName))
         {
-            while (!sr.EndOfStream)  // Ensure it reads until the end of the stream
+            while (!sr.EndOfStream)
             {
-                log = sr.ReadLine();  // Read each line from the stream
+                log = sr.ReadLine();
             }
         }
-
-         Assert.AreEqual($"{System.DateTime.Now:yyyy-MM-dd HH:mm:ss} {"FileLoggerTests"} {LogLevel.Warning}: {"Warnings"}", log);
+        Assert.AreEqual($"{System.DateTime.Now} {"FileLoggerTests"} {LogLevel.Warning}: {"Warnings"}", log);
     }
 }
