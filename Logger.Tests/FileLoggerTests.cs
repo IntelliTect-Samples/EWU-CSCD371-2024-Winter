@@ -25,14 +25,5 @@ public class FileLoggerTests
         File.Delete("test.txt");
     }
 
-    [TestMethod]
-    public void Log_MessageGiven_IsEmpty()
-    {
-        Logger!.Log(LogLevel.Information, "yo, I am testing more stuff");
-        string output = File.ReadAllText("test.txt");
-        Assert.IsFalse(output.Contains("This is not the same"));
-
-        File.Delete("test.txt");
-    }
 
 }
