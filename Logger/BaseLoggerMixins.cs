@@ -24,11 +24,6 @@ public static class BaseLoggerMixins
         LogInstructions(logger, LogLevel.Debug, message, parms);
     }
 
-    public static System.Globalization.CultureInfo? CulInfo
-    {
-        get; 
-        set;
-    }
 
     public static void LogInstructions(this BaseLogger? logger, LogLevel level, string message, params object[] yo)
     {
