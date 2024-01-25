@@ -7,9 +7,11 @@ public class LogFactory
     private string? path;   
 
     //Configure given filePath as path
-    public void ConfigureFileLogger(string filePath)
+    public string ConfigureFileLogger(string filePath)
     {
         path = filePath;
+
+        return path;
     }
 
     //Creates Logger
@@ -24,12 +26,9 @@ public class LogFactory
         //If its not null then create new FileLogger and set class name and return the logger
         else
         {
-            BaseLogger baseLogger = new FileLogger(path)
-            {
-                ClassName = nameof(LogFactory)
-            };
+            FileLogger fileLogger = new(ConfigureFileLogger(path));
 
-            return baseLogger;
+            return fileLogger;
         }
     }
 }
