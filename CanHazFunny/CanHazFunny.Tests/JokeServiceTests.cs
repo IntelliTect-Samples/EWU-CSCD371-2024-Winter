@@ -26,8 +26,7 @@ namespace CanHazFunny.Tests
         [ExpectedException(typeof(ArgumentNullException))]
         public void GetJoke_NullJoke_ThrowsNullException()
         {
-            JokeService? instance;
-            instance = new JokeService();
+            JokeService? instance= new JokeService();
             string result = instance.GetJoke();
         }
 

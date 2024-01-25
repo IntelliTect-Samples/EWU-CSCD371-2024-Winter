@@ -8,26 +8,33 @@ namespace CanHazFunny
 {
     public class Jester : IJoke,IOutputToScreen
     {
-        private readonly IJoke _IJokeDependency;
-        private readonly IOutputToScreen _IOutputDependency;
+        private readonly IJoke IJokeDependency;
+        private readonly IOutputToScreen IOutputDependency;
 
 
         public Jester(IJoke IJokeDependency, IOutputToScreen IOutputDependency)
             {
-                _IJokeDependency = IJokeDependency;
-            _IOutputDependency = IOutputDependency;
-            }
+                IJokeDependency = IJokeDependency ?? throw new ArgumentNullException(nameof(IJokeDependency));
+            IOutputDependency = IOutputDependency ?? throw new ArgumentNullException(nameof(IOutputDependency));
+            this.IJokeDependency = IJokeDependency;
+            this.IOutputDependency = IOutputDependency;
 
+            }
+        
         public string GetJoke()
         {
-            throw new NotImplementedException();
+            JokeService jokeService = new JokeService();
+            string joke= jokeService.GetJoke();
+            if (joke == null)
+                throw new ArgumentNullException();
+            return joke;
         }
 
-        public object GetJokeDependency()
+
+        private string GetJokeDependency(IJoke jokeDependency)
         {
             throw new NotImplementedException();
         }
-
         public object GetOutputDependency()
         {
             throw new NotImplementedException();
@@ -35,12 +42,23 @@ namespace CanHazFunny
 
         public void TellJoke()
         {
-            throw new NotImplementedException();
+            JokeService _jokeService = new JokeService();
+            string joke = _jokeService.GetJoke();
+            if (joke.Contains("Chuck Norris"))
+            {
+                joke = _jokeService.GetJoke();
+                TellJoke();
+
+            }
+            else
+            {
+                IOutputDependency.WriteJokeToScreen(joke);
+            }
         }
 
         public void WriteJokeToScreen(string joke)
         {
-            throw new NotImplementedException();
+            Console.Write(joke);
         }
     }
 
