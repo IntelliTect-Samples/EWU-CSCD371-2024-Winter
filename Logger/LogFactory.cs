@@ -15,7 +15,8 @@ public class LogFactory
             return null;
         }
 
-        return new FileLogger(_pathName) {
+        return new FileLogger(_pathName) 
+        {
             ClassName = className
         };
     }
