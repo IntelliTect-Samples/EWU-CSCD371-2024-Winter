@@ -13,4 +13,25 @@ public class LogFactoryTests
         Assert.ThrowsException<ArgumentNullException>(() => logFactory.ConfigureFileLogger(null!));
     }
 
+    [TestMethod]
+    public void CreateLogger_NoConfiguredFileLogger_ReturnsNull()
+    {
+        LogFactory LogFactory = new();
+        BaseLogger? logger = LogFactory.CreateLogger(nameof(LogFactoryTests));
+        Assert.IsNull(logger);
+    }
+
+    [TestMethod]
+    public void CreateLogger_ConfiguredFileLogger_ReturnsFileLogger()
+    {
+        LogFactory logFactory = new();
+        string loggerName = nameof(LogFactoryTests);
+
+        logFactory.ConfigureFileLogger("path/to/logfile.txt");
+        BaseLogger? logger = logFactory.CreateLogger(loggerName);
+
+        Assert.IsNotNull(logger);
+        Assert.IsInstanceOfType(logger, typeof(FileLogger));
+    }
+
 }
