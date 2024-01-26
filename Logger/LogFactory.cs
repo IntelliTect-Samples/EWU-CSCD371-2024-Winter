@@ -1,27 +1,30 @@
-﻿#nullable enable
-namespace Logger;
+﻿namespace Logger;
 
 public class LogFactory
 {
-    private string? PathToFile;
-    public void ConfigureFileLogger(string pathToFile)
+    private string? _pathToFile;
+
+    public string GetFileName()
     {
-        PathToFile = pathToFile;
+        return _pathToFile!;
     }
+    public void ConfigureFileLogger(string PathToFile)
+    {
+        this._pathToFile = PathToFile;
+    }
+    
     public BaseLogger? CreateLogger(string className)
     {
-        if (PathToFile is null)
+        if (className == nameof(FileLogger))
         {
-            return null;
-        }
-
-        else
-        {
-            BaseLogger baseLogger = new FileLogger(PathToFile)
-            {
+            FileLogger fileLogger = new(_pathToFile!){
                 ClassName = className
             };
-            return baseLogger;
+            return fileLogger;
+        }
+        else
+        {
+            return null;
         }
     }
 }
