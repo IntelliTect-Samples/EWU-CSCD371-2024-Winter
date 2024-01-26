@@ -51,7 +51,7 @@ public class FileLoggerTests
 
     [TestCleanup]
     public void Cleanup() { 
-        File.Delete(GetFilePath());
+        if(File.Exists(GetFilePath())) File.Delete(GetFilePath());
     }
 
 }
