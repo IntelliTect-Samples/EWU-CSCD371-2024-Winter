@@ -12,32 +12,36 @@ public class JesterTests
     {
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void Constructor_NullDependencies_ThrowsNullException()
+        public void Constructor_NullJokeService_ThrowsNullException()
         {
-            IJokeService? jokeDependencyMock = null;
-            IOutputToScreen? outputDependencyMock = null;
-            Jester? jester = new Jester(jokeDependencyMock!, outputDependencyMock!);
-            // string result = jester.GetJoke();
+            //Assert should throw exception
+            Jester? jester = new Jester(null!, new OutputToScreen());
         }
         [TestMethod]
-      /*  public void TellJoke_ValidJoke_WritesOutputCorrectly()
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Constructor_NullOutputToScreen_ThrowsNullException()
         {
-            // ARRANGE
-            Mock<IJokeService> jokeServiceMock = new Mock<IJokeService>();
-            Mock<IOutputToScreen> outputDependencyMock = new Mock<IOutputToScreen>();
-
-            // Set up the mock to return a joke
-            jokeServiceMock.Setup(j => j.GetJoke()).Returns(() => new Jester(jokeServiceMock.Object, outputDependencyMock.Object).GetJoke());
-            Jester jester = new Jester(jokeServiceMock.Object, outputDependencyMock.Object);
-
-
-            // Act
-            jester.TellJoke();
-
-            // Assert
-            outputDependencyMock.Verify(o => o.WriteJokeToScreen(It.IsAny<string>()), Times.Once);
+            //Assert should throw exception
+            Jester? jester = new Jester(new JokeService(), null!);
         }
-      */
+        /*  public void TellJoke_ValidJoke_WritesOutputCorrectly()
+          {
+              // ARRANGE
+              Mock<IJokeService> jokeServiceMock = new Mock<IJokeService>();
+              Mock<IOutputToScreen> outputDependencyMock = new Mock<IOutputToScreen>();
+
+              // Set up the mock to return a joke
+              jokeServiceMock.Setup(j => j.GetJoke()).Returns(() => new Jester(jokeServiceMock.Object, outputDependencyMock.Object).GetJoke());
+              Jester jester = new Jester(jokeServiceMock.Object, outputDependencyMock.Object);
+
+
+              // Act
+              jester.TellJoke();
+
+              // Assert
+              outputDependencyMock.Verify(o => o.WriteJokeToScreen(It.IsAny<string>()), Times.Once);
+          }
+        */
         public void TellJoke_ChuckNorrisJoke_SuccessfulSkip()
         {
             /* // Arrange
