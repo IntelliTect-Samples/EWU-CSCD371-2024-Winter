@@ -13,17 +13,20 @@ public class FileLogger : BaseLogger
     }
     public override void Log(LogLevel logLevel, string message)
     {
-        string dateTime = System.DateTime.Now.ToString("M/d/yyyy hh:mm:ss tt");
-        string logEntry = $"{dateTime} {"FileLoggerTests"} {logLevel}: {message}";
+        // string dateTime = System.DateTime.Now.ToString("M/d/yyyy hh:mm:ss tt");
+        string logEntry = $"{System.DateTime.Now} {"FileLoggerTests"} {logLevel}: {message}";
         StreamWriter sw;
         if (!File.Exists(filePath))
         {
             sw = File.CreateText(filePath);
             sw.Dispose();
+        }else if (File.Exists(filePath)) 
+        {
+            File.Delete(filePath);
+            File.AppendAllText(filePath, logEntry.TrimEnd());
         }
 
-
-        File.AppendAllText(filePath, logEntry);
+        
     }
     //public (FileLogger(string logSource, string filePath))
     //using StreamWritier sw = FileLogger.AppendText(logEntry);

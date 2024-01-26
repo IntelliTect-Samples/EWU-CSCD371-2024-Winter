@@ -4,7 +4,7 @@ public class LogFactory
 {
     private string? filePath;
 
-    public FileName { get; private set; };
+    //public FileName { get; private set; };
 
     public BaseLogger? CreateLogger(string className)
     {
