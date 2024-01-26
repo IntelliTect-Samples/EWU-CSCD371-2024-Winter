@@ -9,7 +9,7 @@ namespace Logger.Tests;
         {
         }
 
-    public override void Log(LogLevel level, string message)
+    public override void Log(LogLevel logLevel, string message)
     {
         Console.WriteLine($"{DateTime.Now.ToString(CultureInfo.InvariantCulture)} {ClassName} {level}: {message}");
     }
