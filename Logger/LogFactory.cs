@@ -7,6 +7,15 @@ public class LogFactory
 {
     private string? _PathName;
 
+    public string PathName
+    {
+        get => _PathName!;
+        set
+        {
+            _PathName = value;
+        }
+    }
+
     public BaseLogger? CreateLogger(string className)
     {
 
@@ -20,7 +29,7 @@ public class LogFactory
     }
     public string ConfigureFileLogger(string pathName)
     {
-        _PathName = pathName;
-        return _PathName;
+        PathName = pathName;
+        return PathName;
     }
 }
