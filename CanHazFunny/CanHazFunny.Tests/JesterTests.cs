@@ -21,27 +21,28 @@ public class JesterTests
         [ExpectedException(typeof(ArgumentNullException))]
         public void Constructor_NullOutputToScreen_ThrowsNullException()
         {
-            //Assert should throw exception
             Jester? jester = new Jester(new JokeService(), null!);
         }
-        /*  public void TellJoke_ValidJoke_WritesOutputCorrectly()
-          {
-              // ARRANGE
-              Mock<IJokeService> jokeServiceMock = new Mock<IJokeService>();
-              Mock<IOutputToScreen> outputDependencyMock = new Mock<IOutputToScreen>();
+        [TestMethod]
+        public void TellJoke_ValidJoke_WritesOutputCorrectly()
+        {
+            // Arrange
+            string joke = "What do you call a computer that sings? A Dell!";
+            Mock<IJokeService> jokeServiceMock = new Mock<IJokeService>();
+            Mock<IOutputToScreen> outputMock = new Mock<IOutputToScreen>();
+            // Set up mock to return a joke
+            jokeServiceMock.SetupSequence(JokeService => JokeService.GetJoke()).Returns(joke);
+            outputMock.SetupSequence(OutputToScreen => OutputToScreen.WriteJokeToScreen(joke));
+            Jester jester = new Jester(jokeServiceMock.Object, outputMock.Object);
 
-              // Set up the mock to return a joke
-              jokeServiceMock.Setup(j => j.GetJoke()).Returns(() => new Jester(jokeServiceMock.Object, outputDependencyMock.Object).GetJoke());
-              Jester jester = new Jester(jokeServiceMock.Object, outputDependencyMock.Object);
 
+            // Act
+            jester.TellJoke();
 
-              // Act
-              jester.TellJoke();
-
-              // Assert
-              outputDependencyMock.Verify(o => o.WriteJokeToScreen(It.IsAny<string>()), Times.Once);
+            // Assert
+            outputMock.VerifyAll();
           }
-        */
+        [TestMethod]
         public void TellJoke_ChuckNorrisJoke_SuccessfulSkip()
         {
             /* // Arrange
