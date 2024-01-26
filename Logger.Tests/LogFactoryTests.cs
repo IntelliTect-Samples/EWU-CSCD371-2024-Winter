@@ -8,7 +8,7 @@ namespace Logger.Tests
         [TestMethod]
         public void LogFactory_SetClassName_Fail()
         {
-            LogFactory logFactory = new LogFactory();
+            LogFactory logFactory = new();
             BaseLogger? logger = logFactory.CreateLogger("");
             //if (logger != null)
             //{
@@ -24,7 +24,7 @@ namespace Logger.Tests
         [TestMethod]
         public void LogFactory_SetClassName_Success()
         {
-            LogFactory logFactory = new LogFactory();
+            LogFactory logFactory = new();
             BaseLogger? logger = logFactory.CreateLogger("Logger");
             //if (logger != null)
             //{

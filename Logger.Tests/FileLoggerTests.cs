@@ -18,7 +18,7 @@ public class FileLoggerTests
         string path = string.Join(@"\", (Environment.CurrentDirectory));
         string fileName = Path.Combine(path, "file.txt");
 
-        FileLogger fileLogger = new FileLogger(fileName);
+        FileLogger fileLogger = new (fileName);
         fileLogger.Log(LogLevel.Error, "ERROR");
         string log = File.ReadLines(fileName).Last();  // Updated to string?
 
