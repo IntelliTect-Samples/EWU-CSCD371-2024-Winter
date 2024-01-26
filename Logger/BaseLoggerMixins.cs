@@ -10,7 +10,7 @@ public static class BaseLoggerMixins
         }
         else
         {
-            baseLogger.Log(LogLevel.Error, string.Format(message, "arguments[0]"));
+            baseLogger.Log(LogLevel.Error, string.Format(message, arguments[0]));
         }
     }
 
@@ -22,7 +22,7 @@ public static class BaseLoggerMixins
         }
         else
         {
-            baseLogger.Log(LogLevel.Warning, string.Format(message, "arguments[0]"));
+            baseLogger.Log(LogLevel.Warning, string.Format(message, arguments[0]));
         }
     }
 
@@ -34,7 +34,7 @@ public static class BaseLoggerMixins
         }
         else
         {
-            baseLogger.Log(LogLevel.Information, string.Format(message, "arguments[0]"));
+            baseLogger.Log(LogLevel.Information, string.Format(message, arguments[0]));
         }
     }
 
@@ -46,7 +46,7 @@ public static class BaseLoggerMixins
         }
         else
         {
-            baseLogger.Log(LogLevel.Debug, string.Format(message, "arguments[0]"));
+            baseLogger.Log(LogLevel.Debug, string.Format(message, arguments[0]));
         }
     }
 }
