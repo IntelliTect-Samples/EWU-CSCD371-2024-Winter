@@ -14,6 +14,12 @@ public class LogFactoryTests
     }
 
     [TestMethod]
+    public void CreateLogger_NullReturn_Success()
+    {
+        Assert.AreEqual(null, _logFactory!.CreateLogger("NotAFileLogger"));
+    }
+
+    [TestMethod]
     public void CreateLogger_CheckClassName_Success()
     {
         
