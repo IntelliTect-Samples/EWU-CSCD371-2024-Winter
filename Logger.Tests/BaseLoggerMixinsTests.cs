@@ -7,13 +7,16 @@ namespace Logger.Tests;
 [TestClass]
 public class BaseLoggerMixinsTests
 {
+        
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void Error_WithNullLogger_ThrowsException()
     {
+        // Arrange
+        var logger = new TestLogger();
 
         // Act
-        BaseLoggerMixins.Error(null, "");
+        logger.Error(null!, "");
 
     }
 
@@ -25,7 +28,7 @@ public class BaseLoggerMixinsTests
         var logger = new TestLogger();
 
         // Act
-        BaseLoggerMixins.Error(logger, message);
+        logger!.Error(message);
 
         // Assert
         Assert.AreEqual(1, logger.LoggedMessages.Count);
@@ -41,7 +44,7 @@ public class BaseLoggerMixinsTests
         var logger = new TestLogger();
 
         // Act
-        BaseLoggerMixins.Error(logger, message, "Intellij", "468", "Alpha");
+        logger!.Error(message, "Intellij", "468", "Alpha");
 
         // Assert
         Assert.AreEqual(1, logger.LoggedMessages.Count);
@@ -53,9 +56,11 @@ public class BaseLoggerMixinsTests
     [ExpectedException(typeof(ArgumentNullException))]
     public void Warning_WithNullLogger_ThrowsException()
     {
+        // Arrange
+        var logger = new TestLogger();
 
         // Act
-        BaseLoggerMixins.Warning(null, "");
+        logger.Warning(null!, "");
 
     }
 
@@ -67,7 +72,7 @@ public class BaseLoggerMixinsTests
         var logger = new TestLogger();
 
         // Act
-        BaseLoggerMixins.Warning(logger, message);
+        logger.Warning(message);
 
         // Assert
         Assert.AreEqual(1, logger.LoggedMessages.Count);
@@ -83,7 +88,7 @@ public class BaseLoggerMixinsTests
         var logger = new TestLogger();
 
         // Act
-        BaseLoggerMixins.Warning(logger, message, "Intellij", "468", "Alpha");
+        logger.Warning(message, "Intellij", "468", "Alpha");
 
         // Assert
         Assert.AreEqual(1, logger.LoggedMessages.Count);
@@ -96,8 +101,11 @@ public class BaseLoggerMixinsTests
     public void Information_WithNullLogger_ThrowsException()
     {
 
+        // Arrange
+        var logger = new TestLogger();
+
         // Act
-        BaseLoggerMixins.Information(null, "");
+        logger.Information(null!, "");
 
     }
 
@@ -109,7 +117,7 @@ public class BaseLoggerMixinsTests
         var logger = new TestLogger();
 
         // Act
-        BaseLoggerMixins.Information(logger, message);
+        logger.Information(message);
 
         // Assert
         Assert.AreEqual(1, logger.LoggedMessages.Count);
@@ -125,7 +133,7 @@ public class BaseLoggerMixinsTests
         var logger = new TestLogger();
 
         // Act
-        BaseLoggerMixins.Information(logger, message, "Intellij", "468", "Alpha");
+        logger.Information(message, "Intellij", "468", "Alpha");
 
         // Assert
         Assert.AreEqual(1, logger.LoggedMessages.Count);
@@ -138,9 +146,11 @@ public class BaseLoggerMixinsTests
     [ExpectedException(typeof(ArgumentNullException))]
     public void Debug_WithNullLogger_ThrowsException()
     {
+        // Arrange
+        var logger = new TestLogger();
 
         // Act
-        BaseLoggerMixins.Debug(null, "");
+        logger.Debug(null!, "");
 
     }
 
@@ -152,7 +162,7 @@ public class BaseLoggerMixinsTests
         var logger = new TestLogger();
 
         // Act
-        BaseLoggerMixins.Debug(logger, message);
+        logger.Debug(message);
 
         // Assert
         Assert.AreEqual(1, logger.LoggedMessages.Count);
@@ -168,7 +178,7 @@ public class BaseLoggerMixinsTests
         var logger = new TestLogger();
 
         // Act
-        BaseLoggerMixins.Debug(logger, message, "Intellij", "468", "Alpha");
+        logger.Debug(message, "Intellij", "468", "Alpha");
 
         // Assert
         Assert.AreEqual(1, logger.LoggedMessages.Count);
