@@ -6,10 +6,11 @@ namespace Logger.Tests;
 public class LogFactoryTests
 {
     private LogFactory? _logFactory;
+    private readonly string _filePath = "text.txt";
     [TestInitialize]
     public void Constructor()
     {
-        _logFactory = new();
+        _logFactory = new(_filePath);
     }
 
     [TestMethod]

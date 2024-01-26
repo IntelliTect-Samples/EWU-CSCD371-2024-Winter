@@ -5,11 +5,17 @@ namespace Logger;
 
 public class LogFactory
 {
-    private string? _PathName;
+    private string _PathName;
+
+    public LogFactory(string? filePath)
+    {
+        ArgumentNullException.ThrowIfNull(filePath);
+        _PathName = filePath;
+    }
     public BaseLogger? CreateLogger(string className)
     {
         if(className == nameof(FileLogger)){
-            FileLogger fileLogger = new(_PathName!) {ClassName = className};
+            FileLogger fileLogger = new(_PathName) {ClassName = className};
             return fileLogger;
         }
 
