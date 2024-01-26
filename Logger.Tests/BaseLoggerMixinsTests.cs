@@ -19,6 +19,40 @@ public class BaseLoggerMixinsTests
 
         // Assert
     }
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Warning_WithNullLogger_ThrowsException()
+    {
+        // Arrange
+
+        // Act
+        BaseLoggerMixins.Warning(null, "");
+
+        // Assert
+    }
+[TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Information_WithNullLogger_ThrowsException()
+    {
+        // Arrange
+
+        // Act
+        BaseLoggerMixins.Information(null, "");
+
+        // Assert
+    }
+[TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Debug_WithNullLogger_ThrowsException()
+    {
+        // Arrange
+
+        // Act
+        BaseLoggerMixins.Debug(null, "");
+
+        // Assert
+    }
+
 
     [TestMethod]
     public void Error_WithData_LogsMessage()
