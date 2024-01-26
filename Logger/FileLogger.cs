@@ -15,11 +15,11 @@ public class FileLogger : BaseLogger
     }
     public override void Log(LogLevel logLevel, string message)
     {
-        DateTime DateTime = DateTime.Now;
-        string ClassName = this.ClassName ?? "Null name???";
-        string MessageToAppend = $"{DateTime} {ClassName} {logLevel.ToString()} : {message}";
+        DateTime dateTime = dateTime.Now;
+        string className = this.ClassName ?? "Null name???";
+        string messageToAppend = $"{dateTime} {className} {logLevel.ToString()} : {message}";
         //string RelativeFilePath = Path.GetFullPath(GetPathName());
-        File.AppendAllText(GetPathName(), MessageToAppend + Environment.NewLine);
+        File.AppendAllText(GetPathName(), messageToAppend + Environment.NewLine);
     }
 
     public string GetPathName()

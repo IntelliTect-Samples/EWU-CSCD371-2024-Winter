@@ -19,9 +19,9 @@ public static class BaseLoggerMixins
         else
         {
             
-            String TempMessage = String.Format(null, message, args);
+            String tempMessage = String.Format(null, message, args);
             
-            logger.Log(LogLevel.Error, TempMessage);
+            logger.Log(LogLevel.Error, tempMessage);
         }
 
         
@@ -41,9 +41,9 @@ public static class BaseLoggerMixins
         else
         {
             
-            String TempMessage = String.Format(null ,message, args);
+            String tempMessage = String.Format(null ,message, args);
             
-            logger.Log(LogLevel.Warning, TempMessage);
+            logger.Log(LogLevel.Warning, tempMessage);
         }
     }
 
@@ -61,9 +61,9 @@ public static class BaseLoggerMixins
         else
         {
             
-            String TempMessage = String.Format(null, message, args);
+            String tempMessage = String.Format(null, message, args);
             
-            logger.Log(LogLevel.Information, TempMessage);
+            logger.Log(LogLevel.Information, tempMessage);
         }
     }
 
@@ -81,9 +81,9 @@ public static class BaseLoggerMixins
         else
         {
             
-            String TempMessage = String.Format(null, message, args);
+            String tempMessage = String.Format(null, message, args);
             
-            logger.Log(LogLevel.Debug, TempMessage);
+            logger.Log(LogLevel.Debug, tempMessage);
         }
     }
 }
