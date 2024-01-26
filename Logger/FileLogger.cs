@@ -16,9 +16,8 @@ public class FileLogger : BaseLogger
     public override void Log(LogLevel logLevel, string message)
     {
         DateTime dateTime = DateTime.Now;
-        string className = this.ClassName ?? "Null name???";
+        string className = this.ClassName!;
         string messageToAppend = $"{dateTime} {className} {logLevel.ToString()} : {message}";
-        //string RelativeFilePath = Path.GetFullPath(GetPathName());
         File.AppendAllText(GetPathName(), messageToAppend + Environment.NewLine);
     }
 
