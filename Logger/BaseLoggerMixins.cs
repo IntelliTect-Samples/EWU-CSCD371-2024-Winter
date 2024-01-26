@@ -23,7 +23,8 @@ public static class BaseLoggerMixins
         }
         else
         {
-            baseLogger.Log(LogLevel.Warning, string.Format(message, arguments[0]));
+            //baseLogger.Log(LogLevel.Warning, string.Format(message, arguments[0]));
+            baseLogger.Log(LogLevel.Warning, string.Format(CultureInfo.InvariantCulture, message, arguments[0]));
         }
     }
 
@@ -35,7 +36,8 @@ public static class BaseLoggerMixins
         }
         else
         {
-            baseLogger.Log(LogLevel.Information, string.Format(message, arguments[0]));
+            //baseLogger.Log(LogLevel.Information, string.Format(message, arguments[0]));
+            baseLogger.Log(LogLevel.Information, string.Format(CultureInfo.InvariantCulture, message, arguments[0]));
         }
     }
 
@@ -47,7 +49,8 @@ public static class BaseLoggerMixins
         }
         else
         {
-            baseLogger.Log(LogLevel.Debug, string.Format(message, arguments[0]));
+            //baseLogger.Log(LogLevel.Debug, string.Format(message, arguments[0]));
+            baseLogger.Log(LogLevel.Debug, string.Format(CultureInfo.InvariantCulture, message, arguments[0]));
         }
     }
 }
