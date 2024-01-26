@@ -6,11 +6,10 @@ namespace Logger.Tests;
 public class LogFactoryTests
 {
     private LogFactory? _logFactory;
-    private readonly string _filePath = "text.txt";
     [TestInitialize]
     public void Constructor()
     {
-        _logFactory = new(_filePath);
+        _logFactory = new();
     }
 
     [TestMethod]
@@ -22,13 +21,14 @@ public class LogFactoryTests
     [TestMethod]
     public void CreateLogger_CheckClassName_Success()
     {
-        
+        _logFactory!.ConfigureFileLogger("text.txt");
         Assert.AreEqual("FileLogger", _logFactory!.CreateLogger("FileLogger")!.ClassName);
     }
 
     [TestMethod]
     public void CreateLogger_CheckClassName_Fail()
     {
+        _logFactory!.ConfigureFileLogger("text.txt");
         Assert.AreNotEqual("FileNotLogger", _logFactory!.CreateLogger("FileLogger")!.ClassName);
     }
 
@@ -42,6 +42,5 @@ public class LogFactoryTests
     public void CreateLogger_InvalidClassName_Fail()
     {
         Assert.AreEqual(null, _logFactory!.CreateLogger("InvalidClaseName"));
-
     }
 }
