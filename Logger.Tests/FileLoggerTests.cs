@@ -20,6 +20,10 @@ public class FileLoggerTests
 
         FileLogger fileLogger = new (fileName);
         fileLogger.Log(LogLevel.Error, "ERROR");
+        if (!File.ReadLines(fileName).Any())
+        {
+            Assert.Fail("The log file is empty.");
+        }
         string log = File.ReadLines(fileName).Last();  // Updated to string?
 
         //using (StreamReader sr = File.OpenText(fileName))
