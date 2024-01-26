@@ -15,7 +15,7 @@ public class LogFactory
         }
         else 
         {
-            FileLogger fileLogger = new FileLogger(filePath) { ClassName = className};
+            FileLogger fileLogger = new (filePath) { ClassName = className};
             return fileLogger;
         }
         
