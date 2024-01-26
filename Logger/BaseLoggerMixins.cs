@@ -1,5 +1,5 @@
 ﻿namespace Logger;
-
+using System.Globalization;
 public static class BaseLoggerMixins
 {
     public static void Error(this BaseLogger baseLogger, string message, params object[] arguments)
@@ -10,7 +10,8 @@ public static class BaseLoggerMixins
         }
         else
         {
-            baseLogger.Log(LogLevel.Error, string.Format(message, arguments[0]));
+            //baseLogger.Log(LogLevel.Error, string.Format(message, arguments[0]));
+            baseLogger.Log(LogLevel.Error, string.Format(CultureInfo.InvariantCulture,message, arguments[0]));
         }
     }
 
