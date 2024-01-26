@@ -11,6 +11,6 @@ namespace Logger.Tests;
 
     public override void Log(LogLevel logLevel, string message)
     {
-        Console.WriteLine($"{DateTime.Now.ToString(CultureInfo.InvariantCulture)} {ClassName} {level}: {message}");
+        Console.WriteLine($"{DateTime.Now.ToString(CultureInfo.InvariantCulture)} {ClassName} {logLevel}: {message}");
     }
 }
