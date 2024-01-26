@@ -18,7 +18,7 @@ public class LogFactoryTests
     public void CreateLogger_UnconfigurredPath_ReturnsNull()
     {
         //Act
-        FileLogger? fileLogger = LogFactory.CreateLogger(nameof(LogFactory)) as FileLogger;
+        var fileLogger = LogFactory.CreateLogger(nameof(LogFactoryTests));
         //Assert
         Assert.IsNull(fileLogger);
 
@@ -31,10 +31,12 @@ public class LogFactoryTests
 
         //Act
         LogFactory.ConfigureFileLogger(pathName);
-        FileLogger? fileLogger = LogFactory.CreateLogger(nameof(LogFactory)) as FileLogger;
+        FileLogger fileLogger = (FileLogger)LogFactory.CreateLogger(nameof(LogFactoryTests))!;
 
         //Assert
-        Assert.IsNotNull(fileLogger);
+        Assert.IsInstanceOfType(fileLogger, typeof(FileLogger));
+        Assert.AreEqual(fileLogger.ClassName, nameof(LogFactoryTests));
+        Assert.AreEqual(fileLogger.PathName, pathName);
 
     }
 }
