@@ -29,5 +29,4 @@ namespace CanHazFunny
             jokeWriter.WriteJokeToScreen(joke);
         }
     }   
-    
 }

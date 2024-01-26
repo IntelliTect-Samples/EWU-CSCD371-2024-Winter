@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CanHazFunny
 {
-    internal class OutputToScreen : IOutputToScreen
+    public class OutputToScreen : IOutputToScreen
     {
         public void WriteJokeToScreen(string joke)
         {

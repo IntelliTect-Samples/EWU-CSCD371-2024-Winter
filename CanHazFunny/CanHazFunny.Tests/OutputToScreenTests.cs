@@ -1,12 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CanHazFunny.Tests
 {
-    internal class OutputToScreenTests
+    [TestClass]
+    public class OutputToScreenTests
     {
+        [TestMethod]
+        public void WriteJokeToScreen_ValidJoke_PrintsCorrectly()
+        {
+            string joke = "How do robots eat pizza? One byte at a time.";
+            OutputToScreen jokeWriter = new OutputToScreen();
+
+        }
     }
 }
