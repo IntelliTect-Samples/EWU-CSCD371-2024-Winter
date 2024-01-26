@@ -49,4 +49,9 @@ public class FileLoggerTests
         return path;
     }
 
+    [TestCleanup]
+    public void Cleanup() { 
+        File.Delete(GetFilePath());
+    }
+
 }
