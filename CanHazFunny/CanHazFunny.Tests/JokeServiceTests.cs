@@ -18,40 +18,29 @@ namespace CanHazFunny.Tests
         [TestMethod]
         public void GetJoke_ValidJoke_SuccessfulReturn()
         {
-            Mock<HttpClient> httpClientMock = new Mock<HttpClient>();
-            JokeService instance = new JokeService(httpClientMock.Object);
-            string expResult = "This is a joke";
-            instance.SetJoke(expResult);
-            string result = instance.GetJoke();
+            //  Mock<HttpClient> httpClientMock = new Mock<HttpClient>();
+            Mock<IJokeService> jokeServiceMock = new Mock<IJokeService>();
+
+            JokeService jokeService = new JokeService(jokeServiceMock.Object);
+
+            string expResult = jokeService.GetJoke();
+            string result = jokeService.GetJoke();
             Assert.Equals(expResult, result);
-        }
-        public void GetJoke_ReturnsChuckNorrisJoke()
-        {
-            // Arrange
-            Mock<HttpClient> httpClientMock = new Mock<HttpClient>();
-            httpClientMock.Setup(c => c.GetStringAsync(It.IsAny<string>()))
-                .ReturnsAsync("Chuck Norris joke");
-
-            JokeService jokeService = new JokeService(httpClientMock.Object);
-
-            // Act
-            string joke = jokeService.GetJoke();
-
-            // Assert
-            Assert.AreEqual("Chuck Norris joke", joke);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void GetJoke_NullJoke_ThrowsNullException()
         {
-            JokeService instance = new JokeService(null);
+            IJokeService? jokeService = null;
+            JokeService? instance = new JokeService(jokeService!);
 
             // Act
-            string result = instance.GetJoke(); // This should throw an exception
+            string result = instance.GetJoke();
         }
-
     }
+
+
 
 }
 

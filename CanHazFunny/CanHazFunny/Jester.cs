@@ -7,61 +7,27 @@ using System.Threading.Tasks;
 
 namespace CanHazFunny
 {
-    public class Jester : IJokeService, IOutputToScreen
+    public class Jester
     {
-        private readonly IJokeService IJokeDependency;
-        private readonly IOutputToScreen IOutputDependency;
-        private HttpClient HttpClient { get; } = new();
+        public IJokeService jokeService { get; private set; }
+        public IOutputToScreen jokeWriter { get; private set; }
 
-
-
-        public Jester(IJokeService IJokeDependency, IOutputToScreen IOutputDependency)
+        public Jester(IJokeService jokeService, IOutputToScreen jokeWriter)
         {
-            IJokeDependency = IJokeDependency ?? throw new ArgumentNullException(nameof(IJokeDependency));
-            IOutputDependency = IOutputDependency ?? throw new ArgumentNullException(nameof(IOutputDependency));
-            this.IJokeDependency = IJokeDependency;
-            this.IOutputDependency = IOutputDependency;
+            this.jokeService = jokeService ?? throw new ArgumentNullException(nameof(jokeService));
+            this.jokeWriter = jokeWriter ?? throw new ArgumentNullException(nameof(jokeWriter));
 
         }
-
-        public string GetJoke()
-        {
-            JokeService jokeService = new JokeService(HttpClient);
-            string joke = jokeService.GetJoke();
-            if (joke == null)
-                throw new ArgumentNullException();
-            return joke;
-        }
-
-
-        private string GetJokeDependency(IJokeService jokeDependency)
-        {
-            throw new NotImplementedException();
-        }
-        public object GetOutputDependency()
-        {
-            throw new NotImplementedException();
-        }
-
         public void TellJoke()
         {
-            JokeService _jokeService = new JokeService(HttpClient);
-            string joke = _jokeService.GetJoke();
-            if (joke.Contains("Chuck Norris"))
+            string joke;
+            joke = jokeService.GetJoke();
+            while (joke.ToLower().Contains("chuck norris"))
             {
-                joke = _jokeService.GetJoke();
-                TellJoke();
+                joke = jokeService.GetJoke();
             }
-            else
-            {
-                IOutputDependency.WriteJokeToScreen(joke);
-            }
+            jokeWriter.WriteJokeToScreen(joke);
         }
-
-        public void WriteJokeToScreen(string joke)
-        {
-            Console.Write(joke);
-        }
-    }
+    }   
     
 }

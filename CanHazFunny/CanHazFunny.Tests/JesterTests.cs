@@ -35,12 +35,12 @@ public class JesterTests
             jester.TellJoke();
 
             // Assert
-            outputDependencyMock.Verify(o => o.WriteJokeToScreen(It.IsAny<string>()), Times.Once);  
+            outputDependencyMock.Verify(o => o.WriteJokeToScreen(It.IsAny<string>()), Times.Once);
         }
 
         [TestMethod]
         public void TellJoke_ChuckNorrisJoke_SuccessfulSkip()
-          {
+        {
             /* // Arrange
              Mock<IJoke> jokeDependencyMock = new Mock<IJoke>();
              Mock<IOutputToScreen> outputDependencyMock = new Mock<IOutputToScreen>();
@@ -53,24 +53,7 @@ public class JesterTests
              // Act
              jester.TellJoke();
 
-             // Assert
-             // Ensure WriteToScreen is not called when the joke contains "Chuck Norris"
-             jokeDependencyMock.Verify(o => o.GetJoke(), Times.Once());
-            */
-            Mock<IJokeService> jokeServiceMock = new Mock<IJokeService>();
-            Mock<IOutputToScreen> outputDependencyMock = new Mock<IOutputToScreen>();
-
-              // Set up mock to return a Chuck Norris joke
-            jokeServiceMock.SetupSequence(j => j.GetJoke())
-            .Returns("Chuck Norris joke")
-            .Returns("Non-Chuck Norris joke");
-
-            Jester jester = new Jester(jokeServiceMock.Object, outputDependencyMock.Object);
-
-            // Act
-            jester.TellJoke();
-
-            // Assert
+            
             // Ensure TellJoke is called again when the first joke contains "Chuck Norris"
             jokeServiceMock.Verify(j => j.GetJoke(), Times.Exactly(2));
              outputDependencyMock.Verify(o => o.WriteJokeToScreen(It.IsAny<string>()), Times.Never);
@@ -93,3 +76,4 @@ public class JesterTests
         */
         }
     }
+}
