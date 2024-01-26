@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -11,42 +12,41 @@ namespace Logger.Tests;
 public class FileLoggerTests
 {
 
+    public BaseLogger? MockFileLogger { get; set; }
+
+    [TestInitialize]
+    public void SetMockLogger()
+    {
+        LogFactory logFactory = new();
+        logFactory.ConfigureFileLogger(GetFilePath());
+        MockFileLogger = logFactory.CreateLogger(nameof(FileLoggerTests))!;
+    }
+
+
     [TestMethod]
-    [DataRow("FileLoggerTests Warning: Test message", LogLevel.Warning, "Test message","log.txt")]
-    [DataRow("FileLoggerTests Error: FileNotFound", LogLevel.Error, "FileNotFound", "log.txt")]
-    [DataRow("FileLoggerTests Debug: 3 Bug(s) Found", LogLevel.Debug, "3 Bug(s) Found", "System.log")]
-    [DataRow("FileLoggerTests Information: Software Update Applied", LogLevel.Information, "Software Update Applied", "System.log")]
-    public void Log_ValidMessage_WritesToFileCorrectly(string expectedContent, LogLevel level, string message, string fileName)
+    [DataRow("FileLoggerTests Warning: Test message", LogLevel.Warning, "Test message")]
+    [DataRow("FileLoggerTests Error: FileNotFound", LogLevel.Error, "FileNotFound")]
+    [DataRow("FileLoggerTests Debug: 3 Bug(s) Found", LogLevel.Debug, "3 Bug(s) Found")]
+    [DataRow("FileLoggerTests Information: Software Update Applied", LogLevel.Information, "Software Update Applied")]
+    public void Log_ValidMessage_WritesToFileCorrectly(string expectedContent, LogLevel level, string message)
     {
 
         // Arrange
-        MockFileLogger fileLogger = new(fileName); 
         string loggedMessageWithDate = $"{DateTime.Now.ToString(CultureInfo.InvariantCulture)} {expectedContent}";
 
         // Act
-        fileLogger.Log(level, message);
-        string fileContents = File.ReadLines(GetCorrectPath(fileName)).Last();
+        MockFileLogger!.Log(level, message);
+        string fileContents = File.ReadLines(GetFilePath()).Last();
 
         // Assert
         Assert.AreEqual(loggedMessageWithDate, fileContents);
 
     }
 
-    public static string GetCorrectPath(string fileName)
+    public static string GetFilePath()
     {
-        string filePath = string.Join(@"\", (Environment.CurrentDirectory));
-        string path = Path.Combine(filePath, fileName);
+        string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!, "log.txt");
         return path;
-    }
-
-    public class MockFileLogger : FileLogger
-    {
-
-        public MockFileLogger(string fileName) : base(GetCorrectPath(fileName))
-        {
-            ClassName = nameof(FileLoggerTests);
-        }
-
     }
 
 }
