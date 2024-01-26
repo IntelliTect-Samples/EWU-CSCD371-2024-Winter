@@ -15,15 +15,13 @@ public class BaseLoggerTests()
     public void AutoProperty_SetClassNameToNull_Success()
     {
         MockClass MockClass = new();
-        MockClass.ClassName = null;
         Assert.AreEqual(null, MockClass.ClassName);
     }
 
     [TestMethod]
     public void AutoProperty_SetClassNameToClassName_Success()
     {
-        MockClass MockClass = new();
-        MockClass.ClassName = "FileLogger";
+        MockClass MockClass = new() { ClassName = "FileLogger"};
         Assert.AreEqual(nameof(FileLogger), MockClass.ClassName);
     }
 }
