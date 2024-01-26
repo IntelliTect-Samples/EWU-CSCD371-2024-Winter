@@ -15,15 +15,23 @@ public class FileLogger : BaseLogger
     {
         // string dateTime = System.DateTime.Now.ToString("M/d/yyyy hh:mm:ss tt");
         string logEntry = $"{System.DateTime.Now} {"FileLoggerTests"} {logLevel}: {message}";
-        StreamWriter sw;
+        //StreamWriter sw;
         if (!File.Exists(filePath))
         {
-            sw = File.CreateText(filePath);
-            sw.Dispose();
+            using (StreamWriter sw = File.CreateText(filePath))
+            {
+                sw.WriteLine(logEntry);
+            }
+            //sw = File.CreateText(filePath);
+            //sw.Dispose();
         }else if (File.Exists(filePath)) 
         {
             File.Delete(filePath);
-            File.AppendAllText(filePath, logEntry.TrimEnd());
+            //File.AppendAllText(filePath, logEntry.TrimEnd());
+            using (StreamWriter sw = File.CreateText(filePath))
+            {
+                sw.WriteLine(logEntry);
+            }
         }
 
         

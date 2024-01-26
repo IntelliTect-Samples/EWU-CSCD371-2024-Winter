@@ -12,8 +12,8 @@ public static class BaseLoggerMixins
         else
         {
             //baseLogger.Log(LogLevel.Error, string.Format(message, arguments[0]));
-            //baseLogger.Log(LogLevel.Error, string.Format(CultureInfo.InvariantCulture,message, arguments[0]));
-            baseLogger.Log(LogLevel.Error, message);
+            baseLogger.Log(LogLevel.Error, string.Format(CultureInfo.InvariantCulture,message, arguments[0]));
+            //baseLogger.Log(LogLevel.Error, message);
         }
     }
 
@@ -26,8 +26,8 @@ public static class BaseLoggerMixins
         else
         {
             //baseLogger.Log(LogLevel.Warning, string.Format(message, arguments[0]));
-            //baseLogger.Log(LogLevel.Warning, string.Format(CultureInfo.InvariantCulture, message, arguments[0]));
-            baseLogger.Log(LogLevel.Warning, message);
+            baseLogger.Log(LogLevel.Warning, string.Format(CultureInfo.InvariantCulture, message, arguments[0]));
+            //baseLogger.Log(LogLevel.Warning, message);
         }
     }
 
@@ -40,8 +40,8 @@ public static class BaseLoggerMixins
         else
         {
             //baseLogger.Log(LogLevel.Information, string.Format(message, arguments[0]));
-            //baseLogger.Log(LogLevel.Information, string.Format(CultureInfo.InvariantCulture, message, arguments[0]));
-            baseLogger.Log(LogLevel.Information, message);
+            baseLogger.Log(LogLevel.Information, string.Format(CultureInfo.InvariantCulture, message, arguments[0]));
+            //baseLogger.Log(LogLevel.Information, message);
         }
     }
 
@@ -54,8 +54,8 @@ public static class BaseLoggerMixins
         else
         {
             //baseLogger.Log(LogLevel.Debug, string.Format(message, arguments[0]));
-            //baseLogger.Log(LogLevel.Debug, string.Format(CultureInfo.InvariantCulture, message, arguments[0]));
-            baseLogger.Log(LogLevel.Debug, message);
+            baseLogger.Log(LogLevel.Debug, string.Format(CultureInfo.InvariantCulture, message, arguments[0]));
+            //baseLogger.Log(LogLevel.Debug, message);
         }
     }
 }
