@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CanHazFunny
 {
-    public class Jester : IJoke, IOutputToScreen
+    public class Jester : IJokeService, IOutputToScreen
     {
-        private readonly IJoke IJokeDependency;
+        private readonly IJokeService IJokeDependency;
         private readonly IOutputToScreen IOutputDependency;
+        private HttpClient HttpClient { get; } = new();
 
 
-        public Jester(IJoke IJokeDependency, IOutputToScreen IOutputDependency)
+
+        public Jester(IJokeService IJokeDependency, IOutputToScreen IOutputDependency)
         {
             IJokeDependency = IJokeDependency ?? throw new ArgumentNullException(nameof(IJokeDependency));
             IOutputDependency = IOutputDependency ?? throw new ArgumentNullException(nameof(IOutputDependency));
@@ -23,7 +26,7 @@ namespace CanHazFunny
 
         public string GetJoke()
         {
-            JokeService jokeService = new JokeService();
+            JokeService jokeService = new JokeService(HttpClient);
             string joke = jokeService.GetJoke();
             if (joke == null)
                 throw new ArgumentNullException();
@@ -31,7 +34,7 @@ namespace CanHazFunny
         }
 
 
-        private string GetJokeDependency(IJoke jokeDependency)
+        private string GetJokeDependency(IJokeService jokeDependency)
         {
             throw new NotImplementedException();
         }
@@ -42,7 +45,7 @@ namespace CanHazFunny
 
         public void TellJoke()
         {
-            JokeService _jokeService = new JokeService();
+            JokeService _jokeService = new JokeService(HttpClient);
             string joke = _jokeService.GetJoke();
             if (joke.Contains("Chuck Norris"))
             {
