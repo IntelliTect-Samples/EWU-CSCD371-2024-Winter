@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace Logger.Tests;
+namespace Logger;
 
     public class ConsoleLogger : BaseLogger
     {
