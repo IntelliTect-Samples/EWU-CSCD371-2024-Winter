@@ -22,7 +22,13 @@ public class FileLogger : BaseLogger
             sw.Dispose();
         }
 
-        
+
         File.AppendAllText(filePath, logEntry);
     }
+    //public (FileLogger(string logSource, string filePath))
+    //using StreamWritier sw = FileLogger.AppendText(logEntry);
+    //public string FilePath { get; }
+    //public FileInfo FIle { get; }
+    //public className {get;}
+
 }
