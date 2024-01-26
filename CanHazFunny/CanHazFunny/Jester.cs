@@ -18,13 +18,16 @@ namespace CanHazFunny
         }
         public void TellJoke()
         {
-            string joke;
-            joke = jokeService.GetJoke();
-            while (joke.ToLower().Contains("chuck norris"))
+            string joke=jokeService.GetJoke();
+            if (joke.ToLower().Contains("chuck norris"))
             {
+
                 joke = jokeService.GetJoke();
             }
-            jokeWriter.WriteJokeToScreen(joke);
+            else
+            {
+                jokeWriter.WriteJokeToScreen(joke);
+            }
         }
     }   
 }
