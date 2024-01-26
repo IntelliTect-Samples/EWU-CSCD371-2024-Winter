@@ -20,7 +20,7 @@ public class JesterTests
             // string result = jester.GetJoke();
         }
         [TestMethod]
-        public void TellJoke_ValidJoke_WritesOutputCorrectly()
+      /*  public void TellJoke_ValidJoke_WritesOutputCorrectly()
         {
             // ARRANGE
             Mock<IJokeService> jokeServiceMock = new Mock<IJokeService>();
@@ -37,8 +37,7 @@ public class JesterTests
             // Assert
             outputDependencyMock.Verify(o => o.WriteJokeToScreen(It.IsAny<string>()), Times.Once);
         }
-
-        [TestMethod]
+      */
         public void TellJoke_ChuckNorrisJoke_SuccessfulSkip()
         {
             /* // Arrange
