@@ -27,9 +27,8 @@ namespace CanHazFunny.Tests;
             jokeWriter.WriteJokeToScreen(joke);
             string consoelOutput = streamWriter!.ToString();
 
-            //Assert
-            Assert.AreEqual(joke, consoelOutput);
-
+            // Assert
+            Assert.AreEqual<string>(joke + Environment.NewLine, consoelOutput);
         }
 
     }
