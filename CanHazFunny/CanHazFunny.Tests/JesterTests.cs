@@ -17,19 +17,21 @@ public class JesterTests
             //Assert should throw exception
             new Jester(null!, new OutputToScreen());
         }
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Constructor_NullOutputToScreen_ThrowsNullException()
         {
             new Jester(new JokeService(), null!);
         }
+
         [TestMethod]
         public void TellJoke_ValidJoke_WritesOutputCorrectly()
         {
             // Arrange
             string joke = "What do you call a computer that sings? A Dell!";
-            Mock<IJokeService> jokeServiceMock = new Mock<IJokeService>();
-            Mock<IOutputToScreen> outputMock = new Mock<IOutputToScreen>();
+            Mock<IJokeService> jokeServiceMock = new();
+            Mock<IOutputToScreen> outputMock = new();
             // Set up mock to return a joke
             jokeServiceMock.SetupSequence(JokeService => JokeService.GetJoke()).Returns(joke);
             outputMock.SetupSequence(OutputToScreen => OutputToScreen.WriteJokeToScreen(joke));
@@ -41,14 +43,15 @@ public class JesterTests
 
             // Assert
             outputMock.VerifyAll();
-          }
+        }
+
         [TestMethod]
         public void TellJoke_ValidJoke2_WritesOutputCorrectly2()
         {
             // Arrange
             string joke = "Why do programmers prefer dark mode? Because light attracts bugs!";
-            Mock<IJokeService> jokeServiceMock = new Mock<IJokeService>();
-            Mock<IOutputToScreen> outputMock = new Mock<IOutputToScreen>();
+            Mock<IJokeService> jokeServiceMock = new();
+            Mock<IOutputToScreen> outputMock = new();
             // Set up mock to return a joke
             jokeServiceMock.SetupSequence(JokeService => JokeService.GetJoke()).Returns(joke);
             outputMock.SetupSequence(OutputToScreen => OutputToScreen.WriteJokeToScreen(joke));
@@ -58,30 +61,27 @@ public class JesterTests
             // Assert
             outputMock.VerifyAll();
         }
+
         [TestMethod]
         public void TellJoke_ChuckNorrisJoke_SuccessfulSkip()
         {
              // Arrange
-             Mock<IJokeService> jokeMock = new Mock<IJokeService>();
-             Mock<IOutputToScreen> outputMock = new Mock<IOutputToScreen>();
-
+            Mock<IJokeService> jokeMock = new();
+            Mock<IOutputToScreen> outputMock = new();
             string chuckJoke = "When God said, “Let there be light!” Chuck Norris said, “Say Please.";
             string noChuckJoke = "Why did the programmer break up with his girlfriend? She just didn’t meet his conditional statements.";
-            // Set up mock to return a Chuck Norris joke
             jokeMock.SetupSequence(jokeService => jokeService.GetJoke())
                 .Returns(chuckJoke)
                 .Returns(noChuckJoke);
-
-
             outputMock.SetupSequence(OutputToScreen => OutputToScreen.WriteJokeToScreen(noChuckJoke));
+            Jester jester = new(jokeMock.Object, outputMock.Object);
 
-            Jester jester = new Jester(jokeMock.Object, outputMock.Object);
-             // Act
-             jester.TellJoke();
+            // Act
+            jester.TellJoke();
 
-            // Ensure joke is skipped
+            // Assert
             jokeMock.Verify(jokeMock => jokeMock.GetJoke(), Times.Exactly(2));
-            outputMock.VerifyAll();
+            outputMock.Verify(OutputToScreen => OutputToScreen.WriteJokeToScreen(noChuckJoke), Times.Once());
         }
 
         /* [Test]
