@@ -26,9 +26,9 @@ public class MockOutput : IOutJoke
 {
     private string? Joke { get; set; }
 
-    public void DisplayJoke(string newJoke)
+    public void DisplayJoke(string joke)
     {
-        Joke = newJoke;
+        Joke = joke;
     }
 
     public string GetJoke()

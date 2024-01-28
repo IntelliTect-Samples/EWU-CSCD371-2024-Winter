@@ -11,7 +11,7 @@ public class IJokeServiceTests
     {
         var mock = new Mock<IJokeService>();
         mock.Setup(x => x.GetJoke()).Returns("Here is my joke :)");
-        MockClass mockClass = new MockClass();
+        MockClass mockClass = new();
         Assert.Equal(mock.Object.GetJoke(), mockClass.GetJoke());
     }
 
