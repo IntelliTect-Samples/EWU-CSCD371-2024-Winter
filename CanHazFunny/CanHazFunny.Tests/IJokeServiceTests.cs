@@ -16,10 +16,19 @@ public class IJokeServiceTests
     public void GetJoke_RetriveAJocke_Success()
     {
         var mock = new Mock<IJokeService>();
+        mock.Setup(x => x.GetJoke()).Returns("Here is my joke :)");
+        MockClass mockClass = new MockClass();
+        Assert.Equal(mock.Object.GetJoke(), mockClass.GetJoke());
+    }
+
+    [Fact]
+    public void GetJoke_RetriveAJocke_Fail()
+    {
+        var mock = new Mock<IJokeService>();
         mock.Setup(x => x.GetJoke()).Returns("Here is my joke :(");
         IJokeService jokeService = mock.Object;
         var result = new MockClass().GetJoke();
-        Assert.Equal(jokeService.GetJoke(), result);
+        Assert.NotEqual(jokeService.GetJoke(), result);
     }
 
 }
