@@ -1,5 +1,7 @@
 using System;
 using Xunit;
+using Moq;
+using System.IO;
 
 namespace CanHazFunny.Tests;
 
@@ -19,6 +21,22 @@ public class OutputServiceTests
         mockClass.DisplayJoke("knok knok joke");
 
         Assert.Equal("knok knok joke", mockClass.GetJoke());
+    }
+
+    [Fact]
+    public void DisplayJoke_ValidJoke_WritesToConsole()
+    {
+        // Arrange
+        string joke = "Funny joke";
+        OutputService jokeDisplay = new();
+        StringWriter consoleOutput = new();
+        Console.SetOut(consoleOutput);
+
+        // Act
+        jokeDisplay.DisplayJoke(joke);
+
+        // Assert
+        Assert.Contains(joke, consoleOutput.ToString());
     }
 }
 
