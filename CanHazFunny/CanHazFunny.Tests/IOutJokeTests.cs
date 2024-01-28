@@ -8,7 +8,6 @@ public class IOutJokeTests
     public void TellJoke_CallMethod_Success()
     {
         MockOutJoke mockClass = new();
-    
         string joke = mockClass.TellJoke(); 
         Assert.Equal("Why did the chicken cross the road? to get to the othet side", joke);   
     }
