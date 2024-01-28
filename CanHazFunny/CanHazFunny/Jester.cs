@@ -34,5 +34,13 @@ namespace CanHazFunny
             JokeService = jokeService;
             OutService = outService;
         }
+
+        public void TellJoke()
+        {
+            string joke = JokeService.GetJoke();
+            OutService.DisplayJoke(joke);
+        }
+
+
     }
 }
