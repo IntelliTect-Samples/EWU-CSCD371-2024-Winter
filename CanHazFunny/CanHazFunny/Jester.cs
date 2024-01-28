@@ -4,46 +4,46 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CanHazFunny
+namespace CanHazFunny;
+
+public class Jester
 {
-    public class Jester
+    private IJokeService? _JokeService;
+
+    public IJokeService JokeService
     {
-        private IJokeService? _JokeService;
-
-        public IJokeService JokeService
+        get { return _JokeService!; }
+        set
         {
-            get { return _JokeService!; }
-            set
-            {
-                _JokeService = value ?? throw new ArgumentNullException(nameof(value));
-            }
+            _JokeService = value ?? throw new ArgumentNullException(nameof(value));
         }
-
-        private IOutJoke? _OutService;
-        public IOutJoke OutService
-        {
-            get { return _OutService!; }
-            set
-            {
-                _OutService = value ?? throw new ArgumentNullException(nameof(value));
-            }
-        }
-
-        public Jester(IJokeService jokeService, IOutJoke outService)
-        {
-            JokeService = jokeService;
-            OutService = outService;
-        }
-
-        public virtual void TellJoke()
-        {
-            string joke;
-            do{
-                joke = JokeService.GetJoke();
-            }while(joke.Contains("Chuck Norris"));
-            OutService.DisplayJoke(joke);
-        }
-
-
     }
+
+    private IOutJoke? _OutService;
+    public IOutJoke OutService
+    {
+        get { return _OutService!; }
+        set
+        {
+            _OutService = value ?? throw new ArgumentNullException(nameof(value));
+        }
+    }
+
+    public Jester(IJokeService jokeService, IOutJoke outService)
+    {
+        JokeService = jokeService;
+        OutService = outService;
+    }
+
+    public virtual void TellJoke()
+    {
+        string joke;
+        do{
+            joke = JokeService.GetJoke();
+        }while(joke.Contains("Chuck Norris"));
+        OutService.DisplayJoke(joke);
+    }
+
+
 }
+
