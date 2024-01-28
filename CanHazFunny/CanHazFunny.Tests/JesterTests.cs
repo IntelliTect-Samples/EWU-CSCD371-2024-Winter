@@ -1,31 +1,28 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using NUnit.Framework;
 using System;
+using Xunit;
 
 namespace CanHazFunny.Tests;
 
-    [TestClass]
     public class JesterTests
     {
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void Constructor_NullJokeService_ThrowsNullException()
         {
-            //Assert should throw exception
-            new Jester(null!, new OutputToScreen());
-        }
+        //Assert should throw exception
+        Assert.Throws<ArgumentNullException>(() => new Jester(null!, new OutputToScreen()));
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+    }
+
+    [Fact]
         public void Constructor_NullOutputToScreen_ThrowsNullException()
         {
-            new Jester(new JokeService(), null!);
-        }
+        Assert.Throws<ArgumentNullException>(() => new Jester(null!, new OutputToScreen()));
+    }
 
-        [TestMethod]
-        [DataRow("What do you call a computer that sings? A Dell!")]    
-        [DataRow("Why do programmers prefer dark mode? Because light attracts bugs!")]    
+        [Theory]
+        [InlineData("What do you call a computer that sings? A Dell!")]    
+        [InlineData("Why do programmers prefer dark mode? Because light attracts bugs!")]    
         public void TellJoke_ValidJoke_WritesOutputCorrectly(string joke)
         {
             // Arrange
@@ -44,7 +41,7 @@ namespace CanHazFunny.Tests;
             outputMock.VerifyAll();
         }
 
-        [TestMethod]
+        [Fact]
         public void TellJoke_ChuckNorrisJoke_SuccessfulSkip()
         {
              // Arrange

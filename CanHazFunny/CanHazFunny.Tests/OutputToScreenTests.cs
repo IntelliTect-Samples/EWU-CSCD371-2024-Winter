@@ -1,19 +1,15 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NUnit.Framework;
-using System;
+﻿using System;
 using System.Globalization;
 using System.IO;
-using System.Text;
-using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
+using Xunit;
 
 namespace CanHazFunny.Tests;
 
-    [TestClass]
     public class OutputToScreenTests
     {
-        [TestMethod]
-        [DataRow("How do robots eat pizza? One byte at a time.")]
-        [DataRow("Why was the computer cold? It left its Windows open!")]
+        [Theory]
+        [InlineData("How do robots eat pizza? One byte at a time.")]
+        [InlineData("Why was the computer cold? It left its Windows open!")]
 
         public void WriteJokeToScreen_ValidJoke_PrintsCorrectly(string joke)
         {
@@ -28,7 +24,7 @@ namespace CanHazFunny.Tests;
             string consoelOutput = streamWriter!.ToString();
 
             // Assert
-            Assert.AreEqual<string>(joke + Environment.NewLine, consoelOutput);
+            Assert.Equal(joke + Environment.NewLine, consoelOutput);
         }
 
     }

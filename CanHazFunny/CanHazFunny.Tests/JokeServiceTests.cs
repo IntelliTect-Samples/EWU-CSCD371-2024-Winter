@@ -1,13 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+﻿using Moq;
+using Xunit;
 
 namespace CanHazFunny.Tests;
 
-    [TestClass]
     public class JokeServiceTests
     {
 
-        [TestMethod]
+        [Fact]
         public void GetJoke_ValidJoke_SuccessfulReturn()
         {
             // Arrange
@@ -19,7 +18,7 @@ namespace CanHazFunny.Tests;
             string actualJoke = service.Object.GetJoke();
 
             // Arrange
-            Assert.AreEqual<string>(expectedJoke, actualJoke);
+            Assert.Equal(expectedJoke, actualJoke);
         }
 
     }
