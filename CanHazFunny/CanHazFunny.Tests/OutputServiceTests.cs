@@ -29,14 +29,14 @@ public class OutputServiceTests
         // Arrange
         string joke = "Funny joke";
         OutputService jokeDisplay = new();
-        StringWriter consoleOutput = new();
-        Console.SetOut(consoleOutput);
+        StringWriter stringWriter = new();
+        Console.SetOut(stringWriter);
 
         // Act
         jokeDisplay.DisplayJoke(joke);
 
         // Assert
-        Assert.Contains(joke, consoleOutput.ToString());
+        Assert.Contains(joke, stringWriter.ToString());
     }
 }
 
