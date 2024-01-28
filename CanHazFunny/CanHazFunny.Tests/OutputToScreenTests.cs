@@ -17,19 +17,19 @@ namespace CanHazFunny.Tests;
 
         public void WriteJokeToScreen_ValidJoke_PrintsCorrectly(string joke)
         {
+
+            // Arrange
             OutputToScreen jokeWriter = new();
-
-            //Act and Arrange using StreamWriter
             using StringWriter streamWriter = new(CultureInfo.InvariantCulture);
-
             Console.SetOut(streamWriter);
-            jokeWriter.WriteJokeToScreen(joke);
 
+            // Act
+            jokeWriter.WriteJokeToScreen(joke);
             string consoelOutput = streamWriter!.ToString();
+
             //Assert
             Assert.AreEqual(joke, consoelOutput);
-            //streamwriter puts Console.WriteLine to a file and the printerarr ensures 
-            //all the joke will be captured if it has multiple lines
+
         }
 
     }

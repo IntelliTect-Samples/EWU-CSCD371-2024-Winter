@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace CanHazFunny.Tests
-{
+namespace CanHazFunny.Tests;
+
     [TestClass]
     public class JokeServiceTests
     {
@@ -10,15 +10,16 @@ namespace CanHazFunny.Tests
         [TestMethod]
         public void GetJoke_ValidJoke_SuccessfulReturn()
         {
-            //Act
+            // Arrange
             Mock<IJokeService> service = new();
-            string joke = "Hahahahah";
+            string expectedJoke = "Hahahahah";
+            service.SetupSequence(service => service.GetJoke()).Returns(expectedJoke);
 
-            service.SetupSequence(service => service.GetJoke()).Returns(joke);
+            // Act
+            string actualJoke = service.Object.GetJoke();
 
-            JokeService jokeService = new ();
-            //Assert joke is not null 
-            Assert.AreEqual(joke, service.Object.GetJoke());
+            // Arrange
+            Assert.AreEqual(expectedJoke, actualJoke);
         }
 
         //[TestMethod]
@@ -33,5 +34,4 @@ namespace CanHazFunny.Tests
         }
      */
     }
-}
 

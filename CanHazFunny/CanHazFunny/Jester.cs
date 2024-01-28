@@ -3,8 +3,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 
-namespace CanHazFunny
-{
+namespace CanHazFunny;
     public class Jester
     {
         public IJokeService JokeService { get; private set; }
@@ -30,4 +29,3 @@ namespace CanHazFunny
 
         }
     }   
-}
