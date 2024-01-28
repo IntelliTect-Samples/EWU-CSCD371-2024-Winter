@@ -76,7 +76,7 @@ public class JesterTests
              jester.TellJoke();
             
             // Ensure joke is skipped
-            jokeMock.Verify(jokeMock => jokeMock.GetJoke(), Times.Once());
+            jokeMock.Verify(jokeMock => jokeMock.GetJoke(), Times.AtLeast(2));
             // outputMock.Verify(o => o.WriteJokeToScreen(It.IsAny<string>()), Times.Never or Times.Exactly);
          }
 

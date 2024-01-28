@@ -19,15 +19,9 @@ namespace CanHazFunny
         public void TellJoke()
         {
             string joke=jokeService.GetJoke();
-            if (joke.ToLower().Contains("chuck norris"))
-            {
+            
+            jokeWriter.WriteJokeToScreen(joke);
 
-                joke = jokeService.GetJoke();
-            }
-            else
-            {
-                jokeWriter.WriteJokeToScreen(joke);
-            }
         }
     }   
 }
