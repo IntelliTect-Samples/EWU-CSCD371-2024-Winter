@@ -7,26 +7,26 @@ namespace CanHazFunny
 {
     public class Jester
     {
-        public IJokeService jokeService { get; private set; }
-        public IOutputToScreen jokeWriter { get; private set; }
+        public IJokeService JokeService { get; private set; }
+        public IOutputToScreen JokeWriter { get; private set; }
 
         public Jester(IJokeService jokeService, IOutputToScreen jokeWriter)
         {
-            this.jokeService = jokeService ?? throw new ArgumentNullException(nameof(jokeService));
-            this.jokeWriter = jokeWriter ?? throw new ArgumentNullException(nameof(jokeWriter));
+            this.JokeService = jokeService ?? throw new ArgumentNullException(nameof(jokeService));
+            this.JokeWriter = jokeWriter ?? throw new ArgumentNullException(nameof(jokeWriter));
 
         }
         public void TellJoke()
         {
-            string joke=jokeService.GetJoke();
-            
+            string joke;
+
             do
             {
-                joke = jokeService.GetJoke();
+                joke = JokeService.GetJoke();
+            } while (joke.Contains("chuck norris", StringComparison.CurrentCultureIgnoreCase));
 
-           } while (joke.Contains("chuck norris", StringComparison.CurrentCultureIgnoreCase));
-       
-            jokeWriter.WriteJokeToScreen(joke);
+
+            JokeWriter.WriteJokeToScreen(joke);
 
         }
     }   

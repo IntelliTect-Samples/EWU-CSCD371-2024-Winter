@@ -15,13 +15,13 @@ public class JesterTests
         public void Constructor_NullJokeService_ThrowsNullException()
         {
             //Assert should throw exception
-            Jester? jester = new Jester(null!, new OutputToScreen());
+            new Jester(null!, new OutputToScreen());
         }
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Constructor_NullOutputToScreen_ThrowsNullException()
         {
-            Jester? jester = new Jester(new JokeService(), null!);
+            new Jester(new JokeService(), null!);
         }
         [TestMethod]
         public void TellJoke_ValidJoke_WritesOutputCorrectly()
@@ -63,22 +63,26 @@ public class JesterTests
         {
              // Arrange
              Mock<IJokeService> jokeMock = new Mock<IJokeService>();
-            //Mock<IOutputToScreen> outputMock = new Mock<IOutputToScreen>();
+             Mock<IOutputToScreen> outputMock = new Mock<IOutputToScreen>();
 
+            string chuckJoke = "When God said, “Let there be light!” Chuck Norris said, “Say Please.";
+            string noChuckJoke = "Why did the programmer break up with his girlfriend? She just didn’t meet his conditional statements.";
             // Set up mock to return a Chuck Norris joke
             jokeMock.SetupSequence(jokeService => jokeService.GetJoke())
-                .Returns("When God said, “Let there be light!” Chuck Norris said, “Say Please.")
-              //  .Returns("Chuck Norris knows Victoria's Secret.")
-                .Returns("Why did the programmer break up with his girlfriend? She just didn’t meet his conditional statements.");
+                .Returns(chuckJoke)
+                .Returns(noChuckJoke);
 
-            Jester jester = new Jester(jokeMock.Object, new OutputToScreen());
+
+            outputMock.SetupSequence(OutputToScreen => OutputToScreen.WriteJokeToScreen(noChuckJoke));
+
+            Jester jester = new Jester(jokeMock.Object, outputMock.Object);
              // Act
              jester.TellJoke();
-            
+
             // Ensure joke is skipped
-            jokeMock.Verify(jokeMock => jokeMock.GetJoke(), Times.AtLeast(2));
-            // outputMock.Verify(o => o.WriteJokeToScreen(It.IsAny<string>()), Times.Never or Times.Exactly);
-         }
+            jokeMock.Verify(jokeMock => jokeMock.GetJoke(), Times.Exactly(2));
+            outputMock.VerifyAll();
+        }
 
         /* [Test]
          public void Ping_invokes_DoSomething()
@@ -95,6 +99,6 @@ public class JesterTests
              mock.Verify(p => p.methodhere("PING"), Times.Once());
          }
         */
-     }
+    }
     
 }
