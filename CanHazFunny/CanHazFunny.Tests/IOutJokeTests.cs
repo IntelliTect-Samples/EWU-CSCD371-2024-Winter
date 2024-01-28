@@ -5,7 +5,7 @@ namespace CanHazFunny.Tests;
 public class IOutJokeTests
 {
     [Fact]
-    public void TestName()
+    public void TellJoke_CallMethod_Success()
     {
         MockOutJoke mockClass = new();
     
