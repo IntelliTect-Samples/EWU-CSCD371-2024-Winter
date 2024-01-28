@@ -35,7 +35,7 @@ namespace CanHazFunny
             OutService = outService;
         }
 
-        public void TellJoke()
+        public virtual void TellJoke()
         {
             string joke;
             do{
