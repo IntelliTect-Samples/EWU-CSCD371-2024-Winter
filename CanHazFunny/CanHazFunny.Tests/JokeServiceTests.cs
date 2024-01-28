@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace CanHazFunny.Tests
 {
@@ -10,9 +11,14 @@ namespace CanHazFunny.Tests
         public void GetJoke_ValidJoke_SuccessfulReturn()
         {
             //Act
-            JokeService jokeService = new JokeService();
+            Mock<IJokeService> service = new();
+            string joke = "Hahahahah";
+
+            service.SetupSequence(service => service.GetJoke()).Returns(joke);
+
+            JokeService jokeService = new ();
             //Assert joke is not null 
-            Assert.IsNotNull(jokeService.GetJoke());
+            Assert.AreEqual(joke, service.Object.GetJoke());
         }
 
         //[TestMethod]
