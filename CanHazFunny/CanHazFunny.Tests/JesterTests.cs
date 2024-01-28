@@ -1,6 +1,7 @@
 using System;
 using Xunit;
 using Moq;
+using System.Collections.Generic;
 
 namespace CanHazFunny.Tests;
 
@@ -37,5 +38,44 @@ public class JesterTests
         OutputService outputService = new();
         Jester jester = new(jokeService, outputService);
         Assert.Equal<IOutJoke>(outputService, jester.OutService);
+    }
+
+    [Fact]
+    public void TellJoke_DisplayCorrectJoke_Success()
+    {
+        // Arrange
+        string joke = "It was such a good joke";
+        var mockJokeService = new Mock<IJokeService>();
+        mockJokeService.Setup(x => x.GetJoke()).Returns(joke);
+        var mockOutService = new Mock<IOutJoke>();
+        Jester jester = new(mockJokeService.Object, mockOutService.Object);
+
+        // Act
+        jester.TellJoke();
+
+        // Assert
+        mockOutService.Verify(x => x.DisplayJoke(joke));
+    }
+
+    [Fact]
+    public void TellJoke_SkipsChuckNorrisJokes_Success()
+    {
+        // Arrange
+        var jokeServiceMock = new Mock<IJokeService>();
+        var outServiceMock = new Mock<IOutJoke>();
+
+        var jokes = new Queue<string>();
+        jokes.Enqueue("Chuck Norris can divide by zero.");
+        jokes.Enqueue("A normal joke.");
+
+        jokeServiceMock.Setup(js => js.GetJoke()).Returns(jokes.Dequeue);
+
+        var jester = new Jester(jokeServiceMock.Object, outServiceMock.Object);
+
+        // Act
+        jester.TellJoke();
+
+        // Assert
+        outServiceMock.Verify(x => x.DisplayJoke("A normal joke."), Times.Once);
     }
 }
