@@ -20,6 +20,12 @@ namespace CanHazFunny
         {
             string joke=jokeService.GetJoke();
             
+            do
+            {
+                joke = jokeService.GetJoke();
+
+           } while (joke.Contains("chuck norris", StringComparison.CurrentCultureIgnoreCase));
+       
             jokeWriter.WriteJokeToScreen(joke);
 
         }
