@@ -1,4 +1,4 @@
-﻿namespace CanHazFunny;
+namespace CanHazFunny;
 
 class Program
 {
