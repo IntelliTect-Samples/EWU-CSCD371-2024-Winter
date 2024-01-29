@@ -45,8 +45,8 @@ namespace CanHazFunny.Tests;
         public void TellJoke_ChuckNorrisJoke_SuccessfulSkip()
         {
              // Arrange
-            Mock<JokeService> jokeMock = new();
-            Mock<OutputToScreen> outputMock = new();
+            Mock<IJokeService> jokeMock = new();
+            Mock<IOutputToScreen> outputMock = new();
             string chuckJoke = "When God said, �Let there be light!� Chuck Norris said, �Say Please.";
             string noChuckJoke = "Why did the programmer break up with his girlfriend? She just didn�t meet his conditional statements.";
             jokeMock.SetupSequence(jokeService => jokeService.GetJoke())
