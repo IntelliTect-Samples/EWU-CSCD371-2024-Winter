@@ -10,7 +10,7 @@ namespace CanHazFunny.Tests;
         public void GetJoke_ValidJoke_SuccessfulReturn()
         {
             // Arrange
-            Mock<JokeService> service = new();
+            Mock<IJokeService> service = new();
             string expectedJoke = "Hahahahah";
             service.SetupSequence(service => service.GetJoke()).Returns(expectedJoke);
 
