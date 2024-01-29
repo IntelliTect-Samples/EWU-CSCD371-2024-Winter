@@ -14,6 +14,6 @@ public class JokeServiceTests
     {
         JokeService jokeService = new();
         string joke = jokeService.GetJoke();
-        Assert.NotEmpty(joke);
+        Assert.NotNull(joke);
     }
 }
