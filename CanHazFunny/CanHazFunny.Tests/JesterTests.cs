@@ -14,7 +14,7 @@ namespace CanHazFunny.Tests;
 
     }
 
-    [Fact]
+        [Fact]
         public void Constructor_NullOutputToScreen_ThrowsNullException()
         {
         Assert.Throws<ArgumentNullException>(() => new Jester(null!, new OutputToScreen()));
