@@ -8,14 +8,14 @@ namespace CanHazFunny.Tests;
 public class JesterTests
 {
     [Fact]
-    public void IServiceProperty_SetNullSuccessfully()
+    public void IServicePropertySetNullSuccessfully()
     {
         Assert.Throws<ArgumentNullException>(() => new Jester(null!, new JokeOutput()));
 
     }
 
     [Fact]
-    public void IOutputProperty_SetNullSuccessfully()
+    public void IOutputPropertySetNullSuccessfully()
     {
         Assert.Throws<ArgumentNullException>(() => new Jester(new JokeService(), null!));
 
