@@ -8,5 +8,6 @@ jobs:
     name: Run Shared Build and Test Workflow
     uses: IntelliTect-Samples/EWU-CSCD371-2024-Winter/.github/workflows/build-and-test.yml@main
     with:
+      working-directory: './CanHazFunny/'
       check-formatting: false
       add-analyzers: false
