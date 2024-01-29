@@ -12,7 +12,7 @@ public class Jester
         this.jokeService = jokeService ?? throw new ArgumentNullException(nameof(jokeService));
         this.jokeOutput = jokeOutput ?? throw new ArgumentNullException(nameof(jokeOutput));
     }
-    public string GetJoke()
+    public string TellJoke()
     {
         return "meow";
     }
