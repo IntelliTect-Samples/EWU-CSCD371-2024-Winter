@@ -3,7 +3,7 @@ using Moq;
 
 namespace CanHazFunny.Tests;
 
-public class IJokeServiceTests
+public class JokeServiceTests
 {
     [Fact]
 }

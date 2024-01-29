@@ -2,7 +2,7 @@ using Xunit;
 using Moq;
 namespace CanHazFunny.Tests;
 
-public class IJokeOutputTests
+public class JokeOutputTests
 {
     [Fact]
 }
