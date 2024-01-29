@@ -45,14 +45,14 @@ public class JesterTests
     [Fact]
     public void Jester_NullIJokeService_ThrowsException()
     {
-        var exception = Assert.Throws<ArgumentNullException>(() => new Jester(null, _mockConsoleOutput.Object));
+        var exception = Assert.Throws<ArgumentNullException>(() => new Jester(null, _mockConsoleOutput?.Object));
         Assert.Equal("jokeService", exception.ParamName);
     }
 
     [Fact]
     public void Jester_NullOutputService_ThrowsException()
 {
-        var exception = Assert.Throws<ArgumentNullException>(() => new Jester(_jokeServiceMock.Object, null));
+        var exception = Assert.Throws<ArgumentNullException>(() => new Jester(_jokeServiceMock?.Object, null));
         Assert.Equal("outputService", exception?.ParamName);
     
 }
