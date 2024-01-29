@@ -1,14 +1,17 @@
 ﻿using System.Net.Http;
 
-namespace CanHazFunny;
-
-public class JokeService : IJokeService
+namespace CanHazFunny
 {
-    private HttpClient HttpClient { get; } = new();
-
-    public string GetJoke()
+    public class JokeService : IJokeService
     {
-        string joke = HttpClient.GetStringAsync("https://geek-jokes.sameerkumar.website/api").Result;
-        return joke;
+        private HttpClient HttpClient { get; } = new();
+
+        public string GetJoke()
+        {
+            string joke = HttpClient.GetStringAsync("https://geek-jokes.sameerkumar.website/api").Result;
+            return joke;
+        }
     }
 }
+
+

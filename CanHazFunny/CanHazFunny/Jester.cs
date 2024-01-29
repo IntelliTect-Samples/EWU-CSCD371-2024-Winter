@@ -1,26 +1,29 @@
 using System;
 
-namespace CanHazFunny;
-
-public class Jester
+namespace CanHazFunny
 {
-    private readonly IJokeService jokeService;
-    private readonly IJokeOutput jokeOutput;
-
-    public Jester(IJokeService jokeService, IJokeOutput jokeOutput)
+    public class Jester
     {
-        this.jokeService = jokeService ?? throw new ArgumentNullException(nameof(jokeService));
-        this.jokeOutput = jokeOutput ?? throw new ArgumentNullException(nameof(jokeOutput));
-    }
-    public void TellJoke()
-    {
-        string joke = "";
+        private readonly IJokeService jokeService;
+        private readonly IJokeOutput jokeOutput;
 
-        do{
-            joke = jokeService.GetJoke();
+        public Jester(IJokeService jokeService, IJokeOutput jokeOutput)
+        {
+            this.jokeService = jokeService ?? throw new ArgumentNullException(nameof(jokeService));
+            this.jokeOutput = jokeOutput ?? throw new ArgumentNullException(nameof(jokeOutput));
+        }
+        public void TellJoke()
+        {
+            string joke = "";
 
-        }while (joke.Contains("chuck norris", StringComparison.OrdinalIgnoreCase));
+            do
+            {
+                joke = jokeService.GetJoke();
 
-        jokeOutput.PrintingJoke(joke);
+            } while (joke.Contains("chuck norris", StringComparison.OrdinalIgnoreCase));
+
+            jokeOutput.PrintingJoke(joke);
+        }
     }
 }
+
