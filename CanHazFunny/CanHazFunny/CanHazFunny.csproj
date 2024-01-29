@@ -1,8 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+	  
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+	<TargetFramework>net8.0</TargetFramework>
+	<LanngVersion>12.0</LanngVersion>
+	<Nullable>enable</Nullable>
+	<EnableNETAnalyzers>true</EnableNETAnalyzers>
+	<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	<CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+	<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+	  
   </PropertyGroup>
 
 </Project>
