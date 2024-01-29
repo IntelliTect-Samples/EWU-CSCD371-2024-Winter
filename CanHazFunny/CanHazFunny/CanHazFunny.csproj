@@ -9,6 +9,7 @@
 	  <Nullability>true</Nullability>
 	  <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
 	  <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+	  <dotnet_style_require_accessibility_modifiers>true</dotnet_style_require_accessibility_modifiers>
   </PropertyGroup>
 
 </Project>
