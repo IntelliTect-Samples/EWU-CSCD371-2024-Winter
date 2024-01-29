@@ -1,11 +1,11 @@
 using System;
 
-namespace CanHazFunny
+namespace CanHazFunny;
 
-public class Jester : IJokeService, IJokeOutput
+public class Jester
 {
-    private readonly IJokeService jokeService;
-    private readonly IJokeOutput jokeOutput;
+    public readonly IJokeService jokeService;
+    public readonly IJokeOutput jokeOutput;
 
     public Jester(IJokeService jokeService, IJokeOutput jokeOutput)
     {

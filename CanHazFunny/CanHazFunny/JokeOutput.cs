@@ -1,10 +1,10 @@
 using System;
-namespace CanHazFunny
+namespace CanHazFunny;
 
-public class JokeOutput : IJokeOutput
+public class JokeOutput : IJokeOutput 
 {
     public void PrintingJoke(string jokePrint)
-        {
-            Console.WriteLine(jokePrint);
-        } 
+    {
+        Console.WriteLine(jokePrint);
+    } 
 }
