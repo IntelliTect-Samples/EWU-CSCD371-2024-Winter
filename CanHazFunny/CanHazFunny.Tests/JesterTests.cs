@@ -12,13 +12,13 @@ namespace CanHazFunny.Tests;
         //Assert should throw exception
         Assert.Throws<ArgumentNullException>(() => new Jester(null!, new OutputToScreen()));
 
-    }
+        }
 
         [Fact]
         public void Constructor_NullOutputToScreen_ThrowsNullException()
         {
         Assert.Throws<ArgumentNullException>(() => new Jester(null!, new OutputToScreen()));
-    }
+        }
 
         [Theory]
         [InlineData("What do you call a computer that sings? A Dell!")]    
@@ -45,8 +45,8 @@ namespace CanHazFunny.Tests;
         public void TellJoke_ChuckNorrisJoke_SuccessfulSkip()
         {
              // Arrange
-            Mock<IJokeService> jokeMock = new();
-            Mock<IOutputToScreen> outputMock = new();
+            Mock<JokeService> jokeMock = new();
+            Mock<OutputToScreen> outputMock = new();
             string chuckJoke = "When God said, �Let there be light!� Chuck Norris said, �Say Please.";
             string noChuckJoke = "Why did the programmer break up with his girlfriend? She just didn�t meet his conditional statements.";
             jokeMock.SetupSequence(jokeService => jokeService.GetJoke())
