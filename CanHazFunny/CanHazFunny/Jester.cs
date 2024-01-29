@@ -10,9 +10,8 @@ public class Jester
 
     public Jester(IService jokeService, IOutput jokeOutput)
     {
-        this.JokeService = jokeService ?? throw new ArgumentNullException(nameof(JokeService));
-        this.JokeOutput = jokeOutput ?? throw new ArgumentNullException(nameof(JokeOutput));
-
+        this.JokeService = jokeService ?? throw new ArgumentNullException(nameof(jokeService));
+        this.JokeOutput = jokeOutput ?? throw new ArgumentNullException(nameof(jokeOutput));
     }
 
     public void TellJoke()
