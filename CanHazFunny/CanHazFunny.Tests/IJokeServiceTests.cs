@@ -1,8 +1,9 @@
 using Xunit;
-using Mo1;
+using Moq;
+
 namespace CanHazFunny.Tests;
 
-public class JesterTests
+public class IJokeServiceTests
 {
     [Fact]
 }
