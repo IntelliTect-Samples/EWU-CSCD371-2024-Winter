@@ -9,9 +9,6 @@ namespace CanHazFunny
     interface IJokeOutput
     {
         //string Output { get; }
-        public void PrintingJoke(string jokePrint)
-        {
-            Console.WriteLine(jokePrint);
-        }
+        public void PrintingJoke(string jokePrint);
     }
 }
