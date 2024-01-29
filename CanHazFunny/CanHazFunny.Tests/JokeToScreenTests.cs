@@ -27,7 +27,7 @@ public class JokeToScreenTests
     [Fact]
     public void PrintJoke_OutputsNull_ThrowsException()
     {
-        JokeToScreen jokeToScreen = new JokeToScreen();
+        JokeToScreen jokeToScreen = new();
         Assert.Throws<ArgumentNullException>(() => jokeToScreen.PrintJoke(null!));
     }
 }
