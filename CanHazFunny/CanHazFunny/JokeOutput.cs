@@ -1,6 +1,6 @@
 using System;
-namespace CanHazFunny
-{
+namespace CanHazFunny;
+
     public class JokeOutput : IJokeOutput
     {
         public void PrintingJoke(string jokePrint)
@@ -8,5 +8,4 @@ namespace CanHazFunny
             Console.WriteLine(jokePrint);
         }
     }
-}
 

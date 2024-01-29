@@ -1,7 +1,6 @@
 ﻿using System.Net.Http;
 
-namespace CanHazFunny
-{
+namespace CanHazFunny;
     public class JokeService : IJokeService
     {
         private HttpClient HttpClient { get; } = new();
@@ -12,6 +11,6 @@ namespace CanHazFunny
             return joke;
         }
     }
-}
+
 
 
