@@ -9,8 +9,5 @@ interface IJokeService{
 
             return "";
         }
-
-
-
     }
 }
