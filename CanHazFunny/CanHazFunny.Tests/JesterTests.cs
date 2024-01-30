@@ -35,7 +35,7 @@ public class JesterTests
         var moqJokeOutput = new Mock<IJokeOutput>();
         string testJoke = "test joke";
         moqJokeService.SetupSequence(x => x.GetJoke()).Returns(testJoke);
-        Jester jesterTest = new Jester(moqJokeService.Object, moqJokeOutput.Object);
+        Jester jesterTest = new(moqJokeService.Object, moqJokeOutput.Object);
         
         // Act
         jesterTest.TellJoke();
@@ -54,7 +54,7 @@ public class JesterTests
         string chuckJoke = "Chuck Norris";
         string testJoke = "test joke";
         moqJokeService.SetupSequence(x => x.GetJoke()).Returns(chuckJoke).Returns(testJoke);
-        Jester jesterTest = new Jester(moqJokeService.Object, moqJokeOutput.Object);
+        Jester jesterTest = new(moqJokeService.Object, moqJokeOutput.Object);
 
         // Act 
         jesterTest.TellJoke();
