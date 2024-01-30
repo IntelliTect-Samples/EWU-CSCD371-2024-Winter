@@ -67,4 +67,17 @@ public class JesterTests
         jester.TellJoke();
         Assert.Equal<int>(1, getter.Requests);
     }
+
+    [Fact]
+    public void JesterTellsJoke_JokeTellerJokeNotNull()
+    {
+        JokeGetterTest getter = new()
+        {
+            Joke = "Joke"
+        };
+        JokeTeller output = new();
+        Jester jester = new(output, getter);
+        jester.TellJoke();
+        Assert.NotEmpty(output.Joke);
+    }
 }
