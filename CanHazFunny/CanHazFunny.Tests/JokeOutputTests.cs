@@ -10,16 +10,16 @@ public class JokeOutputTests
     [Fact]
     public void OutputJoke_PrintsGivenJoke_Succesfully()
     {
-        // Act
+        // Arrange
+        string testJoke = "test joke";
         JokeOutput jokeOutput = new(); 
         StringWriter outputJoke = new();  //Needs to be string writer since we need to take in System.IO.TextWriter 
         Console.SetOut(outputJoke);
-        jokeOutput.OutputJoke("Test joke");
+        jokeOutput.OutputJoke(testJoke);
 
-        // Arrange
 
-        // Assert
-        Assert.Equal("Test joke\n", outputJoke.ToString());
+        // Act & Assert
+        Assert.Equal(testJoke + "\n" , outputJoke.ToString());
 
     }
 }

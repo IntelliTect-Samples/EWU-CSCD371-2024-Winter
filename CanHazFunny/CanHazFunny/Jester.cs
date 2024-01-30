@@ -9,6 +9,18 @@ public class Jester(IJokeService jokeServiceInterface, IJokeOutput jokeOutputInt
 
     private IJokeOutput jokeOutput = jokeOutputInterface ?? throw new ArgumentNullException(nameof(jokeOutputInterface));
 
+    public void TellJoke()
+    {
+        string joke = jokeService.GetJoke();
+
+        while(joke.Contains("Chuck Norris"))
+        {
+            joke = jokeService.GetJoke();
+        }
+
+        jokeOutput.OutputJoke(joke);
+    }
+
 
     
 }

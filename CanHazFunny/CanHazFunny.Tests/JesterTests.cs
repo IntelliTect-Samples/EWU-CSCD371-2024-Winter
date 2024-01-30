@@ -26,4 +26,42 @@ public class JesterTests
         Assert.Throws<ArgumentNullException>(() => new Jester(null!, moqJokeOutput.Object));
     }
 
+
+    [Fact]
+    public void OutputJoke_WithoutChuckNorris_Successful()
+    {
+        // Arrange
+        var moqJokeService = new Mock<IJokeService>();
+        var moqJokeOutput = new Mock<IJokeOutput>();
+        string testJoke = "test joke";
+        moqJokeService.SetupSequence(x => x.GetJoke()).Returns(testJoke);
+        Jester jesterTest = new Jester(moqJokeService.Object, moqJokeOutput.Object);
+        
+        // Act
+        jesterTest.TellJoke();
+
+        // Assert with moq
+        moqJokeOutput.Verify(x => x.OutputJoke(testJoke));
+    }
+
+
+    [Fact]
+    public void OuputJoke_WithChuckNorrisThenWithout_Successful()
+    {
+        // Arrange
+        var moqJokeService = new Mock<IJokeService>();
+        var moqJokeOutput = new Mock<IJokeOutput>();
+        string chuckJoke = "Chuck Norris";
+        string testJoke = "test joke";
+        moqJokeService.SetupSequence(x => x.GetJoke()).Returns(chuckJoke).Returns(testJoke);
+        Jester jesterTest = new Jester(moqJokeService.Object, moqJokeOutput.Object);
+
+        // Act 
+        jesterTest.TellJoke();
+
+        // Assert with moq
+        // Should skip chuckJoke and equal testJoke
+        moqJokeOutput.Verify(x => x.OutputJoke(testJoke));
+    }
+
 }

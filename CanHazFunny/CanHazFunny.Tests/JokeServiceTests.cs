@@ -8,10 +8,10 @@ public class JokeServiceTests
     [Fact]
     public void GetJoke_CreatesJoke_ReturnsNonNullJoke()
     {
-        // Act
+        // Arrange
         JokeService jokeService = new();
         
-        // Arrange
+        // Act
         string getJoke = jokeService.GetJoke();
     
         // Assert 
