@@ -4,8 +4,8 @@ namespace CanHazFunny;
 
 public class Jester(IJokeOutput jokeOutput, IJokeService jokeService)
 {
-    private IJokeOutput _outputToScreen = jokeOutput ?? throw new ArgumentNullException(nameof(jokeOutput)); 
-    private IJokeService _jokeService = jokeService ?? throw new ArgumentNullException(nameof(jokeService));
+    private readonly IJokeOutput _outputToScreen = jokeOutput ?? throw new ArgumentNullException(nameof(jokeOutput)); 
+    private readonly IJokeService _jokeService = jokeService ?? throw new ArgumentNullException(nameof(jokeService));
     public void TellJoke()
     {
         string joke = _jokeService.GetJoke();
