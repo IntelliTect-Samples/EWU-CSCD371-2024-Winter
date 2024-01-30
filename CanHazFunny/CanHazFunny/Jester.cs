@@ -13,16 +13,8 @@ namespace CanHazFunny
         public string Joke { get; set; } = "";
 
         public Jester(IJokeOutput jokeOutput, IJokeGetter jokeGetter) {
-            if(jokeOutput == null)
-            {
-                throw new ArgumentNullException(nameof(jokeOutput));
-            }
-            if(jokeGetter == null)
-            {
-                throw new ArgumentNullException(nameof (jokeGetter));
-            }
-            JokeOutput = jokeOutput;
-            JokeGetter = jokeGetter;
+            JokeOutput = jokeOutput ?? throw new ArgumentNullException(nameof(jokeOutput));
+            JokeGetter = jokeGetter ?? throw new ArgumentNullException(nameof (jokeGetter));
         }
         public void TellJoke()
         {
