@@ -9,7 +9,7 @@ namespace CanHazFunny;
 
 public class Jester
 {
-    private const string NameToAvoid = "chuck norris";
+    //private const string NameToAvoid = "chuck norris";
 
     // readonly IJokeOutput? output;
     private OutputtingJoke? Output;
@@ -31,7 +31,7 @@ public class Jester
         do
         {
           theJoke = OurService!.GetJoke();
-        } while (theJoke.Contains(NameToAvoid, StringComparison.OrdinalIgnoreCase));
+        } while (theJoke.Contains("Chuck Norris", StringComparison.OrdinalIgnoreCase));
 
         Output!.PrintingJokeyJoke(theJoke);
     }
