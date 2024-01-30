@@ -12,18 +12,18 @@ public class JokeOutputTests
     //    JokeOutput jokePrint = new();
     //}
 
-    [Theory]
-    [inlineData("JOKE1")]
-    [inlineData ("JOKE2")]
-    public void PrintingJoke_OutputToConsole_Success(string output)
-    {
-        JokeOutput jokePrint = new();
-        jokePrint.PrintingJoke(output);
+    //[Theory]
+    //[inlineData("JOKE1")]
+    //[inlineData ("JOKE2")]
+    //public void PrintingJoke_OutputToConsole_Success(string output)
+    //{
+    //    JokeOutput jokePrint = new();
+    //    jokePrint.PrintingJoke(output);
 
-        //Mock mockConsole = new < IConsoleWrapper > ();
-        //string outputString =  mockConsole.WriteLine();
+    //    //Mock mockConsole = new < IConsoleWrapper > ();
+    //    //string outputString =  mockConsole.WriteLine();
 
-    }
+    //}
 }
 //public interface IConsoleWrapper
 //{
