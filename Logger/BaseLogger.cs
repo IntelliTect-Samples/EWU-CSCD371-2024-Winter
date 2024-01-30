@@ -28,7 +28,7 @@ public class FileLogger : BaseLogger
     private string dateTime = DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss tt", CultureInfo.CurrentCulture);
 
     //create variable for class name 
-    private string className = nameof(FileLogger);
+    string className = nameof(FileLogger);
 
     public override void Log(LogLevel logLevel, string message)
     {
