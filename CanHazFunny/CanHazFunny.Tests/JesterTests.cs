@@ -7,7 +7,7 @@ public class JesterTests
     [Fact]
     public void TESTPASS()
     {
-        string test = "hello";
-        Assert.Equal("hello", test);
+        string test = "expected";
+        Assert.Equal("expected", test);
     }
 }
