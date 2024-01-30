@@ -5,5 +5,5 @@ namespace CanHazFunny.Tests;
 
 public class JokeServiceTests
 {
-    [Fact]
+    //[Fact]
 }
