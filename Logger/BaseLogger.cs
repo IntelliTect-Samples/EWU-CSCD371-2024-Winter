@@ -3,7 +3,6 @@ using System.IO;
 using System.Globalization;
 
 namespace Logger;
-#nullable enable
 
 public abstract class BaseLogger
 {
