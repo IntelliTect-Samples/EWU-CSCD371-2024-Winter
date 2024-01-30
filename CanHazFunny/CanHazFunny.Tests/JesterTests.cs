@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+=======
+using Xunit;
+>>>>>>> d7110209c32aafd7f0d4bd877409d09bf9f50e1a
 
-namespace CanHazFunny.Tests
+namespace CanHazFunny.Tests;
+
+public class JesterTests
 {
+<<<<<<< HEAD
     [TestClass]
     public class JesterTests
     {
@@ -45,3 +52,6 @@ namespace CanHazFunny.Tests
         }
     }
 }
+=======
+}
+>>>>>>> d7110209c32aafd7f0d4bd877409d09bf9f50e1a
