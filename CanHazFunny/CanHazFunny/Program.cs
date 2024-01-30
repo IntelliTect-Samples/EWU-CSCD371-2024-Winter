@@ -1,10 +1,20 @@
-﻿namespace CanHazFunny;
+using System;
 
-class Program
+namespace CanHazFunny
 {
-    static void Main(string[] args)
+    class Program
     {
-        //Feel free to use your own setup here - this is just provided as an example
-        //new Jester(new SomeReallyCoolOutputClass(), new SomeJokeServiceClass()).TellJoke();
+        static void Main(string[] args)
+        {
+            // Create instances of concrete implementations
+            IOutputWriter outputWriter = new ConsoleOutputWriter();
+            IJokeService jokeService = new JokeService();
+
+            // Create an instance of Jester with concrete dependencies
+            Jester jester = new Jester(outputWriter, jokeService);
+
+            // Tell a joke
+            jester.TellJoke();
+        }
     }
 }

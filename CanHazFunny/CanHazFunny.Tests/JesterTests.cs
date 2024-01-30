@@ -1,57 +1,52 @@
-<<<<<<< HEAD
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-=======
 using Xunit;
->>>>>>> d7110209c32aafd7f0d4bd877409d09bf9f50e1a
 
-namespace CanHazFunny.Tests;
-
-public class JesterTests
+namespace CanHazFunny.Tests
 {
-<<<<<<< HEAD
     [TestClass]
     public class JesterTests
     {
         [TestMethod]
-        public void TellJoke_Should_Write_To_Output()
+        public void TellJoke_Should_Write_Joke_To_Output()
         {
-            var mockOutputWriter = new Mock <IOutputWriter>();
-            var mockJokeService = new Mock <IJokeService>();
+            // Arrange
+            var mockOutputWriter = new Mock<IOutputWriter>();
+            var mockJokeService = new Mock<IJokeService>();
 
+            // Setup mock to return a joke without "Chuck Norris"
             mockJokeService.Setup(s => s.GetJoke()).Returns("Funny Joke");
 
-            //Instance of Jester with MD
+            // Create an instance of Jester with mocked dependencies
             var jester = new Jester(mockOutputWriter.Object, mockJokeService.Object);
 
-            //Act
+            // Act
             jester.TellJoke();
 
-            //Assert
-            mockOutputWriter.Verify(o => o.Write(It.IsAny<string>()), Times.Once);
+            // Assert using Assert.Equal<T>()
+            Assert.Equal("Funny Joke", mockOutputWriter.Object.WriteSingleCallParameter());
         }
 
         [TestMethod]
-        public void TellJoke_Skip_Chuck_Norris_Jokes()
+        public void TellJoke_Should_Skip_Chuck_Norris_Jokes()
         {
-            //Arrange 
-            var mockOutputWriter = new Mock <IOutputWriter>();
-            var mockJokeService = new Mock <IJokeService>();
+            // Arrange
+            var mockOutputWriter = new Mock<IOutputWriter>();
+            var mockJokeService = new Mock<IJokeService>();
 
+            // Setup mock to return a Chuck Norris joke
             mockJokeService.SetupSequence(s => s.GetJoke())
                 .Returns("Chuck Norris Joke")
                 .Returns("Funny Joke");
 
+            // Create an instance of Jester with mocked dependencies
             var jester = new Jester(mockOutputWriter.Object, mockJokeService.Object);
 
-            //Act
+            // Act
             jester.TellJoke();
 
-            //Assert 
-            mockOutputWriter.Verify(o => o.Write(It.IsAny<string>()), Times.Once);
+            // Assert using Assert.Equal<T>()
+            Assert.Equal("Funny Joke", mockOutputWriter.Object.WriteSingleCallParameter());
         }
     }
 }
-=======
-}
->>>>>>> d7110209c32aafd7f0d4bd877409d09bf9f50e1a

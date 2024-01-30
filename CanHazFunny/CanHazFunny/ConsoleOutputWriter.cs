@@ -4,9 +4,9 @@ namespace CanHazFunny
 {
     public class ConsoleOutputWriter : IOutputWriter
     {
-        public void Write (string message)
+        public void Write(string message)
         {
-            Console.WriteLine (message);
+            Console.WriteLine(message);
         }
     }
 }
