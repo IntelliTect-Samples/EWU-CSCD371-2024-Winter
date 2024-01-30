@@ -1,6 +1,5 @@
 using System;
 using Xunit;
-using Moq;
 using System.IO;
 
 namespace CanHazFunny.Tests;
@@ -8,7 +7,7 @@ namespace CanHazFunny.Tests;
 public class OutputServiceTests
 {
     [Fact]
-    public void DisplayJoke_ThowsArgumentNull_Success()
+    public void DisplayJoke_ThrowsArgumentNull_Success()
     {
         OutputService displayJoke = new();
         Assert.Throws<ArgumentNullException>(() => displayJoke.DisplayJoke(null!));
@@ -18,9 +17,9 @@ public class OutputServiceTests
     public void DisplayJoke_JokeDisplays_Success()
     {
         MockOutput mockClass = new();
-        mockClass.DisplayJoke("knok knok joke");
+        mockClass.DisplayJoke("knock knock joke");
 
-        Assert.Equal("knok knok joke", mockClass.GetJoke());
+        Assert.Equal("knock knock joke", mockClass.GetJoke());
     }
 
     [Fact]
