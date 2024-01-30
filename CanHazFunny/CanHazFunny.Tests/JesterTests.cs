@@ -6,14 +6,14 @@ namespace CanHazFunny.Tests;
 
 public class JesterTests
 {
-    public Mock<IJokeService> JokeServiceMock { get; }
-    public Mock<IJokeOutput> JokeOutputMock { get; set; }
-    public Jester JesterInstance;
+    private Mock<IJokeService> JokeServiceMock { get; }
+    private Mock<IJokeOutput> JokeOutputMock { get; set; }
+    private readonly Jester _jesterInstance;
     public JesterTests()
     {
         JokeServiceMock = new Mock<IJokeService>();
         JokeOutputMock = new Mock<IJokeOutput>();
-        JesterInstance = new Jester(JokeOutputMock.Object, JokeServiceMock.Object);
+        _jesterInstance = new Jester(JokeOutputMock.Object, JokeServiceMock.Object);
     }
 
     [Fact]
@@ -35,7 +35,7 @@ public class JesterTests
         string regularJoke = "Regular joke";
         JokeServiceMock?.Setup(js => js.GetJoke()).Returns(regularJoke);
 
-        JesterInstance.TellJoke();
+        _jesterInstance.TellJoke();
 
         JokeOutputMock?.Verify(co => co.PrintJoke(regularJoke), Times.Once);
     }
@@ -48,7 +48,7 @@ public class JesterTests
         int callCount = 0;
         JokeServiceMock?.Setup(js => js.GetJoke()).Returns(() => callCount++ == 0 ? chuckNorrisJoke : regularJoke);
 
-        JesterInstance.TellJoke();
+        _jesterInstance.TellJoke();
 
         JokeOutputMock?.Verify(co => co.PrintJoke(regularJoke), Times.Once);
 
