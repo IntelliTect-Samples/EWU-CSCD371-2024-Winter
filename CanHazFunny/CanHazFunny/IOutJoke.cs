@@ -1,5 +1,5 @@
 namespace CanHazFunny;
 public interface IOutJoke
 {
-    void DisplayJoke(string joke);
+    public void DisplayJoke(string joke);
 } 
