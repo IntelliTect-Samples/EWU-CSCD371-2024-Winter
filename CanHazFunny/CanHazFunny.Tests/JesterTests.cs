@@ -37,7 +37,7 @@ public class JesterTests
         JokeService jokeService = new();
         OutputService outputService = new();
         Jester jester = new(jokeService, outputService);
-        Assert.Equal<IOutputService>(outputService, jester.OutService);
+        Assert.Equal<IOutputService>(outputService, jester.OutputService);
     }
 
     [Fact]

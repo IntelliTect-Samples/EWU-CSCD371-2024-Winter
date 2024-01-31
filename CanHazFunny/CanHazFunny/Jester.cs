@@ -2,42 +2,20 @@
 
 namespace CanHazFunny;
 
-public class Jester
+public class Jester(IJokeService jokeService, IOutputService outputService)
 {
-    private IJokeService? _JokeService;
-
-    public IJokeService JokeService
-    {
-        get { return _JokeService!; }
-        set
-        {
-            _JokeService = value ?? throw new ArgumentNullException(nameof(value));
-        }
-    }
-
-    private IOutputService? _OutService;
-    public IOutputService OutService
-    {
-        get { return _OutService!; }
-        set
-        {
-            _OutService = value ?? throw new ArgumentNullException(nameof(value));
-        }
-    }
-
-    public Jester(IJokeService jokeService, IOutputService outService)
-    {
-        JokeService = jokeService;
-        OutService = outService;
-    }
-
+    public IJokeService JokeService { get; } = jokeService ?? throw new ArgumentNullException(nameof(jokeService));
+    public IOutputService OutputService { get; } = outputService ?? throw new ArgumentNullException(nameof(outputService));
+    
     public virtual void TellJoke()
     {
         string joke;
-        do{
+        do
+        {
             joke = JokeService.GetJoke();
-        }while(joke.Contains("Chuck Norris"));
-        OutService.DisplayJoke(joke);
+        } while (joke.Contains("Chuck Norris"));
+
+        OutputService.DisplayJoke(joke);
     }
 
 
