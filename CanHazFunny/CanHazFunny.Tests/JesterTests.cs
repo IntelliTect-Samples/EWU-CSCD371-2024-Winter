@@ -9,21 +9,21 @@ public class JesterTests
 {
 
     [Fact]
-    public void IJokeServiceProperty_SetPorpertyToNull_Success()
+    public void IJokeServiceProperty_SetPropertyToNull_Success()
     {
         Assert.Throws<ArgumentNullException>(
             () => new Jester(null!, new OutputService()));
     }
 
     [Fact]
-    public void IOutServiceProperty_SetPorpertyToNull_Success()
+    public void IOutServiceProperty_SetPropertyToNull_Success()
     {
         Assert.Throws<ArgumentNullException>(
             () => new Jester(new JokeService(), null!));
     }
 
     [Fact]
-    public void IJokeServiceProperty_SetPorperty_Success()
+    public void IJokeServiceProperty_SetProperty_Success()
     {
         JokeService jokeService = new();
         OutputService outputService = new();
@@ -32,7 +32,7 @@ public class JesterTests
     }
 
     [Fact]
-    public void IOutServiceProperty_SetPorperty_Success()
+    public void IOutServiceProperty_SetProperty_Success()
     {
         JokeService jokeService = new();
         OutputService outputService = new();
