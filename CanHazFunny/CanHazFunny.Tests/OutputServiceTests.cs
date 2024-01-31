@@ -39,7 +39,7 @@ public class OutputServiceTests
     }
 }
 
-public class MockOutput : IOutJoke
+public class MockOutput : IOutputService
 {
     private string? Joke { get; set; }
 

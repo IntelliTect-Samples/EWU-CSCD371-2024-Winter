@@ -15,8 +15,8 @@ public class Jester
         }
     }
 
-    private IOutJoke? _OutService;
-    public IOutJoke OutService
+    private IOutputService? _OutService;
+    public IOutputService OutService
     {
         get { return _OutService!; }
         set
@@ -25,7 +25,7 @@ public class Jester
         }
     }
 
-    public Jester(IJokeService jokeService, IOutJoke outService)
+    public Jester(IJokeService jokeService, IOutputService outService)
     {
         JokeService = jokeService;
         OutService = outService;

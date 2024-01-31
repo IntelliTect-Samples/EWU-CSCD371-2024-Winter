@@ -37,7 +37,7 @@ public class JesterTests
         JokeService jokeService = new();
         OutputService outputService = new();
         Jester jester = new(jokeService, outputService);
-        Assert.Equal<IOutJoke>(outputService, jester.OutService);
+        Assert.Equal<IOutputService>(outputService, jester.OutService);
     }
 
     [Fact]
@@ -47,7 +47,7 @@ public class JesterTests
         string joke = "It was such a good joke";
         var mockJokeService = new Mock<IJokeService>();
         mockJokeService.Setup(x => x.GetJoke()).Returns(joke);
-        var mockOutService = new Mock<IOutJoke>();
+        var mockOutService = new Mock<IOutputService>();
         Jester jester = new(mockJokeService.Object, mockOutService.Object);
 
         // Act
@@ -62,7 +62,7 @@ public class JesterTests
     {
         // Arrange
         var jokeServiceMock = new Mock<IJokeService>();
-        var outServiceMock = new Mock<IOutJoke>();
+        var outServiceMock = new Mock<IOutputService>();
 
         var jokes = new Queue<string>();
         jokes.Enqueue("Chuck Norris can divide by zero.");
