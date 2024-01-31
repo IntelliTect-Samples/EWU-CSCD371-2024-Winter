@@ -7,7 +7,7 @@ namespace CanHazFunny.Tests;
 public class IJokeServiceTests
 {
     [Fact]
-    public void GetJoke_RetriveAJocke_Success()
+    public void GetJoke_RetrieveAJock_Success()
     {
         var mock = new Mock<IJokeService>();
         mock.Setup(x => x.GetJoke()).Returns("Here is my joke :)");
@@ -16,7 +16,7 @@ public class IJokeServiceTests
     }
 
     [Fact]
-    public void GetJoke_RetriveAJocke_Fail()
+    public void GetJoke_RetrieveAJock_Fail()
     {
         var mock = new Mock<IJokeService>();
         mock.Setup(x => x.GetJoke()).Returns("Here is my joke :(");
