@@ -65,6 +65,29 @@ public class JesterTests
 
     }
 
+    [Fact]
+    public void TellJoke_MultipleValidJokes_ReturnsDifferentJokes()
+    {
+        // Arrange
+        var jokes = new string[] { "Joke 1", "Joke 2", "Joke 3" };
+        var mockService = new Mock<IService>();
+        var mockOutput = new Mock<IOutput>();
+
+        mockService.SetupSequence(x => x.GetJoke())
+                       .Returns(jokes[0])
+                       .Returns(jokes[1])
+                       .Returns(jokes[2]);
+
+        var jester = new Jester(mockService.Object, mockOutput.Object);
+
+        // Act
+        jester.TellJoke();
+        jester.TellJoke();
+        jester.TellJoke();
+
+        // Assert
+        mockOutput.Verify(x => x.WriteJoke(It.IsAny<string>()), Times.Exactly(3));
+    }
 
 }
 
