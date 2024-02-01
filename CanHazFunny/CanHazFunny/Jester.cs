@@ -4,6 +4,8 @@ namespace CanHazFunny;
 
     public class Jester
     {
+        
+        // might need to change these to leading underscore naming conventions
         private readonly IJokeService jokeService;
         private readonly IJokeOutput jokeOutput;
 
