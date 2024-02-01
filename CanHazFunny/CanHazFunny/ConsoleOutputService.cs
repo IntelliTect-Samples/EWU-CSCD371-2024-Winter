@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CanHazFunny;
 
-internal sealed class ConsoleOutputService : IOutputService
+public sealed class ConsoleOutputService : IOutputService
 {
     public void WriteJoke(string joke)
     {
