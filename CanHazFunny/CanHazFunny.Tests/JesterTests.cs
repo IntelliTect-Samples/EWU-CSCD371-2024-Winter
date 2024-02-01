@@ -2,8 +2,7 @@ using Xunit;
 using Moq;
 using System;
 
-namespace CanHazFunny.Tests
-{
+namespace CanHazFunny.Tests;
     public class JesterTests
     {
         [Fact]
@@ -24,4 +23,4 @@ namespace CanHazFunny.Tests
             Assert.Throws<ArgumentNullException>(() => new Jester(jokeService, jokeOutput!));  // Use the null-forgiving operator (!)
         }
     }
-}
+
