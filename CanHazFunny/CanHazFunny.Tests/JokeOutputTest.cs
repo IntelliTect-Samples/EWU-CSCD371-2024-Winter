@@ -8,7 +8,7 @@ namespace CanHazFunny.Tests;
 public class JokeOutputTest
 {
     [Fact]
-    public void WriteJokeThrowsExceptionWhenJokeIsNull()
+    public void WriteJoke_WhenJokeIsNull_ThrowsArgumentNullException()
     {
         // Arrange
         JokeOutput jokeOutput = new JokeOutput();

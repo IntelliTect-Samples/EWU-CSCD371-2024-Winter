@@ -8,7 +8,7 @@ namespace CanHazFunny.Tests;
 public class JesterTests
 {
     [Fact]
-    public void IServicePropertySetNullSuccessfully()
+    public void IService_SetNull_ThrowsArgumentNullException()
     {
         // Arrange & Act & Assert
         Assert.Throws<ArgumentNullException>(() => new Jester(null!, new JokeOutput()));
@@ -16,7 +16,7 @@ public class JesterTests
     }
 
     [Fact]
-    public void IOutputPropertySetNullSuccessfully()
+    public void IOutput_SetNull_ThrowsArgumentNullException()
     {
         // Arrange & Act & Assert
         Assert.Throws<ArgumentNullException>(() => new Jester(new JokeService(), null!));
@@ -24,7 +24,7 @@ public class JesterTests
     }
 
     [Fact]
-    public void TellJokeChuckNorrisJokeSkipsSuccessfully()
+    public void TellJoke_WhenChuckNorrisJokeEncountered_SkipsChuckNorrisJoke()
     {
         // Arrange
         var mockService = new Mock<IService>();
@@ -45,6 +45,25 @@ public class JesterTests
         mockOutput.Verify(x => x.WriteJoke("LMAO"), Times.Once);
 
     }
+
+    [Fact]
+    public void TellJoke_DisplayWriteJoke_Success()
+    {
+        // Arrange
+        string joke = "It was such a good joke";
+        var mockJokeService = new Mock<IService>();
+        mockJokeService.Setup(x => x.GetJoke()).Returns(joke);
+        var mockOutService = new Mock<IOutput>();
+        Jester jester = new(mockJokeService.Object, mockOutService.Object);
+
+        // Act
+        jester.TellJoke();
+
+        // Assert
+        mockOutService.Verify(x => x.WriteJoke(joke));
+
+    }
+
 
 }
 
