@@ -20,11 +20,11 @@ namespace CanHazFunny;
 
             do
             {
-                joke = jokeService.GetJoke();
+                joke = _jokeService.GetJoke();
 
             } while (joke.Contains("chuck norris", StringComparison.OrdinalIgnoreCase));
 
-            jokeOutput.PrintingJoke(joke);
+            _jokeOutput.PrintingJoke(joke);
         }
     }
 
