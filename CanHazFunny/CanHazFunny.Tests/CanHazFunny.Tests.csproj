@@ -1,9 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
-    <IsPackable>false</IsPackable>
+	  <TargetFramework>net8.0</TargetFramework>
+	  <LangVersion>latest</LangVersion>
+	  <IsPackable>false</IsPackable>
+	  <Nullable>enable</Nullable>
+	  <EnableNETAnalyzers>true</EnableNETAnalyzers>
+	  <Nullability>true</Nullability>
+	  <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+	  <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+	  <dotnet_style_require_accessibility_modifiers>true</dotnet_style_require_accessibility_modifiers>
+	  
   </PropertyGroup>
 
   <ItemGroup>
