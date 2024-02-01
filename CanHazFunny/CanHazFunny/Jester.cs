@@ -16,15 +16,14 @@ public class Jester
 
     public void TellJoke()
     {
-        string joke = JokeService.GetJoke();
-        if (joke.Contains("Chuck Norris"))
+        string joke;
+        do
         {
-            TellJoke(); 
-        }
-        else
-        {
-            JokeOutput.WriteJoke(joke);
-        }
+            joke = JokeService.GetJoke();
+        } while (joke.Contains("chuck norris", StringComparison.InvariantCultureIgnoreCase));
+
+        JokeOutput.WriteJoke(joke);
+
     }
 
 }

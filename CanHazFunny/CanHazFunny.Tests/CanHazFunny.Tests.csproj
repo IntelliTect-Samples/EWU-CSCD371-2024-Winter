@@ -4,11 +4,11 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<LangVersion>12.0</LangVersion>
 		<Nullable>enable</Nullable>
-		<EnableNETAnalyzers>True</EnableNETAnalyzers>
-		<Nullability>True</Nullability>
-		<CodeAnalysisTreatWarningAsErrors>True</CodeAnalysisTreatWarningAsErrors>
-		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
-		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<Nullability>true</Nullability>
+		<CodeAnalysisTreatWarningAsErrors>true</CodeAnalysisTreatWarningAsErrors>
+		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
 
