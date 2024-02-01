@@ -18,6 +18,7 @@ public class JokeOutputTest
         Assert.Throws<ArgumentNullException>(() => jokeOutput.WriteJoke(null!));
     }
 
+ 
 }
 
 

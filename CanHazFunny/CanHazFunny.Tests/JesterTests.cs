@@ -30,16 +30,13 @@ public class JesterTests
         // Arrange
         var mockService = new Mock<IService>();
         var mockOutput = new Mock<IOutput>();
-
         mockService.SetupSequence(x => x.GetJoke())
                        .Returns("Chuck norris joke") // checking joke w/different capitalization
                        .Returns("LMAO");
-
         var jester = new Jester(mockService.Object, mockOutput.Object);
         
         //Act
         jester.TellJoke();
-
 
         // Assert
         mockService.Verify(x => x.GetJoke(), Times.Exactly(2));
@@ -72,12 +69,10 @@ public class JesterTests
         var jokes = new string[] { "Joke 1", "Joke 2", "Joke 3" };
         var mockService = new Mock<IService>();
         var mockOutput = new Mock<IOutput>();
-
         mockService.SetupSequence(x => x.GetJoke())
                        .Returns(jokes[0])
                        .Returns(jokes[1])
                        .Returns(jokes[2]);
-
         var jester = new Jester(mockService.Object, mockOutput.Object);
 
         // Act
@@ -87,6 +82,26 @@ public class JesterTests
 
         // Assert
         mockOutput.Verify(x => x.WriteJoke(It.IsAny<string>()), Times.Exactly(3));
+    }
+
+    [Theory]
+    [InlineData("CS Joke Here? :3!")]
+    [InlineData("Joke 2? Tehe!")]
+    public void TellJoke_JokeisValid_WriteOutputSuccess(string joke)
+    {
+        // Arrange
+        Mock<IService> ServiceMock = new();
+        Mock<IOutput> OutputMock = new();
+        ServiceMock.SetupSequence(JokeService => JokeService.GetJoke()).Returns(joke);
+        OutputMock.SetupSequence(OutputToScreen => OutputToScreen.WriteJoke(joke));
+        Jester jester = new(ServiceMock.Object, OutputMock.Object);
+
+        // Act
+        jester.TellJoke();
+
+        // Assert
+        OutputMock.VerifyAll();
+
     }
 
 }
