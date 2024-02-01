@@ -1,12 +1,12 @@
 using System;
 namespace CanHazFunny;
 
-    public class JokeOutput : IJokeOutput
+public class JokeOutput : IJokeOutput
+{
+    public void PrintingJoke(string jokePrint)
     {
-        public void PrintingJoke(string jokePrint)
-        {
-            ArgumentNullException.ThrowIfNull(jokePrint);
-            Console.WriteLine(jokePrint);
-        }
+        ArgumentNullException.ThrowIfNull(jokePrint);
+        Console.WriteLine(jokePrint);
     }
+}
 

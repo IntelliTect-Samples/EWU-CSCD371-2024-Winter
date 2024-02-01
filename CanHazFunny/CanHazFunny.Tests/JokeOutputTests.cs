@@ -52,7 +52,7 @@ public class JokeOutputTests
         output.PrintingJoke(jokey);
         Assert.NotEqual(jokey, sw.ToString());
     }
-    
+
 }
 //public interface IConsoleWrapper
 //{
