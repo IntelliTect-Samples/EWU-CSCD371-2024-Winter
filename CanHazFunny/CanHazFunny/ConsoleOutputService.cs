@@ -10,6 +10,7 @@ public sealed class ConsoleOutputService : IOutputService
 {
     public void WriteJoke(string joke)
     {
+        ArgumentNullException.ThrowIfNull(joke);
         Console.WriteLine(joke);
     }
 }

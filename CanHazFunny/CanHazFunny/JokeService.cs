@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 
 namespace CanHazFunny;
 
@@ -9,6 +10,7 @@ public class JokeService : IJokeService
     public string GetJoke()
     {
         string joke = HttpClient.GetStringAsync("https://geek-jokes.sameerkumar.website/api").Result;
+        ArgumentNullException.ThrowIfNull(joke);
         return joke;
     }
 }
