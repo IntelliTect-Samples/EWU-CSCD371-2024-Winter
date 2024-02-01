@@ -7,6 +7,9 @@
     <LangVersion>12.0</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
+	<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+	<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	<CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
