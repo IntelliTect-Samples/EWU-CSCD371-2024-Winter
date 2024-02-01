@@ -3,6 +3,7 @@ using Moq;
 using System;
 
 namespace CanHazFunny.Tests;
+#pragma warning disable CA1707
 
 
 public class JesterTests
