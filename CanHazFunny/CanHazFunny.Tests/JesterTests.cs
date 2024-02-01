@@ -47,7 +47,7 @@ public class JesterTests
     }
 
     [Fact]
-    public void TellJoke_DisplayWriteJoke_Success()
+    public void TellJoke_DisplayCorrectJoke_Success()
     {
         // Arrange
         string joke = "It was such a good joke";
