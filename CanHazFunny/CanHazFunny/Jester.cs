@@ -7,19 +7,28 @@ using System.Threading.Tasks;
 namespace CanHazFunny;
 
 
-public class Jester(IJokeService jokeService, IOutputService outputService)
+public class Jester
 {
-    private readonly IJokeService _jokeService = jokeService ?? throw new ArgumentNullException(nameof(jokeService));
-    private readonly IOutputService _outputService = outputService ?? throw new ArgumentNullException(nameof(outputService));
+    private IJokeService JokeService {  get; set; }
+    private IOutputService OutputService { get; set; }
+
+    public Jester(IJokeService jokeService, IOutputService outputService)
+    {
+        ArgumentNullException.ThrowIfNull(jokeService);
+        ArgumentNullException.ThrowIfNull(outputService);
+
+        JokeService = jokeService;
+        OutputService = outputService;
+    }
 
     public void TellJoke()
     {
         string joke;
         do
         {
-            joke = _jokeService.GetJoke();
+            joke = JokeService.GetJoke();
         } while (joke.Contains("Chuck Norris"));
 
-        _outputService.WriteJoke(joke);
+        OutputService.WriteJoke(joke);
     }
 }

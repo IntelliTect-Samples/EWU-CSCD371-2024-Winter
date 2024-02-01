@@ -35,24 +35,24 @@ public class JesterTests
     public void TellJoke_WritesNonChuckNorris_PrintNormal()
     {
         string regularJoke = "Regular hehe";
-        _jokeServiceMock.Setup(js => js.GetJoke()).Returns(regularJoke);
+        _jokeServiceMock?.Setup(js => js.GetJoke()).Returns(regularJoke);
 
         _jester.TellJoke();
 
-        _mockConsoleOutput.Verify(co => co.WriteJoke(regularJoke), Times.Once);
+        _mockConsoleOutput?.Verify(co => co.WriteJoke(regularJoke), Times.Once);
     }
 
     [Fact]
     public void Jester_NullIJokeService_ThrowsException()
     {
-        var exception = Assert.Throws<ArgumentNullException>(() => new Jester(null, _mockConsoleOutput?.Object));
+        var exception = Assert.Throws<ArgumentNullException>(() => new Jester(null!, _mockConsoleOutput!.Object));
         Assert.Equal("jokeService", exception.ParamName);
     }
 
     [Fact]
     public void Jester_NullOutputService_ThrowsException()
 {
-        ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => new Jester(_jokeServiceMock?.Object, null));
+        ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => new Jester(_jokeServiceMock!.Object, null!));
         Assert.Equal("outputService", exception.ParamName);
     
 }
