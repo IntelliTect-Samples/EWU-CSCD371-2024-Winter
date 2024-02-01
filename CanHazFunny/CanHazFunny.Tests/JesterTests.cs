@@ -6,7 +6,7 @@ namespace CanHazFunny.Tests;
 
 public class JesterTests
 {
-    private readonly Mock<IJokeService>? _jokeServiceMock;
+    private readonly Mock<IJokeService> _jokeServiceMock;
     private readonly Mock<IOutputService> _mockConsoleOutput;
     private readonly Jester _jester;
 
