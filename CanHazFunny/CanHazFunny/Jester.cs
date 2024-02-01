@@ -5,14 +5,14 @@ namespace CanHazFunny;
     public class Jester
     {
         
-        // might need to change these to leading underscore naming conventions
-        private readonly IJokeService jokeService;
-        private readonly IJokeOutput jokeOutput;
+      
+        private readonly IJokeService _jokeService;
+        private readonly IJokeOutput _jokeOutput;
 
         public Jester(IJokeService jokeService, IJokeOutput jokeOutput)
         {
-            this.jokeService = jokeService ?? throw new ArgumentNullException(nameof(jokeService));
-            this.jokeOutput = jokeOutput ?? throw new ArgumentNullException(nameof(jokeOutput));
+            _jokeService = jokeService ?? throw new ArgumentNullException(nameof(jokeService));
+            _jokeOutput = jokeOutput ?? throw new ArgumentNullException(nameof(jokeOutput));
         }
         public void TellJoke()
         {
