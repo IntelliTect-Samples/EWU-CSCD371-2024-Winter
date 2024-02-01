@@ -19,5 +19,17 @@ namespace Logger.Tests
             FullName name = new("First", "Last");
             Assert.Equal("First Last", name.ToString());
         }
+
+        [Theory]
+        [InlineData("First", "Last", "Middle")]
+        [InlineData("First", "Last", null)]
+        public void FullName_Deconstruct(string first, string last, string? middle)
+        {
+            FullName name = new(first, last, middle);
+            (string firstDeconst, string lastDeconst, string? middleDeconst) = name;
+            Assert.Equal(first, firstDeconst);
+            Assert.Equal(last, lastDeconst);
+            Assert.Equal(middle, middleDeconst);
+        }
     }
 }
