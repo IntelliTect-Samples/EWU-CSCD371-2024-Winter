@@ -29,8 +29,4 @@ namespace CanHazFunny;
 
         }
 
-    public static string ParseJokeJSON(string jokeJSON)
-    {
-        throw new NotImplementedException();
-    }
 }   
