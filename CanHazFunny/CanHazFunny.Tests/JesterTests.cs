@@ -46,7 +46,7 @@ public class JesterTests
 
 
     [Fact]
-    public void OuputJoke_WithChuckNorrisThenWithout_Successful()
+    public void OuputJoke_ChuckNorrisJoke_SuccessfulSkip()
     {
         // Arrange
         var moqJokeService = new Mock<IJokeService>();
