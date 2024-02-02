@@ -9,6 +9,6 @@ namespace CanHazFunny
     public interface IJokeOutput
     {
         string Joke { get; set; }
-        public void TellJoke();
+        public void TellJoke(string jokePrint);
     }
 }
