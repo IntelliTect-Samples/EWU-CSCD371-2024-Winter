@@ -12,7 +12,10 @@ public class IJokeServiceTests
         var mock = new Mock<IJokeService>();
         mock.Setup(x => x.GetJoke()).Returns("Here is my joke :)");
         MockClass mockClass = new();
-        Assert.Equal(mock.Object.GetJoke(), mockClass.GetJoke());
+        #pragma warning disable xUnit2006 // Do not use invalid string equality check
+        Assert.Equal<string>(mock.Object.GetJoke(), mockClass.GetJoke());
+        #pragma warning restore xUnit2006 // Do not use invalid string equality check
+
     }
 
     [Fact]
