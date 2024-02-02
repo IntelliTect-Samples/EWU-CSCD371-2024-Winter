@@ -1,5 +1,4 @@
 using System.Net.Http;
-
 namespace CanHazFunny;
 
     public partial class JokeService : IJokeService
@@ -16,8 +15,8 @@ namespace CanHazFunny;
 
         public static string ParseJokeJSON(string jokeJSON)
         {
-            int beginningIndex = jokeJSON.IndexOf(": \"") + 3;
-            int ending = jokeJSON.IndexOf("\"}");
+            int beginningIndex = jokeJSON.IndexOf(": \"", System.StringComparison.InvariantCulture) + 3;
+            int ending = jokeJSON.IndexOf("\"}", System.StringComparison.InvariantCulture);
 
             return jokeJSON[beginningIndex..ending];
             
