@@ -1,5 +1,4 @@
-﻿using Moq;
-using Xunit;
+﻿using Xunit;
 
 namespace CanHazFunny.Tests;
 

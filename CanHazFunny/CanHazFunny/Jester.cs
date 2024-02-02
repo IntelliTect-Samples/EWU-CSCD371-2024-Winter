@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
 
 namespace CanHazFunny;
     public class Jester

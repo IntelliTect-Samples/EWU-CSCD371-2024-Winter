@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CanHazFunny;
+﻿namespace CanHazFunny;
     public interface IOutputToScreen
     {
         void WriteJokeToScreen(string joke);
