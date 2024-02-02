@@ -9,7 +9,6 @@ namespace CanHazFunny
 {
     public class JokeTeller: IJokeOutput
     {
-        public string Joke { get; set; } = "";
 
         public void TellJoke()
         {
