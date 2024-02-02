@@ -28,4 +28,9 @@ namespace CanHazFunny;
             JokeWriter.WriteJokeToScreen(joke);
 
         }
-    }   
+
+    public static string ParseJokeJSON(string jokeJSON)
+    {
+        throw new NotImplementedException();
+    }
+}   
