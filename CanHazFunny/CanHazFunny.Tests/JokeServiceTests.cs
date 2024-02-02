@@ -5,15 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CanHazFunny.Tests
+namespace CanHazFunny.Tests;
+public class JokeServiceTests
 {
-    public class JokeServiceTests
+    [Fact]
+    public void GetJoke_ReciveString_Success()
     {
-        [Fact]
-        public void GetJoke_ReciveString_Success()
-        {
-            JokeService service = new();
-            Assert.IsType<string>(service.GetJoke());
-        }
+        JokeService service = new();
+        Assert.IsType<string>(service.GetJoke());
     }
 }
