@@ -13,7 +13,7 @@ namespace CanHazFunny
 
         public void TellJoke()
         {
-            Console.WriteLine(Joke);
+            Console.WriteLine(jokePrint);
         }
     }
 }
