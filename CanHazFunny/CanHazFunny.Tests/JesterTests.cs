@@ -11,6 +11,9 @@ internal class JokeGetterTest : IJokeGetter
     public string GetJoke()
     {
         Requests++;
+        if(Requests > 1 && Joke.Contains("chuck norris", StringComparison.OrdinalIgnoreCase)) {
+            Joke = "";
+        }
         return Joke;
     }
 }
@@ -18,9 +21,9 @@ internal class JokeGetterTest : IJokeGetter
 internal class JokeOutputTest : IJokeOutput
 {
     public string Joke { get; set; } = "";
-    public void TellJoke()
+    public void TellJoke(string joke)
     {
-        
+        Joke = joke;
     }
 }
 
@@ -65,7 +68,7 @@ public class JesterTests
         };
         Jester jester = new(new JokeOutputTest(), getter);
         jester.TellJoke();
-        Assert.Equal<int>(1, getter.Requests);
+        Assert.Equal<int>(2, getter.Requests);
     }
 
     [Fact]
@@ -77,7 +80,7 @@ public class JesterTests
         };
         JokeTeller output = new();
         Jester jester = new(output, getter);
-        jester.TellJoke();
-        Assert.NotEmpty(output.Joke);
+        string jokeTold = jester.TellJoke();
+        Assert.NotEmpty(jokeTold);
     }
 }

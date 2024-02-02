@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CanHazFunny
 {
-    public class Jester : IJokeOutput
+    public class Jester
     {
         IJokeOutput JokeOutput { get; set; }
         IJokeGetter JokeGetter { get; set; }
@@ -16,15 +16,14 @@ namespace CanHazFunny
             JokeOutput = jokeOutput ?? throw new ArgumentNullException(nameof(jokeOutput));
             JokeGetter = jokeGetter ?? throw new ArgumentNullException(nameof (jokeGetter));
         }
-        public void TellJoke()
+        public string TellJoke()
         {
             Joke = JokeGetter.GetJoke();
-            if(Joke.Contains("Chuck Norris"))
-            {
+            do {
                 Joke = JokeGetter.GetJoke();
-            }
-            JokeOutput.Joke = Joke;
-            JokeOutput.TellJoke();
+            } while(Joke.Contains("chuck norris", StringComparison.OrdinalIgnoreCase));
+            JokeOutput.TellJoke(Joke);
+            return Joke;
         }
     }
 }

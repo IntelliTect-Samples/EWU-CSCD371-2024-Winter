@@ -10,9 +10,9 @@ namespace CanHazFunny
     public class JokeTeller: IJokeOutput
     {
 
-        public void TellJoke()
+        public void TellJoke(string joke)
         {
-            Console.WriteLine(jokePrint);
+            Console.WriteLine(joke);
         }
     }
 }
