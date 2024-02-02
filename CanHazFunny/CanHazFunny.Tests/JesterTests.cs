@@ -9,7 +9,7 @@ public class JesterTests
 {
 
     [Fact]
-    public void IJokeServiceProperty_SetPropertyToNull_Success()
+    public void IJokeServiceProperty_SetPropertyToNull_ThrowsNullException()
     {
         Assert.Throws<ArgumentNullException>(
             () => new Jester(null!, new OutputService()));
