@@ -7,7 +7,7 @@ public class Jester(IJokeService jokeService, IOutputService outputService)
     public IJokeService JokeService { get; } = jokeService ?? throw new ArgumentNullException(nameof(jokeService));
     public IOutputService OutputService { get; } = outputService ?? throw new ArgumentNullException(nameof(outputService));
     
-    public virtual void TellJoke()
+    public void TellJoke()
     {
         string joke;
         do
