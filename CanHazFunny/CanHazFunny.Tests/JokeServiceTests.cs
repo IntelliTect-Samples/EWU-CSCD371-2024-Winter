@@ -23,7 +23,7 @@ namespace CanHazFunny.Tests;
         [InlineData("Jesus can walk on water, but Chuck Norris can walk on Jesus.", "{{\"joke\": \"Jesus can walk on water, but Chuck Norris can walk on Jesus.\"}}")]
         [InlineData("When Chuck Norris says 'More cowbell', he MEANS it.", "{{\"joke\": \"When Chuck Norris says 'More cowbell', he MEANS it.\"}}")]
         [InlineData("In the movie 'The Matrix', Chuck Norris is the Matrix. If you pay close attention in the green 'falling code' scenes, you can make out the faint texture of his beard.", "{{\"joke\": \"In the movie 'The Matrix', Chuck Norris is the Matrix. If you pay close attention in the green 'falling code' scenes, you can make out the faint texture of his beard.\"}}")]
-        public void ParseJokeJSON_ParseJSon_ReturnsJokeAsString(string expectedParsedString , string jokeJSON)
+        public void ParseJokeJSON_JokeJSONFormat_ReturnsJokeAsString(string expectedParsedString , string jokeJSON)
         {
 
 

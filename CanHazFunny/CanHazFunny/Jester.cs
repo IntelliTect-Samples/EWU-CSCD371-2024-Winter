@@ -1,18 +1,12 @@
 ﻿using System;
 
 namespace CanHazFunny;
-    public class Jester
-    {
-        public IJokeService JokeService { get; private set; }
-        public IOutputToScreen JokeWriter { get; private set; }
+    public class Jester(IJokeService jokeService, IOutputToScreen jokeWriter)
+{
+    public IJokeService JokeService { get; private set; } = jokeService ?? throw new ArgumentNullException(nameof(jokeService));
+    public IOutputToScreen JokeWriter { get; private set; } = jokeWriter ?? throw new ArgumentNullException(nameof(jokeWriter));
 
-        public Jester(IJokeService jokeService, IOutputToScreen jokeWriter)
-        {
-            this.JokeService = jokeService ?? throw new ArgumentNullException(nameof(jokeService));
-            this.JokeWriter = jokeWriter ?? throw new ArgumentNullException(nameof(jokeWriter));
-
-        }
-        public void TellJoke()
+    public void TellJoke()
         {
             string joke;
 
