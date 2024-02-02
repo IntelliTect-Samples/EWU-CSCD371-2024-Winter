@@ -12,9 +12,9 @@ namespace CanHazFunny;
         private HttpClient HttpClient { get; } = new();
         public string GetJoke()
         {
-            HttpResponseMessage json = HttpClient.GetAsync("https://geek-jokes.sameerkumar.website/api").Result;
+            HttpResponseMessage json = HttpClient.GetAsync("https://geek-jokes.sameerkumar.website/api?format=json").Result;
 
-            string joke = json.Content.ReadAsStringAsync().Result;
+            string joke = ParseJokeJSON(json.Content.ReadAsStringAsync().Result);
 
             return joke;
         }
@@ -22,9 +22,7 @@ namespace CanHazFunny;
         public static string ParseJokeJSON(string jokeJSON)
         {
             int beginningIndex = jokeJSON.IndexOf(": \"") + 3;
-            int ending = jokeJSON.IndexOf("\"}}");
-
-
+            int ending = jokeJSON.IndexOf("\"}");
 
             return jokeJSON[beginningIndex..ending];
             
