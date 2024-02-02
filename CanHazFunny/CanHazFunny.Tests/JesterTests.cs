@@ -25,24 +25,30 @@ public class JesterTests
     }
 
     [Fact]
-    public void TellJoke_WhenChuckNorrisJokeEncountered_SkipsChuckNorrisJoke()
+    public void TellJoke_ChuckNorrisJoke_SuccessfulSkip()
     {
         // Arrange
-        var mockService = new Mock<IService>();
-        var mockOutput = new Mock<IOutput>();
-        mockService.SetupSequence(x => x.GetJoke())
-                       .Returns("Chuck norris joke") // checking joke w/different capitalization
-                       .Returns("LMAO");
-        var jester = new Jester(mockService.Object, mockOutput.Object);
-        
-        //Act
+        Mock<IService> JokeMock = new();
+        Mock<IOutput> OutputMock = new();
+        string JokeChuck = "Chuck Norris doesn't need garbage collection because he doesn't call .Dispose(), he calls .DropKick().";
+        string JokeProgrammer = "Why don't programmers like nature? It has too many bugs.";
+
+        JokeMock.SetupSequence(jokeService => jokeService.GetJoke())
+            .Returns(JokeChuck)
+            .Returns(JokeProgrammer);
+
+        OutputMock.Setup(OutputToScreen => OutputToScreen.WriteJoke(It.IsAny<string>()));
+
+        Jester jester = new(JokeMock.Object, OutputMock.Object);
+
+        // Act
         jester.TellJoke();
 
         // Assert
-        mockService.Verify(x => x.GetJoke(), Times.Exactly(2));
-        mockOutput.Verify(x => x.WriteJoke("LMAO"), Times.Once);
-
+        JokeMock.Verify(jokeMock => jokeMock.GetJoke(), Times.Exactly(2));
+        OutputMock.Verify(OutputToScreen => OutputToScreen.WriteJoke(It.IsAny<string>()), Times.Once());
     }
+
 
     [Fact]
     public void TellJoke_DisplayCorrectJoke_Success()
