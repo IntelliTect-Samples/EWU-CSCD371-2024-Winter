@@ -12,7 +12,7 @@ namespace CanHazFunny.Tests
         [Fact]
         public void GetJoke_ReciveString_Success()
         {
-            JokeService service = new JokeService();
+            JokeService service = new();
             Assert.IsType<string>(service.GetJoke());
         }
     }
