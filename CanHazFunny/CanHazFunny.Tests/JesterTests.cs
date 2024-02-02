@@ -16,7 +16,7 @@ public class JesterTests
     }
 
     [Fact]
-    public void IOutServiceProperty_SetPropertyToNull_Success()
+    public void IOutServiceProperty_SetPropertyToNull_ThrowsNullException()
     {
         Assert.Throws<ArgumentNullException>(
             () => new Jester(new JokeService(), null!));
