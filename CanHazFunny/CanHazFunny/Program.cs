@@ -4,6 +4,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        new Jester(new JokeTeller(), new JokeService()).TellJoke();
+        Jester _jest = new (new JokeTeller(), new JokeService());
+        _jest.TellJoke();
     }
 }
