@@ -1,4 +1,6 @@
 ﻿
+using System.Globalization;
+
 namespace Logger
 {
     public record class FullName(string FirstName, string LastName, string MiddleName = "")
@@ -8,6 +10,12 @@ namespace Logger
         public string FirstName { get; } = FirstName ?? throw new ArgumentNullException(nameof(FirstName));
         public string MiddleName { get; } = MiddleName;
         public string LastName { get; } = LastName ?? throw new ArgumentNullException(nameof(LastName));
+
+        public override string ToString()
+        {
+
+            return $"{FirstName}{(string.IsNullOrWhiteSpace(MiddleName) ? String.Empty : MiddleName)} {LastName}";
+        }
 
     }
 }
