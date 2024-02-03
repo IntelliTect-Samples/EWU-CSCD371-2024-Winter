@@ -31,6 +31,14 @@ public class FullNameTests
 
         }
 
+        [Fact]
+        public void ToString_WithMiddleName_ReturnsExpectedFormat()
+        {
+            FullName fullName = new("Jake", "Johnson", "Henry");
+
+            Assert.Equal("Jake Henry Johnson", fullName.ToString());
+
+        }
 
 
 }

@@ -14,7 +14,7 @@ namespace Logger
         public override string ToString()
         {
 
-            return $"{FirstName}{(string.IsNullOrWhiteSpace(MiddleName) ? String.Empty : MiddleName)} {LastName}";
+            return $"{FirstName}{(string.IsNullOrWhiteSpace(MiddleName) ? String.Empty : " " +  MiddleName)} {LastName}";
         }
 
     }
