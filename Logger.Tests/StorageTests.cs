@@ -25,20 +25,23 @@ namespace Logger.Tests;
     }
 
     [Fact]
-    public void Remove_HungerGamesBook_RemovesSucessful()
+    public void Remove_EmployeeEnity_RemovesSucessful()
     {
-        IEntity hungerGames = new Employee("Stuart", "Steiner", 120000);
+        IEntity employeeEntity = new Employee("Stuart", "Steiner", 120000);
 
-        Storage.Remove(hungerGames);
+        Storage.Remove(employeeEntity);
 
-        Assert.False(Storage.Contains(hungerGames));
+        Assert.False(Storage.Contains(employeeEntity));
     }
 
     [Fact]
     public void Get_StudentEnityExists_ReturnsStudentEnity()
     {
-        IEntity student = new Student("Alexa", "Darrington", 245809);
-        Guid studentGuid = student.Id;
+        BaseEntity student = new Student("Alexa", "Darrington", 245809)
+        {
+            Id = Guid.NewGuid(),
+        };
+        Guid studentGuid = ((IEntity)student).Id;
         Storage.Add(student);
 
         IEntity copy = Storage.Get(studentGuid)!;
