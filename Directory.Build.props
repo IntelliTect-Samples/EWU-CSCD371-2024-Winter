@@ -1,0 +1,10 @@
+<Project>
+ <PropertyGroup>
+   <Deterministic>true</Deterministic>
+    <ImplicitUsings>enable</ImplicitUsings>
+	<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+	<EnableNETAnalyzers>true</EnableNETAnalyzers>
+	<CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors>
+	<Nullable>enable</Nullable>
+ </PropertyGroup>
+</Project>
