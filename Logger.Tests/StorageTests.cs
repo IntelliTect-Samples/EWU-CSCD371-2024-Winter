@@ -34,5 +34,17 @@ namespace Logger.Tests;
         Assert.False(Storage.Contains(hungerGames));
     }
 
+    [Fact]
+    public void Get_StudentEnityExists_ReturnsStudentEnity()
+    {
+        IEntity student = new Student("Alexa", "Darrington", 245809);
+        Guid studentGuid = student.Id;
+        Storage.Add(student);
+
+        IEntity copy = Storage.Get(studentGuid)!;
+        Assert.NotNull(copy);
+        Assert.Equal(student, copy);
+    }
+
     }
 

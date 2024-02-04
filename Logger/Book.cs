@@ -8,6 +8,8 @@ public record class Book(string Title, string Author) : BaseEntity
     public override string Name { get =>
             $"{Title}: {Author}";
     }
-    
+
+
+
 }
 
