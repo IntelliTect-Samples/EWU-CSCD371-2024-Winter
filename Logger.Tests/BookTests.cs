@@ -27,13 +27,22 @@ public class BookTests
     }
 
     [Fact]
+    public void ToString_ValidBook_ReturnsCorrectFormat()
+    {
+        var book = new Book("Essential C#", "Mark Michaelis");
+        Assert.Equal("Essential C# By Mark Michaelis", book.ToString());
+    }
+
+
+    [Fact]
     public void Equals_SameArthorAndTitle_ReturnsTrue()
     {
         var book1 = new Book("Harry Potter and the Goblet of Fire", "JK Rowling");
         var book2 = new Book("Harry Potter and the Goblet of Fire", "JK Rowling");
-
+        var book3 = book1 with { Title = "Harry Potter and the Chamber of Secretes" };
         Assert.True(book1 == book2);
         Assert.Equal(book1, book2);
+        Assert.False(book1 == book3);
 
     }
 

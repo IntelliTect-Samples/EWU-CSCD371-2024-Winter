@@ -29,6 +29,14 @@ namespace Logger.Tests;
     }
 
     [Fact]
+    public void ToString_ValidEmployee_ReturnsCorrectFormat()
+    {
+        Employee emp = new("Jack", "White");
+
+        Assert.Equal("Jack White", emp.ToString());
+    }
+
+    [Fact]
     public void Equals_SameNameAndSalary_ReturnsTrue()
     {
         var employeeGuid  = Guid.NewGuid();
@@ -42,9 +50,13 @@ namespace Logger.Tests;
             Id = employeeGuid
 
         };
+
+        var employee3 = employee1 with { LastName = "Salazare" };
         Console.WriteLine(employee1 + " " + employee2);
         Assert.True(employee1.Equals(employee2));
         Assert.True(employee1 == employee2);
+        Assert.False(employee1 == employee3);
+
 
     }
 

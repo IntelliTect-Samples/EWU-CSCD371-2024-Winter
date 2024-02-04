@@ -27,16 +27,25 @@ public class StudentTests
     }
 
     [Fact]
+    public void ToString_ValidStudent_ReturnsCorrectFormat()
+    {
+        Student emp = new("Christina", "Aguilera");
+
+        Assert.Equal("Christina Aguilera", emp.ToString());
+    }
+
+    [Fact]
     public void Equals_SameNameAndID_ReturnsTrue()
     {
 
 
-        Student student1 = new Student("James", "Baily");
-
-        Student student2 = new Student("James", "Baily");
+        Student student1 = new("James", "Baily");
+        Student student2 = new("James", "Baily");
+        Student student3 = student1 with { FirstName = "Roger" };
 
         Assert.True(student1.Equals(student2));
         Assert.True(student1 == student2);
+        Assert.False(student1 == student3);
 
     }
 
