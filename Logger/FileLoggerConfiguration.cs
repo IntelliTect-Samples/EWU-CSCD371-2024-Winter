@@ -13,6 +13,7 @@ public class FileLoggerConfiguration : ILoggerConfiguration
 
     }
     
+    // TODO Properties should be declared at the top of class
     public string FilePath { get;  }
     public string LogSource { get; }
 }
