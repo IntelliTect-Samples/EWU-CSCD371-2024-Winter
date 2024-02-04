@@ -1,16 +1,13 @@
 ﻿namespace Logger.Tests
 {
-    internal class Employee
+    public record class Employee(string FirstName, string LastName, double Salary) : BaseEntity
     {
-        private string v1;
-        private string v2;
-        private int v3;
+        public FullName EmployeeName { get; } = new FullName(FirstName, LastName);
 
-        public Employee(string v1, string v2, int v3)
-        {
-            this.v1 = v1;
-            this.v2 = v2;
-            this.v3 = v3;
-        }
+        public double Salary { get; } = Salary;
+
+
+        public override string Name => 
+            $"{EmployeeName}, Salary: {Salary}";
     }
 }
