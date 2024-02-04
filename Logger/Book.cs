@@ -9,16 +9,6 @@ public record class Book(string Title, string Author) : IEntity
 
     public string Name { get => $"{nameof(Book)}: {Title} By {Author}"; }
 
-    public virtual bool Equals(Book? other)
-    {
-        return Name.Equals(
-        (other?.Name));
-    }
-
-    public override int GetHashCode() =>
-    (Name).GetHashCode();
-
-
 
 }
 
