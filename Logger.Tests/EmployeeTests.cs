@@ -39,17 +39,8 @@ namespace Logger.Tests;
     [Fact]
     public void Equals_SameNameAndSalary_ReturnsTrue()
     {
-        var employeeGuid  = Guid.NewGuid();
-
-        var employee1 = new Employee("Thomas", "Young")
-        {
-            Id = employeeGuid
-        };
-        var employee2 = new Employee("Thomas", "Young")
-        {
-            Id = employeeGuid
-
-        };
+        var employee1 = new Employee("Thomas", "Young");
+        var employee2 = new Employee("Thomas", "Young");
 
         var employee3 = employee1 with { LastName = "Salazare" };
         Console.WriteLine(employee1 + " " + employee2);
