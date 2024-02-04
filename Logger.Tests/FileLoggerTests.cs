@@ -9,6 +9,19 @@ public class FileLoggerTests : FileLoggerTestsBase
     {
         Assert.Equal(nameof(FileLoggerTests), Logger.LogSource);
         Assert.Equal(FilePath, Logger.FilePath);
+
+    }
+
+    [Fact]
+    public void CreateLoggerGeneric_ValidFileLoggerConfiguration_CreatesFileLogger()
+    {
+        var logger = FileLogger.CreateLogger<FileLoggerConfiguration>(new FileLoggerConfiguration("Path", nameof(FileLoggerTests)));
+        FileInfo file = new("Path");
+
+        Assert.Equal(file.FullName, logger.FilePath);
+        Assert.IsType<FileLogger>(logger);
+        Assert.Equal(nameof(FileLoggerTests), logger.LogSource);
+
     }
 
     [Fact]
