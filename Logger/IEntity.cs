@@ -1,7 +1,12 @@
-﻿namespace Logger;
-public interface IEntity
+﻿using System;
+
+namespace Logger
 {
-
-        // Place members here.
-
+    public interface IEntity
+    {
+    // Place members here
+    // Int only setter "Guid"
+    Guid Id { get; init; }
+    string Name { get; }
+    }
 }
