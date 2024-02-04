@@ -1,25 +1,15 @@
 ﻿
 namespace Logger.Tests
 {
-    public record class Employee(string FirstName, string LastName, double Salary) : IEntity
+    public record class Employee(string FirstName, string LastName) : IEntity
     {
-        public FullName EmployeeName { get; } = new FullName(FirstName, LastName);
-
-        public double Salary { get; } = Salary;
+        public FullName Name { get; } = new FullName(FirstName, LastName);
 
 
-        public string Name {get=> $"{EmployeeName}, Salary: {Salary}"; }
-            
-        public Guid Id { get; init ; }
+        //Name member of IEntity should explicit becuase it has collision with Employee's name
+        string IEntity.Name {get=> $"{nameof(Employee)}: {Name}"; }
 
-        public virtual bool Equals(Book? other)
-        {
-            return Name.Equals(
-            (other?.Name));
-        }
-
-        public override int GetHashCode() =>
-        (Name).GetHashCode();
+        public Guid Id { get; init; }
 
     }
 }

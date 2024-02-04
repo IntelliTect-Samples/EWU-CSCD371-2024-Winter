@@ -1,15 +1,15 @@
 ﻿
 namespace Logger;
 
-public record class Student(string FirstName, string LastName, int ID) : IEntity
+public record class Student(string FirstName, string LastName) : IEntity
 {
 
-    public FullName StudentName { get; } = new FullName(FirstName, LastName);
+    public FullName Name { get; } = new FullName(FirstName, LastName);
 
-    public int ID { get; } = ID;
     public Guid Id { get; init; }
 
-    public string Name {get => $"{ID}: {StudentName}"; }
+    //Name member of IEntity should explicit becuase it has collision with Employee's name
+    string IEntity.Name {get => $"{nameof(Student)}: {Name}"; }
 
     public virtual bool Equals(Book? other)
     {

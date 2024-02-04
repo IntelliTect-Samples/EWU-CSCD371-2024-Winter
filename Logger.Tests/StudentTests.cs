@@ -2,35 +2,38 @@
 
 namespace Logger.Tests;
 
-    public class StudentTests
-    {
-    #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+public class StudentTests
+{
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 
     [Fact]
     public void Student_NullFirstname_ThrowsNullPointerException()
     {
-        Assert.Throws<ArgumentNullException>(()=> new Student(null, "Robertson", 1345));
+        Assert.Throws<ArgumentNullException>(() => new Student(null, "Robertson"));
     }
 
     [Fact]
     public void Student_NullLastName_ThrowsNullPointerException()
     {
-        Assert.Throws<ArgumentNullException>(() => new Student("Jeffrey", null, 1345));
+        Assert.Throws<ArgumentNullException>(() => new Student("Jeffrey", null));
     }
 
     [Fact]
-    public void ToString_ValidStudent_ReturnsFormattedName()
+    public void Name_ValidStudent_ReturnsFormattedName()
     {
-        var student = new Student("Jeffrey", "Robertson", 1345);
+        IEntity student = new Student("Jeffrey", "Robertson");
 
-        Assert.Equal("1345: Jeffrey Robertson", student.Name);
+        Assert.Equal("Student: Jeffrey Robertson", student.Name);
     }
 
     [Fact]
     public void Equals_SameNameAndID_ReturnsTrue()
     {
-        var student1 = new Student("James", "Baily", 134567);
-        var student2 = new Student("James", "Baily", 134567);
+
+
+        Student student1 = new Student("James", "Baily");
+
+        Student student2 = new Student("James", "Baily");
 
         Assert.True(student1.Equals(student2));
         Assert.True(student1 == student2);

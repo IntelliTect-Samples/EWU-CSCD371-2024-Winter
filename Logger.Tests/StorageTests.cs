@@ -8,8 +8,8 @@ namespace Logger.Tests;
     public Storage Storage { get; set; }
     public StorageTests() { 
         Storage = new Storage();
-        Storage.Add(new Student("Trevor", "Rabin", 3455));
-        Storage.Add(new Employee("Stuart", "Steiner", 120000));
+        Storage.Add(new Student("Trevor", "Rabin"));
+        Storage.Add(new Employee("Stuart", "Steiner"));
         Storage.Add(new Book("Hunger Games", "Suzanne Collins"));
     }
 
@@ -27,7 +27,7 @@ namespace Logger.Tests;
     [Fact]
     public void Remove_EmployeeEnity_RemovesSucessful()
     {
-        IEntity employeeEntity = new Employee("Stuart", "Steiner", 120000);
+        IEntity employeeEntity = new Employee("Stuart", "Steiner");
 
         Storage.Remove(employeeEntity);
 
@@ -37,9 +37,10 @@ namespace Logger.Tests;
     [Fact]
     public void Get_StudentEnityExists_ReturnsStudentEnity()
     {
-        BaseEntity student = new Student("Alexa", "Darrington", 245809)
+        var testGuid = Guid.NewGuid();
+        IEntity student = new Student("Alexa", "Darrington")
         {
-            Id = Guid.NewGuid(),
+            Id = testGuid,
         };
         Guid studentGuid = ((IEntity)student).Id;
         Storage.Add(student);

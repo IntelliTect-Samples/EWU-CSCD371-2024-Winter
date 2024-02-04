@@ -20,10 +20,10 @@ public class BookTests
     }
 
     [Fact]
-    public void Book_CorrectAuthorAndTitle_ReturnsFormattedName()
+    public void Book_ValidBook_ReturnsFormattedName()
     {
         var book = new Book("Essential C#", "Mark Michaelis");
-        Assert.Equal("Essential C#: Mark Michaelis", book.Name);
+        Assert.Equal("Book: Essential C# By Mark Michaelis", book.Name);
     }
 
     [Fact]

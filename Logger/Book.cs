@@ -7,7 +7,7 @@ public record class Book(string Title, string Author) : IEntity
 
     public Guid Id { get; init; }
 
-    public string Name { get => $"{Title}: {Author}"; }
+    public string Name { get => $"{nameof(Book)}: {Title} By {Author}"; }
 
     public virtual bool Equals(Book? other)
     {
