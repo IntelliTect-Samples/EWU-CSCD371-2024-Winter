@@ -23,6 +23,12 @@ public class FullNameTests
         }
 
         [Fact]
+        public void FullName_NullMiddleName_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() => new FullName("Jake", "Johnson", null));
+        }
+
+    [Fact]
         public void ToString_NoMiddleName_ReturnsExpectedFormat()
         {
             FullName fullName = new("Jake", "Johnson");
