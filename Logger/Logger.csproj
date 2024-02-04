@@ -3,6 +3,5 @@
 		<Deterministic>true</Deterministic>
 		<TargetFramework>net8.0</TargetFramework>
 		<IsPackable>false</IsPackable>
-		<LangVersion>12.0</LangVersion>
 	</PropertyGroup>
 </Project>
