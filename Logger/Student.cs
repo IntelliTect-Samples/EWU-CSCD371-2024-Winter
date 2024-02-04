@@ -1,13 +1,12 @@
 ﻿namespace Logger;
 
-    public class Student
-    {
-        private string v;
-        private object value;
+public record class Student(string FirstName, string LastName, int ID) : BaseEntity
+{
 
-        public Student(string v, object value)
-        {
-            this.v = v;
-            this.value = value;
-        }
-    }
+    public FullName StudentName { get; } = new FullName(FirstName, LastName);
+
+    public int ID { get; } = ID;
+
+    public override string Name => $"{ID}: {StudentName}";
+
+}
