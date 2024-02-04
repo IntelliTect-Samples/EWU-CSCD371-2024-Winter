@@ -25,6 +25,17 @@ public class BookTests
         var book = new Book("Essential C#", "Mark Michaelis");
         Assert.Equal("Essential C#: Mark Michaelis", book.Name);
     }
-    
+
+    [Fact]
+    public void Equals_SameArthorAndTitle_ReturnsTrue()
+    {
+        var book1 = new Book("Harry Potter and the Goblet of Fire", "JK Rowling");
+        var book2 = new Book("Harry Potter and the Goblet of Fire", "JK Rowling");
+
+        Assert.True(book1 == book2);
+        Assert.Equal(book1, book2);
+
     }
+
+}
 

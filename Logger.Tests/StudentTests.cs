@@ -25,5 +25,17 @@ namespace Logger.Tests;
 
         Assert.Equal("1345: Jeffrey Robertson", student.Name);
     }
+
+    [Fact]
+    public void Equals_SameNameAndID_ReturnsTrue()
+    {
+        var student1 = new Student("James", "Baily", 134567);
+        var student2 = new Student("James", "Baily", 134567);
+
+        Assert.True(student1.Equals(student2));
+        Assert.True(student1 == student2);
+
+    }
+
 }
 

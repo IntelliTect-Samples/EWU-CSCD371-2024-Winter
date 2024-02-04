@@ -27,5 +27,17 @@ namespace Logger.Tests;
 
         Assert.Equal("John Davis, Salary: 56000", employee.Name);
     }
+
+    [Fact]
+    public void Equals_SameNameAndSalary_ReturnsTrue()
+    {
+        var employee1 = new Employee("Thomas", "Young", 35000.0);
+        var employee2 = new Employee("Thomas", "Young", 35000.0);
+
+        Assert.True(employee1.Equals(employee2));
+        Assert.True(employee1 == employee2);
+
+    }
+
 }
 

@@ -47,5 +47,18 @@ public class FullNameTests
         }
 
 
+        [Fact]
+        public void Equals_SameFirstLastMiddleName_ReturnsTrue()
+        {
+            FullName fullName1 = new("Jake", "Johnson", "Henry");
+            FullName fullName2 = new("Jake", "Johnson", "Henry");
+
+            Assert.Equal(fullName1, fullName2);
+            Assert.True(fullName1.Equals(fullName2));
+            Assert.True(fullName1 == fullName2);
+
+    }
+
+
 }
 
