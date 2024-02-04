@@ -9,10 +9,7 @@ public record class Book(string Title, string Author) : IEntity
 
     public string Name { get => $"{nameof(Book)}: {Title} By {Author}"; }
 
-    public override string ToString()
-    {
-        return $"{Title} By {Author}";
-    }
+    public override string ToString() => $"{Title} By {Author}";
 
 }
 

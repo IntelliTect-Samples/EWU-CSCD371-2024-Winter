@@ -11,10 +11,7 @@ namespace Logger.Tests
 
         public Guid Id { get; init; }
 
-        public override string ToString()
-        {
-            return Name.ToString();
-        }
+        public override string ToString() => Name.ToString();
 
     }
 }

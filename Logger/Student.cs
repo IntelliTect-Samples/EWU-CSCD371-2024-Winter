@@ -11,9 +11,6 @@ public record class Student(string FirstName, string LastName) : IEntity
     //Name member of IEntity should explicit becuase it has collision with Employee's name
     string IEntity.Name {get => $"{nameof(Student)}: {Name}"; }
 
-    public override string ToString()
-    {
-        return Name.ToString();
-    }
+    public override string ToString() => Name.ToString();
 
 }
