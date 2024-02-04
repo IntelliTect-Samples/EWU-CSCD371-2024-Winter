@@ -10,13 +10,5 @@ public abstract record class BaseEntity: IEntity
     //Name could cause naming collision so it should also be explicit
     public abstract string Name { get;}
 
-    public virtual bool Equals(BaseEntity? other)
-    {
-        return (Name).Equals(
-        (other?.Name));
-    }
-
-    public override int GetHashCode() =>
-    (Name).GetHashCode();
 }
 
