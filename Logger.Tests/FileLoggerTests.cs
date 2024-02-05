@@ -27,6 +27,9 @@ public class FileLoggerTests : FileLoggerTestsBase
     //TODO: In CreateLogger method in FileLogger it checks if logggerConfiguration is of type FileLoggerConfiguration
     //But no tests to exits to make sure the behavior is checked.
 
+
+    //TODO: I remeber Mark and Benjiman saying that having conditional logic in tests was bad
+    //so maybe this would need to be changed to make sure it didn't do this
     [Fact]
     public async Task Log_Message_FileAppended()
     {

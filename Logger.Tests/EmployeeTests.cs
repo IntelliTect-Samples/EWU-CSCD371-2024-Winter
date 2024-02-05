@@ -43,7 +43,6 @@ namespace Logger.Tests;
         var employee2 = new Employee("Thomas", "Young");
 
         var employee3 = employee1 with { LastName = "Salazare" };
-        Console.WriteLine(employee1 + " " + employee2);
         Assert.True(employee1.Equals(employee2));
         Assert.True(employee1 == employee2);
         Assert.False(employee1 == employee3);
