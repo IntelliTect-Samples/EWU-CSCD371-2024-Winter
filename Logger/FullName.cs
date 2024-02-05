@@ -1,6 +1,6 @@
 ﻿
-namespace Logger
-{
+namespace Logger;
+
     public readonly record struct FullName(string FirstName, string LastName, string MiddleName = "")
     {
         /// <comment>
@@ -21,4 +21,4 @@ namespace Logger
 
 
     }
-}
+

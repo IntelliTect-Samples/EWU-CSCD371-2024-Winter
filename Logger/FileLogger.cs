@@ -24,8 +24,8 @@ public class FileLogger : BaseLogger, ILogger<FileLogger>
         writer.WriteLine($"{DateTime.Now},{LogSource},{logLevel},{message}");
     }
 
-    public static FileLogger CreateLogger<T>(in T logggerConfiguration) where T : ILoggerConfiguration =>
-        logggerConfiguration is FileLoggerConfiguration configuration
-            ? CreateLogger(configuration)
-            : throw new ArgumentException("Invalid configuration type", nameof(logggerConfiguration));
+    public FileLogger CreateLogger<T>(in T configuration) where T : ILoggerConfiguration =>
+        configuration is FileLoggerConfiguration fileConfiguration
+            ? CreateLogger(fileConfiguration)
+            : throw new ArgumentException("Invalid configuration type", nameof(configuration));
 }
