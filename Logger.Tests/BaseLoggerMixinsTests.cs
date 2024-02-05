@@ -28,4 +28,8 @@ public class BaseLoggerMixinsTests
         Assert.Equal("Message 42", logger.LoggedMessages[0].Message);
     }
 
+    //TODO: Missing Tests for Warning if sucessful log and null logger
+    //TODO: Missing Tests for Debug if sucessful log and null logger
+    //TODO: Missing Tests for Information if sucessful log and null logger
+
 }
