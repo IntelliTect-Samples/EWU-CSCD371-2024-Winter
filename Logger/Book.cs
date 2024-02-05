@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Logger
+namespace Logger;
+
+public record class Book : BaseEntity
 {
-    public record class Book(
-        ); //could be combined in one file if we want
-    //also needs to be setup
+    protected override
 }
