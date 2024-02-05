@@ -1,5 +1,6 @@
 ﻿namespace Logger;
-
+//TODO: Could derrive from BaseLoggerConfiguration so that you don't have to do the check again for LogSource
+//and define LogSource again
 public class FileLoggerConfiguration : ILoggerConfiguration
 {
     public FileLoggerConfiguration(string filePath, string logSource)
