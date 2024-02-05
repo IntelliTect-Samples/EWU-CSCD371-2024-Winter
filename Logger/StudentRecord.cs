@@ -1,22 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Logger
-{
-    public record struct StudentRecord : IEntity
+namespace Logger;
+
+    public record class StudentRecord(Guid Id, string FirstName, string? MiddleName, string LastName) : BaseEntity
     {
-        public Guid Id { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
-        public string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        
 
-
-
-
-
-        public StudentRecord()
+    public string Name
+    {
+        get
         {
+           return  null;
+        }
+
+        set
+        {
+
+            FullNameRecord nameRecord = new FullNameRecord(FirstName, MiddleName, LastName);
+
+            //return nameRecord.ToString();
         }
     }
+
+    public override string getName()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void SetName(string name)
+    {
+        throw new NotImplementedException();
+    }
 }
+

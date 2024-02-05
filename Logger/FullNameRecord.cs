@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Logger {
+namespace Logger;
 
     //as a name can be changed this is not immutable and should be a reference type so it's dynamic
-    public record struct FullNameRecord
+    public record class FullNameRecord
     {
         private string FirstName { get; }
         private string LastName { get; }
@@ -27,7 +27,7 @@ namespace Logger {
             MiddleName = null;
         }
 
-        public readonly override string ToString()
+        public override string ToString()
         {
             if(MiddleName != null)
             {
@@ -39,4 +39,3 @@ namespace Logger {
             }
         }
     }
-}

@@ -4,23 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Logger { 
+namespace Logger;
 
-    public record struct EmployeeRecord : IEntity
+public record class EmployeeRecord : BaseEntity
+{
+    public override string getName()
     {
-
-        public Guid Id { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
-        public string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        public EmployeeRecord()
-        {
-        }
-
-
-
+        throw new NotImplementedException();
     }
 
+    public override void SetName(string name)
+    {
+        throw new NotImplementedException();
+    }
+}
+
     
     
 
-}
+

@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Logger
+namespace Logger;
+
+public record class BookRecord(Guid Id, string Title) : BaseEntity
 {
-    public record struct BookRecord : IEntity
+    public override string getName()
     {
-        public Guid Id { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
-        public string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        throw new NotImplementedException();
+    }
 
-
-
-        public BookRecord() 
-        {
-        
-        }
+    public override void SetName(string name)
+    {
+        throw new NotImplementedException();
     }
 }
+
