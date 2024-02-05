@@ -8,14 +8,8 @@ namespace Logger;
 
 public record class BookRecord : BaseEntity
 {
-    public override string getName()
-    {
-        throw new NotImplementedException();
-    }
+    public override string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-    public override void SetName(string name)
-    {
-        throw new NotImplementedException();
-    }
+    
 }
 

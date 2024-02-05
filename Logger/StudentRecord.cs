@@ -9,32 +9,59 @@ namespace Logger;
 
     public record class StudentRecord : BaseEntity
     {
-        
 
-    /*public string Name
+    // FirstName property
+    public required string FirstName { get; set; }
+
+    // LastName property
+    public required string LastName { get; set; }
+
+    //MiddleName property
+    public string? MiddleName
     {
-        get
-        {
-           return  null;
-        }
-
-        set
-        {
-
-            ///FullNameRecord nameRecord = new FullNameRecord(FirstName, MiddleName, LastName);
-
-            //return nameRecord.ToString();
-        }
-    }*/
-
-    public override string getName()
-    {
-        throw new NotImplementedException();
+        get => _MiddleName!;
+        set => _MiddleName = value;
     }
+    private string? _MiddleName;
 
-    public override void SetName(string name)
-    {
-        throw new NotImplementedException();
-    }
+    // Name property
+   
+        private string getName()
+        {
+            FullNameRecord record = new(FirstName, MiddleName!, LastName);
+            return record.ToString();
+        }
+        private void setName(string value)
+        {
+            // ...
+            ArgumentException.ThrowIfNullOrEmpty(value = value?.Trim()!);
+            // ...
+            // Split the assigned value into 
+            // first and last names
+            string[] names;
+            names = value.Split(new char[] { ' ' });
+            if (names.Length == 2)
+            {
+                FirstName = names[0];
+                LastName = names[1];
+                MiddleName = null;
+            }
+            else if (names.Length == 3)
+            {
+                FirstName = names[0];
+                MiddleName = names[1];
+                LastName = names[2];
+            }
+            {
+                // Throw an exception if the full 
+                // name was not assigned
+                throw new System.ArgumentException(
+                    $"Assigned value '{value}' is invalid",
+                    nameof(value));
+            }
+        }
+    
+
+    public override string Name { get => getName(); set => setName(value); }
 }
 

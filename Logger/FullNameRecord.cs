@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logger;
 
-    //as a name can be changed this is not immutable and should be a reference type so it's dynamic
+    //names can be changed so this is mutable and should be a reference type so it's dynamic
     public record class FullNameRecord
     {
         private string FirstName { get; }
