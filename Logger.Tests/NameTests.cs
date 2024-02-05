@@ -28,6 +28,41 @@ public class NameTests
         Assert.Equal(lastName, fullName.LastName);
 
     }
+    [Fact]
+    public void Create_NoMiddleName_ReturnsFullNameInstance()
+    {
+        //Arrange
+        string firstName = "Ethan";
+        string lastName = "Guerin";
+
+        //Act
+        Name fullName = Create(firstName, "", lastName);
+        
+        //Assert
+        Assert.NotNull(fullName);
+        Assert.Equal(firstName, fullName.FirstName);
+        Assert.Equal(lastName, fullName.LastName);
+
+    }
+
+    [Fact]
+    public void Create_NullMiddleName_ReturnsFullNameInstance()
+    {
+        //Arrange
+        string firstName = "Ethan";
+        string middleName = null!;
+        string lastName = "Guerin";
+
+        //Act
+        Name fullName = Create(firstName, middleName, lastName);
+
+        //Assert
+        Assert.NotNull(fullName);
+        Assert.Equal(firstName, fullName.FirstName);
+        Assert.Equal(lastName, fullName.LastName);
+        Assert.Null(fullName.MiddleName);
+
+    }
 
     [Theory]
     [InlineData(null, "Alexander", "Guerin")]
