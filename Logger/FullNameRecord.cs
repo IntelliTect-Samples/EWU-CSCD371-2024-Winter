@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Logger {
 
-    public readonly record struct FullNameRecord
+    //as a name can be changed this is not immutable and should be a reference type so it's dynamic
+    public record struct FullNameRecord
     {
-        public string FirstName { get; }
-        public string LastName { get; }
-        public string? MiddleName { get; }
+        private string FirstName { get; }
+        private string LastName { get; }
+        private string? MiddleName { get; }
 
         public FullNameRecord(string firstName, string lastName, string? middleName)
         {
@@ -19,7 +20,23 @@ namespace Logger {
             MiddleName = middleName;
         }
 
+        public FullNameRecord(string firstName,  string lastName)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            MiddleName = null;
+        }
 
-
+        public readonly override string ToString()
+        {
+            if(MiddleName != null)
+            {
+                return $"{FirstName} {MiddleName} {LastName}";
+            }
+            else
+            {
+                return $"{FirstName} {LastName}";
+            }
+        }
     }
 }
