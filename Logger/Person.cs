@@ -7,6 +7,5 @@ public abstract record class Person(string FirstName, string LastName)
 
     public override string ToString() => Name.ToString();
 
-
 }
 

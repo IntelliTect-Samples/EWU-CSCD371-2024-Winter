@@ -6,6 +6,7 @@ public record class Student(string FirstName, string LastName) : Person(FirstNam
 
     //Name member of IEntity should explicit becuase it has collision with Employee's name
     string IEntity.Name {get => $"{nameof(Student)}: {Name}"; }
+    //Implicit, Id doesn't cause any issues
 
     public Guid Id { get; init; }
 

@@ -6,7 +6,7 @@ namespace Logger.Tests
 
         //Name member of IEntity should explicit becuase it has collision with Employee's name
         string IEntity.Name {get=> $"{nameof(Employee)}: {Name}"; }
-
+        //Implicit, Id doesn't cause any issues
         public Guid Id { get; init; }
 
         public override string ToString() => base.ToString();

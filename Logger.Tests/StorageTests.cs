@@ -42,7 +42,7 @@ namespace Logger.Tests;
         {
             Id = testGuid,
         };
-        Guid studentGuid = ((IEntity)student).Id;
+        Guid studentGuid = student.Id;
         Storage.Add(student);
 
         IEntity copy = Storage.Get(studentGuid)!;
