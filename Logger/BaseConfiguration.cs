@@ -1,6 +1,9 @@
 ﻿namespace Logger;
 //TODO: This could be abstract since you wouldn't need to create your own BaseLoggerConfiguration
 //because it woudln't be able to do anything.
+
+//TODO: Since you can instanate this class, it needs to be tested
+//This would involve checking that the ArgumentException is thrown if the LogSource is null or whitespace
 public class BaseLoggerConfiguration : ILoggerConfiguration
 {
     public BaseLoggerConfiguration(string logSource) => LogSource = string.IsNullOrWhiteSpace(logSource)
