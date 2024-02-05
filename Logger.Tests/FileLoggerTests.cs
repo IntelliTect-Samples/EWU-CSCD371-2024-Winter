@@ -11,7 +11,7 @@ public class FileLoggerTests : FileLoggerTestsBase
         Assert.Equal(FilePath, Logger.FilePath);
 
     }
-
+    //This was added to check if generic method was working, not a already made tests
     [Fact]
     public void CreateLoggerGeneric_ValidFileLoggerConfiguration_CreatesFileLogger()
     {
@@ -23,6 +23,9 @@ public class FileLoggerTests : FileLoggerTestsBase
         Assert.Equal(nameof(FileLoggerTests), logger.LogSource);
 
     }
+
+    //TODO: In CreateLogger method in FileLogger it checks if logggerConfiguration is of type FileLoggerConfiguration
+    //But no tests to exits to make sure the behavior is checked.
 
     [Fact]
     public async Task Log_Message_FileAppended()
