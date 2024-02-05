@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logger;
 
-public record class BookRecord(Guid Id, string Title) : BaseEntity
+public record class BookRecord : BaseEntity
 {
     public override string getName()
     {

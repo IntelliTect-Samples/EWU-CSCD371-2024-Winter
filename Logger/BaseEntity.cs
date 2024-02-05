@@ -10,7 +10,8 @@ public abstract record class BaseEntity : IEntity
             
 
             //throw new NotImplementedException("Implement Name Property in derived classes.");
-            get => getName();  set => SetName(value);
+            get => getName();  
+            set => SetName(value);
            
            
         }

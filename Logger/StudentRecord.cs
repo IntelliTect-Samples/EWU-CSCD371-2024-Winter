@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Logger;
 
-    public record class StudentRecord(Guid Id, string FirstName, string? MiddleName, string LastName) : BaseEntity
+    public record class StudentRecord : BaseEntity
     {
         
 
-    public string Name
+    /*public string Name
     {
         get
         {
@@ -21,11 +21,11 @@ namespace Logger;
         set
         {
 
-            FullNameRecord nameRecord = new FullNameRecord(FirstName, MiddleName, LastName);
+            ///FullNameRecord nameRecord = new FullNameRecord(FirstName, MiddleName, LastName);
 
             //return nameRecord.ToString();
         }
-    }
+    }*/
 
     public override string getName()
     {
