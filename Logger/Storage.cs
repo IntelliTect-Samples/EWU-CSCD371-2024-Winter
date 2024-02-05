@@ -1,7 +1,7 @@
 ﻿namespace Logger;
 public class Storage
 {
-    private HashSet<IEntity> Entities { get; } = new();
+    private HashSet<IEntity> Entities { get; } = [];
     
     public void Add(IEntity item)
     {
