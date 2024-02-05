@@ -1,5 +1,9 @@
 ﻿namespace Logger;
 
+//TODO: The in part of the CreateLogger method could be removed. I think this is because that means the loggerConfiguration is
+//contravarient. So it could specify less derrived class of ILogConfiguration except ILogConfiguration doesn't have any.
+//If you supply a ILogConfiguration type then it would break since it doesn't have the proper propreties to create a
+//FileLogger
 public class FileLogger : BaseLogger, ILogger<FileLogger>
 {
     private FileInfo File { get; }
