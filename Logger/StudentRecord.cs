@@ -35,10 +35,12 @@ namespace Logger;
         {
             // ...
             ArgumentException.ThrowIfNullOrEmpty(value = value?.Trim()!);
-            // ...
-            // Split the assigned value into 
-            // first and last names
-            string[] names;
+        // ...
+        // Split the assigned value into 
+        // first and last names
+         #pragma warning disable CA1861
+        // The code that's violating the rule is on this line.
+        string[] names;
             names = value.Split(new char[] { ' ' });
             if (names.Length == 2)
             {
