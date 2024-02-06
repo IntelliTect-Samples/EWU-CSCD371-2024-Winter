@@ -2,6 +2,8 @@ using Xunit;
 
 namespace Logger.Tests;
 
+#pragma warning disable CS8625
+//passing in null during tests
 public class FullNameRecordTests
 {
     [Fact]
@@ -43,7 +45,27 @@ public class FullNameRecordTests
         Assert.Equal(expected, result);
     }
 
+    [Fact]
+        public void FullNameRecord_WithNullFirstName_ShouldThrowArgumentNullException()
+        {
+            // Arrange
+            string firstName = null;
+            string lastName = "Doe";
 
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => new FullNameRecord(firstName, lastName));
+        }
+
+        [Fact]
+        public void FullNameRecord_WithNullLastName_ShouldThrowArgumentNullException()
+        {
+            // Arrange
+            string firstName = "John";
+            string lastName = null;
+
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => new FullNameRecord(firstName, lastName));
+        }
 
 
 }
