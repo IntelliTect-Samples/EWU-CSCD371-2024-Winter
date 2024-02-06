@@ -40,7 +40,7 @@ public class EntityTests
         string middleName = "Alexander";
         string lastName = "Guerin";
 
-        Student student = new(id, Name.Create(firstName, middleName, lastName));
+        Person student = new(id, Name.Create(firstName, middleName, lastName));
 
         Assert.Equal(firstName, student.FullName.FirstName);
         Assert.Equal(middleName, student.FullName.MiddleName);
@@ -56,7 +56,7 @@ public class EntityTests
     public void Student_InvalidData_ThrowError(string firstName, string? middleName, string lastName)
     {
         Guid id = Guid.NewGuid();
-        Exception ex = Assert.Throws<ArgumentException>(() => new Student(id, Name.Create(firstName, middleName, lastName)));
+        Exception ex = Assert.Throws<ArgumentException>(() => new Person(id, Name.Create(firstName, middleName, lastName)));
     }
 
     [Fact]
@@ -120,8 +120,8 @@ public class EntityTests
     {
         Guid id = Guid.NewGuid();
         Name fullName = new("Ethan", "Alexander", "Guerin");
-        Student st1 = new(id, fullName);
-        Student st2 = new(id, fullName);    
+        Person st1 = new(id, fullName);
+        Person st2 = new(id, fullName);    
 
         Assert.Equal(st1, st2);
     }
@@ -129,8 +129,8 @@ public class EntityTests
     [Fact]
     public void Student_DifferentIdandName_AreNotEqual()
     {
-        Student st1 = new(Guid.NewGuid(), new Name("Ethan", null, "Guerin"));
-        Student st2 = new(Guid.NewGuid(), new Name("Ethan", null, "Florko"));
+        Person st1 = new(Guid.NewGuid(), new Name("Ethan", null, "Guerin"));
+        Person st2 = new(Guid.NewGuid(), new Name("Ethan", null, "Florko"));
 
         Assert.NotEqual(st1, st2);
         Assert.NotEqual(st1.FullName, st2.FullName);
@@ -158,4 +158,15 @@ public class EntityTests
         Assert.NotEqual(st1.FullName, st2.FullName);
         Assert.NotEqual(st1.Id, st2.Id);
     }
+
+    [Fact]
+    public void Book_EqualBooks_AreEqual()
+    {
+        Guid id = Guid.NewGuid();
+        Book book1 = new(id, "Happy Day");
+        Book book2 = new(id, "Happy Day");
+
+        Assert.Equal(book1, book2);
+    }
+
 }
