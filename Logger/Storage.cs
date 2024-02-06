@@ -22,8 +22,8 @@ public class Storage
     {
         return Entities.FirstOrDefault(entity => 
         {
-            dynamic dynamicEntity = entity;
-            return dynamicEntity.Id == expectedGuid;
+            // dynamic dynamicEntity = entity;
+            return entity.Id == expectedGuid;
         });
     }
 }
