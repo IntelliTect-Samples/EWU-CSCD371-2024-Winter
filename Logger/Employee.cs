@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Logger;
 
-public record class Employee : BaseEntity
+public record class Employee : Person
 {
+    public Employee(FullName name) : base(name) { }
 
 }

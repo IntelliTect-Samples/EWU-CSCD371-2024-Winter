@@ -6,15 +6,14 @@ using System.Threading.Tasks;
 
 namespace Logger;
 
-// I think FullName should be reference type? Since each instance of a FullName needs identity more
-// than just its values. Ex.) Two people can have the same name but are not the same people.
+
 
 // I've changed this to a value type since it is more or less just a simple variable, the entities that
 // FullName will apply to should handle the uniqueness of the object.
 
 // I think FullName should be a mutable type? Since people can change their name. 
 
-public record struct FullName
+public readonly record struct FullName
 {
     public string FirstName {  get; }
     public string? MiddleName { get; } = null;
