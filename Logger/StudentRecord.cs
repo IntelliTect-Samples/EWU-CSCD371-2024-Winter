@@ -64,6 +64,6 @@ namespace Logger;
         }
     
 
-    public override string Name { get => getName(); set => setName(value); }
+    public override string Name { get => getName();  }
 }
 

@@ -5,7 +5,10 @@ public abstract record class BaseEntity : IEntity
         public Guid Id { get; init; }
 
         // Explicit interface implementation for the Name property
-        public abstract string Name { get; set; }
+        public abstract string Name { 
+        get; 
+       // set; 
+    }
         /*string IEntity.Name
         {
             

@@ -9,9 +9,9 @@ namespace Logger;
     //names can be changed so this is mutable and should be a reference type so it's dynamic
     public record class FullNameRecord
     {
-        private string FirstName { get; }
-        private string LastName { get; }
-        private string? MiddleName { get; }
+        public string FirstName { get; }
+        public string LastName { get; }
+        public string? MiddleName { get; }
 
         public FullNameRecord(string firstName, string lastName, string? middleName)
         {
