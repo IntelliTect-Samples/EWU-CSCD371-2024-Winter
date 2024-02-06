@@ -49,11 +49,11 @@ public class FullNameRecordTests
         public void FullNameRecord_WithNullFirstName_ShouldThrowArgumentNullException()
         {
             // Arrange
-            string firstName = null;
+            string firstName = null!;
             string lastName = "Doe";
 
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => new FullNameRecord(firstName, lastName));
+            Assert.Throws<ArgumentNullException>(() => new FullNameRecord(firstName!, lastName));
         }
 
         [Fact]
@@ -61,10 +61,10 @@ public class FullNameRecordTests
         {
             // Arrange
             string firstName = "John";
-            string lastName = null;
+            string lastName = null!;
 
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => new FullNameRecord(firstName, lastName));
+            Assert.Throws<ArgumentNullException>(() => new FullNameRecord(firstName, lastName!));
         }
 
 
