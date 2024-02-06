@@ -8,7 +8,7 @@ public class TestLogger : BaseLogger, ILogger<TestLogger>
     //TODO making this constructor public will allow people to call this one instead of
     //The other one which checks for null configuration. Making this private makes it so they have to use other one
     public static TestLogger CreateLogger(TestLoggerConfiguration configuration) => 
-        new TestLogger(configuration.LogSource);
+        new(configuration.LogSource);
 
     public static TestLogger CreateLogger<T>(in T configuration) where T : ILoggerConfiguration=>
         configuration is TestLoggerConfiguration testConfiguration
