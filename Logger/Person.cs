@@ -4,15 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Logger
+namespace Logger;
+//Implemented implcitily because no data loss at this stage and no collisions
+public record class Person : BaseEntity
 {
-    public record class Person : BaseEntity
-    {
-        public override string Name { get; set; }
+    public override string Name { get; set; }
 
-        public Person(FullName name)
-        {
-            Name = name.ToString();
-        }
+    public Person(FullName name)
+    {
+        Name = name.ToString();
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Logger;
 
-//Implimented implicitly since Name isn't causing any collisions, I think?
+//Implimented implicitly since Name isn't causing any collisions and no data loss
 
 public record class Book : BaseEntity
 {
