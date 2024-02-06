@@ -30,4 +30,20 @@ public class FullNameRecordTests
     }
 
 
+
+    [Theory]
+    [InlineData("John", "Doe", "Smith", "John Smith Doe")]
+    [InlineData("Alice", "Johnson", null, "Alice Johnson")]
+    public void ToString_ShouldReturnCorrectFormat(string firstName, string lastName, string middleName, string expected)
+    {
+        var fullNameRecord = middleName != null ? new FullNameRecord(firstName, lastName, middleName) : new FullNameRecord(firstName, lastName);
+
+        var result = fullNameRecord.ToString();
+
+        Assert.Equal(expected, result);
+    }
+
+
+
+
 }
