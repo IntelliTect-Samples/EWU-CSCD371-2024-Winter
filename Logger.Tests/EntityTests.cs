@@ -58,7 +58,17 @@ public class EntityTests
         Assert.Equal("First Middle Last", student.Name);
     }
 
-    //Still need error tests...
+    [Fact]
+    public void Student_InitialzeTwoStudentsWithSameName_NotEqual()
+    {
+        FullName fullName = new("First", "Middle", "Last");
+        Student student = new(fullName);
+        Student student1 = new(fullName);
+
+        Assert.NotEqual(student, student1);
+    }
+
+
 
     //Employee Tests ------------------------------------------
     [Fact]
@@ -77,5 +87,13 @@ public class EntityTests
         Assert.Equal("First Middle Last", employee.Name);
     }
 
-    //Still need error tests...
+    [Fact]
+    public void Employee_InitialzeTwoEmployeesWithSameName_NotEqual()
+    {
+        FullName fullName = new("First", "Middle", "Last");
+        Employee employee = new(fullName);
+        Employee employee1 = new(fullName);
+
+        Assert.NotEqual(employee, employee1);
+    }
 }
