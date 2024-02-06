@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,6 +32,7 @@ public class EntityTests
         Exception ex = Assert.Throws<ArgumentException>(() => new Book(id, title));
     }
 
+
     [Fact]
     public void Student_Creation_Success()
     {
@@ -60,6 +61,111 @@ public class EntityTests
     }
 
     [Fact]
+    public void Book_SameIdAndTitle_AreEqual()
+    {
+        Guid id = Guid.NewGuid();
+        Book book1 = new(id, "Happy Day");
+        Book book2 = new(id, "Happy Day");
+
+        Assert.Equal(book1, book2);
+    }
+
+    [Fact]
+    public void Book_DifferentId_AreNotEqual()
+    {
+        Book book1 = new(Guid.NewGuid(), "Happy Day");
+        Book book2 = new(Guid.NewGuid(), "Happy Day");
+
+        Assert.NotEqual(book1, book2);
+    }
+
+    [Fact]
+    public void Book_DifferentTitle_AreEqual()
+    {
+        Guid id = Guid.NewGuid();
+        Book book1 = new(id, "Sad Day");
+        Book book2 = new(id, "Happy Day");
+
+        Assert.NotEqual(book1, book2);
+    }
+
+    [Fact]
+    public void Student_SameIdandName_AreEqual()
+    {
+        Guid id = Guid.NewGuid();
+        Name fullName = new("Ethan", "Alexander", "Guerin");
+        Student st1 = new(id, fullName);
+        Student st2 = new(id, fullName);
+
+        Assert.Equal(st1, st2);
+    }
+
+    [Fact]
+    public void Student_DifferentIdandName_AreNotEqual()
+    {
+        Student st1 = new(Guid.NewGuid(), new Name("Ethan", null, "Guerin"));
+        Student st2 = new(Guid.NewGuid(), new Name("Ethan", null, "Florko"));
+
+        Assert.NotEqual(st1, st2);
+        Assert.NotEqual(st1.FullName, st2.FullName);
+        Assert.NotEqual(st1.Id, st2.Id);
+    }
+
+    [Fact]
+    public void Employee_SameIdandName_AreEqual()
+    {
+        Guid id = Guid.NewGuid();
+        Name fullName = new("Ethan", "Alexander", "Guerin");
+        Employee st1 = new(id, fullName);
+        Employee st2 = new(id, fullName);
+
+        Assert.Equal(st1, st2);
+    }
+
+    [Fact]
+    public void Employee_DifferentIdandName_AreNotEqual()
+    {
+        Employee st1 = new(Guid.NewGuid(), new Name("Ethan", null, "Guerin"));
+        Employee st2 = new(Guid.NewGuid(), new Name("Ethan", null, "Florko"));
+
+        Assert.NotEqual(st1, st2);
+        Assert.NotEqual(st1.FullName, st2.FullName);
+        Assert.NotEqual(st1.Id, st2.Id);
+    }
+
+    [Fact]
+    public void Book_EqualBooks_AreEqual()
+    {
+        Guid id = Guid.NewGuid();
+        Book book1 = new(id, "Happy Day");
+        Book book2 = new(id, "Happy Day");
+
+        Assert.Equal(book1, book2);
+    }
+
+    [Fact]
+    public void Student_EqualStudents_AreEqual()
+    {
+        Guid id = Guid.NewGuid();
+        Name fullName = new("Ethan", "Alexander", "Guerin");
+        Student st1 = new(id, fullName);
+        Student st2 = new(id, fullName);
+
+        Assert.Equal(st1, st2);
+    }
+
+    [Fact]
+    public void Employee_EqualEmployees_AreEqual()
+    {
+        Guid id = Guid.NewGuid();
+        Name fullName = new("Ethan", "Alexander", "Guerin");
+        Employee st1 = new(id, fullName);
+        Employee st2 = new(id, fullName);
+
+        Assert.Equal(st1, st2);
+    }
+
+    [Fact]
     public void Employee_Creation_Success()
     {
         Guid id = Guid.NewGuid();
@@ -80,9 +186,11 @@ public class EntityTests
     [InlineData("Ethan", "Alexander", null)]
     [InlineData("", "Alexander", "Guerin")]
     [InlineData("Ethan", "Alexander", "")]
+
     public void Employee_InvalidData_ThrowsError(string firstName, string? middleName, string lastName)
     {
         Guid id = Guid.NewGuid();
         Exception ex = Assert.Throws<ArgumentException>(() => new Employee(id, Name.Create(firstName, middleName, lastName)));
     }
+
 }

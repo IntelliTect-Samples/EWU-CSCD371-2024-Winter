@@ -6,10 +6,18 @@ using System.Threading.Tasks;
 
 namespace Logger
 {
+    
     public abstract class BaseEntity : IEntity
     {
+        //init-only setter for Id (only can be set during initialization)
         public Guid Id { get; init; }
 
+        protected BaseEntity()
+        {
+            Id = Guid.NewGuid();
+        }
+
+        //Abstract property for Name, ensures derived classes to provide implementation
         public abstract string Name { get; }
     }
 }

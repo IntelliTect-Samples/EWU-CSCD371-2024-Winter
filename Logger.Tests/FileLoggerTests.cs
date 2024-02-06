@@ -3,7 +3,7 @@
 namespace Logger.Tests;
 
 public class FileLoggerTests : FileLoggerTestsBase
-{    
+{
     [Fact]
     public void Create_GivenClassAndValidFileName_Success()
     {
@@ -26,8 +26,23 @@ public class FileLoggerTests : FileLoggerTestsBase
                 Assert.True(DateTime.TryParse(dateTime, out _));
                 Assert.Equal(nameof(FileLoggerTests), source);
                 Assert.True(Enum.TryParse(typeof(LogLevel), levelText, out object? level) ?
-                    level is LogLevel.Error : false,"Level was not parsed successfully.");
+                    level is LogLevel.Error : false, "Level was not parsed successfully.");
             }
         }
+    }
+    [Fact]
+    public void CreateLogger_GivenConfiguration_ReturnsFileLogger()
+    {
+        // Arrange
+        var configuration = new FileLoggerConfiguration(FilePath, nameof(FileLoggerTests));
+
+        // Act
+        var result = FileLogger.CreateLogger(configuration);
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.IsType<FileLogger>(result);
+        Assert.Equal(nameof(FileLoggerTests), result.LogSource);
+        Assert.Equal(FilePath, ((FileLogger)result).FilePath);
     }
 }
