@@ -15,15 +15,15 @@ namespace Logger;
 
         public FullNameRecord(string firstName, string lastName, string? middleName)
         {
-            FirstName = firstName;
-            LastName = lastName;
+            FirstName = firstName ?? throw new ArgumentNullException(nameof(firstName));
+            LastName = lastName ?? throw new ArgumentNullException(nameof(lastName));
             MiddleName = middleName;
         }
 
         public FullNameRecord(string firstName,  string lastName)
         {
-            FirstName = firstName;
-            LastName = lastName;
+            FirstName = firstName ?? throw new ArgumentNullException(nameof(firstName));
+            LastName = lastName ?? throw new ArgumentNullException(nameof(lastName));
             MiddleName = null;
         }
 
