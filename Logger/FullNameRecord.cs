@@ -27,15 +27,5 @@ namespace Logger;
             MiddleName = null;
         }
 
-        public override string ToString()
-        {
-            if(MiddleName != null)
-            {
-                return $"{FirstName} {MiddleName} {LastName}";
-            }
-            else
-            {
-                return $"{FirstName} {LastName}";
-            }
-        }
+      
     }
