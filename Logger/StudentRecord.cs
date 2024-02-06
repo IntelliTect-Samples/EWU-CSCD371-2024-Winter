@@ -31,6 +31,7 @@ namespace Logger;
             FullNameRecord record = new(FirstName, MiddleName!, LastName);
             return record.ToString();
         }
+    /*
         private void setName(string value)
         {
             // ...
@@ -63,7 +64,7 @@ namespace Logger;
             }
         }
     
-
+    */
     public override string Name { get => getName();  }
 }
 
