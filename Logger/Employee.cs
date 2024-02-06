@@ -1,6 +1,5 @@
 ﻿
-namespace Logger.Tests
-{
+namespace Logger;
     public record class Employee(string FirstName, string LastName) : Person(FirstName, LastName), IEntity
     {
 
@@ -13,4 +12,3 @@ namespace Logger.Tests
 
 
     }
-}

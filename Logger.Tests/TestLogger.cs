@@ -10,7 +10,7 @@ public class TestLogger : BaseLogger, ILogger<TestLogger>
     public static TestLogger CreateLogger(TestLoggerConfiguration configuration) => 
         new TestLogger(configuration.LogSource);
 
-    public TestLogger CreateLogger<T>(in T configuration) where T : ILoggerConfiguration=>
+    public static TestLogger CreateLogger<T>(in T configuration) where T : ILoggerConfiguration=>
         configuration is TestLoggerConfiguration testConfiguration
             ? CreateLogger(testConfiguration)
             : throw new ArgumentException("Invalid configuration type", nameof(configuration));
