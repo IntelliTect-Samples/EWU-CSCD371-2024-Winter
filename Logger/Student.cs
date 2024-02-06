@@ -8,6 +8,8 @@ namespace Logger;
 
 public record Student(Guid Id, Name FullName) : IEntity
 {
-    public string Name => $"{FullName.FirstName} {FullName.MiddleName} {FullName.LastName}";
+    public string Name => string.IsNullOrEmpty(FullName.MiddleName)
+        ? $"{FullName.FirstName} {FullName.LastName}"
+        : $"{FullName.FirstName} {FullName.MiddleName} {FullName.LastName}";
 }
 
