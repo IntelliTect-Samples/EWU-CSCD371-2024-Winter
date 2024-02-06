@@ -18,6 +18,7 @@ public class FullNameRecordTests
         Assert.Equal(middleName, fullNameRecord.MiddleName);
     }
 
+
     [Fact]
     public void FullNameRecord_WithoutMiddleName_ShouldSetMiddleNameToNull()
     {
@@ -30,11 +31,10 @@ public class FullNameRecordTests
     }
 
 
-
     [Theory]
     [InlineData("John", "Doe", "Smith", "John Smith Doe")]
     [InlineData("Alice", "Johnson", null, "Alice Johnson")]
-    public void ToString_ShouldReturnCorrectFormat(string firstName, string lastName, string middleName, string expected)
+    public void ToString_MiddleNameWithValueAndNull_ShouldReturnCorrectFormat(string firstName, string lastName, string middleName, string expected)
     {
         var fullNameRecord = middleName != null ? new FullNameRecord(firstName, lastName, middleName) : new FullNameRecord(firstName, lastName);
 
