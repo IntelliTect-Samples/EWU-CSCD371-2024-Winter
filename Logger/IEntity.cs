@@ -4,6 +4,6 @@ public interface IEntity
 
     // Place members here.
     Guid Id { get; init; }
-    string name { get; set; }
+    string Name { get; set; }
 
 }

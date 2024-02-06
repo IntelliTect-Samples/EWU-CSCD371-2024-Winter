@@ -9,15 +9,7 @@ public abstract class BaseEntity : IEntity
 {
     public Guid Id { get; init; }
     
-    public string name
-    {
-        get => GetName();
-        set => SetName(value);
-    }
-
-    public abstract string GetName();
-    //I feel this may need to be protected not 100 percent sure
-    protected abstract void SetName(string name);
+    public abstract string Name { get; set; }
 }
 
 

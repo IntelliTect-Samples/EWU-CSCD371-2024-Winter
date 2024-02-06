@@ -11,17 +11,7 @@ namespace Logger.Tests;
 public class BaseEntityTests{
     private class TestEntity(string name) : BaseEntity
     {
-        private string _name = name;
-
-        public override string GetName()
-        { 
-            return _name; 
-        }
-        protected override void SetName(string name)
-        {
-            _name = name;
-        }
-
+        public override string Name { get; set; } = name;
     }
     [Fact]
     public void BaseEntity_ShouldImplementIEntityInterfaceImplicitly_SuccessfulSet()
@@ -33,9 +23,9 @@ public class BaseEntityTests{
     [Fact]
     public void RetrieveName_Name_Successful()
     {
-        TestEntity entity = new("name");
+        TestEntity entity = new("Name");
 
-        Assert.Equal("Name", entity.GetName());
+        Assert.Equal("Name", entity.Name);
     }
 }
 
