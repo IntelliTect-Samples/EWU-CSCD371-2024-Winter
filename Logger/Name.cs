@@ -14,6 +14,11 @@ public record Name(string FirstName, string? MiddleName, string LastName)
         {
             throw new ArgumentException("Last name cannot be empty or null.", nameof (LastName));
         }
+
+        if(string.IsNullOrWhiteSpace(MiddleName)) 
+        {
+            return new Name(FirstName, "", LastName);
+        }
        
         return new Name(FirstName, MiddleName, LastName);
 
