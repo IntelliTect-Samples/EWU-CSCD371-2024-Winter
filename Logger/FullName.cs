@@ -21,8 +21,8 @@ public readonly record struct FullName
 
     public FullName(string firstName, string? middleName, string lastName)
     {
-        ArgumentNullException.ThrowIfNull(firstName);
-        ArgumentNullException.ThrowIfNull(lastName);
+        ArgumentException.ThrowIfNullOrWhiteSpace(firstName);
+        ArgumentException.ThrowIfNullOrWhiteSpace(lastName);
         //middle can be null as defualt since some people dont have one, thus it should be the only nullable
 
         FirstName = firstName;

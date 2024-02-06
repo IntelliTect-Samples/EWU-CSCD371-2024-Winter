@@ -41,6 +41,7 @@ public class EntityTests
         Assert.Throws<ArgumentException>(() => new Book(" "));
     }
 
+
     //Student Tests ------------------------------------------
     [Fact]
     public void Student_InitializeStudentWithoutMiddleName_Success()
@@ -68,6 +69,17 @@ public class EntityTests
         Assert.NotEqual(student, student1);
     }
 
+    [Fact]
+    public void Student_InitialzeStudentsWithNull_ThrowException()
+    {
+        Assert.Throws<ArgumentNullException>(() => new Student(new("First", "Middle", null!)));
+    }
+
+    [Fact]
+    public void Student_InitialzeStudentsWithBlank_ThrowException()
+    {
+        Assert.Throws<ArgumentException>(() => new Student(new(" ", "Middle", "Last")));
+    }
 
 
     //Employee Tests ------------------------------------------
@@ -95,5 +107,17 @@ public class EntityTests
         Employee employee1 = new(fullName);
 
         Assert.NotEqual(employee, employee1);
+    }
+
+    [Fact]
+    public void Employee_InitialzeEmployeeWithNull_ThrowException()
+    {
+        Assert.Throws<ArgumentNullException>(() => new Employee(new("First", "Middle", null!)));
+    }
+
+    [Fact]
+    public void Employee_InitialzeEmployeeWithBlank_ThrowException()
+    {
+        Assert.Throws<ArgumentException>(() => new Employee(new(" ", "Middle", "Last")));
     }
 }

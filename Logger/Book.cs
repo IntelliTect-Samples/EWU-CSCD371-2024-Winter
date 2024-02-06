@@ -16,7 +16,7 @@ public record class Book : BaseEntity
 
     public Book(string title)
     {
-        ArgumentNullException.ThrowIfNullOrWhiteSpace(title);
+        ArgumentException.ThrowIfNullOrWhiteSpace(title);
         Name = title;   
     }
 
