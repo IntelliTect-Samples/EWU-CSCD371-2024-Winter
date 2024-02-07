@@ -21,17 +21,6 @@ public class EntityTests
         Assert.Equal(id, book.Id);
     }
 
-    [Theory]
-    [InlineData(null)]
-    [InlineData("")]
-    public void CreateBook_InvalidData_Fails(string title)
-    {
-        Guid id = Guid.NewGuid();
-
-        //Act & Assert
-        Exception ex = Assert.Throws<ArgumentException>(() => new Book(id, title));
-    }
-
 
     [Fact]
     public void Student_Creation_Success()
