@@ -6,24 +6,24 @@ using System.Threading.Tasks;
 
 namespace Logger;
 
-public abstract record class BaseRecordEntity(string name): IEntity
+public abstract record class BaseRecordEntity(string Name): IEntity
 {
-    public string Name { get; set; } = name;
+    public string Name { get; set; } = Name;
     public Guid Id { get; init; } = Guid.NewGuid();
 }
 
-public record class BookRecord(string name, string author) : BaseRecordEntity(name)
+public record class BookRecord(string Name, string Author) : BaseRecordEntity(Name)
 {
-    public string Author { get; init; } = author;
+    public string Author { get; init; } = Author;
 }
 
-public record class StudentRecord(string name, string major) : BaseRecordEntity(name)
+public record class StudentRecord(string Name, string Major) : BaseRecordEntity(Name)
 {
-    public string Major { get; set; } = major;
+    public string Major { get; set; } = Major;
 }
 
-public record class EmployeeRecord(string name, decimal wage) : BaseRecordEntity(name)
+public record class EmployeeRecord(string Name, decimal Wage) : BaseRecordEntity(Name)
 {
-    public decimal Wage { get; set; } = wage;
+    public decimal Wage { get; set; } = Wage;
 }
 
