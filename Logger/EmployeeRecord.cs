@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace Logger;
 
-public record class EmployeeRecord( FullNameRecord FullName) : BaseEntity(Guid.NewGuid())
+public record class EmployeeRecord : PersonName
 {
 
-    //calculated property for name
-    public override string Name => FullName.MiddleName != null
-    ? $"{FullName.FirstName} {FullName.MiddleName} {FullName.LastName}"
-    : $"{FullName.FirstName} {FullName.LastName}";
+    public EmployeeRecord(FullNameRecord FullName) : base(FullName) { }
 
 
 }

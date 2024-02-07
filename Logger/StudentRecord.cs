@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 
 namespace Logger;
 
-    public record class StudentRecord (FullNameRecord FullName ): BaseEntity( Guid.NewGuid())
+    public record class StudentRecord : PersonName
     {
 
-    public override string Name => FullName.MiddleName != null
-? $"{FullName.FirstName} {FullName.MiddleName} {FullName.LastName}"
-: $"{FullName.FirstName} {FullName.LastName}";
+    public StudentRecord(FullNameRecord FullName) : base(FullName) { }
 
 }
 
