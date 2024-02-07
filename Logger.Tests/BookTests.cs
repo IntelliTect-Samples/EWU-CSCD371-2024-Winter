@@ -4,7 +4,7 @@ namespace Logger.Tests;
 
 public class BookTests
 {
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+    #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 
     [Fact]
     public void Book_NullTitle_ThrowsNullPointerException() {
@@ -17,7 +17,7 @@ public class BookTests
         Assert.Throws<ArgumentNullException>(() => new Book("Essential C#", null));
     }
 
-#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
+    #pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 
 
     [Fact]

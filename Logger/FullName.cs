@@ -10,7 +10,7 @@ namespace Logger;
         /// </comment>
 
         public string FirstName { get; } = FirstName ?? throw new ArgumentNullException(nameof(FirstName));
-        public string MiddleName { get; } = MiddleName ?? throw new ArgumentNullException(nameof(MiddleName));
+        public string MiddleName { get; } = MiddleName ?? "";
         public string LastName { get; } = LastName ?? throw new ArgumentNullException(nameof(LastName));
 
         public override string ToString()

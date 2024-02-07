@@ -23,6 +23,7 @@ namespace Logger.Tests;
         Assert.Throws<ArgumentNullException>(() => new Employee("John", "Davis", null));
     }
 
+    #pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 
     [Fact]
     public void EmployeeName_ValidEmployee_ReturnsFormattedName()
