@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Logger.Tests;
 
-public class TestRecords
+public class RecordsTests
 {
     [Theory]
     [InlineData("The Princess Bride", "William Goldman")]

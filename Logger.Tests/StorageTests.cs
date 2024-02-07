@@ -7,13 +7,13 @@ using Xunit;
 
 namespace Logger.Tests;
 
-public class TestEntity : IEntity
+internal class TestEntity : IEntity
 {
     public Guid Id { get; init; } = Guid.NewGuid();
     public string Name { get; set; } = "";
 }
 
-public class TestStorage
+public class StorageTests
 {
     [Fact]
     public void StorageAdd_ContainsAdded()
