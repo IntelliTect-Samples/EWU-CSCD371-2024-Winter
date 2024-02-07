@@ -1,25 +1,19 @@
 
 namespace Logger;
 public abstract record class BaseEntity : IEntity
-    {
-        public Guid Id { get; init; }
 
-        // Explicit interface implementation for the Name property
+    {
+        //because this is an internal ID used by developers and not the same as an employee or student id it is implemented explicitly
+         private Guid _InternalId = Guid.NewGuid();    
+         Guid IEntity.Id { get => _InternalId; init => _InternalId = value; }
+
+        // Name is abstract so classes that inherit are forced to implement it
         public abstract string Name { 
         get; 
        // set; 
     }
-        /*string IEntity.Name
-        {
-            
-
-            //throw new NotImplementedException("Implement Name Property in derived classes.");
-            //get => getName();  
-            //set => SetName(value);
-           
-           
-        }
-   // public abstract string getName();
-    public abstract void SetName(string name);
-        */
+        public BaseEntity(Guid Id)
+    {
+        _InternalId = Id;
+    }
     }
