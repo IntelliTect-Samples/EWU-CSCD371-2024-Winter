@@ -1,15 +1,15 @@
 ﻿namespace Logger;
 
-public record class Book(string Title, string Author) : IEntity
+public record class Book(string Title, long? Isbn) : IEntity
 {
     public string Title { get; init; } = Title ?? throw new ArgumentNullException(nameof(Title));
-    public string Author { get; init; } = Author ?? throw new ArgumentNullException(nameof(Author));
+    public long? Isbn { get; init; } = Isbn ?? throw new ArgumentNullException(nameof(Isbn));
     //Implicit, Id doesn't cause any issues
     public Guid Id { get; init; }
     //Implicit, Name doesn't cause issues with collision
-    public string Name { get => $"{nameof(Book)}: {Title} By {Author}"; }
+    public string Name { get => $"{nameof(Book)} - Title: {Title}, ISBN: {Isbn}"; }
 
-    public override string ToString() => $"{Title} By {Author}";
+    public override string ToString() => $"Title: {Title}, ISBN: {Isbn}";
 
 }
 

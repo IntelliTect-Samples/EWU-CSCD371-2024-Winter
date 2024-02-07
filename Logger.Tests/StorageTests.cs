@@ -10,14 +10,14 @@ namespace Logger.Tests;
         Storage = new Storage();
         Storage.Add(new Student("Trevor", "Rabin"));
         Storage.Add(new Employee("Stuart", "Steiner"));
-        Storage.Add(new Book("Hunger Games", "Suzanne Collins"));
+        Storage.Add(new Book("Hunger Games", 1028493829485));
     }
 
     [Fact]
     public void Add_BookEnity_UpdatesEnitySet()
     {
         //Act
-        IEntity book = new Book("of Mice and Men", "John Steinbeck");
+        IEntity book = new Book("of Mice and Men", 0344828173920);
 
         Storage.Add(book);
 
