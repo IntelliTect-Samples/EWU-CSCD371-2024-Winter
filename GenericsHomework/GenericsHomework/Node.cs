@@ -1,4 +1,5 @@
 ﻿using System;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace GenericsHomework
 {
@@ -8,6 +9,12 @@ namespace GenericsHomework
         public Node<T> next { get; private set; }
         public Node(T value, Node<T> next)
         {
+            value = value;
         }
+        public override string ToString()
+        {
+            return value.ToString();
+        }
+
     }
 }
