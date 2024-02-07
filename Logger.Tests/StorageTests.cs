@@ -9,7 +9,7 @@ namespace Logger.Tests;
     public StorageTests() { 
         Storage = new Storage();
         Storage.Add(new Student("Trevor", "Rabin", 12349));
-        Storage.Add(new Employee("Stuart", "Steiner"));
+        Storage.Add(new Employee("Stuart", "Steiner", 23234));
         Storage.Add(new Book("Hunger Games", 1028493829485));
     }
 
@@ -27,7 +27,7 @@ namespace Logger.Tests;
     [Fact]
     public void Remove_EmployeeEnity_RemovesSucessful()
     {
-        IEntity employeeEntity = new Employee("Stuart", "Steiner");
+        IEntity employeeEntity = new Employee("Stuart", "Steiner", 23234);
 
         Storage.Remove(employeeEntity);
 

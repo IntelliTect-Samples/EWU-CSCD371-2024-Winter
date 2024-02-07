@@ -24,7 +24,7 @@ public class BookTests
     public void Book_ValidBook_ReturnsFormattedName()
     {
         var book = new Book("Essential C#", 1231231231234);
-        Assert.Equal("Book - Title: Essential C#, ISBN: 1231231231234", book.Name);
+        Assert.Equal("EntityType: Book, Title: Essential C#, ISBN: 1231231231234", book.Name);
     }
 
     [Fact]

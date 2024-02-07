@@ -30,7 +30,7 @@ public class StudentTests
     {
         IEntity student = new Student("Jeffrey", "Robertson", 39489);
 
-        Assert.Equal("Student - Name: Jeffrey Robertson, StudentID: 39489", student.Name);
+        Assert.Equal("EntityType: Student, Name: Jeffrey Robertson, StudentID: 39489", student.Name);
     }
 
     [Fact]

@@ -7,7 +7,7 @@ public record class Student(string FirstName, string LastName, int? StudentID) :
     public int? StudentID { get; } = StudentID ?? throw new ArgumentNullException(nameof(StudentID));
 
     //Name member of IEntity should explicit becuase it has collision with Employee's name
-    string IEntity.Name {get => $"{nameof(Student)} - Name: {Name}, StudentID: {StudentID}"; }
+    string IEntity.Name {get => $"EntityType: {nameof(Student)}, Name: {Name}, StudentID: {StudentID}"; }
     //Implicit, Id doesn't cause any issues
 
     public Guid Id { get; init; }
