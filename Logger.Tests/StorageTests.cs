@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Logger.Tests;
 
-internal class TestEntity : IEntity
+internal sealed class TestEntity : IEntity
 {
     public Guid Id { get; init; } = Guid.NewGuid();
     public string Name { get; set; } = "";
