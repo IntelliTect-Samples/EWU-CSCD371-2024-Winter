@@ -8,7 +8,8 @@ namespace Logger;
 
 public record class EmployeeRecord : PersonName
 {
-
+    //common code for name refactored into PersonName that also inherits from base entity
+    //felt reasonable to use FullName for employee, most basic identifier
     public EmployeeRecord(FullNameRecord FullName) : base(FullName) { }
 
 

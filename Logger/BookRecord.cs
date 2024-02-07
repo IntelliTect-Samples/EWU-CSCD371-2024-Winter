@@ -8,6 +8,7 @@ namespace Logger;
 
 public record class BookRecord ( string Author, string Title, int Isbn) : BaseEntity(Guid.NewGuid())
 {
+    //all implemented implicitly as the user should have access to basic members like author, title, and isbn
     public string Author { get; set; } = Author ?? throw new ArgumentNullException(nameof(Title));
 
     public string Title { get; set; } = Title ?? throw new ArgumentNullException(nameof(Title));
