@@ -5,9 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Logger;
-//Implemented implcitily because no data loss at this stage and no collisions
+
 public record class Person : BaseEntity
 {
+    //Implemented Name implcitily since FullName is never saved as a property itself so it cant be accessed, so no conflicts
     public override string Name { get; set; }
 
     public Person(FullName name)
