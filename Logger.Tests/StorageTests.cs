@@ -14,4 +14,16 @@ public class StorageTests {
 
             Assert.True(storage.Contains(entity));
         }
+
+    [Fact]
+        public void Remove_RemovesItemFromStorage_ItemDoesNotExistInStorage()
+        {
+            var storage = new Storage();
+            var entity = new StudentRecord(new FullNameRecord("John", "bruh", "Doe"));
+            storage.Add(entity);
+
+            storage.Remove(entity);
+
+            Assert.False(storage.Contains(entity));
+        }
 }
