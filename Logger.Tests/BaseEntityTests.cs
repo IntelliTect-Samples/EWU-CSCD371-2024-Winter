@@ -9,7 +9,7 @@ using Xunit.Abstractions;
 
 namespace Logger.Tests;
 public class BaseEntityTests{
-    private class TestEntity(string name) : BaseEntity
+    private sealed class TestEntity(string name) : BaseEntity
     {
         public override string Name { get; set; } = name;
     }
