@@ -8,7 +8,7 @@ namespace Logger.Tests;
     public Storage Storage { get; set; }
     public StorageTests() { 
         Storage = new Storage();
-        Storage.Add(new Student("Trevor", "Rabin"));
+        Storage.Add(new Student("Trevor", "Rabin", 12349));
         Storage.Add(new Employee("Stuart", "Steiner"));
         Storage.Add(new Book("Hunger Games", 1028493829485));
     }
@@ -38,7 +38,7 @@ namespace Logger.Tests;
     public void Get_StudentEnityExists_ReturnsStudentEnity()
     {
         var testGuid = Guid.NewGuid();
-        IEntity student = new Student("Alexa", "Darrington")
+        IEntity student = new Student("Alexa", "Darrington", 93848)
         {
             Id = testGuid,
         };
