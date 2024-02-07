@@ -23,8 +23,12 @@ public class BookTests
     [Fact]
     public void Book_ValidBook_ReturnsFormattedName()
     {
-        var book = new Book("Essential C#", 1231231231234);
-        Assert.Equal("EntityType: Book, Title: Essential C#, ISBN: 1231231231234", book.Name);
+        Guid testGuid = Guid.NewGuid();
+        var book = new Book("Essential C#", 1231231231234)
+        {
+            Id = testGuid,
+        };
+        Assert.Equal($"EntityType: Book, EntityID: {testGuid}, Title: Essential C#, ISBN: 1231231231234", book.Name);
     }
 
     [Fact]
@@ -38,12 +42,22 @@ public class BookTests
     [Fact]
     public void Equals_SameArthorAndTitle_ReturnsTrue()
     {
-        var book1 = new Book("Harry Potter and the Goblet of Fire", 5683382947580);
-        var book2 = new Book("Harry Potter and the Goblet of Fire", 5683382947580);
-        var book3 = book1 with { Title = "Harry Potter and the Chamber of Secretes" };
+        Guid testGuid = Guid.NewGuid();
+        var book1 = new Book("Harry Potter and the Goblet of Fire", 5683382947580) 
+        { 
+            Id = testGuid,
+        };
+        var book2 = new Book("Harry Potter and the Goblet of Fire", 5683382947580)
+        {
+            Id = testGuid,
+        };
+        var book3 = book1 with { Id = Guid.NewGuid() };
+        var book4 = book1 with { Title = "Harry Potter and the Chamber of Secretes" };
+
         Assert.True(book1 == book2);
         Assert.Equal(book1, book2);
         Assert.False(book1 == book3);
+        Assert.False(book1.Equals(book4));
 
     }
 

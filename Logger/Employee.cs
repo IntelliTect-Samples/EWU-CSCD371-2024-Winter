@@ -5,7 +5,7 @@ namespace Logger;
 
         public int? EmployeeID { get; } = EmployeeID ?? throw new ArgumentNullException(nameof(EmployeeID));
         //Name member of IEntity should explicit becuase it has collision with Employee's name
-        string IEntity.Name {get=> $"EntityType: {nameof(Employee)}, Name: {Name}, EmployeeID: {EmployeeID}"; }
+        string IEntity.Name {get=> $"EntityType: {nameof(Employee)}, EntityID: {Id}, Name: {Name}, EmployeeID: {EmployeeID}"; }
         //Implicit, Id doesn't cause any issues
         public Guid Id { get; init; }
 

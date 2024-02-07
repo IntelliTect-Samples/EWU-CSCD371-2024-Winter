@@ -1,6 +1,4 @@
-﻿
-
-using Xunit;
+﻿using Xunit;
 
 namespace Logger.Tests;
 
@@ -29,9 +27,13 @@ namespace Logger.Tests;
     [Fact]
     public void EmployeeName_ValidEmployee_ReturnsFormattedName()
     {
-        IEntity employee = new Employee("John", "Davis", 11123);
+        Guid testGuid = Guid.NewGuid();
+        IEntity employee = new Employee("John", "Davis", 11123)
+        {
+            Id = testGuid,
+        };
 
-        Assert.Equal("EntityType: Employee, Name: John Davis, EmployeeID: 11123", employee.Name);
+        Assert.Equal($"EntityType: Employee, EntityID: {testGuid}, Name: John Davis, EmployeeID: 11123", employee.Name);
     }
 
     [Fact]
@@ -45,13 +47,23 @@ namespace Logger.Tests;
     [Fact]
     public void Equals_SameNameAndSalary_ReturnsTrue()
     {
-        var employee1 = new Employee("Thomas", "Young", 11123);
-        var employee2 = new Employee("Thomas", "Young", 11123);
+        Guid entityID = Guid.NewGuid();
+        var employee1 = new Employee("Thomas", "Young", 11123) { 
+            Id = entityID,
+        };
+        var employee2 = new Employee("Thomas", "Young", 11123)
+        {
+            Id = entityID,
+        }
+;
 
-        var employee3 = employee1 with { LastName = "Salazare" };
+        var employee3 = employee1 with { Id = Guid.NewGuid(), };
+        var employee4 = employee1 with { LastName = "Salazar" };
+
         Assert.True(employee1.Equals(employee2));
         Assert.True(employee1 == employee2);
         Assert.False(employee1 == employee3);
+        Assert.False(employee1.Equals(employee4));
 
 
     }
