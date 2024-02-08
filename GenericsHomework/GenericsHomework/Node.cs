@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Xml.Linq;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace GenericsHomework
 {
@@ -9,11 +7,11 @@ namespace GenericsHomework
         // Constructor for Node class
             public Node(T item)
             {
-                Value = item ?? throw new NullReferenceException(nameof(item));
+                Data = item ?? throw new NullReferenceException(nameof(item));
                 Next = this;
             }
         public Node<T> Next { get; private set; }
-        public T Value { get; set; }
+        public T Data { get; set; }
 
     }
 }

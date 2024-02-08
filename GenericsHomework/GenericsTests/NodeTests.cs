@@ -10,5 +10,13 @@ namespace GenericsTests
             Assert.Throws<NullReferenceException>(() => new Node<object>(null!));
 
         }
+        [Fact]
+        public void Constructor_NodeNext_IsNotNull()
+        {
+            Node<string> newNode = new Node<string>("Hiiii");
+            newNode.Append("You rock");
+            Assert.Equal("You rock", newNode.Next.Data);
+           
+        }
     }
 }
