@@ -12,6 +12,7 @@ public record class EmployeeRecord : PersonName
     //felt reasonable to use FullName for employee, most basic identifier
     public EmployeeRecord(FullNameRecord FullName) : base(FullName) { }
 
+    public override string ToString() => base.ToString();
 
 }
  

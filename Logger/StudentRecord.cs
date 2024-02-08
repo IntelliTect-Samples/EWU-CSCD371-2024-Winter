@@ -13,5 +13,7 @@ namespace Logger;
     //felt reasonable to use FullName for a student, most basic identifier
     public StudentRecord(FullNameRecord FullName) : base(FullName) { }
 
+    public override string ToString() => base.ToString();
+
 }
 

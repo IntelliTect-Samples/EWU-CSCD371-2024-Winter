@@ -13,5 +13,7 @@ namespace Logger;
         public override string Name => FullName.MiddleName != null
     ? $"{FullName.FirstName} {FullName.MiddleName} {FullName.LastName}"
     : $"{FullName.FirstName} {FullName.LastName}";
-    }
+
+    public override string ToString() => Name.ToString();
+}
 
