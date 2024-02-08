@@ -26,7 +26,7 @@ public readonly record struct FullName
 
     public override string ToString()
     {   //we definetly talked about a more effcient way in class but this works at least...
-    return $"{FirstName {(string.IsNullOrWhiteSpace(MiddleName) ? String.Empty : " +  MiddleName)} {LastName}";
+    return $"{FirstName {(string.IsNullOrWhiteSpace(MiddleName) ? String.Empty : " +  {MiddleName} {LastName}";
 
     }
 
