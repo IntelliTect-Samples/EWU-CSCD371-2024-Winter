@@ -3,7 +3,7 @@ namespace Logger.Tests;
 
 public class StorageTests
 {
-    Storage Storage { get; set; }
+    public Storage Storage { get; set; }
     public StorageTests()
     {
         Storage = new();
