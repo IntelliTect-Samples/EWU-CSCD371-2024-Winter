@@ -11,12 +11,13 @@ namespace GenericsTests
 
         }
         [Fact]
-        public void Constructor_NodeNext_IsNotNull()
+        public void Append_NextNode_ReturnsValue()
         {
             Node<string> newNode = new Node<string>("Hiiii");
             newNode.Append("You rock");
             Assert.Equal("You rock", newNode.Next.Data);
            
         }
+
     }
 }
