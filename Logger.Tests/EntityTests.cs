@@ -41,7 +41,7 @@ public class EntityTests
     [Fact]
     public void Student_InitializeStudentWithoutMiddleName_Success()
     {
-        FullName fullName = new("Tom", null, "Scott");
+        FullName fullName = new("Tom", "Scott", null);
         Student student = new(fullName);
         Assert.Equal("Tom Scott", student.Name);
     }
@@ -49,7 +49,7 @@ public class EntityTests
     [Fact]
     public void Student_InitializeStudentWithMiddleName_Success()
     {
-        FullName fullName = new("First", "Middle", "Last");
+        FullName fullName = new("First", "Last", "Middle");
         Student student = new(fullName);
         Assert.Equal("First Middle Last", student.Name);
     }
@@ -57,7 +57,7 @@ public class EntityTests
     [Fact]
     public void Student_InitialzeTwoStudentsWithSameName_NotEqual()
     {
-        FullName fullName = new("First", "Middle", "Last");
+        FullName fullName = new("First", "Last", "Middle");
         Student student = new(fullName);
         Student student1 = new(fullName);
 
@@ -67,13 +67,13 @@ public class EntityTests
     [Fact]
     public void Student_InitialzeStudentsWithNull_ThrowException()
     {
-        Assert.Throws<ArgumentNullException>(() => new Student(new("First", "Middle", null!)));
+        Assert.Throws<ArgumentNullException>(() => new Student(new("First", null!, "Middle")));
     }
 
     [Fact]
     public void Student_InitialzeStudentsWithBlank_ThrowException()
     {
-        Assert.Throws<ArgumentException>(() => new Student(new(" ", "Middle", "Last")));
+        Assert.Throws<ArgumentException>(() => new Student(new(" ", "Last", "Middle")));
     }
 
 
@@ -81,7 +81,7 @@ public class EntityTests
     [Fact]
     public void Employee_InitializeStudentWithoutMiddleName_Success()
     {
-        FullName fullName = new("John", null, "Smith");
+        FullName fullName = new("John", "Smith", null);
         Employee employee = new(fullName);
         Assert.Equal("John Smith", employee.Name);
     }
@@ -89,7 +89,7 @@ public class EntityTests
     [Fact]
     public void Employee_InitializeStudentWithMiddleName_Success()
     {
-        FullName fullName = new("First", "Middle", "Last");
+        FullName fullName = new("First", "Last", "Middle");
         Employee employee = new(fullName);
         Assert.Equal("First Middle Last", employee.Name);
     }
@@ -97,7 +97,7 @@ public class EntityTests
     [Fact]
     public void Employee_InitialzeTwoEmployeesWithSameName_NotEqual()
     {
-        FullName fullName = new("First", "Middle", "Last");
+        FullName fullName = new("First", "Last", "Middle");
         Employee employee = new(fullName);
         Employee employee1 = new(fullName);
 
@@ -107,12 +107,12 @@ public class EntityTests
     [Fact]
     public void Employee_InitialzeEmployeeWithNull_ThrowException()
     {
-        Assert.Throws<ArgumentNullException>(() => new Employee(new("First", "Middle", null!)));
+        Assert.Throws<ArgumentNullException>(() => new Employee(new("First", null!, "Middle")));
     }
 
     [Fact]
     public void Employee_InitialzeEmployeeWithBlank_ThrowException()
     {
-        Assert.Throws<ArgumentException>(() => new Employee(new(" ", "Middle", "Last")));
+        Assert.Throws<ArgumentException>(() => new Employee(new(" ", "Last", "Middle")));
     }
 }
