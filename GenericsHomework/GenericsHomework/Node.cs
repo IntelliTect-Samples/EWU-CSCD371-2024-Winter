@@ -1,20 +1,22 @@
 ﻿using System;
+using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace GenericsHomework
 {
     public class Node<T>
     {
-        public T value { get; }
-        public Node<T> next { get; private set; }
-        public Node(T value, Node<T> next)
-        {
-            value = value;
-        }
-        public override string ToString()
-        {
-            return value.ToString();
-        }
+        // Constructor for Node class
+            public Node(T item)
+            {
+                Value = item ?? throw new NullReferenceException(nameof(item));
+                Next = this;
+            }
+        public Node<T> Next { get; private set; }
+        public T Value { get; set; }
 
     }
 }
+
+
+
