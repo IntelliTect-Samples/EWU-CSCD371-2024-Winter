@@ -13,7 +13,7 @@ public class StorageTests
     [Fact]
     public void Add_Student_ContainsStudent()
     {
-        Student student = new Student(new FullName("Dean", "Winchester", null));
+        Student student = new(new FullName("Dean", "Winchester", null));
         Storage.Add(student);
         Assert.True(Storage.Contains(student));
     }
