@@ -19,7 +19,7 @@ public class FullNameTests
     {
         FullName name = new("First", "Last", null);
         Assert.Equal("First", name.FirstName);
-        Assert.Null(name.MiddleName);
+        Assert.Empty(name.MiddleName);
         Assert.Equal("Last", name.LastName);
     }
 

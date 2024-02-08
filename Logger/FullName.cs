@@ -15,7 +15,9 @@ public readonly record struct FullName(string FirstName, string LastName, string
 
     public override string ToString()
     {
-    return $"{FirstName}{(string.IsNullOrWhiteSpace(MiddleName) ? String.Empty : " +  MiddleName)} {LastName}")}";
+        ArgumentException.ThrowIfNullOrWhiteSpace(FirstName);
+        ArgumentException.ThrowIfNullOrWhiteSpace(LastName);
+        return $"{FirstName}{(string.IsNullOrWhiteSpace(MiddleName) ? String.Empty : $" {MiddleName}")} {LastName}";
     }
 
 }
