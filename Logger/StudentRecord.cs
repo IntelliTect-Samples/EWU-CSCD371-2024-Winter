@@ -7,13 +7,16 @@ using System.Threading.Tasks;
 
 namespace Logger;
 
-    public record class StudentRecord : PersonName
+    public record class StudentRecord : PersonName, IEntity
     {
     //common code for name refactored into PersonName that also inherits from base entity
     //felt reasonable to use FullName for a student, most basic identifier
     public StudentRecord(FullNameRecord FullName) : base(FullName) { }
 
     public override string ToString() => base.ToString();
+
+    //explicitely implemented from IEntity to be accessed through an instance of the interface
+     public Guid Id { get; init; }
 
 }
 
