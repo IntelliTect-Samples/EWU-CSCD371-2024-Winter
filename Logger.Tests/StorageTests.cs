@@ -28,43 +28,38 @@ public class StorageTests {
         }
     
     [Fact]
-    public void Get_ReturnsEntityWithExpectedGuid_EntityExistsInStorage()
+    public void Get_WithStudent_ReturnsExpectedId()
     {
-        // Arrange
         var storage = new Storage();
         var expectedGuid = Guid.NewGuid();
         var student = new StudentRecord(new FullNameRecord("John", "Doe"))
         {
-            Id = expectedGuid // Set the student's Id to the expected GUID
+            Id = expectedGuid 
         };
         storage.Add(student);
 
-        // Act
         var retrievedStudent = storage.Get(expectedGuid);
 
-        // Assert
         Assert.NotNull(retrievedStudent);
         Assert.Equal(expectedGuid, retrievedStudent.Id);
     }
 
     [Fact]
-        public void Get_ReturnsEmployeeWithExpectedGuid_EntityExistsInStorage()
+    public void Get_WithEmployee_ReturnsExpectedId()
+    {
+        
+        var storage = new Storage();
+        var expectedGuid = Guid.NewGuid();
+        var employee = new EmployeeRecord(new FullNameRecord("John", "Doe"))
         {
-            // Arrange
-            var storage = new Storage();
-            var expectedGuid = Guid.NewGuid();
-            var employee = new EmployeeRecord(new FullNameRecord("John", "Doe"))
-            {
-                Id = expectedGuid // Set the employee's Id to the expected GUID
-            };
-            storage.Add(employee);
+            Id = expectedGuid
+        };
+        storage.Add(employee);
 
-            // Act
-            var retrievedEmployee = storage.Get(expectedGuid);
+        var retrievedEmployee = storage.Get(expectedGuid);
 
-            // Assert
-            Assert.NotNull(retrievedEmployee);
-            Assert.Equal(expectedGuid, retrievedEmployee.Id);
-        }
+        Assert.NotNull(retrievedEmployee);
+        Assert.Equal(expectedGuid, retrievedEmployee.Id);
+    }
 
 }
