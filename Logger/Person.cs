@@ -13,6 +13,6 @@ public record class Person : BaseEntity
 
     public Person(FullName name)
     {
-ArgumentException.ThrowIfNullOrWhiteSpace(name);        Name = name.ToString();
+     Name = name.ToString();
     }
 }
