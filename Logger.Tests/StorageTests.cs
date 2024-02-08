@@ -3,6 +3,11 @@ namespace Logger.Tests;
 
 public class StorageTests
 {
+    public StorageTests()
+    {
+        Storage storage = new();
+    }
+
     //Student
     [Fact]
     public void Add_Student_ContainsStudent()
