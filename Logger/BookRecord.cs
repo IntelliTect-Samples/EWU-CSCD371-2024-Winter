@@ -17,8 +17,6 @@ public record class BookRecord ( string Author, string Title, int Isbn) : BaseEn
 
     public override string Name { get => $"{nameof(BookRecord)}:{Author}, {Title}"; }
 
-    //public override string Name { get => throw new NotImplementedException();  }
-
 
     public override string ToString() => $"{Author}, {Title} - ISBN: {Isbn}";
 
