@@ -12,7 +12,7 @@ public class FileLogger : BaseLogger, ILogger<FileLogger>
     public FileLogger(string logSource, string filePath) : base(logSource) => File = new FileInfo(filePath);
     //TODO making this constructor public will allow people to call this one instead of
     //The other one which checks for null configuration. Making this private makes it so they have to use other one
-    public FileLogger(FileLoggerConfiguration configuration) : this(configuration.LogSource, configuration.FilePath) { }
+    public FileLogger(in FileLoggerConfiguration configuration) : this(configuration.LogSource, configuration.FilePath) { }
 
     public static ILogger<FileLogger> CreateLogger(in ILoggerConfiguration logggerConfiguration) =>
         logggerConfiguration is FileLoggerConfiguration configuration
