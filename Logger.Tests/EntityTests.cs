@@ -31,11 +31,11 @@ public class EntityTests
         Guid id = Guid.NewGuid();
         Book book1 = new(title)
         {
-            Id = id,
+            ID = id,
         };
         Book book2 = new(title)
         {
-            Id = id,
+            ID = id,
         };
 
         Assert.Equal(book1, book2);
@@ -88,11 +88,11 @@ public class EntityTests
         Guid id = Guid.NewGuid();
         Student student = new(fullName)
         {
-            Id = id,
+            ID = id,
         };
         Student student1 = new(fullName)
         {
-            Id = id,
+            ID = id,
         };
 
         Assert.Equal(student, student1);
@@ -145,11 +145,11 @@ public class EntityTests
         Guid id = Guid.NewGuid();
         Employee employee = new(fullName)
         {
-            Id = id,
+            ID = id,
         };
         Employee employee1 = new(fullName)
         {
-            Id = id,
+            ID = id,
         };
 
         Assert.Equal(employee, employee1);
