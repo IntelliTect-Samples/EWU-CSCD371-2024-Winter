@@ -5,6 +5,7 @@ namespace Logger;
 
 public record class Book(string Title) : BaseEntity
 {
+    //TODO FIX
     public string Title {get;} = Title ?? ArgumentNullException.ThrowIfNull(nameof(title));
     public override string Name { 
     get=>$"{Title}";}

@@ -7,6 +7,6 @@ public abstract record class BaseEntity : IEntity
     // This caused problems in StorageTests when testing the Get method...
     public Guid Id { get; init; } = Guid.NewGuid();
     //Guid IEntity.Id { get; init; } = Guid.NewGuid();
-    public abstract string Name { get; set; }
+    public abstract string Name { get; }
 
 }
