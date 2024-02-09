@@ -9,8 +9,12 @@ public class LoggerFactory<T> where T : BaseLogger
         {
             if (fileLoggerConfiguration is FileLoggerConfiguration file)
             {
-                return (ILogger<T>)new FileLogger(in file)!;
+                return (ILogger<T>)new FileLogger(in file);
 
+            }
+            else
+            {
+                throw new ArgumentException("Configuration type not compatible with FileLogger type",nameof(fileLoggerConfiguration));
             }
         }
         return null;
