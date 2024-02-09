@@ -34,4 +34,12 @@ public class EmployeeRecordTests
         EmployeeRecord employeeRecord = new(nameof(EmployeeRecord), fullNameRecord);
         Assert.Equal(nameof(EmployeeRecord), employeeRecord.Name);
     }
+
+        [Fact]
+    public void EmployeeRecord_SetToNull_ThrowArgumentNullException() 
+    {
+        Assert.Throws<ArgumentNullException>(
+            () => new EmployeeRecord(null!)
+        );
+    }
 }

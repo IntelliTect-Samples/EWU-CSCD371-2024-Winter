@@ -34,4 +34,12 @@ public class StudentRecordTests
         StudentRecord student2 = new(nameof(StudentRecord));
         Assert.False(student1.Equals(student2));
     }
+
+    [Fact]
+    public void StudentRecord_SetToNull_ThrowArgumentNullException() 
+    {
+        Assert.Throws<ArgumentNullException>(
+            () => new StudentRecord(null!)
+        );
+    }
 }
