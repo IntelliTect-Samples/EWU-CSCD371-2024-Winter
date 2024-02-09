@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Logger;
 
 // We implemented the interface implicitly because the BaseEntity has a cando relationtip with IEntity
