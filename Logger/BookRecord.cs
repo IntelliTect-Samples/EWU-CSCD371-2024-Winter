@@ -9,7 +9,9 @@ public record class BookRecord(string ClassName) : BaseEntity
     {
         get 
         {
-            return $"{ClassName}" ?? throw new ArgumentNullException(nameof(ClassName));
+            return $"{ClassName}";
         }
     }
+
+    public string ClassName {get; set;} = ClassName ?? throw new ArgumentNullException(nameof(ClassName));
 }
