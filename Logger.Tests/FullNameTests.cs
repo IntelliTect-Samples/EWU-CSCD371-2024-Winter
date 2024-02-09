@@ -24,6 +24,20 @@ public class FullNameTests
     }
 
     [Fact]
+    public void ToString_NoMiddleName_ReturnsSuccessfully()
+    {
+        FullName fullName = new( "Demon", "Ruby");
+        Assert.Equal("Demon Ruby", fullName.ToString());
+    }
+
+    [Fact]
+    public void ToString_WithMiddleName_ReturnsSuccessfully()
+    {
+        FullName fullName = new("Shaggy", "Scooby", "Fred");
+        Assert.Equal("Shaggy Fred Scooby", fullName.ToString());
+    }
+
+    [Fact]
     public void FullName_SetFullNameWithNullFirst_ThrowsException()
     {
         Assert.Throws<ArgumentNullException>(() => new FullName(null!, "Last", null));
