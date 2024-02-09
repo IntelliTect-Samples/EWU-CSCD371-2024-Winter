@@ -5,9 +5,17 @@ namespace Logger.Tests;
 public class StudentRecordTests
 {
     [Fact]
-    public void StudentRecord_GetName_Success()
+    public void StudentRecord_GetClassName_Success()
     {
         StudentRecord studentRecord = new(nameof(StudentRecord));
+        Assert.Equal(nameof(StudentRecord), studentRecord.Name);
+    }
+
+    [Fact]
+    public void StudentRecord_GetClassNameWithFullName_Success()
+    {
+        FullNameRecord fullName = new("Inigo", "Montoya", "Alex");
+        StudentRecord studentRecord = new(nameof(StudentRecord), fullName);
         Assert.Equal(nameof(StudentRecord), studentRecord.Name);
     }
 
