@@ -35,8 +35,11 @@ namespace GenericsTests
             Assert.Equal("You rock", newNode.Next.Data);
            
         }
-        public void Append_DuplicateValue_ThrowsErrorSuccessfully()
+        [Fact]
+        public void Append_DuplicateNodeValue_ThrowsErrorSuccessfully()
         {
+            Node<string> newNode = new Node<string>("Copy");
+            Assert.Throws<DuplicateWaitObjectException>(() => newNode.Append("Copy"));
 
         }
 

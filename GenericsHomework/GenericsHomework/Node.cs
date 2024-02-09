@@ -26,17 +26,22 @@ namespace GenericsHomework
 
         public void Append(T item)
         {
-            if (item.Exists())
+            if (Exists(item))
             {
+                throw new DuplicateWaitObjectException(nameof(item));
+                //this if for an array but think it can work?
 
             }
-            Node<T> currentNode = this;
-            while(currentNode.Next!=currentNode)
+            else
             {
-                currentNode = currentNode.Next;
+                Node<T> currentNode = this;
+                while (currentNode.Next != currentNode)
+                {
+                    currentNode = currentNode.Next;
 
+                }
+                currentNode.Next = new Node<T>(item);
             }
-            currentNode.Next = new Node<T>(item);
         }
 
         /* I think it is sufficient to set Next to itself because the garbage collector 
