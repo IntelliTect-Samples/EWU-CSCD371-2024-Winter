@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
+﻿using Xunit;
 
 namespace Logger.Tests;
 public class StorageTests
@@ -12,7 +7,7 @@ public class StorageTests
     [Fact]
     public void Add_BookRecord_Success()
     {
-        BookRecord record = new("The Great Gatsby");
+        BookRecord record = new(nameof(BookRecord));
         
 
         Storage storage = new();
@@ -22,9 +17,9 @@ public class StorageTests
     }
 
     [Fact]
-    public void Remove_BooktRecord_Success()
+    public void Remove_BookRecord_Success()
     {
-        BookRecord record = new("To Kill a Mockingbird");
+        BookRecord record = new(nameof(BookRecord));
 
         Storage storage = new();
         storage.Add(record);
@@ -37,7 +32,7 @@ public class StorageTests
     [Fact]
     public void Get_ReturnsCorrectBookRecordId_Success()
     {
-        BookRecord record = new("Moby-Dick");
+        BookRecord record = new(nameof(BookRecord));
 
         Storage storage = new();
         storage.Add(record);
@@ -49,8 +44,7 @@ public class StorageTests
     [Fact]
     public void Add_StudentRecord_Success()
     {
-        FullNameRecord fullName = new("Inigo", "Montoya", "Alex");
-        StudentRecord studentRecord = new(fullName);
+        StudentRecord studentRecord = new(nameof(StudentRecord));
         Storage storage = new();
         storage.Add(studentRecord);
         Assert.True(storage.Contains(studentRecord));
@@ -59,8 +53,7 @@ public class StorageTests
     [Fact]
     public void Remove_StudentRecord_Success()
     {
-        FullNameRecord fullName = new("Inigo", "Montoya", "Alex");
-        StudentRecord studentRecord = new(fullName);
+        StudentRecord studentRecord = new(nameof(StudentRecord));
         Storage storage = new();
         storage.Add(studentRecord);
         storage.Remove(studentRecord);
@@ -70,9 +63,8 @@ public class StorageTests
     [Fact]
     public void Contains_StudentRecord_Success()
     {
-        FullNameRecord fullName = new("Inigo", "Montoya", "Alex");
-        StudentRecord studentRecord = new(fullName);
-        StudentRecord studentRecord1 = new(fullName);
+        StudentRecord studentRecord = new(nameof(StudentRecord));
+        StudentRecord studentRecord1 = new(nameof(StudentRecord));
         Storage storage = new();
         storage.Add(studentRecord);
         storage.Add(studentRecord1);
@@ -82,9 +74,8 @@ public class StorageTests
     [Fact]
     public void Get_StudentRecord_Success()
     {
-        FullNameRecord fullName = new("Inigo", "Montoya", "Alex");
-        StudentRecord studentRecord = new(fullName);
-        StudentRecord studentRecord1 = new(fullName);
+        StudentRecord studentRecord = new(nameof(StudentRecord));
+        StudentRecord studentRecord1 = new(nameof(StudentRecord));
         Storage storage = new();
         storage.Add(studentRecord);
         storage.Add(studentRecord1);
@@ -92,20 +83,18 @@ public class StorageTests
     }
     // Employee
     [Fact]
-    public void Add_EmployeRecord_Success()
+    public void Add_EmployeeRecord_Success()
     {
-        FullNameRecord fullName = new("Inigo", "Montoya", "Alex");
-        EmployeeRecord employeeRecord = new(fullName);
+        EmployeeRecord employeeRecord = new(nameof(EmployeeRecord));
         Storage storage = new();
         storage.Add(employeeRecord);
         Assert.True(storage.Contains(employeeRecord));
     }
 
     [Fact]
-    public void Remove_EmployeRecord_Success()
+    public void Remove_EmployeeRecord_Success()
     {
-        FullNameRecord fullName = new("Inigo", "Montoya", "Alex");
-        EmployeeRecord employeeRecord = new(fullName);
+        EmployeeRecord employeeRecord = new(nameof(EmployeeRecord));
         Storage storage = new();
         storage.Add(employeeRecord);
         storage.Remove(employeeRecord);
@@ -115,9 +104,8 @@ public class StorageTests
     [Fact]
     public void Contains_EmployeeRecord_Success()
     {
-        FullNameRecord fullName = new("Inigo", "Montoya", "Alex");
-        EmployeeRecord employeeRecord = new(fullName);
-        EmployeeRecord employeeRecord1 = new(fullName);
+        EmployeeRecord employeeRecord = new(nameof(EmployeeRecord));
+        EmployeeRecord employeeRecord1 = new(nameof(EmployeeRecord));
         Storage storage = new();
         storage.Add(employeeRecord);
         storage.Add(employeeRecord1);
@@ -127,9 +115,8 @@ public class StorageTests
     [Fact]
     public void Get_EmployeeRecord_Success()
     {
-        FullNameRecord fullName = new("Inigo", "Montoya", "Alex");
-        EmployeeRecord employeeRecord = new(fullName);
-        EmployeeRecord employeeRecord1 = new(fullName);
+        EmployeeRecord employeeRecord = new(nameof(EmployeeRecord));
+        EmployeeRecord employeeRecord1 = new(nameof(EmployeeRecord));
         Storage storage = new();
         storage.Add(employeeRecord);
         storage.Add(employeeRecord1);
