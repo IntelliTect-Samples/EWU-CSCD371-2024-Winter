@@ -12,6 +12,16 @@ namespace GenericsHomework
             }
         public Node<T> Next { get; private set; }
         public T Data { get; set; }
+        
+        public override string ToString()
+        {
+            if (Data==null)
+                throw new NullReferenceException(nameof(Data)); 
+            else
+            {
+                return Data.ToString()!;
+            }
+        }
 
         public void Append(T item)
         {

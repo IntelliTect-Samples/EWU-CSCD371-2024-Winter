@@ -11,7 +11,7 @@ namespace GenericsTests
 
         }
         [Fact]
-        public void ToString_ValidNode_ReturnsStringSuccesfully()
+        public void ToString_ValidData_ReturnsStringSuccesfully()
         {
             Node<string> newNode = new Node<string>("Benjamin");
             newNode.Append("rocks!");
