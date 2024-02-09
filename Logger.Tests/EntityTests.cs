@@ -25,6 +25,15 @@ public class EntityTests
     }
 
     [Fact]
+    public void Book_InitialzeTwoBookWithDiffTitle_NotEqual()
+    {
+        Book book1 = new("Moby Dick");
+        Book book2 = new("War and Peace");
+
+        Assert.NotEqual(book1, book2);
+    }
+
+    [Fact]
     public void Book_InitialzeTwoBookWithSameTitleSameId_Equal()
     {
         string title = "Lord of the Flies";
@@ -77,6 +86,15 @@ public class EntityTests
         FullName fullName = new("Kevin", "Tran", "Prophet");
         Student student = new(fullName);
         Student student1 = new(fullName);
+
+        Assert.NotEqual(student, student1);
+    }
+
+    [Fact]
+    public void Student_InitialzeTwoStudentsWithDiffName_NotEqual()
+    {
+        Student student = new(new FullName("Bojack", "Horseman", null));
+        Student student1 = new(new FullName("Princess", "Author", "Kitty"));
 
         Assert.NotEqual(student, student1);
     }
@@ -148,6 +166,15 @@ public class EntityTests
         Employee employee1 = new(fullName);
 
         Assert.NotEqual(employee.ID, employee1.ID);
+    }
+
+    [Fact]
+    public void Employee_InitialzeTwoEmployeesWithDiffName_NotEqual()
+    {
+        Employee employee = new(new FullName("Todd", "Stoner", null));
+        Employee employee1 = new(new FullName("Mr.", "Dog", "Peanutbutter"));
+
+        Assert.NotEqual(employee, employee1);
     }
 
     [Fact]
