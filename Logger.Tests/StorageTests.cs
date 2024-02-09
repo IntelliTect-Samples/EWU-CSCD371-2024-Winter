@@ -32,7 +32,7 @@ public class StorageTests
     {
         Student student = new(new FullName("John", "Winchester", "Curt"));
         Storage.Add(student);
-        Assert.Equal(student, Storage.Get(student.Id));
+        Assert.Equal(student, Storage.Get(student.ID));
     }
 
     //Employee
@@ -61,7 +61,7 @@ public class StorageTests
         
         Employee employee = new(new FullName("Natalie", "Berzatto", "Sugar"));
         Storage.Add(employee);
-        Assert.Equal(employee, Storage.Get(employee.Id));
+        Assert.Equal(employee, Storage.Get(employee.ID));
     }
     //Book
     [Fact]
@@ -89,6 +89,6 @@ public class StorageTests
         
         Book book = new("Farenheit 451");
         Storage.Add(book);
-        Assert.Equal(book, Storage.Get(book.Id));
+        Assert.Equal(book, Storage.Get(book.ID));
     }
 }
