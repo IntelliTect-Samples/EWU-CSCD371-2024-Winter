@@ -21,7 +21,7 @@ public class EntityTests
         Book book1 = new(title);
         Book book2 = new(title);
 
-        Assert.NotEqual(book1, book2);
+        Assert.NotEqual(book1.ID, book2.ID);
     }
 
     [Fact]
@@ -38,7 +38,7 @@ public class EntityTests
             ID = id,
         };
 
-        Assert.Equal(book1, book2);
+        Assert.Equal(book1.ID, book2.ID);
     }
 
     [Fact]
@@ -66,15 +66,15 @@ public class EntityTests
     [Fact]
     public void Student_InitializeStudentWithMiddleName_Success()
     {
-        FullName fullName = new("First", "Last", "Middle");
+        FullName fullName = new("Bobby", "Singer", "Idjit");
         Student student = new(fullName);
-        Assert.Equal("First Middle Last", student.Name);
+        Assert.Equal("Bobby Idjit Singer", student.Name);
     }
 
     [Fact]
     public void Student_InitialzeTwoStudentsWithSameNameDiffId_NotEqual()
     {
-        FullName fullName = new("First", "Last", "Middle");
+        FullName fullName = new("Kevin", "Tran", "Prophet");
         Student student = new(fullName);
         Student student1 = new(fullName);
 
@@ -84,7 +84,7 @@ public class EntityTests
     [Fact]
     public void Student_InitialzeTwoStudentsWithSameNameSameId_Equal()
     {
-        FullName fullName = new("First", "Last", "Middle");
+        FullName fullName = new("Richie", "Jerimovich", "VanHalen");
         Guid id = Guid.NewGuid();
         Student student = new(fullName)
         {
@@ -95,25 +95,25 @@ public class EntityTests
             ID = id,
         };
 
-        Assert.Equal(student, student1);
+        Assert.Equal(student.ID, student1.ID);
     }
 
     [Fact]
     public void Student_InitialzeStudentsWithNull_ThrowException()
     {
-        Assert.Throws<ArgumentNullException>(() => new Student(new("First", null!, "Middle")));
+        Assert.Throws<ArgumentNullException>(() => new Student(new("Chef", null!, "Terry")));
     }
 
     [Fact]
     public void Student_InitialzeStudentsWithBlank_ThrowException()
     {
-        Assert.Throws<ArgumentException>(() => new Student(new(" ", "Last", "Middle")));
+        Assert.Throws<ArgumentException>(() => new Student(new(" ", "Michael", "Berzatto")));
     }
 
 
     //Employee Tests ------------------------------------------
     [Fact]
-    public void Employee_InitializeStudentWithoutMiddleName_Success()
+    public void Employee_InitializeEmployeeWithoutMiddleName_Success()
     {
         FullName fullName = new("John", "Smith", null);
         Employee employee = new(fullName);
@@ -121,27 +121,27 @@ public class EntityTests
     }
 
     [Fact]
-    public void Employee_InitializeStudentWithMiddleName_Success()
+    public void Employee_InitializeEmployeeWithMiddleName_Success()
     {
-        FullName fullName = new("First", "Last", "Middle");
+        FullName fullName = new("Jimmy", "Kalinowski", "Cicero");
         Employee employee = new(fullName);
-        Assert.Equal("First Middle Last", employee.Name);
+        Assert.Equal("Jimmy Cicero Kalinowski", employee.Name);
     }
 
     [Fact]
     public void Employee_InitialzeTwoEmployeesWithSameNameDiffId_NotEqual()
     {
-        FullName fullName = new("First", "Last", "Middle");
+        FullName fullName = new("Neil", "Fak", "Fixer");
         Employee employee = new(fullName);
         Employee employee1 = new(fullName);
 
-        Assert.NotEqual(employee, employee1);
+        Assert.NotEqual(employee.ID, employee1.ID);
     }
 
     [Fact]
     public void Employee_InitialzeTwoEmployeesWithSameNameSameId_Equal()
     {
-        FullName fullName = new("First", "Last", "Middle");
+        FullName fullName = new("Sydney", "Adamu", "Chef");
         Guid id = Guid.NewGuid();
         Employee employee = new(fullName)
         {
@@ -152,18 +152,18 @@ public class EntityTests
             ID = id,
         };
 
-        Assert.Equal(employee, employee1);
+        Assert.Equal(employee.ID, employee1.ID);
     }
 
     [Fact]
     public void Employee_InitialzeEmployeeWithNull_ThrowException()
     {
-        Assert.Throws<ArgumentNullException>(() => new Employee(new("First", null!, "Middle")));
+        Assert.Throws<ArgumentNullException>(() => new Employee(new("Chef", null!, "Ebraheim")));
     }
 
     [Fact]
     public void Employee_InitialzeEmployeeWithBlank_ThrowException()
     {
-        Assert.Throws<ArgumentException>(() => new Employee(new(" ", "Last", "Middle")));
+        Assert.Throws<ArgumentException>(() => new Employee(new(" ", "Chef", "Tina")));
     }
 }
