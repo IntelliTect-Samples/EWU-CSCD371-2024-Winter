@@ -38,6 +38,10 @@ namespace GenericsHomework
 
         }
 
+        public bool Exists(string v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

@@ -29,10 +29,18 @@ namespace GenericsTests
             newNode.Clear();
 
             Assert.Equal(newNode, newNode.Next);
-
-
-
         }
+        [Fact]
+        public void Exists_NodeExists_ReturnsTrue()
+        {
+            Node<string> newNode = new Node<string>("Johanne");
+            newNode.Append("is");
+            newNode.Append("the");
+            newNode.Append("best!");
+
+            Assert.True(newNode.Exists("best!"));
+        }
+
 
     }
 }
