@@ -8,9 +8,9 @@ namespace Logger;
 
 // FullName is a reference type because we do not want the data to be immutable, as a person's
 // name can change (e.g., when they get married). As a record class, the data is not immutable.
-public record class FullName(string First, string? Middle = null, string Last)
+public record class FullName(string First, string Last, string? Middle = null)
 {
-    public void Deconstruct(out string First, out string? Middle, out string Last)
+    public void Deconstruct(out string First, out string Last, out string? Middle)
     {
         First = this.First;
         Last = this.Last;
