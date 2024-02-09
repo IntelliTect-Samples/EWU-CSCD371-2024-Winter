@@ -26,4 +26,12 @@ public class BookRecordTests
         BookRecord book2 = new(nameof(BookRecord));
         Assert.False(book1.Equals(book2));
     }
+
+    [Fact]
+    public void BookRecord_SetToNull_ThrowArgumentNullException() 
+    {
+        Assert.Throws<ArgumentNullException>(
+            () => new BookRecord(null!)
+        );
+    }
 }

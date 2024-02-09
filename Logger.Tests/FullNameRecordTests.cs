@@ -5,7 +5,7 @@ namespace Logger.Tests;
 public class FullNameRecordTests
 {
     [Fact]
-    public void FullName_SetRecordToNull_Suceess()
+    public void FullName_SetRecordToNull_Success()
     {
         Assert.Throws<ArgumentNullException>(
             () => new FullNameRecord(null!, null!, null) );
@@ -23,7 +23,7 @@ public class FullNameRecordTests
     }
 
     [Fact]
-    public void FullName_OptionalMiddle_Sucess()
+    public void FullName_OptionalMiddle_Success()
     {
 
         string First = "Inigo";
