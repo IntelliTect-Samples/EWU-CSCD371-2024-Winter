@@ -15,7 +15,7 @@ public class EntityTests
     }
 
     [Fact]
-    public void Book_InitialzeTwoBookWithSameTitle_NotEqual()
+    public void Book_InitialzeTwoBookWithSameTitleDiffId_NotEqual()
     {
         string title = "Lord of the Flies";
         Book book1 = new(title);
@@ -23,7 +23,24 @@ public class EntityTests
 
         Assert.NotEqual(book1, book2);
     }
-    
+
+    [Fact]
+    public void Book_InitialzeTwoBookWithSameTitleSameId_Equal()
+    {
+        string title = "Lord of the Flies";
+        Guid id = Guid.NewGuid();
+        Book book1 = new(title)
+        {
+            Id = id,
+        };
+        Book book2 = new(title)
+        {
+            Id = id,
+        };
+
+        Assert.Equal(book1, book2);
+    }
+
     [Fact]
     public void Book_InitialzeBookWithNullTitle_ThrowException()
     {
@@ -33,7 +50,7 @@ public class EntityTests
     [Fact]
     public void Book_InitialzeBookWithBlankTitle_ThrowException()
     {
-        Assert.Throws<ArgumentException>(() => new Book(" "));
+        Assert.Throws<ArgumentNullException>(() => new Book(""));
     }
 
 
@@ -55,13 +72,30 @@ public class EntityTests
     }
 
     [Fact]
-    public void Student_InitialzeTwoStudentsWithSameName_NotEqual()
+    public void Student_InitialzeTwoStudentsWithSameNameDiffId_NotEqual()
     {
         FullName fullName = new("First", "Last", "Middle");
         Student student = new(fullName);
         Student student1 = new(fullName);
 
         Assert.NotEqual(student, student1);
+    }
+
+    [Fact]
+    public void Student_InitialzeTwoStudentsWithSameNameSameId_Equal()
+    {
+        FullName fullName = new("First", "Last", "Middle");
+        Guid id = Guid.NewGuid();
+        Student student = new(fullName)
+        {
+            Id = id,
+        };
+        Student student1 = new(fullName)
+        {
+            Id = id,
+        };
+
+        Assert.Equal(student, student1);
     }
 
     [Fact]
@@ -95,13 +129,30 @@ public class EntityTests
     }
 
     [Fact]
-    public void Employee_InitialzeTwoEmployeesWithSameName_NotEqual()
+    public void Employee_InitialzeTwoEmployeesWithSameNameDiffId_NotEqual()
     {
         FullName fullName = new("First", "Last", "Middle");
         Employee employee = new(fullName);
         Employee employee1 = new(fullName);
 
         Assert.NotEqual(employee, employee1);
+    }
+
+    [Fact]
+    public void Employee_InitialzeTwoEmployeesWithSameNameSameId_Equal()
+    {
+        FullName fullName = new("First", "Last", "Middle");
+        Guid id = Guid.NewGuid();
+        Employee employee = new(fullName)
+        {
+            Id = id,
+        };
+        Employee employee1 = new(fullName)
+        {
+            Id = id,
+        };
+
+        Assert.Equal(employee, employee1);
     }
 
     [Fact]
