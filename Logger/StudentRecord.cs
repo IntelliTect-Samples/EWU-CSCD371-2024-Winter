@@ -4,4 +4,7 @@ namespace Logger;
 // For this class implementation, see PersonRecord
 public record class StudentRecord(string ClassName) : PersonRecord(ClassName)
 {
+    public StudentRecord(string ClassName, FullNameRecord FullName) : this(ClassName){
+        FullNameRecord = FullName;
+    }
 }
