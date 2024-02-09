@@ -69,5 +69,24 @@ public class StudentTests
 
     }
 
+    [Fact]
+    public void Equals_DifferntEmployeeProperties_ReturnsFalse()
+    {
+        var student = new Student("Thomas", "Young", 11123)
+        {
+            Id = Guid.NewGuid(),
+        };
+
+        Student studentDifferentFirstName = student with { FirstName = "John", };
+        Student studentDifferentId = student with { Id = Guid.NewGuid(), };
+        Student studentDifferentStudentId = student with { StudentID = 1092109 };
+
+        Assert.False(student.Equals(studentDifferentFirstName));
+        Assert.False(student == studentDifferentId);
+        Assert.False(student == studentDifferentStudentId);
+
+
+    }
+
 }
 

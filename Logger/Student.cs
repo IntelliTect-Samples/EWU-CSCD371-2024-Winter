@@ -4,7 +4,7 @@ namespace Logger;
 public record class Student(string FirstName, string LastName, int? StudentID) : Person(FirstName, LastName), IEntity
 {
 
-    public int? StudentID { get; } = StudentID ?? throw new ArgumentNullException(nameof(StudentID));
+    public int? StudentID { get; init; } = StudentID ?? throw new ArgumentNullException(nameof(StudentID));
 
     //Name member of IEntity should explicit becuase it has collision with Employee's name
     string IEntity.Name {get => $"EntityType: {nameof(Student)}, EntityID: {Id}, Name: {Name}, StudentID: {StudentID}"; }
