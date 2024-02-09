@@ -9,6 +9,7 @@
 	<EnableNETAnalyzers>true</EnableNETAnalyzers>
 	<CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
 	<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
   </PropertyGroup>
 
 </Project>

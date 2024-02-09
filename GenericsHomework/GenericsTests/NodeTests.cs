@@ -35,6 +35,10 @@ namespace GenericsTests
             Assert.Equal("You rock", newNode.Next.Data);
            
         }
+        public void Append_DuplicateValue_ThrowsErrorSuccessfully()
+        {
+
+        }
 
         [Fact]
         public void Clear_ManyNodes_SuccessfullyClears()

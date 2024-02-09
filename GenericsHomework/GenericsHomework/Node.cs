@@ -10,6 +10,7 @@ namespace GenericsHomework
                 Next = this;
             //Next is non nullable ? might want to change to not use this? idk
             }
+
         public Node<T> Next { get; private set; }
         public T Data { get; set; }
         
@@ -25,6 +26,10 @@ namespace GenericsHomework
 
         public void Append(T item)
         {
+            if (item.Exists())
+            {
+
+            }
             Node<T> currentNode = this;
             while(currentNode.Next!=currentNode)
             {
