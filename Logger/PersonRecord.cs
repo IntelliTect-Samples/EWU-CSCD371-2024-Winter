@@ -12,9 +12,10 @@ public record class PersonRecord(string ClassName) : BaseEntity
     {
         get 
         {
-            return $"{ClassName}" ?? throw new ArgumentNullException(nameof(ClassName));
+            return $"{ClassName}";
         }
     }
 
     public FullNameRecord FullNameRecord {get; set;}
+    public string ClassName { get; set; } = ClassName ?? throw new ArgumentNullException(nameof(ClassName));
 }
