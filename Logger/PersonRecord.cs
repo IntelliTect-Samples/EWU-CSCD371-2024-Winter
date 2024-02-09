@@ -1,18 +1,15 @@
 
 namespace Logger;
 
-public record class PersonRecord(FullNameRecord FullName) : BaseEntity
+public record class PersonRecord(string ClassName) : BaseEntity
 {
-    public PersonRecord(string First, string Last, string Middle) : this(new FullNameRecord(First, Last, Middle))
+
+    /// We implemented the Name property implicitly because it is an is-a relationship 
+    public override string Name 
     {
-
+        get 
+        {
+            return $"{ClassName}" ?? throw new ArgumentNullException(nameof(ClassName));
+        }
     }
-
-    public PersonRecord(string First, string Last) : this(new FullNameRecord(First, Last))
-    { 
-    }
-
-    // Implicit Implementation:
-    // Because it makes logical sense for the StudentRecord to have easy access to the name property.
-    public override string Name { get; } = FullName.ToString();
 }
