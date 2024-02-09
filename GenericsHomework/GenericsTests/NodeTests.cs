@@ -40,6 +40,16 @@ namespace GenericsTests
 
             Assert.True(newNode.Exists("best!"));
         }
+        [Fact]
+        public void Exists_NodeDoesNotExists_ReturnsFalse()
+        {
+            Node<string> newNode = new Node<string>("Johanne");
+            newNode.Append("is");
+            newNode.Append("the");
+            newNode.Append("best!");
+
+            Assert.False(newNode.Exists("Reeehat"));
+        }
 
 
     }
