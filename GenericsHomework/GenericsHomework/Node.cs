@@ -4,13 +4,13 @@ namespace GenericsHomework
 {
     public class Node<T>
     {
-        // Constructor for Node class
-            public Node(T item)
+        public Node(T item)
             {
                 Data = item ?? throw new NullReferenceException(nameof(item));
-                Next = this;//Next is non nullable ? might want to change to not use this
+                Next = this;
+            //Next is non nullable ? might want to change to not use this ? idk
             }
-        public Node<T> Next { get; private set; }//next setter must be private 
+        public Node<T> Next { get; private set; }
         public T Data { get; set; }
 
         public void Append(T item)
@@ -24,8 +24,10 @@ namespace GenericsHomework
             currentNode.Next = new Node<T>(item);
         }
 
-
-
+        public void Clear()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 
