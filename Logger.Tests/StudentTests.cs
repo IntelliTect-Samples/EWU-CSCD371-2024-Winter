@@ -59,13 +59,10 @@ public class StudentTests
         {
             Id = testId
         };
-        Student student3 = student1 with { Id=Guid.NewGuid() };
-        Student student4 = student1 with { FirstName = "Roger" };
 
         Assert.True(student1.Equals(student2));
         Assert.True(student1 == student2);
-        Assert.False(student1 == student3);
-        Assert.NotEqual(student1, student4);
+
 
     }
 
@@ -83,7 +80,7 @@ public class StudentTests
 
         Assert.False(student.Equals(studentDifferentFirstName));
         Assert.False(student == studentDifferentId);
-        Assert.False(student == studentDifferentStudentId);
+        Assert.NotEqual(student, studentDifferentStudentId);
 
 
     }

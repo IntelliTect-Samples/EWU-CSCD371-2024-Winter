@@ -76,7 +76,7 @@ namespace Logger.Tests;
 
         Assert.False(employee.Equals(employeeDifferentFirstName));
         Assert.False(employee == employeeDifferentId);
-        Assert.False(employee == employeeDifferentStudentId);
+        Assert.NotEqual(employee, employeeDifferentStudentId);
 
 
     }

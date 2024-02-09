@@ -51,13 +51,28 @@ public class BookTests
         {
             Id = testGuid,
         };
-        var book3 = book1 with { Id = Guid.NewGuid() };
-        var book4 = book1 with { Title = "Harry Potter and the Chamber of Secretes" };
 
         Assert.True(book1 == book2);
         Assert.Equal(book1, book2);
-        Assert.False(book1 == book3);
-        Assert.False(book1.Equals(book4));
+
+    }
+
+    [Fact]
+    public void Equals_DifferntEmployeeProperties_ReturnsFalse()
+    {
+        var book = new Book("Be More Chill", 1238904534383)
+        {
+            Id = Guid.NewGuid(),
+        };
+
+        Book bookDifferentTitle = book with { Title = "Planets of the Apes", };
+        Book bookDifferentId = book with { Id = Guid.NewGuid(), };
+        Book bookDifferentIsbn = book with { Isbn = 2938492740452 };
+
+        Assert.False(book.Equals(bookDifferentTitle));
+        Assert.False(book == bookDifferentId);
+        Assert.NotEqual(book, bookDifferentIsbn);
+
 
     }
 
