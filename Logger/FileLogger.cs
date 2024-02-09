@@ -3,7 +3,7 @@
 //contravarient. So it could specify less derrived class of ILogConfiguration except ILogConfiguration doesn't have any.
 //If you supply a ILogConfiguration type then it would break since it doesn't have the proper propreties to create a
 //FileLogger
-public class FileLogger : BaseLogger, ILogger
+public class FileLogger : BaseLogger, ILogger<FileLogger>
 {
     private FileInfo File { get; }
 
@@ -14,7 +14,7 @@ public class FileLogger : BaseLogger, ILogger
     //The other one which checks for null configuration. Making this private makes it so they have to use other one
     public FileLogger(FileLoggerConfiguration configuration) : this(configuration.LogSource, configuration.FilePath) { }
 
-    static ILogger ILogger.CreateLogger(in ILoggerConfiguration logggerConfiguration) =>
+    public static ILogger<FileLogger> CreateLogger(in ILoggerConfiguration logggerConfiguration) =>
         logggerConfiguration is FileLoggerConfiguration configuration
             ? CreateLogger(configuration)
             : throw new ArgumentException("Invalid configuration type", nameof(logggerConfiguration));
