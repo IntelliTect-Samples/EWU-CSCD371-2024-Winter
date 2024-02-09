@@ -8,5 +8,6 @@ public class Node<T>
     }
 
     public T Data { get; set; }
+    Node<T> Next { get;  set; }
 }
 
