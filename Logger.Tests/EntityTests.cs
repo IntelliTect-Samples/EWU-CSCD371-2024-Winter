@@ -99,15 +99,27 @@ public class EntityTests
     }
 
     [Fact]
-    public void Student_InitialzeStudentsWithNull_ThrowException()
+    public void Student_InitialzeStudentsFirstNameWithNull_ThrowException()
+    {
+        Assert.Throws<ArgumentNullException>(() => new Student(new(null!, "Chef", "Marcus")));
+    }
+
+    [Fact]
+    public void Student_InitialzeStudentsLastNameWithNull_ThrowException()
     {
         Assert.Throws<ArgumentNullException>(() => new Student(new("Chef", null!, "Terry")));
     }
 
     [Fact]
-    public void Student_InitialzeStudentsWithBlank_ThrowException()
+    public void Student_InitialzeStudentsFirstNameWithBlank_ThrowException()
     {
         Assert.Throws<ArgumentException>(() => new Student(new(" ", "Michael", "Berzatto")));
+    }
+
+    [Fact]
+    public void Student_InitialzeStudentsLastNameWithBlank_ThrowException()
+    {
+        Assert.Throws<ArgumentException>(() => new Student(new("Angel", " ", "Castiel")));
     }
 
 
@@ -154,16 +166,27 @@ public class EntityTests
 
         Assert.Equal(employee.ID, employee1.ID);
     }
+    [Fact]
+    public void Employee_InitialzeEmployeeFirstNameWithNull_ThrowException()
+    {
+        Assert.Throws<ArgumentNullException>(() => new Employee(new(null!, "Archangel", "Gabriel")));
+    }
 
     [Fact]
-    public void Employee_InitialzeEmployeeWithNull_ThrowException()
+    public void Employee_InitialzeEmployeeLastNameWithNull_ThrowException()
     {
         Assert.Throws<ArgumentNullException>(() => new Employee(new("Chef", null!, "Ebraheim")));
     }
 
     [Fact]
-    public void Employee_InitialzeEmployeeWithBlank_ThrowException()
+    public void Employee_InitialzeEmployeeFirstNameWithBlank_ThrowException()
     {
         Assert.Throws<ArgumentException>(() => new Employee(new(" ", "Chef", "Tina")));
+    }
+
+    [Fact]
+    public void Employee_InitialzeEmployeeLastNameWithBlank_ThrowException()
+    {
+        Assert.Throws<ArgumentException>(() => new Employee(new("King", " ", "Crowley")));
     }
 }
