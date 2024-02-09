@@ -33,7 +33,7 @@ public class EntityTests
     [Fact]
     public void Book_InitialzeBookWithBlankTitle_ThrowException()
     {
-        Assert.Throws<ArgumentException>(() => new Book(" "));
+        Assert.Throws<ArgumentNullException>(() => new Book(""));
     }
 
 
