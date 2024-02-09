@@ -23,7 +23,7 @@ public class FullNameTests
     [Theory]
     [InlineData("First", "Last", "Middle")]
     [InlineData("First", "Last", null)]
-    public void FullName_Deconstruct(string first, string last, string? middle)
+    public void FullName_Deconstruct_Successful(string first, string last, string? middle)
     {
         FullName name = new(first, last, middle);
         (string firstDeconst, string lastDeconst, string? middleDeconst) = name;

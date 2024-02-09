@@ -14,7 +14,7 @@ public class RecordsTests
     [InlineData("The Princess Bride", "William Goldman")]
     [InlineData("Fear and Loathing in Las Vegas", "Hunter S. Thompson")]
     [InlineData("2001: A Space Odysssey", "Arthur C. Clarke")]
-    public void TestBookRecords(string bookName, string author)
+    public void TestBookRecords_BookNameAndAuthor_Successful(string bookName, string author)
     {
         BookRecord book = new(bookName, author);
         BookRecord alsoBook = book;
@@ -28,7 +28,7 @@ public class RecordsTests
     [Theory]
     [InlineData("Inigo Montoya", "Fencing")]
     [InlineData("Wesley", "Piracy")]
-    public void TestStudentRecords(string name, string major)
+    public void TestStudentRecords_NameAndMajor_Successful(string name, string major)
     {
         StudentRecord student = new(name, major);
         Assert.Equal(name, student.Name);
@@ -40,7 +40,7 @@ public class RecordsTests
     [Theory]
     [InlineData("Inigo Montoya", 15.00)]
     [InlineData("Wesley", 20.00)]
-    public void TestEmployeeRecords(string name, decimal wage)
+    public void TestEmployeeRecords_NameAndWage_Successful(string name, decimal wage)
     {
         EmployeeRecord employee = new(name, wage);
         Assert.Equal(name, employee.Name);

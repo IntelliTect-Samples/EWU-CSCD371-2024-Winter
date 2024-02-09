@@ -16,7 +16,7 @@ public sealed class TestEntity : IEntity
 public class StorageTests
 {
     [Fact]
-    public void StorageAdd_ContainsAdded()
+    public void StorageAdd_AddEntity_StorageContainsEntity()
     {
         Storage storage = new();
         TestEntity entity = new()
@@ -28,7 +28,7 @@ public class StorageTests
     }
 
     [Fact]
-    public void StorageAddRemove_NotContains()
+    public void StorageAddRemove_AddEntity_StorageDoesNotContainEntity()
     {
         Storage storage = new();
         TestEntity entity = new()
@@ -42,7 +42,7 @@ public class StorageTests
     }
 
     [Fact]
-    public void StorageContains_ContainsGuid()
+    public void StorageContains_Entity_ContainsGuid()
     {
         Storage storage = new();
         Guid guid = Guid.NewGuid();
