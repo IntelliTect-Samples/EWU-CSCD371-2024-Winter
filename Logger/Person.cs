@@ -1,7 +1,7 @@
 ﻿
 namespace Logger;
 
-public record class Person(string FirstName, string LastName)
+public abstract record class Person(string FirstName, string LastName)
 {
     public FullName Name { get;} = new FullName(FirstName, LastName);
 
