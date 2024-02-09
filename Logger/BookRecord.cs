@@ -4,8 +4,7 @@ namespace Logger;
 public record class BookRecord(string ClassName) : BaseEntity
 {
     
-    // we implemented explicitly:
-    // because the Book record and the IEntity both have a duplicated naming convention for the Property Name.
+    // We implemented the Name property implicitly because it is an is-a relationship 
     public override string Name 
     {
         get 
