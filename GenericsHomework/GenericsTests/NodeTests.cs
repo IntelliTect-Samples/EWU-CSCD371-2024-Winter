@@ -16,7 +16,7 @@ namespace GenericsTests
             Node<string> newNode = new Node<string>("Benjamin");
             newNode.Append("rocks!");
             Assert.Equal("Benjamin", newNode.ToString());
-
+            Assert.Equal("rocks!", newNode.Next.ToString());
 
         }
         [Fact]
