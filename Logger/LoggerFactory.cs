@@ -3,21 +3,26 @@ namespace Logger;
 
 public class LoggerFactory<T> where T : BaseLogger
 {
-    public ILogger<T> CreateLogger<T1>(T1 fileLoggerConfiguration) where T1 : ILoggerConfiguration
+    public ILogger<T>? CreateLogger<T1>(T1 configuration) where T1 : ILoggerConfiguration
     {
         if(typeof(T) == typeof(FileLogger))
         {
-            if (fileLoggerConfiguration is FileLoggerConfiguration file)
+            if (configuration is FileLoggerConfiguration fileConfig)
             {
-                return (ILogger<T>)new FileLogger(in file);
+                return (ILogger<T>)new FileLogger(in fileConfig);
 
             }
             else
             {
-                throw new ArgumentException("Configuration type not compatible with FileLogger type",nameof(fileLoggerConfiguration));
+                throw new ArgumentException("Configuration type not compatible with FileLogger type",nameof(configuration));
             }
         }
-        return null;
+        else
+        {
+            // I didn't know if it'd be better to throw exception to say unsupported Logger type
+            // or to just return null
+            return null;
+        }
 
     }
 }

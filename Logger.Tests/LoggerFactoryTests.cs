@@ -7,12 +7,30 @@ namespace Logger.Tests;
     [Fact]
     public void CreateLogger_FileLoggerValidConfigruation_ReturnsFileLogger()
     {
-        LoggerFactory<FileLogger> factory = new();
+        LoggerFactory<FileLogger> fileLoggerfactory = new();
 
-        var fileLogger = factory.CreateLogger<FileLoggerConfiguration>(new FileLoggerConfiguration("Path", "Logger"));
+        FileLogger fileLogger = (FileLogger)fileLoggerfactory.CreateLogger(new FileLoggerConfiguration("Path", nameof(LoggerFactoryTests)))!;
 
         Assert.IsType<FileLogger>(fileLogger);
+        Assert.Equal(nameof(LoggerFactoryTests), fileLogger.LogSource);
+        Assert.Equal(new FileInfo("Path").FullName, fileLogger.FilePath);
 
+
+    }
+    [Fact]
+    public void CreateLogger_FileLoggerInvalidConfiguration_ThrowArgumentException()
+    {
+        LoggerFactory<FileLogger> fileLoggerfactory = new();
+        Assert.Throws<ArgumentException>(() => fileLoggerfactory.CreateLogger(new TestLoggerConfiguration(nameof(LoggerFactoryTests))));
+    }
+    [Fact]
+    public void CreateLogger_UnSupportedLoggerValidConfiguration_ReturnsNull()
+    {
+        LoggerFactory<TestLogger> testLoggerfactory = new();
+
+        var testLogger = testLoggerfactory.CreateLogger(new FileLoggerConfiguration("Path", "Logger"));
+
+        Assert.Null(testLogger);
     }
 
     }
