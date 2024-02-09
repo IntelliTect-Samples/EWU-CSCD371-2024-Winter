@@ -46,7 +46,7 @@ namespace Logger.Tests;
     }
 
     [Fact]
-    public void Equals_SameNameAndSalary_ReturnsTrue()
+    public void Equals_SameEmployeeAllProperties_ReturnsTrue()
     {
         Guid entityID = Guid.NewGuid();
         var employee1 = new Employee("Thomas", "Young", 11123) { 
@@ -57,14 +57,26 @@ namespace Logger.Tests;
             Id = entityID,
         }
 ;
-
-        var employee3 = employee1 with { Id = Guid.NewGuid(), };
-        var employee4 = employee1 with { LastName = "Salazar" };
-
         Assert.True(employee1.Equals(employee2));
         Assert.True(employee1 == employee2);
-        Assert.False(employee1 == employee3);
-        Assert.False(employee1.Equals(employee4));
+
+    }
+
+    [Fact]
+    public void Equals_DifferntEmployeeProperties_ReturnsFalse()
+    {
+        var employee = new Employee("Thomas", "Young", 11123)
+        {
+            Id = Guid.NewGuid(),
+        };
+
+        Employee employeeDifferentFirstName = employee with { FirstName = "John", };
+        Employee employeeDifferentId = employee with { Id = Guid.NewGuid(), };
+        Employee employeeDifferentStudentId = employee with { EmployeeID = 1092109 };
+
+        Assert.False(employee.Equals(employeeDifferentFirstName));
+        Assert.False(employee == employeeDifferentId);
+        Assert.False(employee == employeeDifferentStudentId);
 
 
     }
