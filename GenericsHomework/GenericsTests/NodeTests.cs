@@ -4,12 +4,18 @@ namespace GenericsTests
     public class NodeTests
     {
         [Fact]
-
         public void NodeConstructor_NullNode_ThrowsNullReferenceException()
         {
             Assert.Throws<NullReferenceException>(() => new Node<object>(null!));
 
         }
+
+        [Fact]
+        public void ToString_NullData_ThrowsException()
+        {
+            Assert.Throws<NullReferenceException>(() => new Node<object>(null!).ToString());
+        }
+
         [Fact]
         public void ToString_ValidData_ReturnsStringSuccesfully()
         {
@@ -19,6 +25,7 @@ namespace GenericsTests
             Assert.Equal("rocks!", newNode.Next.ToString());
 
         }
+
         [Fact]
         public void Append_AddedNodes_SuccesfullyReturnsValue()
         {
@@ -28,8 +35,8 @@ namespace GenericsTests
             Assert.Equal("You rock", newNode.Next.Data);
            
         }
-        [Fact]
 
+        [Fact]
         public void Clear_ManyNodes_SuccessfullyClears()
         {
             Node<string> newNode = new Node<string>("Lets goo");
@@ -39,6 +46,7 @@ namespace GenericsTests
 
             Assert.Equal(newNode, newNode.Next);
         }
+
         [Fact]
         public void Exists_NodeExists_ReturnsTrue()
         {
@@ -49,6 +57,7 @@ namespace GenericsTests
 
             Assert.True(newNode.Exists("best!"));
         }
+
         [Fact]
         public void Exists_NodeDoesNotExists_ReturnsFalse()
         {
