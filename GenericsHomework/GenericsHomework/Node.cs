@@ -38,10 +38,24 @@ namespace GenericsHomework
 
         }
 
-        public bool Exists(string v)
+        public bool Exists(T item)
         {
-            throw new NotImplementedException();
+            Node<T> currentNode = this;
+
+            for (;;)
+            {
+                if (currentNode.Data != null && currentNode.Data.Equals(item))
+                {
+                    return true;
+                }
+                if (currentNode.Next == currentNode)
+                {
+                    return false;
+                }
+                currentNode = currentNode.Next;
+            }
         }
+        
     }
 }
 
