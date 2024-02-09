@@ -5,7 +5,7 @@ namespace Logger.Tests;
 public class EmployeeRecordTests
 {
     [Fact]
-    public void EmployeeRecord_InitializeObjectFullNameParam_Success()
+    public void EmployeeRecord_InitializeObject_Success()
     {
         EmployeeRecord employeeRecord = new(nameof(EmployeeRecord));
         Assert.Equal(nameof(EmployeeRecord), employeeRecord.Name);
@@ -25,5 +25,13 @@ public class EmployeeRecordTests
         EmployeeRecord employee1 = new(nameof(EmployeeRecord));
         EmployeeRecord employee2 = new(nameof(EmployeeRecord));
         Assert.False(employee1.Equals(employee2));
+    }
+
+    [Fact]
+    public void EmployeeRecord_InitializeObjectFullNameParam_Success()
+    {
+        FullNameRecord fullNameRecord = new("Inigo", "Montoya", "Alex");
+        EmployeeRecord employeeRecord = new(nameof(EmployeeRecord), fullNameRecord);
+        Assert.Equal(nameof(EmployeeRecord), employeeRecord.Name);
     }
 }

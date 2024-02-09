@@ -4,7 +4,7 @@ namespace Logger;
 public record class PersonRecord(string ClassName) : BaseEntity
 {
     public PersonRecord(string ClassName, FullNameRecord FullName) : this(ClassName){
-        this.FullName = FullName;
+        FullNameRecord = FullName;
     }
 
     /// We implemented the Name property implicitly because it is an is-a relationship 
@@ -16,5 +16,5 @@ public record class PersonRecord(string ClassName) : BaseEntity
         }
     }
 
-    public FullNameRecord FullName {get; set;}
+    public FullNameRecord FullNameRecord {get; set;}
 }
