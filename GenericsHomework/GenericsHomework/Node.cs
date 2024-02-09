@@ -42,7 +42,7 @@ namespace GenericsHomework
         {
             Node<T> currentNode = this;
 
-            for (;;)
+            for (;;)//infinite loop
             {
                 if (currentNode.Data != null && currentNode.Data.Equals(item))
                 {
@@ -58,6 +58,5 @@ namespace GenericsHomework
         
     }
 }
-
 
 
