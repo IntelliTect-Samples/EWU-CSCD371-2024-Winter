@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34408.163
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenericsHomework", "GenericsHomework\GenericsHomework.csproj", "{D158A4E7-D8CF-4849-9960-7D5D8E18851C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenericsTests", "GenericsTests\GenericsTests.csproj", "{E1A71020-8CA9-41E7-823A-B1781E7100D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenericsHomework.Tests", "GenericsTests\GenericsHomework.Tests.csproj", "{E1A71020-8CA9-41E7-823A-B1781E7100D7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1EC52FA5-12F0-4B4B-B3C6-E9CE1F6A8FF0}"
 	ProjectSection(SolutionItems) = preProject

@@ -1,7 +1,7 @@
 ﻿using System;
 
-namespace GenericsHomework
-{
+namespace GenericsHomework;
+
     public class Node<T>
     {
         public Node(T item)
@@ -77,6 +77,6 @@ namespace GenericsHomework
         }
         
     }
-}
+
 
 
