@@ -62,18 +62,19 @@ namespace GenericsHomework;
         {
             Node<T> currentNode = this;
 
-            for (;;)//infinite loop
+        while (currentNode != currentNode.Next)
+        {
+            if (currentNode.Data != null && currentNode.Data.Equals(item))
             {
-                if (currentNode.Data != null && currentNode.Data.Equals(item))
-                {
-                    return true;
-                }
-                if (currentNode.Next == currentNode)
-                {
-                    return false;
-                }
-                currentNode = currentNode.Next;
+                return true;
             }
+            if (currentNode.Next == currentNode)
+            {
+                return false;
+            }
+            currentNode = currentNode.Next;
+        }
+        return currentNode.Data!.Equals(item);
         }
         
     }

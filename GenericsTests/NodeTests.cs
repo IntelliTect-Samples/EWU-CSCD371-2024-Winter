@@ -49,7 +49,7 @@ public class NodeTests
     }
 
     [Fact]
-    public void Exists_NodeExists_ReturnsTrue()
+    public void Exists_NodeExistsAtEnd_ReturnsTrue()
     {
         Node<string> newNode = new("Johanne");
         newNode.Append("is");
@@ -57,6 +57,17 @@ public class NodeTests
         newNode.Append("best!");
 
         Assert.True(newNode.Exists("best!"));
+    }
+
+    [Fact]
+    public void Exists_NodeExistsInMiddle_ReturnsTrue()
+    {
+        Node<string> newNode = new("Johanne");
+        newNode.Append("is");
+        newNode.Append("the");
+        newNode.Append("best!");
+
+        Assert.True(newNode.Exists("the"));
     }
 
     [Fact]
