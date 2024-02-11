@@ -29,8 +29,6 @@ namespace GenericsHomework;
             if (Exists(item))
             {
                 throw new ArgumentException("Item already exists in Node List", nameof(item));
-                //this if for an array but think it can work?
-
             }
             else
             {
@@ -62,19 +60,16 @@ namespace GenericsHomework;
         {
             Node<T> currentNode = this;
 
-        while (currentNode != currentNode.Next)
-        {
-            if (currentNode.Data != null && currentNode.Data.Equals(item))
+            while (currentNode != currentNode.Next)
             {
-                return true;
+                if (currentNode.Data != null && currentNode.Data.Equals(item))
+                {
+                    return true;
+                }
+
+                currentNode = currentNode.Next;
             }
-            if (currentNode.Next == currentNode)
-            {
-                return false;
-            }
-            currentNode = currentNode.Next;
-        }
-        return currentNode.Data!.Equals(item);
+            return currentNode.Data!.Equals(item);
         }
         
     }
