@@ -6,7 +6,7 @@ namespace GenericsHomework;
     {
         public Node(T item)
             {
-                Data = item ?? throw new NullReferenceException(nameof(item));
+                Data = item;
                 Next = this;
             //Next is non nullable ? might want to change to not use this? idk
             }
@@ -28,7 +28,7 @@ namespace GenericsHomework;
         {
             if (Exists(item))
             {
-                throw new DuplicateWaitObjectException(nameof(item));
+                throw new ArgumentException("Item already exists in Node List", nameof(item));
                 //this if for an array but think it can work?
 
             }

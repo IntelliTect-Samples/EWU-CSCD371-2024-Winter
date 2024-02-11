@@ -5,13 +5,6 @@ namespace GenericsHomework.Tests;
 public class NodeTests
 {
     [Fact]
-    public void NodeConstructor_NullNode_ThrowsNullReferenceException()
-    {
-        Assert.Throws<NullReferenceException>(() => new Node<object>(null!));
-
-    }
-
-    [Fact]
     public void ToString_NullData_ThrowsException()
     {
         Assert.Throws<NullReferenceException>(() => new Node<object>(null!).ToString());
@@ -20,7 +13,7 @@ public class NodeTests
     [Fact]
     public void ToString_ValidData_ReturnsStringSuccesfully()
     {
-        Node<string> newNode = new Node<string>("Benjamin");
+        Node<string> newNode = new("Benjamin");
         newNode.Append("rocks!");
         Assert.Equal("Benjamin", newNode.ToString());
         Assert.Equal("rocks!", newNode.Next.ToString());
@@ -30,24 +23,24 @@ public class NodeTests
     [Fact]
     public void Append_AddedNodes_SuccesfullyReturnsValue()
     {
-        Node<string> newNode = new Node<string>("Hiiii");
+        Node<string> newNode = new("Hiiii");
         newNode.Append("You rock");
 
         Assert.Equal("You rock", newNode.Next.Data);
 
     }
     [Fact]
-    public void Append_DuplicateNodeValue_ThrowsErrorSuccessfully()
+    public void Append_DuplicateNodeValue_ThrowsArgumentException()
     {
-        Node<string> newNode = new Node<string>("Copy");
-        Assert.Throws<DuplicateWaitObjectException>(() => newNode.Append("Copy"));
+        Node<string> newNode = new("Copy");
+        Assert.Throws<ArgumentException>(() => newNode.Append("Copy"));
 
     }
 
     [Fact]
     public void Clear_ManyNodes_SuccessfullyClears()
     {
-        Node<string> newNode = new Node<string>("Lets goo");
+        Node<string> newNode = new("Lets goo");
         newNode.Append("New Node1");
         newNode.Append("New Node2");
         newNode.Clear();
@@ -58,7 +51,7 @@ public class NodeTests
     [Fact]
     public void Exists_NodeExists_ReturnsTrue()
     {
-        Node<string> newNode = new Node<string>("Johanne");
+        Node<string> newNode = new("Johanne");
         newNode.Append("is");
         newNode.Append("the");
         newNode.Append("best!");
@@ -69,7 +62,7 @@ public class NodeTests
     [Fact]
     public void Exists_NodeDoesNotExists_ReturnsFalse()
     {
-        Node<string> newNode = new Node<string>("Johanne");
+        Node<string> newNode = new("Johanne");
         newNode.Append("is");
         newNode.Append("the");
         newNode.Append("best!");
