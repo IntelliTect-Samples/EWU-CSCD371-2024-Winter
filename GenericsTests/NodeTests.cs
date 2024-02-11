@@ -4,8 +4,18 @@ namespace GenericsHomework.Tests;
 
 public class NodeTests
 {
+
+    public Node<string> NodeList { get; }
+
+    public NodeTests() {
+        NodeList = new("Alexa");
+        NodeList.Append("is");
+        NodeList.Append("the");
+        NodeList.Append("best!");
+    }
+
     [Fact]
-    public void ToString_NullData_ThrowsException()
+    public void ToString_NullData_ThrowsNullRefernceException()
     {
         Assert.Throws<NullReferenceException>(() => new Node<object>(null!).ToString());
     }
@@ -13,10 +23,8 @@ public class NodeTests
     [Fact]
     public void ToString_ValidData_ReturnsStringSuccesfully()
     {
-        Node<string> newNode = new("Benjamin");
-        newNode.Append("rocks!");
-        Assert.Equal("Benjamin", newNode.ToString());
-        Assert.Equal("rocks!", newNode.Next.ToString());
+        Assert.Equal("Alexa", NodeList.ToString());
+        Assert.Equal("is", NodeList.Next.ToString());
 
     }
 
@@ -51,34 +59,26 @@ public class NodeTests
     [Fact]
     public void Exists_NodeExistsAtEnd_ReturnsTrue()
     {
-        Node<string> newNode = new("Johanne");
-        newNode.Append("is");
-        newNode.Append("the");
-        newNode.Append("best!");
-
-        Assert.True(newNode.Exists("best!"));
+        Assert.True(NodeList.Exists("best!"));
     }
 
     [Fact]
     public void Exists_NodeExistsInMiddle_ReturnsTrue()
     {
-        Node<string> newNode = new("Johanne");
-        newNode.Append("is");
-        newNode.Append("the");
-        newNode.Append("best!");
 
-        Assert.True(newNode.Exists("the"));
+        Assert.True(NodeList.Exists("the"));
+    }
+
+    [Fact]
+    public void Exists_NodeExistsAtStart_ReturnsTrue()
+    {
+        Assert.True(NodeList.Exists("Alexa"));
     }
 
     [Fact]
     public void Exists_NodeDoesNotExists_ReturnsFalse()
     {
-        Node<string> newNode = new("Johanne");
-        newNode.Append("is");
-        newNode.Append("the");
-        newNode.Append("best!");
-
-        Assert.False(newNode.Exists("Reeehat"));
+        Assert.False(NodeList.Exists("Reeehat"));
     }
 
 
