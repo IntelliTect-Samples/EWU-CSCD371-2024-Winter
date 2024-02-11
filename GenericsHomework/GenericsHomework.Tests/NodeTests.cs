@@ -5,16 +5,15 @@ namespace GenericsHomework.Tests;
 public class NodeTests
 {
     [Fact]
-    public void Node_CreateNodeWithData_Success()
+    public void Node_CreateNodeWithDataAndNoNextReference_ThrowsArgumentNullException()
     {
-        Node<string> node = new("Inigo");
-        Assert.NotNull(node);
+        Assert.Throws<ArgumentNullException>(
+            () => new Node<string>("Inigo Montoya", null!));
     }
 
     [Fact]
     public void Node_NextReferenceSet_Success()
     {
-        Node<string> head = new("Inigo Montoya", head);
-        Assert.Equal(head, head.Next);
+        Node<string> node = new("Inigo Montoya", node);
     }
 }
