@@ -10,9 +10,13 @@ public class Node<T>
     }
 
     public T Data { get; set; }
-    Node<T> Next { 
-        get{ return _Next!;}  
-        set{ 
+    public Node<T> Next { 
+        get
+        { 
+            return _Next!;
+        }  
+        private set
+        { 
             if(value == null){
                 _Next = this;
             }
