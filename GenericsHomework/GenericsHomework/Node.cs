@@ -3,10 +3,10 @@
 public class Node<T>
 {
     private Node<T>? _Next;
-    public Node(T data, Node<T> next)
+    public Node(T data)
     {
         Data = data;
-        Next = next;
+        Next = this;
     }
 
     public T Data { get; set; }
@@ -17,13 +17,27 @@ public class Node<T>
         }  
         private set
         { 
-            if(value == null){
-                _Next = this;
-            }
-            else{
-                _Next = value;
-            }
+            _Next = value;
         } 
+    }
+
+    public void Append(T data)
+    {
+        //if size == 1
+        Node<T> cur = this;
+        
+
+        //if size >1
+        while( cur.Next != this )
+        {
+            cur = cur.Next;
+        }
+
+
+        Node<T> nextNode = new(data);
+        cur.Next = nextNode;
+        nextNode.Next = cur;
+
     }
 }
 
