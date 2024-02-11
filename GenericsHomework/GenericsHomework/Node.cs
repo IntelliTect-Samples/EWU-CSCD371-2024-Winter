@@ -13,9 +13,7 @@ public class Node<T>
     Node<T> Next { 
         get{ return _Next!;}  
         set{ 
-            ArgumentNullException.ThrowIfNull(value);
-            
-            if(value.Equals(this)){
+            if(value == null){
                 _Next = this;
             }
             else{
