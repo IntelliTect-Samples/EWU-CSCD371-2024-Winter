@@ -23,21 +23,15 @@ public class Node<T>
 
     public void Append(T data)
     {
-        //if size == 1
         Node<T> cur = this;
-        
 
-        //if size >1
         while( cur.Next != this )
         {
             cur = cur.Next;
         }
 
-
         Node<T> nextNode = new(data);
         cur.Next = nextNode;
         nextNode.Next = cur;
-
     }
 }
-
