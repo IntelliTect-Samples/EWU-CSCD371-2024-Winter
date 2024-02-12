@@ -1,4 +1,4 @@
-﻿namespace GenericsHomework;
+namespace GenericsHomework;
 
 public class Node<T>
 {
@@ -47,5 +47,25 @@ public class Node<T>
 
         outPut += "}";
         return outPut;
+    }
+
+    public bool Exists(T data)
+    {
+        bool result = false;
+
+        Node<T> cur = this;
+
+        do
+        {
+            if (cur.Data.Equals(data))
+            {
+                result = true;
+            }
+
+            cur = cur.Next;
+
+        } while (cur != this);
+
+        return result;
     }
 }

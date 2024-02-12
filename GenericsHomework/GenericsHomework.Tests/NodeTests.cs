@@ -36,4 +36,22 @@ public class NodeTests
         node.Append("Butter Cup");
         Assert.Equal("Inigo Montoya", node.Next.Next.Data);
     }
+
+    [Fact]
+    public void Exists_NodeContainsData_True()
+    {
+        Node<string> node = new("Inigo Montoya");
+        node.Append("Butter Cup");
+        node.Append("Prince Johan");
+        Assert.True(node.Exists("Prince Johan"));
+    }
+
+    [Fact]
+    public void Exists_NodeDoesNotContainsData_True()
+    {
+        Node<string> node = new("Inigo Montoya");
+        node.Append("Butter Cup");
+        node.Append("Prince Johan");
+        Assert.False(node.Exists("Princes Bumble Gum"));
+    }
 }
