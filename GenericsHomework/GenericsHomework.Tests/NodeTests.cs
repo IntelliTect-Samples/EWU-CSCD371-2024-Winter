@@ -1,6 +1,4 @@
-using System.Xml.Serialization;
 using Xunit;
-using GenericsHomework;
 
 namespace GenericsHomework.Tests;
 
@@ -10,7 +8,7 @@ public class NodeTests
     public void Constructor_CorrectInput_SetsValues()
     {
         Node<int> node = new(5);
-        Assert.Equal(5, node.Value);
+        Assert.Equal(5, node.Data);
     }
 
     [Fact]
@@ -26,7 +24,7 @@ public class NodeTests
     {
         Node<int> node = new(1);
         node.Append(2);
-        Assert.Equal(2, node.Next.Value);
+        Assert.Equal(2, node.Next.Data);
     }
 
     [Fact]
@@ -73,7 +71,7 @@ public class NodeTests
     public void Constructor_Null_ValueNull()
     {
         Node<string> node = new(null!);
-        Assert.Null(node.Value);
+        Assert.Null(node.Data);
     }
 
     [Fact]
@@ -82,7 +80,7 @@ public class NodeTests
         Node<string> node = new("first");
         node.Append(null!);
 
-        Assert.Null(node.Next.Value);
+        Assert.Null(node.Next.Data);
     }
 
     [Fact]

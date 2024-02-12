@@ -1,9 +1,9 @@
 ﻿namespace GenericsHomework;
 
-public class Node<T>(T value)
+public class Node<T>(T data)
 {
-    public T Value { get; } = value;
-    private Node<T>? next = null;
+    public T Data { get; } 
+    private Node<T>? next = null; 
     public Node<T> Next
     {
         get => next ?? this;
@@ -12,16 +12,16 @@ public class Node<T>(T value)
 
     public override string ToString()
     {
-        return Value?.ToString() ?? string.Empty;
+        return Data?.ToString() ?? string.Empty;
     }
 
-    public void Append(T value)
+    public void Append(T data)
     {
-        if(Exists(value))
+        if(Exists(data))
         {
-            throw new ArgumentException("Duplicate Value cannot be added.", nameof(value));
+            throw new ArgumentException("Duplicate Value cannot be added.", nameof(data));
         }
-        Node<T> newNode = new(value);
+        Node<T> newNode = new(data);
         if(Next == this)
         {
             Next = newNode;
@@ -38,12 +38,12 @@ public class Node<T>(T value)
         newNode.Next = this;
     }
 
-    public bool Exists(T value)
+    public bool Exists(T data)
     {
         Node<T> cur = this;
         do
         {
-            if(EqualityComparer<T>.Default.Equals(cur.Value, value))
+            if(EqualityComparer<T>.Default.Equals(cur.Data, data))
             {
                 return true;
             }
@@ -54,6 +54,8 @@ public class Node<T>(T value)
 
     public void Clear()
     {
-        Next = this;
+        Node<T> cur = this;//Create a new Node that holds the same data, this node is not connected to the rest of the list.
+        Next = this; //Setting Next will remove external References.
+        //Garbage Collection won't be a problem here as these objects are no longer referenced, and are collected automatically.
     }
 }
