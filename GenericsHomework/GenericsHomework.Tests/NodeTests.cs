@@ -74,4 +74,14 @@ public class NodeTests
             () => node.Append("Inigo Montoya"));
 
     }
+
+    [Fact]
+    public void Clear_NodesDeleted_Successful()
+    {
+        Node<string> node = new("Inigo Montoya");
+        node.Append("Butter Cup");
+        node.Append("Prince Johan");
+        node.Clear();
+        Assert.Equal(node.Data, node.Next.Data);
+    }
 }
