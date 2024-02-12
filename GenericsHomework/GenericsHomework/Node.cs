@@ -75,4 +75,14 @@ public class Node<T>
 
         return result;
     }
+
+    public void Clear()
+    {
+        //Yur do not need to wory about Garbage collection if implimented like below.
+        //The reason for this is bcause there does not exist a root reference to the existing object anymore.
+        //Thus, the garbage collector will atomatically collect the other nodes.
+        Node<T> curr = this;
+
+        curr.Next = this;
+    }
 }
