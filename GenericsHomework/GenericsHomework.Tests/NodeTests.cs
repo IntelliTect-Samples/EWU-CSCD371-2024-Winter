@@ -17,15 +17,23 @@ public class NodeTests
     {
         Node<string> node = new("Inigo Montoya");
         node.Append("Butter Cup");
-        Assert.NotEqual(node.Data, node.Next.Next.Data);
+        Assert.NotEqual(node.Data, node.Next.Data);
     }
 
     [Fact]
-    public void Node_NextReferenceThreeNodes_Success()
+    public void Node_NextPointToTheLastNode_Success()
     {
         Node<string> node = new("Inigo Montoya");
         node.Append("Butter Cup");
         node.Append("Prince Johan");
-        Assert.NotEqual(node.Data, node.Next.Next.Data);
+        Assert.Equal("Prince Johan", node.Next.Next.Data);
+    }
+
+    [Fact]
+    public void Node_NextReferencePointToFistNode_Success()
+    {
+        Node<string> node = new("Inigo Montoya");
+        node.Append("Butter Cup");
+        Assert.Equal("Inigo Montoya", node.Next.Next.Data);
     }
 }

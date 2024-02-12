@@ -32,6 +32,6 @@ public class Node<T>
 
         Node<T> nextNode = new(data);
         cur.Next = nextNode;
-        nextNode.Next = cur;
+        nextNode.Next = this;
     }
 }
