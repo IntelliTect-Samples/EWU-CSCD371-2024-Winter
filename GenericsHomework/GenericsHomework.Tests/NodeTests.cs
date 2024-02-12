@@ -63,4 +63,15 @@ public class NodeTests
         node.Append("Prince Johan");
         Assert.Equal("Linked List: Node 1: Inigo Montoya, Node 2: Butter Cup, Node 3: Prince Johan, }", node.ToString());
     }
+
+    [Fact]
+    public void Append_ExistedValue_ThrowArgumentException()
+    {
+        Node<string> node = new("Inigo Montoya");
+        node.Append("Butter Cup");
+        node.Append("Prince Johan");
+        Assert.Throws<ArgumentException>(
+            () => node.Append("Inigo Montoya"));
+
+    }
 }

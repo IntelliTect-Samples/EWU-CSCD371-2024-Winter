@@ -22,6 +22,12 @@ public class Node<T>
 
     public void Append(T data)
     {
+
+        if(Exists(data))
+        {
+            throw new ArgumentException("The value already exists");
+        }
+
         Node<T> cur = this;
 
         while( cur.Next != this )
