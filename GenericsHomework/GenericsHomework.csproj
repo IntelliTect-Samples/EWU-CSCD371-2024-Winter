@@ -10,4 +10,8 @@
 	  <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="GenericsHomework.Tests.csproj" />
+  </ItemGroup>
+
 </Project>

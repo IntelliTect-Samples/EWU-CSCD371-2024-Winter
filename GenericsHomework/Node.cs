@@ -1,19 +1,13 @@
 ﻿namespace GenericsHomework;
 
-public class Node<T>
+public class Node<T>(T value)
 {
-    public T Value { get; }
-    private Node<T>? next;
+    public T Value { get; } = value;
+    private Node<T>? next = null;
     public Node<T> Next
     {
         get => next ?? this;
         private set => next = value;
-    }
-
-    public Node (T value)
-    {
-        Value = value;
-        next = null;
     }
 
     public override string ToString()
@@ -27,7 +21,7 @@ public class Node<T>
         {
             throw new ArgumentException("Duplicate Value cannot be added.", nameof(value));
         }
-        Node<T> newNode = new Node<T>(value);
+        Node<T> newNode = new(value);
         if(Next == this)
         {
             Next = newNode;
