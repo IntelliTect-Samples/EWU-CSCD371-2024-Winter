@@ -1,4 +1,4 @@
-namespace GenericsHomework;
+﻿namespace GenericsHomework;
 
 public class Node<T>
 {
@@ -42,8 +42,9 @@ public class Node<T>
 
         do{
             count++;
-            outPut += $"Node {count}: Data -> {Data} ";
-        }while(cur.Next != this);
+            outPut += $"Node {count}: {cur.Data}, ";
+            cur = cur.Next;
+        }while(cur != this);
 
         outPut += "}";
         return outPut;
@@ -57,7 +58,7 @@ public class Node<T>
 
         do
         {
-            if (cur.Data.Equals(data))
+            if (cur.Data!.Equals(data))
             {
                 result = true;
             }

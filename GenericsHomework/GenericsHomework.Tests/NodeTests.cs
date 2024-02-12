@@ -54,4 +54,13 @@ public class NodeTests
         node.Append("Prince Johan");
         Assert.False(node.Exists("Princes Bumble Gum"));
     }
+
+    [Fact]
+    public void ToString_PrintList_Success()
+    {
+        Node<string> node = new("Inigo Montoya");
+        node.Append("Butter Cup");
+        node.Append("Prince Johan");
+        Assert.Equal("Linked List: Node 1: Inigo Montoya, Node 2: Butter Cup, Node 3: Prince Johan, }", node.ToString());
+    }
 }
