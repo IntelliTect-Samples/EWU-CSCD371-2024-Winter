@@ -14,9 +14,9 @@ public class NodeTests
     [Fact]
     public void ToString_ReturnsCorrect()
     {
-        Node<int> node = new(10);
+        Node<int> node = new(1999);
         string res = node.ToString();
-        Assert.Equal("10", res);
+        Assert.Equal("1999", res);
     }
 
     [Fact]

@@ -2,7 +2,7 @@
 
 public class Node<T>(T data)
 {
-    public T Data { get; } 
+    public T Data { get; } = data;
     private Node<T>? next = null; 
     public Node<T> Next
     {
