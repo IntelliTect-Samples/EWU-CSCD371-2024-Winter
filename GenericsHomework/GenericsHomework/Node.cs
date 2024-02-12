@@ -3,13 +3,12 @@
 public class Node<T>
 {
     private Node<T>? _Next;
+    public T Data { get; set; }
     public Node(T data)
     {
         Data = data;
         Next = this;
     }
-
-    public T Data { get; set; }
     public Node<T> Next { 
         get
         { 
@@ -33,5 +32,20 @@ public class Node<T>
         Node<T> nextNode = new(data);
         cur.Next = nextNode;
         nextNode.Next = this;
+    }
+
+    public override string ToString()
+    {
+        Node<T> cur = this;
+        string outPut = "Linked List: ";
+        int count = 0;
+
+        do{
+            count++;
+            outPut += $"Node {count}: Data -> {Data} ";
+        }while(cur.Next != this);
+
+        outPut += "}";
+        return outPut;
     }
 }
