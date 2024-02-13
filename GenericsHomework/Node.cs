@@ -57,14 +57,15 @@ public class Node<T>
     public Boolean Exists(T value)
     {
         Node<T> headNode = this; 
-        while (headNode.Next != headNode)
+        do
         {
-            if (headNode.Value != null && headNode.Value.Equals(value))
+            if (headNode.Value!.Equals(value))
             {
                 return true;
             }
             headNode = headNode.Next;
-        }
+        }while (headNode != this);
+        
         return false;
     }
 }
