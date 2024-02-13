@@ -22,6 +22,7 @@ public class Node<T> : IEnumerator<T>, ICollection<T> where T : notnull
     public bool IsReadOnly => false;
 
     private Node<T> _current;
+    private bool _atBeginning = true;
     public T Current => _current.Value;
 
     object IEnumerator.Current => Current;
@@ -112,17 +113,19 @@ public class Node<T> : IEnumerator<T>, ICollection<T> where T : notnull
 
     public bool MoveNext()
     {
-        if(_current.Next.Value.Equals(Value))
+        if(_current.Next.Value.Equals(Value) && !_atBeginning)
         {
             return false;
         }
         _current = _current.Next;
+        _atBeginning = false;
         return true;
     }
 
     public void Reset()
     {
         _current = this;
+        _atBeginning = true;
     }
 
     public void Dispose() => Reset();

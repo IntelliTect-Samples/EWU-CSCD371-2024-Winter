@@ -79,7 +79,7 @@ public class NodeTests
     public void Count_ReturnsCorrectValue()
     {
         Node<int> firstNode = new(1);
-        //Assert.Single(firstNode);
+        Assert.Single(firstNode);
         firstNode.Append(2);
         firstNode.Append(3);
         Assert.Equal(3, firstNode.Count);
