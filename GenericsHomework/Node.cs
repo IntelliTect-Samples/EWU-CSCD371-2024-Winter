@@ -24,4 +24,13 @@ public class Node<T>
     {
         return Value.ToString();
     }
+
+    public void Append(T value)
+    {
+        Node<T> newNode = new(value)
+        {
+            Next = Next // New node points to the current node's next
+        };
+        Next = newNode; // Update current node's next to point to the new node
+    }
 }
