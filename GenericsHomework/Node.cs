@@ -34,15 +34,17 @@ public class Node<T>
         Next = newNode; // Update current node's next to point to the new node
     }
 
-    public void Clear(T value)
+    public void Clear()
     {
+        Node<T> headNode = this;
+        headNode.Next = this;
 
     }
 
     public Boolean Exists(T value)
     {
         Node<T> headNode = this; 
-        while (headNode != headNode)
+        while (headNode.Next != headNode)
         {
             if (headNode.Value.Equals(value))
             {
