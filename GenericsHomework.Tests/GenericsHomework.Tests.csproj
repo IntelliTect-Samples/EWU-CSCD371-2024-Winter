@@ -8,4 +8,8 @@
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="xunit" Version="2.6.6" />
+  </ItemGroup>
+
 </Project>
