@@ -15,9 +15,9 @@ public class NodeTests
     }
 
     [Fact]
-    public void ToString_NullData_ThrowsNullRefernceException()
+    public void ToString_NullData_ThrowsInvalidOperationException()
     {
-        Assert.Throws<NullReferenceException>(() => new Node<object>(null!).ToString());
+        Assert.Throws<InvalidOperationException>(() => new Node<object>(null!).ToString());
     }
 
     [Fact]
@@ -38,10 +38,10 @@ public class NodeTests
 
     }
     [Fact]
-    public void Append_DuplicateNodeValue_ThrowsArgumentException()
+    public void Append_DuplicateNodeValue_ThrowsInvalidOperationException()
     {
         Node<string> newNode = new("Copy");
-        Assert.Throws<ArgumentException>(() => newNode.Append("Copy"));
+        Assert.Throws<InvalidOperationException>(() => newNode.Append("Copy"));
 
     }
 
