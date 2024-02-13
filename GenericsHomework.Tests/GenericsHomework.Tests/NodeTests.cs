@@ -1,3 +1,5 @@
+using System.Xml.Linq;
+
 namespace GenericsHomework.Tests;
     public class NodeTests
     {
@@ -22,4 +24,13 @@ namespace GenericsHomework.Tests;
             Assert.NotNull(headNode.Next);
             Assert.Equal("second", headNode.Next.Value);
         }
-    }
+
+        [Fact]
+        public void Append_AddDuplicateNode_Failure()
+        {
+            Node<string> headNode = new("start");
+            headNode.Append("second");
+
+            Assert.Throws<ArgumentException>(() => headNode.Append("second"));
+        }
+}
