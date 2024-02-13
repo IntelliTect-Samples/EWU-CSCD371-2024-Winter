@@ -33,4 +33,31 @@ namespace GenericsHomework.Tests;
 
             Assert.Throws<ArgumentException>(() => headNode.Append("second"));
         }
+
+        [Fact]
+        public void Exists_ValueExists_ReturnsTrue()
+        {
+            // Arrange
+            Node<string> node = new Node<string>("Hello");
+
+            // Act
+            bool exists = node.Exists("Hello");
+
+            // Assert
+            Assert.True(exists);
+        }
+
+
+        [Fact]
+        public void Exists_ValueDoesNotExist_ReturnsFalse()
+        {
+            // Arrange
+            Node<string> node = new Node<string>("Hello");
+
+            // Act
+            bool exists = node.Exists("World");
+
+            // Assert
+            Assert.False(exists);
+        }
 }
