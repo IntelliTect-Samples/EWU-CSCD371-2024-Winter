@@ -1,5 +1,4 @@
-namespace GenericsHomework.Tests
-{
+namespace GenericsHomework.Tests;
     public class NodeTests
     {
        [Fact]
@@ -15,4 +14,3 @@ namespace GenericsHomework.Tests
                 Assert.Equal(newNode, newNode.Next); // Ensure Next property points to itself
             }
     }
-}
