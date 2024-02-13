@@ -17,7 +17,7 @@ namespace GenericsHomework;
         public override string ToString()
         {
             if (Data==null)
-                throw new NullReferenceException(nameof(Data)); 
+                throw new InvalidOperationException(nameof(Data)); 
             else
             {
                 return Data.ToString()!;
@@ -28,7 +28,7 @@ namespace GenericsHomework;
         {
             if (Exists(item))
             {
-                throw new ArgumentException("Item already exists in Node List", nameof(item));
+                throw new InvalidOperationException("Item already exists in Node List", nameof(item));
             }
             else
             {
