@@ -60,4 +60,17 @@ namespace GenericsHomework.Tests;
             // Assert
             Assert.False(exists);
         }
+
+        [Fact]
+        public void ToString_StringMatch_ReturnsCorrectStringRepresentation()
+        {
+            // Arrange
+            Node<int> node = new Node<int>(42);
+
+            // Act
+            string result = node.ToString();
+
+            // Assert
+            Assert.Equal("42", result);
+        }
 }
