@@ -10,7 +10,7 @@ public class Node<T>where T : notnull
     }
     public override string ToString()
     {
-        return Value.ToString();
+        return Value.ToString() ?? "";
     }
 
     public void Clear()
