@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 
 namespace GenericsHomework;
-public class Node<T>: ICollection<T> where T : notnull
+public class Node<T> : IEnumerator<T>, ICollection<T> where T : notnull
 {
     public T Value { get; }
     public Node<T> Next { get; private set; }
@@ -9,22 +9,28 @@ public class Node<T>: ICollection<T> where T : notnull
     public int Count { get
         {
             int n = 1;
-            Node<T> current = this;
-            while(!current.Next.Value.Equals(Value))
+            Reset();
+            while(MoveNext())
             {
                 n++;
-                current = current.Next;
             }
+            Reset();
             return n;
         } 
     }
 
     public bool IsReadOnly => false;
 
+    private Node<T> _current;
+    public T Current => _current.Value;
+
+    object IEnumerator.Current => Current;
+
     public Node(T value)
     {
         Value = value ?? throw new ArgumentException(nameof(Value));
         Next = this; // Points back to itself by default
+        _current = this;
     }
     public override string ToString()
     {
@@ -96,12 +102,29 @@ public class Node<T>: ICollection<T> where T : notnull
 
     public IEnumerator<T> GetEnumerator()
     {
-        return GetEnumerator();
+        return this;
     }
 
     IEnumerator IEnumerable.GetEnumerator()
     {
-        throw new NotImplementedException();
+        return this;
     }
+
+    public bool MoveNext()
+    {
+        if(_current.Next.Value.Equals(Value))
+        {
+            return false;
+        }
+        _current = _current.Next;
+        return true;
+    }
+
+    public void Reset()
+    {
+        _current = this;
+    }
+
+    public void Dispose() => Reset();
 }
 
