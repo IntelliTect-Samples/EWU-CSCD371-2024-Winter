@@ -48,6 +48,7 @@ public class Node<T>
             {
                 return true;
             }
+            headNode = headNode.Next;
         }
         return false;
     }
