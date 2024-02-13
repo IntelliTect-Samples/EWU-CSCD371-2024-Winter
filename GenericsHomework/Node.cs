@@ -1,8 +1,26 @@
-﻿namespace GenericsHomework;
-public class Node<T>where T : notnull
+﻿using System.Collections;
+
+namespace GenericsHomework;
+public class Node<T>: ICollection<T> where T : notnull
 {
     public T Value { get; }
     public Node<T> Next { get; private set; }
+
+    public int Count { get
+        {
+            int n = 1;
+            Node<T> current = this;
+            while(!current.Next.Value.Equals(Value))
+            {
+                n++;
+                current = current.Next;
+            }
+            return n;
+        } 
+    }
+
+    public bool IsReadOnly => false;
+
     public Node(T value)
     {
         Value = value ?? throw new ArgumentException(nameof(Value));
@@ -17,6 +35,7 @@ public class Node<T>where T : notnull
     {
         Next = this;
     }
+
     public void Append(T value)
     {
         if (Exists(value))
@@ -33,18 +52,56 @@ public class Node<T>where T : notnull
     public bool Exists(T value)
     {
         Node<T> current = this;
-        do
+        for(int i = 0; i < Count; i++)
         {
-            if (current.Value.Equals(value))
+            if(current.Value.Equals(value))
             {
                 return true;
             }
-            else
-            {
-                current = current.Next;
-            }
-        } while (current != this);
+            current = current.Next;
+        }
         return false;
+    }
+
+    public void Add(T item) => Append(item);
+
+    public bool Contains(T item) => Exists(item);
+
+    public void CopyTo(T[] array, int arrayIndex)
+    {
+        ArgumentOutOfRangeException.ThrowIfNegative(arrayIndex, nameof(arrayIndex));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(arrayIndex + Count, array.Length, nameof(arrayIndex));
+        Node<T> current = this;
+        for(int i = arrayIndex; i < Count; i++)
+        {
+            array[i] = current.Value;
+            current = current.Next;
+        }
+    }
+
+    public bool Remove(T item)
+    {
+        Node<T> current = this;
+        do
+        {
+            if(current.Next.Value.Equals(item))
+            {
+                current.Next = current.Next.Next;
+                return true;
+            }
+            current = current.Next;
+        } while(current.Next != this);
+        return false;
+    }
+
+    public IEnumerator<T> GetEnumerator()
+    {
+        return GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        throw new NotImplementedException();
     }
 }
 
