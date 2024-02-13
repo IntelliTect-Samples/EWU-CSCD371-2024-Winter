@@ -2,6 +2,8 @@
 
 public class Node<T>(T data)
 {
+    //Can add contraint such as "where T : class" to ensure homogeneous values
+    //Can possibly also add "public T Data { get; }" to ensure pproperty is non nullable.
     public T Data { get; } = data;
     private Node<T>? next = null; 
     public Node<T> Next
@@ -57,5 +59,6 @@ public class Node<T>(T data)
         Node<T> cur = this;//Create a new Node that holds the same data, this node is not connected to the rest of the list.
         Next = this; //Setting Next will remove external References.
         //Garbage Collection won't be a problem here as these objects are no longer referenced, and are collected automatically.
+        //Circular references are broken at this point, which ultimately prevents memory leaks.
     }
 }
