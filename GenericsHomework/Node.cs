@@ -28,7 +28,7 @@ namespace GenericsHomework;
         {
             if (Exists(item))
             {
-                throw new InvalidOperationException("Item already exists in Node List", nameof(item));
+                throw new InvalidOperationException(nameof(item));
             }
             else
             {
