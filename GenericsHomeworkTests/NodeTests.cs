@@ -37,7 +37,7 @@ public class NodeTests
     [Fact]
     public void Exists_ReturnsTrueIfValueExistsInList()
     {
-        Node<int> firstNode = new (1);
+        Node<int> firstNode = new(1);
         firstNode.Append(2);
         firstNode.Append(3);
 
@@ -46,7 +46,7 @@ public class NodeTests
     [Fact]
     public void Exists_ReturnsFalseIfValueDoesNotExistInList()
     {
-        Node<int> firstNode = new (1);
+        Node<int> firstNode = new(1);
         firstNode.Append(2);
         firstNode.Append(3);
 
@@ -55,7 +55,7 @@ public class NodeTests
     [Fact]
     public void Append_ThrowsExceptionIfDuplicateValueIsAppended()
     {
-        Node<int> firstNode = new Node<int>(1);
+        Node<int> firstNode = new(1);
         firstNode.Append(2);
 
         Assert.Throws<System.ArgumentException>(() => firstNode.Append(2));
