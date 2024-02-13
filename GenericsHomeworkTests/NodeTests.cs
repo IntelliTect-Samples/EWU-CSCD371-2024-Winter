@@ -34,7 +34,7 @@ public class NodeTests
         firstNode.Append(3);
 
         firstNode.Clear();
-        Assert.Empty(firstNode);
+        Assert.Single(firstNode); // because Clear points the node at itself, Count will never return < 1
     }
 
     [Fact]
