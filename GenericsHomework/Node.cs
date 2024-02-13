@@ -12,7 +12,10 @@ public class Node<T>
     public Node(T value)
     {
         Value = value;
+       
         Next = this; // By default, the Next pointer refers back to itself
+     
+      
         size++;
     }
 
@@ -56,7 +59,7 @@ public class Node<T>
         Node<T> headNode = this; 
         while (headNode.Next != headNode)
         {
-            if (headNode.Value.Equals(value))
+            if (headNode.Value != null && headNode.Value.Equals(value))
             {
                 return true;
             }
