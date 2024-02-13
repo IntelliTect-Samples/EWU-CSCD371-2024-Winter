@@ -15,7 +15,15 @@ public class Node<T> //Circular LinkedList
     public override string ToString()
     {
         //Add a ToString() override that writes out the value's ToString() result.
-        return "";
+        Node<T> cur = this;
+        string output = "";
+        while (cur.Next != this)
+        {
+            output += cur.Data + " ";
+            cur = cur.Next;
+        }
+        output += cur.Data;
+        return output;
     }
 
     public void Append(T value)
@@ -39,7 +47,8 @@ public class Node<T> //Circular LinkedList
 
     public void Clear()
     {
-
+        Node<T> cur = this;
+        cur.Next = this;
     }
 
     public bool Exists(T value)
