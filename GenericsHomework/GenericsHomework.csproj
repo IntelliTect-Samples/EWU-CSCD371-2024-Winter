@@ -1,15 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
-	  <LangVersion>12.0</LangVersion>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  	  <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-	  <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
-	  <EnableNETAnalyzers>true</EnableNETAnalyzers>
-	  <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+	  <Deterministic>true</Deterministic>
+      <TargetFramework>net8.0</TargetFramework>
+	  <IsPackable>false</IsPackable>
   </PropertyGroup>
 
 </Project>
