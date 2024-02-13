@@ -38,12 +38,11 @@ public class Node<T>
         }
         else
         {
-            Node<T> currentNode = this;
-            Node<T> newNode = new(value)
-            {
-                Next = currentNode.Next // New node points to the current node's next
-            };
-            currentNode.Next = newNode; // Update current node's next to point to the new node
+            Node<T> newNode = new(value);
+
+            newNode.Next = this.Next; // New node points to the current node's next
+           
+            this.Next = newNode; // Update current node's next to point to the new node
         }
     }
 
