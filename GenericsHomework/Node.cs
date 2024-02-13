@@ -6,7 +6,7 @@ public class Node<T>
 
     // Pointer to the next node
     public Node<T> Next { get; private set; }
-    public static int size { get; private set; }
+    public int Size { get; private set; }
 
     // Constructor that takes a value
     public Node(T value)
@@ -16,7 +16,7 @@ public class Node<T>
         Next = this; // By default, the Next pointer refers back to itself
      
       
-        size++;
+        Size++;
     }
 
     // Method to set the next node
