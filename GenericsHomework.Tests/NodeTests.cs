@@ -1,6 +1,6 @@
 ﻿namespace GenericsHomework.Tests;
 
-public class CLinkedLIstTests
+public class NodeTests
 {
 
 }

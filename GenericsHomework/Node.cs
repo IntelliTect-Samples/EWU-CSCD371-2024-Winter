@@ -6,12 +6,14 @@ public class Node<T>
 
     // Pointer to the next node
     public Node<T> Next { get; private set; }
+    public static int size { get; private set; }
 
     // Constructor that takes a value
     public Node(T value)
     {
         Value = value;
         Next = this; // By default, the Next pointer refers back to itself
+        size++;
     }
 
     // Method to set the next node
@@ -22,16 +24,24 @@ public class Node<T>
 
     public override string ToString()
     {
-        return Value.ToString();
+        return Value!.ToString()!;
     }
 
     public void Append(T value)
     {
-        Node<T> newNode = new(value)
+        if (Exists(value))
         {
-            Next = Next // New node points to the current node's next
-        };
-        Next = newNode; // Update current node's next to point to the new node
+            throw new ArgumentException("Value already exists");
+        }
+        else
+        {
+            Node<T> currentNode = this;
+            Node<T> newNode = new(value)
+            {
+                Next = currentNode.Next // New node points to the current node's next
+            };
+            currentNode.Next = newNode; // Update current node's next to point to the new node
+        }
     }
 
     public void Clear()
