@@ -13,4 +13,13 @@ namespace GenericsHomework.Tests;
                 Assert.NotNull(newNode.Next); // Ensure Next property is not null
                 Assert.Equal(newNode, newNode.Next); // Ensure Next property points to itself
             }
+        [Fact]
+        public void Append_AddsNodeAfterFirst_Success()
+        {
+            Node<string> headNode = new("start");
+            headNode.Append("second");
+
+            Assert.NotNull(headNode.Next);
+            Assert.Equal("second", headNode.Next.Value);
+        }
     }
