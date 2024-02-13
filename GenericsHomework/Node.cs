@@ -128,6 +128,10 @@ public class Node<T> : IEnumerator<T>, ICollection<T> where T : notnull
         _atBeginning = true;
     }
 
-    public void Dispose() => Reset();
+    public void Dispose()
+    {
+        Clear();
+        GC.SuppressFinalize(this);
+    }
 }
 
