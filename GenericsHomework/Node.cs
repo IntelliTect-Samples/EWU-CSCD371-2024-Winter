@@ -19,4 +19,9 @@ public class Node<T>
     {
         Next = next;
     }
+
+    public override string ToString()
+    {
+        return Value.ToString();
+    }
 }
