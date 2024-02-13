@@ -28,10 +28,10 @@ public class Node<T> //Circular LinkedList
 
     public void Append(T value)
     {
-        if (value == null) { throw new ArgumentNullException(nameof(value)); }//Prevent null values from being added
+        if (value == null) throw new ArgumentNullException(nameof(value));//Prevent null values from being added
 
         //Throw an error on an attempt to Append a duplicate value. (Make sure you test for this case)
-        if(Exists(value) == true) throw new Exception("Cannot have duplicate: " + value.ToString());
+        if (Exists(value) == true) throw new ArgumentException("Cannot have duplicate: " + nameof(value));
 
         Node<T> cur = this;
 
