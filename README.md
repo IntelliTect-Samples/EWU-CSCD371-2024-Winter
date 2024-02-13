@@ -50,4 +50,4 @@ Do one of the following two options (or both if you want extra, extra credit) :)
 - All of the above should be unit tested ❌✔
 - Choose simplicity over complexity ❌✔
 
-## See [Docs](Docs)
+## See [Docs](https://github.com/IntelliTect-Samples/EWU-CSCD371-2024-Winter/tree/main/Docs)
