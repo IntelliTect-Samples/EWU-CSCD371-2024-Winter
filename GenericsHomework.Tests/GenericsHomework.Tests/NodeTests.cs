@@ -73,4 +73,20 @@ namespace GenericsHomework.Tests;
             // Assert
             Assert.Equal("42", result);
         }
+
+        [Fact]
+        public void Clear_OnlyCurrentNodeRemainsinList_Success()
+        {
+            Node<string> headNode = new("start");
+            headNode.Append("second");
+            headNode.Append("third");
+            headNode.Append("fourth");
+            headNode.Clear();
+            Assert.Equal("start", headNode.Next.Value);
+            Assert.False(headNode.Exists("second"));
+            Assert.False(headNode.Exists("third"));
+            Assert.False(headNode.Exists("fourth"));
+
+
+        }
 }
