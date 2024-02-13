@@ -33,4 +33,14 @@ public class Node<T>
         };
         Next = newNode; // Update current node's next to point to the new node
     }
+
+    public void Clear()
+    {
+
+    }
+
+    public Boolean Exists(T value)
+    {
+        return true;
+    }
 }
