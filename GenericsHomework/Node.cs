@@ -69,7 +69,7 @@ namespace GenericsHomework;
 
     do
     {
-        if (currentNode.Data is not null && currentNode.Data.Equals(item))
+        if (currentNode.Data!.Equals(item))
         {
             return true;
         }
