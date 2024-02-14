@@ -94,5 +94,19 @@ public class NodeTests
         //TODO: add tests for ToString
     }
 
+    [Fact]
+    public void ToString_NullData_ThrowsException()
+    {
+        Node<string> node = new(null!);
+        Assert.Throws<ArgumentNullException>(() => node.ToString());
+    }
+
+    [Fact]
+    public void ToString_Data_ReturnsSuccessful()
+    {
+        Node<string> node = new("Hello there");
+        Assert.Equal("Hello there", node.ToString());
+    }
+
 }
 

@@ -7,7 +7,7 @@ public class Node<T> //Circular LinkedList
 
     public Node(T value)
     {
-        this.Data = value;
+        Data = value;
         Next = this;//else refers back to itself if there are no other nodes in the list.
     }
 
@@ -15,15 +15,8 @@ public class Node<T> //Circular LinkedList
     public override string ToString()
     {
         //Add a ToString() override that writes out the value's ToString() result.
-        Node<T> cur = this;
-        string output = "";
-        while (cur.Next != this)
-        {
-            output += cur.Data + " ";
-            cur = cur.Next;
-        }
-        output += cur.Data;
-        return output;
+        ArgumentNullException.ThrowIfNull(Data);
+        return Data.ToString()!;
     }
 
     public void Append(T value)
