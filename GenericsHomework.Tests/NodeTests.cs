@@ -15,7 +15,7 @@ public class NodeTests
 
     [Fact]
     public void Append_AddNodeWithDiffValue_NotEqual()
-    {   
+    {
         Node<int> node = new(3);
         node.Append(5);
         Assert.NotEqual(node, node.Next);
@@ -32,7 +32,7 @@ public class NodeTests
     [Fact]
     public void Exists_CheckValueThatIsInList_True()
     {
-        Node<String> node = new("apple");
+        Node<string> node = new("apple");
         node.Append("pear");
         node.Append("orange");
         Assert.True(node.Exists("pear"));
@@ -41,7 +41,7 @@ public class NodeTests
     [Fact]
     public void Exists_CheckValueThatIsNotInList_False()
     {
-        Node<String> node = new("apple");
+        Node<string> node = new("apple");
         node.Append("pear");
         node.Append("orange");
         Assert.False(node.Exists("cheese"));
@@ -56,6 +56,43 @@ public class NodeTests
         Assert.Throws<ArgumentException>(() => node.Append(3));
     }
 
+    [Fact]
+    public void Append_TryToAppendNullValue_ThrowException()
+    {
+        Node<string> node = new("apple");
+        node.Append("pear");
+        node.Append("orange");
+        Assert.Throws<ArgumentNullException>(() => node.Append(null!));
+    }
+
+    [Fact]
+    public void Clear_CreateListAndClear_HeadShouldRemain()
+    {
+        Node<string> node = new("apple");
+        node.Append("pear");
+        node.Append("orange");
+
+        //Verify the list has all items above
+        Assert.Equal("apple",node.Data);
+        Assert.Equal("pear", node.Next.Data);
+        Assert.Equal("orange", node.Next.Next.Data);
+
+        Assert.True(node.Exists("apple"));
+        Assert.True(node.Exists("pear"));
+        Assert.True(node.Exists("orange"));
+
+        //Clear the list and verify only start remains
+        node.Clear();
+        Assert.Equal("apple", node.Data);
+        Assert.NotEqual("pear", node.Next.Data);
+        Assert.NotEqual("orange", node.Next.Next.Data);
+
+        Assert.True(node.Exists("apple"));
+        Assert.False(node.Exists("pear"));
+        Assert.False(node.Exists("orange"));
+
+        //TODO: add tests for ToString
+    }
 
 }
 

@@ -45,7 +45,7 @@ public class Node<T> //Circular LinkedList
         newNode.Next = this;//Loop the newNode back to the head
     }
 
-    public void Clear()
+    public void Clear()//TODO: Add comment
     {
         Node<T> cur = this;
         cur.Next = this;
@@ -55,11 +55,12 @@ public class Node<T> //Circular LinkedList
     {
         //Search list to see if value exists
         Node<T> cur = this;
-        while( cur.Next != this)
+        do
         {
-            if(cur.Data!.Equals(value)) return true; //Using ! since Append checks if value is null
-            cur = cur.Next;
-        }
+            if (cur.Data!.Equals(value)) return true; //Using ! since Append checks if value is null
+                cur = cur.Next;
+
+        } while (cur != this);
 
         return false;
     }
