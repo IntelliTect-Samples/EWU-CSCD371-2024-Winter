@@ -76,8 +76,7 @@ namespace GenericsHomework;
 
         currentNode = currentNode.Next;
     } while (currentNode != this);
-
-        return Data!.Equals(item);
+        return false;
     }
         
     }
