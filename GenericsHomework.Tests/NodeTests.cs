@@ -23,6 +23,7 @@ namespace GenericsHomework.Tests;
 
             Assert.NotNull(headNode.Next);
             Assert.Equal("second", headNode.Next.Value);
+            Assert.Equal("start", headNode.Next.Next.Value); //checks that it is circular and links back to the first node
         }
 
         [Fact]

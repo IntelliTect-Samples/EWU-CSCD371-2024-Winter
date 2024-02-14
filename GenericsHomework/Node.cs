@@ -49,8 +49,13 @@ public class Node<T>
 
     public void Clear()
     {
+        //I don't think you need to worry about the garbage collector as it should take care of the
+        //unreachable nodes after they were cut off after headNode is reset to itself
+        //for that reason I don't think you need to reset the other nodes to themselves either, as regardless of however many are linked, they are all unreachable
+        //and will be taken care of by the garbage collector
         Node<T> headNode = this;
         headNode.Next = this;
+        
 
     }
 
