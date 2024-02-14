@@ -38,10 +38,10 @@ public class Node<T> //Circular LinkedList
         newNode.Next = this;//Loop the newNode back to the head
     }
 
-    public void Clear()//TODO: Add comment
+    public void Clear() //c# will auto collect garbage for the rest of the nodes
     {
-        Node<T> cur = this;
-        cur.Next = this;
+        Node<T> cur = this; //new node holds the same data while disconnected from the rest of the list
+        cur.Next = this; //next will remove the rest of the references
     }
 
     public bool Exists(T value)
