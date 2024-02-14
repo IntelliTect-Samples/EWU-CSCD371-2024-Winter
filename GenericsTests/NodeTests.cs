@@ -33,8 +33,10 @@ public class NodeTests
     {
         Node<string> newNode = new("Hiiii");
         newNode.Append("You rock");
+        newNode.Append("!");
 
         Assert.Equal("You rock", newNode.Next.Data);
+        Assert.Equal("!", newNode.Next.Next.Data);
 
     }
     [Fact]
@@ -78,7 +80,7 @@ public class NodeTests
     [Fact]
     public void Exists_NodeDoesNotExists_ReturnsFalse()
     {
-        Assert.False(NodeList.Exists("Reeehat"));
+        Assert.False(NodeList.Exists("Rahat"));
     }
 
 

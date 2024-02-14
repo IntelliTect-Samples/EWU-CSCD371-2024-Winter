@@ -1,15 +1,13 @@
-﻿using System;
-
+﻿
 namespace GenericsHomework;
 
     public class Node<T>
     {
         public Node(T item)
-            {
-                Data = item;
-                Next = this;
-            //Next is non nullable ? might want to change to not use this? idk
-            }
+        {
+            Data = item;
+            Next = this;
+        }
 
         public Node<T> Next { get; private set; }
         public T Data { get; set; }
@@ -32,13 +30,20 @@ namespace GenericsHomework;
             }
             else
             {
-                Node<T> currentNode = this;
-                while (currentNode.Next != currentNode)
-                {
-                    currentNode = currentNode.Next;
+                Node<T> currentNode = Next;
 
-                }
-                currentNode.Next = new Node<T>(item);
+            while (currentNode.Next != this)
+            {
+                currentNode = currentNode.Next;
+            }
+   
+
+            Node<T> newNode = new(item)
+            {
+                Next = this
+            };
+                    
+                currentNode.Next = newNode;
             }
         }
 
@@ -58,21 +63,22 @@ namespace GenericsHomework;
 
         }
 
-        public bool Exists(T item)
+    public bool Exists(T item)
+    {
+        Node<T> currentNode = this;
+
+    do
+    {
+        if (currentNode.Data is not null && currentNode.Data.Equals(item))
         {
-            Node<T> currentNode = this;
-
-            while (currentNode != currentNode.Next)
-            {
-                if (currentNode.Data != null && currentNode.Data.Equals(item))
-                {
-                    return true;
-                }
-
-                currentNode = currentNode.Next;
-            }
-            return currentNode.Data!.Equals(item);
+            return true;
         }
+
+        currentNode = currentNode.Next;
+    } while (currentNode != this);
+
+        return Data!.Equals(item);
+    }
         
     }
 
