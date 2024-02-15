@@ -39,7 +39,7 @@ public class NodeTests
     public void Next_InitiallyPointsToSelf()
     {
         Node<int> node = new(1);
-        Assert.True(object.ReferenceEquals(node, node.Next));
+        Assert.Same(node, node.Next);
     }
 
     [Fact]
