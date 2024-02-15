@@ -17,12 +17,6 @@ public class Node<T>
       
     }
 
-    // Method to set the next node
-    public void SetNext(Node<T> next)
-    {
-        Next = next;
-    }
-
     public override string ToString()
     {
         return Value!.ToString()!;
