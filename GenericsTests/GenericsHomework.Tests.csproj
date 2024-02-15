@@ -2,8 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-
-
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
@@ -24,6 +22,5 @@
   <ItemGroup>
     <ProjectReference Include="..\GenericsHomework\GenericsHomework.csproj" />
   </ItemGroup>
-
 
 </Project>

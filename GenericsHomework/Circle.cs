@@ -14,6 +14,11 @@ namespace GenericsHomework
         public Circle(string name)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
-         }       
+         }
+
+        public void Add(string v)
+        {
+            throw new NotImplementedException();
         }
+    }
     }
