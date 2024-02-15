@@ -18,7 +18,7 @@ Chapters 11, 12
     - The `Next` property should be non-nullable (careful to follow the non-nullable property guidelines) ❌✔
     - The `Next` property setter should be private. ❌✔
   - Add an `Append` method that takes a value and appends a new `Node` instance after the current node (by invoking the `Next` property). ❌✔
-  - Add a Clear method that effectively removes all items from a list except the current node. Pay attention as to whether you should be concerned with the following:
+  - Add a `Clear` method that effectively removes all items from a list except the current node. Pay attention as to whether you should be concerned with the following:
     - Whether it is sufficient to only set Next to itself ❌✔
     - Whether to set the removed items to circle back on themselves. In other words, whether to close the loop of the removed items. (Provide a test to show why this is required if it is required). ❌✔
     - Given there is a circular list of items, provide a comment to indicate whether you need to worry about garbage collection because all the items point to each other and therefore may never be garbage collected. ❌✔
