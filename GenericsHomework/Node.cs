@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
+﻿
 namespace GenericsHomework;
 
     public class Node<T>
-{
+    {
         public Node(T item)
         {
             Data = item;
@@ -80,8 +78,8 @@ namespace GenericsHomework;
     } while (currentNode != this);
         return false;
     }
-
-}
+        
+    }
 
 
 
