@@ -2,19 +2,25 @@ using Xunit;
 
 namespace GenericsHomework.Tests;
 
-//Reminder: For this assignment, always use Assert.AreEqual<T>() (the generic version)
-
 public class NodeTests
 {
     [Fact]
-    public void Next_OneNodeLoopsOnItself_Equal()
-    {//Node not recognized
+    public void Next_NodeLoopsOnItself_Equal()
+    {
         Node<int> node = new(3);
         Assert.Equal(node.Data, node.Next.Data);
     }
 
     [Fact]
-    public void Append_AddNodeWithDiffValue_NotEqual()
+    public void Append_Node_Equal()
+    {
+        Node<int> node = new(6);
+        node.Append(7);
+        Assert.Equal(7, node.Next.Data);
+    }
+
+    [Fact]
+    public void Append_NodeWithDifValue_NotEqual()
     {
         Node<int> node = new(3);
         node.Append(5);
@@ -30,7 +36,7 @@ public class NodeTests
     }
 
     [Fact]
-    public void Exists_CheckValueThatIsInList_True()
+    public void Exists_ValueInList_ReturnsTrue()
     {
         Node<string> node = new("apple");
         node.Append("pear");
@@ -39,7 +45,7 @@ public class NodeTests
     }
 
     [Fact]
-    public void Exists_CheckValueThatIsNotInList_False()
+    public void Exists_ValueInList_ReturnsFalse()
     {
         Node<string> node = new("apple");
         node.Append("pear");
@@ -48,7 +54,7 @@ public class NodeTests
     }
 
     [Fact]
-    public void Append_TryToAppendDuplicate_ThrowException()
+    public void Append_AppendsDuplicate_ThrowsException()
     {
         Node<int> node = new(3);
         node.Append(5);
@@ -57,7 +63,7 @@ public class NodeTests
     }
 
     [Fact]
-    public void Append_TryToAppendNullValue_ThrowException()
+    public void Append_NullValue_ThrowsException()
     {
         Node<string> node = new("apple");
         node.Append("pear");
@@ -66,7 +72,7 @@ public class NodeTests
     }
 
     [Fact]
-    public void Clear_CreateListAndClear_HeadShouldRemain()
+    public void Clear_ClearsNewList_HeadRemains()
     {
         Node<string> node = new("apple");
         node.Append("pear");
@@ -90,8 +96,6 @@ public class NodeTests
         Assert.True(node.Exists("apple"));
         Assert.False(node.Exists("pear"));
         Assert.False(node.Exists("orange"));
-
-        //TODO: add tests for ToString
     }
 
     [Fact]
@@ -107,6 +111,5 @@ public class NodeTests
         Node<string> node = new("Hello there");
         Assert.Equal("Hello there", node.ToString());
     }
-
 }
 
