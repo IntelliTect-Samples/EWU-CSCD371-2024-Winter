@@ -32,7 +32,7 @@ public class NodeTests
     {
         Node<int> node = new(1);
         node.Clear();
-        Assert.True(object.ReferenceEquals(node, node.Next));
+        Assert.Same(node, node.Next);
     }
 
     [Fact]
