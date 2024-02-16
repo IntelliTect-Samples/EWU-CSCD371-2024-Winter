@@ -22,5 +22,27 @@ namespace GenericsHomework
             ArgumentNullException.ThrowIfNull(circle);
             Circles.Add(circle);
         }
+
+        public override string ToString()
+        {
+            if (Circles == null || Circles.Count == 0)
+                return "{}";
+
+            StringBuilder result = new StringBuilder();
+            result.Append("{");
+
+            foreach (var circle in Circles)
+            {
+                result.Append($"{{{circle.Data}}}, ");
+            }
+
+            // Remove the trailing comma and space
+            result.Length -= 2;
+
+            result.Append("}");
+
+            return result.ToString();
+        }
+
     }
 }

@@ -31,6 +31,8 @@ namespace GenericsHomework.Tests
         {
             Circle<string> circle = new Circle<string>("Benjamin");
             Assert.Equal("Benjamin", circle.ToString());
+            circle.Add("Rocks!");
+            Assert.Equal("Rocks!", circle.Elements.Next.Data);
 
         }
 
