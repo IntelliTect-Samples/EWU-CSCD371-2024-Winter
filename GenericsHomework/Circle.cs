@@ -1,8 +1,9 @@
 ﻿
 namespace GenericsHomework;
 
-    public class Circle<T>(List<T>? items = null)
+    public class Circle<T>(string Name , List<T>? items = null)
     {
+        public string Name { get;} = Name ?? throw new ArgumentNullException(nameof(Name));
         public List<T> Elements { get; private set; } = items ?? [];
 
         public void Add(T newElement)
@@ -26,7 +27,7 @@ namespace GenericsHomework;
 
         public override string ToString()
         {
-            return Elements is null ? string.Empty : string.Join(", ", Elements);
+            return Elements is null ? string.Empty : $"{Name}: {{{string.Join(", ", Elements)}}}";
         }
 
     }

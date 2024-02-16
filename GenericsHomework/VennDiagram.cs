@@ -1,43 +1,38 @@
-﻿
-using System.Text;
+﻿using System.Text;
+using System.Linq;
 
 namespace GenericsHomework;
 
-    public class VennDiagram<T>
+    public class VennDiagram<T>(string Name, List<Circle<T>>? Circles = null)
+{
+    public List<Circle<T>> Circles { get; private set; } = Circles ?? [];
+    public string Name { get; } = Name;
+
+    public void AddCircles(Circle<T> circle)
     {
-        public List<Circle<T>> Circles { get; private set; }
-        public T Data { get; }
-        public VennDiagram(IEnumerable<Circle<T>> circles,T data)
+        ArgumentNullException.ThrowIfNull(circle);
+        Circles.Add(circle);
+    }
+    public Circle<string> Intersection(string v1, string v2)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override string ToString()
+    {
+        if (Circles.Count == 0)
+            return $"{Name}: {{}}";
+
+        StringBuilder circles = new();
+
+        foreach(Circle<T> circle in Circles[0..^1])
         {
-            Circles= new List<Circle<T>>(circles);
-            Data = data;
+            circles.Append($"{circle}, ");
         }
 
-        public void AddCircles(Circle<T> circle)
-        {
-            ArgumentNullException.ThrowIfNull(circle);
-            Circles.Add(circle);
-        }
+        circles.Append($"{Circles[^1]}");
 
-        public override string ToString()
-        {
-            if (Circles == null || Circles.Count == 0)
-                return "{}";
-
-            StringBuilder result = new StringBuilder();
-            result.Append("{");
-
-/*            foreach (var circle in Circles)
-            {
-                result.Append($"{{{circle.Data}}}, ");
-            }*/
-
-            // Remove the trailing comma and space
-            result.Length -= 2;
-
-            result.Append("}");
-
-            return result.ToString();
-        }
+        return circles.ToString();
+    }
 
     }

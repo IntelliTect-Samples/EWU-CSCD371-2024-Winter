@@ -8,17 +8,11 @@ namespace GenericsHomework.Tests;
         public void Constructor_ValidItem_SetsDataSuccessfully()
         { 
 
-            Circle<string> circle1 = new();
-            Circle<string> circle2 = new();
-
-            // Create a list of circles
-            var circles = new List<Circle<string>> { circle1, circle2 };
+            Circle<string> circle1 = new("Circle1");
+            Circle<string> circle2 = new("Circle2");
 
             // Act
-            VennDiagram<string> venn = new(circles, "TestData");
-
-            // Assert
-            Assert.Equal("TestData", venn.Data);
+            VennDiagram<string> venn = new("TestData",[circle1, circle2]);
 
             // Check if circles are set correctly
             Assert.Equal(2, venn.Circles.Count); // Check the count of circles
@@ -28,45 +22,57 @@ namespace GenericsHomework.Tests;
         [Fact]
         public void AddCircles_NullCircle_ThrowsNullException()
         {
-            // Arrange
-            var circle = new Circle<string>();
-            var vennDiagram = new VennDiagram<string>(new List<Circle<string>> { circle }, "TestData");
-
-            // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => { vennDiagram.AddCircles(null!); });
+            Assert.Throws<ArgumentNullException>(() => { new VennDiagram<string>("TestData",[new Circle<string>("Circle3")]).AddCircles(null!); });
         }
         [Fact]
         public void AddCircles_ValidCircles_AddsSuccessfully()
         {
             // Arrange
-            Circle<string> circleOne = new Circle<string>();
-            VennDiagram<string> vennDiagram = new VennDiagram<string>(new List<Circle<string>> { circleOne }, "ValidData");
+            Circle<string> circleOne = new("Circle4");
+            VennDiagram<string> vennDiagram = new("ValidData", [circleOne]);
 
             // Act
-            Circle<string> circleTwo = new Circle<string>();
+            Circle<string> circleTwo = new("Circle5");
             vennDiagram.AddCircles(circleTwo);
 
             // Assert
             Assert.Contains(circleTwo, vennDiagram.Circles);
         }
-/*        [Fact]
-        public void ToString_ValidCircles_PrintsCorrectly()
-        {
-            Circle<string> circle1 = new Circle<string>();
-            Circle<string> circle2 = new Circle<string>();
 
-            List<Circle<string>> circles = new List<Circle<string>> { circle1, circle2 };
-            VennDiagram<string> vennDiagram = new VennDiagram<string>(circles, "TestData");
+    [Fact]
+    public void ToString_NullCircle_PrintsCorrectly()
+    {
 
-            // Expected string representation
-            string expectedString = $"{{{{Circle1}}, {{Circle2}}}}";
+        VennDiagram<string> vennDiagram = new("TestData");
 
-            // Act
-            string result = vennDiagram.ToString();
+        // Assert
+        Assert.Equal($"TestData: {{}}", vennDiagram.ToString());
+    }
 
-            // Assert
-            Assert.Equal(expectedString, result);
-        }*/
+    [Fact]
+    public void ToString_ValidCircles_PrintsCorrectly()
+    {
+        Circle<string> circle1 = new("Test1", ["Hi","Hello"]);
+        Circle<string> circle2 = new("Test2", ["Bojour", "Ahola"]);
+
+        List<Circle<string>> circles = [circle1, circle2];
+        VennDiagram<string> vennDiagram = new("TestData",circles);
+
+        // Assert
+        Assert.Equal($"{circle1}, {circle2}", vennDiagram.ToString());
+    }
+
+    [Fact]
+    public void Intersect_ValidCircles_ReturnsCircle()
+    {
+        Circle<string> colorCircle = new("Colors", ["Green", "Blue", "Orange"]);
+        Circle<string> flavorCircle = new("Flavors", ["Grape", "Apple", "Orange"]);
+
+        VennDiagram<string> vennDiagram = new("Colors And Tastes", [colorCircle,flavorCircle]);
+
+        // Assert
+        Circle<string> objectsCircle = vennDiagram.Intersection("Colors","Flavors");
+    }
 }
 
     
