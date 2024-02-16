@@ -37,7 +37,7 @@ public class Node<T> : IEnumerator<T>, ICollection<T> where T : notnull
     {
         return Value.ToString() ?? "";
     }
-
+    //we should not have to worry about garbage collection because we dont see any of the disconnected nodes and they will get cleaned up by the compiler for us. 
     public void Clear()
     {
         Next = this;
