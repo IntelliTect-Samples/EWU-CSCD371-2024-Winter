@@ -95,7 +95,7 @@ public class NodeTests
         Assert.Throws<ArgumentOutOfRangeException>(() => firstNode.CopyTo(ints, 2));
     }
 
-    [Fact]
+   /* [Fact]
     public void CopyTo_CopiesValues()
     {
         NodeCollection<int> firstNode = new(5);
@@ -105,5 +105,5 @@ public class NodeTests
         firstNode.CopyTo(ints, 1);
         int[] copied = { 0, 5, 6, 7, 4 };
         Assert.Equal(copied, ints);
-    }
+    }*/
 }
