@@ -89,8 +89,7 @@ public class NodeTests
         Node<string> node = new(null!);
         node.Append("second");
 
-        bool exists = node.Exists(null!);
-        Assert.True(exists);
+        Assert.True(node.Exists(null!));
     }
 
     [Fact]
