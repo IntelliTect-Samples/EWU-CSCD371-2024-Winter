@@ -2,6 +2,7 @@
   <!-- See https://aka.ms/dotnet/msbuild/customize for more details on customizing your build -->
   <PropertyGroup>
 	  <Deterministic>true</Deterministic>
+	  <TargetFramework>.net8.0</TargetFramework>
 	  <LangVersion>latest</LangVersion>
 	  <ImplicitUsings>enable</ImplicitUsings>
 	  <Nullable>enable</Nullable>
@@ -9,5 +10,6 @@
 	  <EnableNETAnalyzers>true</EnableNETAnalyzers>
 	  <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
 	  <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+	  <IsPackable>false</IsPackable>
   </PropertyGroup>
 </Project>
