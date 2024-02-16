@@ -4,10 +4,12 @@ using System.Globalization;
 
 namespace GenericsHomework;
 
-    public class VennDiagram<T>(string Name, List<Circle<T>>? Circles = null)
+    public class VennDiagram<T>(string Name, int NumCircles = 2)
 {
-    public List<Circle<T>> Circles { get; private set; } = Circles ?? [];
-    public string Name { get; } = Name;
+    public List<Circle<T>> Circles { get; private set; } = [];
+    public string Name { get; } = Name ?? throw new ArgumentNullException(nameof(Name));
+
+    public int NumCircles { get; } = NumCircles < 2 ? throw new ArgumentException("NumCircles can't be less than 2 is les than 2") : NumCircles;
 
     public void Add(Circle<T> circle)
     {
@@ -16,6 +18,10 @@ namespace GenericsHomework;
         if (Exists(circle.Name))
         {
             throw new ArgumentException("Name of circle already exists within Diagram", nameof(circle));
+        }
+        if(Circles.Count + 1 > NumCircles)
+        {
+            throw new InvalidOperationException("Number of circles have been reached!");
         }
 
         Circles.Add(circle);

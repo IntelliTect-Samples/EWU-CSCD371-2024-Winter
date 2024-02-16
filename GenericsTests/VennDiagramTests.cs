@@ -15,9 +15,13 @@ public class VennDiagramTests
         Circle<string> StudentCircle = new("Students", ["Harry", "Ron", "Hermione", "Troy", "Peter", "Johnny"]);
         Circle<string> WizardCircle = new("Wizards", ["Harry", "Ron", "Hermione", "Snape", "Dumbledore"]);
         Circle<string> NewYorkerCircle = new("New Yorkers", ["Peter", "Johnny", "Michaelangelo", "Tony", "Ross"]);
-        Circle<string> SuperHeroCircle = new("Superheroes", ["Peter", "Tony", "Michaelangelo", "Steve", "Clark"]);
+        Circle<string> SuperheroCircle = new("Superheroes", ["Peter", "Tony", "Michaelangelo", "Steve", "Clark"]);
 
-        VennDiagram = new VennDiagram<string>("Students, Wizards, New Yorkers, and Super Heroes", [StudentCircle, WizardCircle, NewYorkerCircle, SuperHeroCircle]);
+        VennDiagram = new VennDiagram<string>("Students, Wizards, New Yorkers, and Super Heroes", 4);
+        VennDiagram.Add(StudentCircle);
+        VennDiagram.Add(WizardCircle);
+        VennDiagram.Add(NewYorkerCircle);
+        VennDiagram.Add(SuperheroCircle);
 
     }
 
@@ -29,12 +33,24 @@ public class VennDiagramTests
         Circle<string> circle2 = new("Circle2");
 
         // Act
-        VennDiagram<string> venn = new("TestData", [circle1, circle2]);
+        VennDiagram<string> venn = new("TestData",2);
+        venn.Add(circle1);
+        venn.Add(circle2);
 
         // Check if circles are set correctly
         Assert.Equal(2, venn.Circles.Count); // Check the count of circles
         Assert.Contains(circle1, venn.Circles); // Check if circle1 is present
         Assert.Contains(circle2, venn.Circles); // Check if circle2 is present
+    }
+    [Fact]
+    public void Constructor_NullName_ThrowsArgumentException()
+    {
+        Assert.Throws<ArgumentNullException>(() => new VennDiagram<int>(null!,5));
+    }
+    [Fact]
+    public void Constructor_InvalidNumCircles_ThrowsArgumentException() 
+    {
+        Assert.Throws<ArgumentException>(()=> new VennDiagram<int>("Kids of Wallstreet", -2));
     }
 
     [Fact]
@@ -53,14 +69,15 @@ public class VennDiagramTests
     [Fact]
     public void Add_NullCircle_ThrowsNullException()
     {
-        Assert.Throws<ArgumentNullException>(() => { new VennDiagram<string>("TestData", [new Circle<string>("Circle3")]).Add(null!); });
+        Assert.Throws<ArgumentNullException>(() => { new VennDiagram<string>("TestData",3).Add(null!); });
     }
     [Fact]
     public void Add_ValidCircles_AddsSuccessfully()
     {
         // Arrange
         Circle<string> circleOne = new("Circle4");
-        VennDiagram<string> vennDiagram = new("ValidData", [circleOne]);
+        VennDiagram<string> vennDiagram = new("ValidData");
+        vennDiagram.Add(circleOne);
 
         // Act
         Circle<string> circleTwo = new("Circle5");
@@ -74,6 +91,12 @@ public class VennDiagramTests
     public void Add_DuplicateNameCircle_ThrowsArgumentException()
     {
         Assert.Throws<ArgumentException>(() => VennDiagram.Add(new Circle<string>("Superheroes")));
+    }
+
+    [Fact]
+    public void Add_OverLimitCircle_ThrowsInvalidOperationException()
+    {
+        Assert.Throws<InvalidOperationException>(() => VennDiagram.Add(new Circle<string>("Cops")));
     }
 
     [Fact]
@@ -93,7 +116,9 @@ public class VennDiagramTests
         Circle<string> circle2 = new("Test2", ["Bojour", "Ahola"]);
 
         List<Circle<string>> circles = [circle1, circle2];
-        VennDiagram<string> vennDiagram = new("TestData", circles);
+        VennDiagram<string> vennDiagram = new("TestData", 2);
+        vennDiagram.Add(circle1);
+        vennDiagram.Add(circle2);
 
         // Assert
         Assert.Equal($"{circle1}, {circle2}", vennDiagram.ToString());
