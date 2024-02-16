@@ -27,7 +27,7 @@ namespace GenericsHomework;
 
         public override string ToString()
         {
-            return Elements.Count == 0 ? string.Empty : $"{Name}: {{{string.Join(", ", Elements)}}}";
+            return $"{Name}: {{{string.Join(", ", Elements)}}}";
         }
 
     }

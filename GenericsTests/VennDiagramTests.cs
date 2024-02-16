@@ -4,6 +4,21 @@ namespace GenericsHomework.Tests;
 
 public class VennDiagramTests
 {
+
+    public VennDiagram<string> VennDiagram { get;}
+
+    public VennDiagramTests()
+    {
+
+        Circle<string> StudentCircle = new("Students", ["Harry", "Ron", "Hermione", "Troy", "Peter", "Johnny"]);
+        Circle<string> WizardCircle = new("Wizards", ["Harry", "Ron", "Hermione", "Snape", "Dumbledore"]);
+        Circle<string> NewYorkerCircle = new("New Yorkers", ["Peter", "Johnny", "Michaelangelo", "Tony", "Ross"]);
+        Circle<string> SuperHeroCircle = new("Superheroes", ["Peter", "Tony", "Michaelangelo", "Steve", "Clark"]);
+
+        VennDiagram = new VennDiagram<string>("Students, Wizards, New Yorkers, and Super Heroes", [StudentCircle, WizardCircle, NewYorkerCircle, SuperHeroCircle]);
+
+    }
+
     [Fact]
     public void Constructor_ValidItem_SetsDataSuccessfully()
     {
@@ -65,72 +80,46 @@ public class VennDiagramTests
     [Fact]
     public void Intersection_ValidCirclesNames_ReturnsCircle()
     {
-        Circle<string> colorCircle = new("Colors", ["Green", "Blue", "Orange"]);
-        Circle<string> flavorCircle = new("Flavors", ["Grape", "Apple", "Orange"]);
-
-        VennDiagram<string> vennDiagram = new("Colors And Tastes", [colorCircle, flavorCircle]);
-
         // Assert
-        Circle<string> objectsCircle = vennDiagram.Intersection("Flavors And also a Color", "Colors", "Flavors");
-        Assert.Single(objectsCircle.Elements);
-        Assert.Contains("Orange", objectsCircle.Elements);
+        Circle<string> objectsCircle = VennDiagram.Intersection("New York Superheros", "New Yorkers", "Superheroes");
+        Assert.Equal(3,objectsCircle.Elements.Count);
+        Assert.Contains("Peter", objectsCircle.Elements);
+        Assert.Contains("Michaelangelo", objectsCircle.Elements);
+        Assert.Contains("Tony", objectsCircle.Elements);
 
     }
 
     [Fact]
     public void Intersection_NullName_ThrowsArgumentNullException()
     {
-        Circle<string> colorCircle = new("Colors", ["Green", "Blue", "Orange"]);
-        Circle<string> flavorCircle = new("Shapes", ["Square", "Rectange", "Triangle"]);
 
-        VennDiagram<string> vennDiagram = new("Colors and Shapes", [colorCircle, flavorCircle]);
-
-        Exception execption = Assert.Throws<ArgumentNullException>(() => vennDiagram.Intersection(null!, "Flavors", "Colors"));
+        Exception execption = Assert.Throws<ArgumentNullException>(() => VennDiagram.Intersection(null!, "New Yorkers", "Superheroes"));
     }
 
     [Fact]
     public void Intersection_NullFirstCircleName_ThrowsArgumentNullException()
     {
-        Circle<string> colorCircle = new("Colors", ["Green", "Blue", "Orange"]);
-        Circle<string> flavorCircle = new("Shapes", ["Square", "Rectange", "Triangle"]);
-
-        VennDiagram<string> vennDiagram = new("Colors and Shapes", [colorCircle, flavorCircle]);
-
-        Exception execption = Assert.Throws<ArgumentNullException>(() => vennDiagram.Intersection("Shape and also a Color", null!, "Colors"));
+        Exception execption = Assert.Throws<ArgumentNullException>(() => VennDiagram.Intersection("Student Wizards", null!, "Wizards"));
     }
 
     [Fact]
     public void Intersection_NullSecondCircleName_ThrowsArgumentNullException()
     {
-        Circle<string> colorCircle = new("Colors", ["Green", "Blue", "Orange"]);
-        Circle<string> flavorCircle = new("Shapes", ["Square", "Rectange", "Triangle"]);
-
-        VennDiagram<string> vennDiagram = new("Colors and Shapes", [colorCircle, flavorCircle]);
-
-        Exception execption = Assert.Throws<ArgumentNullException>(() => vennDiagram.Intersection("Shape and also a Color", "Flavors", null!)) ;
+        Exception execption = Assert.Throws<ArgumentNullException>(() => VennDiagram.Intersection("Shape and also a Color", "Flavors", null!)) ;
     }
 
     [Fact]
     public void Intersection_InvalidFirstCircleName_ThrowsArgumentException()
     {
-        Circle<string> colorCircle = new("Colors", ["Green", "Blue", "Orange"]);
-        Circle<string> flavorCircle = new("Shapes", ["Square", "Rectange", "Triangle"]);
 
-        VennDiagram<string> vennDiagram = new("Colors and Shapes", [colorCircle, flavorCircle]);
-
-        Exception execption = Assert.Throws<ArgumentException>(() => vennDiagram.Intersection("Shape and also a Color", "Flavors", "Colors"));
+        Exception execption = Assert.Throws<ArgumentException>(() => VennDiagram.Intersection("California Wizards", "Calfornians", "Wizards"));
         Assert.Equal("A non valid name for the first circle has been provided (Parameter 'firstCircleName')", execption.Message);
     }
 
     [Fact]
     public void Intersection_InvalidSecondCircleName_ThrowsArgumentException()
     {
-        Circle<string> colorCircle = new("Colors", ["Green", "Blue", "Orange"]);
-        Circle<string> shapeCircle = new("Shapes", ["Square", "Rectange", "Triangle"]);
-
-        VennDiagram<string> vennDiagram = new("Colors and Shapes", [colorCircle, shapeCircle]);
-
-        Exception execption = Assert.Throws<ArgumentException>(() => vennDiagram.Intersection("Shape and also a Color", "Shapes", "Dogs"));
+        Exception execption = Assert.Throws<ArgumentException>(() => VennDiagram.Intersection("Student Robots", "Students", "Robots"));
         Assert.Equal("A non valid name for the second circle has been provided (Parameter 'secondCircleName')", execption.Message);
     }
 
