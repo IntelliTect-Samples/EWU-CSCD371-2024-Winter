@@ -1,6 +1,4 @@
-﻿using System.Dynamic;
-
-namespace GenericsHomework;
+﻿namespace GenericsHomework;
 
 public class Node<T>
 {
