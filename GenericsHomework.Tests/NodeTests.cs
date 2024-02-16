@@ -46,8 +46,7 @@ public class NodeTests
     public void Exists_ValueExists_ReturnsTrue()
     {
         Node<int> node = new(1);
-        bool exists = node.Exists(1);
-        Assert.True(exists);
+        Assert.True(node.Exists(1));
     }
 
     [Fact]
