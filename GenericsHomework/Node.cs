@@ -1,4 +1,6 @@
-﻿namespace GenericsHomework;
+﻿using System.Dynamic;
+
+namespace GenericsHomework;
 
 public class Node<T>
 {
@@ -44,7 +46,6 @@ public class Node<T>
 
     public bool Exists(T data)
     {
-        bool result = false;
 
         Node<T> cur = this;
 
@@ -52,14 +53,14 @@ public class Node<T>
         {
             if (cur.Data!.Equals(data))
             {
-                result = true;
+                return true;
             }
 
             cur = cur.Next;
 
         } while (cur != this);
 
-        return result;
+        return false;
     }
 
     public void Clear()
