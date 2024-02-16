@@ -11,35 +11,38 @@ namespace GenericsHomework;
         }
 
         public Node<T> Next { get; private set; }
-        public T Data { get; set; }
+        // We made Data non nullable so precautions have been taken to ensure it can't get set
+        // to null
+        public T Data { get; }
         
-        public override string ToString()
+        public override string ToString() 
         {
-                return Data!.ToString()!;
+        // Data is ensured to be not null so null forgiviness is used.
+        return Data!.ToString()!;
+
         }
 
         public void Append(T item)
         {
-        ArgumentNullException.ThrowIfNull(item,nameof(item));
+            ArgumentNullException.ThrowIfNull(item,nameof(item));
 
-        if (Exists(item))
+            if (Exists(item))
             {
-                throw new InvalidOperationException(nameof(item));
-            }
+                    throw new InvalidOperationException(nameof(item));
+             }
             else
             {
                 Node<T> currentNode = Next;
 
-            while (currentNode.Next != this)
-            {
-                currentNode = currentNode.Next;
-            }
+                while (currentNode.Next != this)
+                {
+                    currentNode = currentNode.Next;
+                }
    
-
-            Node<T> newNode = new(item)
-            {
-                Next = this
-            };
+                Node<T> newNode = new(item)
+                {
+                    Next = this
+                };
                     
                 currentNode.Next = newNode;
             }
@@ -56,19 +59,19 @@ namespace GenericsHomework;
     So long as none of them are reachable from an object known to be uncollectable then the circular reference is essentially irrelevant.
     */
     public void Clear()
-        {
-            Next = this;
-
-        }
+    {
+        Next = this;
+    }
 
     public bool Exists(T item)
     {
-     ArgumentNullException.ThrowIfNull(item, nameof(item));
+        ArgumentNullException.ThrowIfNull(item, nameof(item));
 
         Node<T> currentNode = this;
 
     do
     {
+        // Data is ensured to be not null so null forgiviness is used.
         if (currentNode.Data!.Equals(item))
         {
             return true;

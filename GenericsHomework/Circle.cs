@@ -4,28 +4,21 @@ namespace GenericsHomework;
     public class Circle<T>
     {
 
-        public Circle(T item)
+        public Circle(List<T>? items = null)
         {
-            Data = item;
-            Elements = new Node<T>(item);
+            Elements = items ?? [];
         }
 
-        public Node<T> Elements { get; private set; }
-        public T Data { get; set; }
+        public List<T> Elements { get; private set; }
 
         public void Add(T newElement)
         {
             ArgumentNullException.ThrowIfNull(newElement);
-            Elements.Append(newElement);
+            Elements.Add(newElement);
         }
         public override string ToString()
         {
-            if (Data == null)
-                throw new InvalidOperationException(nameof(Data));
-            else
-            {
-                return Data.ToString()!;
-            }
+            return Elements is null ? string.Empty : string.Join(", ", Elements);
         }
 
     }
