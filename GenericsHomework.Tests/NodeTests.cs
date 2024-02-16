@@ -15,18 +15,18 @@ public class NodeTests
     [Fact]
     public void Node_NextReferencePointToSecondNode_Success()
     {
-        Node<string> node = new("Inigo Montoya");
-        node.Append("Butter Cup");
+        Node<int> node = new(1);
+        node.Append(2);
         Assert.NotEqual(node.Data, node.Next.Data);
     }
 
     [Fact]
     public void Node_NextPointToTheLastNode_Success()
     {
-        Node<string> node = new("Inigo Montoya");
-        node.Append("Butter Cup");
-        node.Append("Prince Johan");
-        Assert.Equal("Prince Johan", node.Next.Next.Data);
+        Node<double> node = new(1.0);
+        node.Append(2.0);
+        node.Append(3.0);
+        Assert.Equal(3.0, node.Next.Next.Data);
     }
 
     [Fact]
@@ -40,19 +40,19 @@ public class NodeTests
     [Fact]
     public void Exists_NodeContainsData_True()
     {
-        Node<string> node = new("Inigo Montoya");
-        node.Append("Butter Cup");
-        node.Append("Prince Johan");
-        Assert.True(node.Exists("Prince Johan"));
+        Node<int> node = new(1);
+        node.Append(2);
+        node.Append(3);
+        Assert.True(node.Exists(3));
     }
 
     [Fact]
     public void Exists_NodeDoesNotContainsData_True()
     {
-        Node<string> node = new("Inigo Montoya");
-        node.Append("Butter Cup");
-        node.Append("Prince Johan");
-        Assert.False(node.Exists("Princes Bumble Gum"));
+        Node<double> node = new(1.1);
+        node.Append(2.2);
+        node.Append(3.3);
+        Assert.False(node.Exists(4.4));
     }
 
     [Fact]
@@ -67,20 +67,20 @@ public class NodeTests
     [Fact]
     public void Append_ExistedValue_ThrowArgumentException()
     {
-        Node<string> node = new("Inigo Montoya");
-        node.Append("Butter Cup");
-        node.Append("Prince Johan");
+        Node<int> node = new(1);
+        node.Append(2);
+        node.Append(3);
         Assert.Throws<ArgumentException>(
-            () => node.Append("Inigo Montoya"));
+            () => node.Append(1));
 
     }
 
     [Fact]
     public void Clear_NodesDeleted_Successful()
     {
-        Node<string> node = new("Inigo Montoya");
-        node.Append("Butter Cup");
-        node.Append("Prince Johan");
+        Node<double> node = new(1.1);
+        node.Append(2.1);
+        node.Append(3.1);
         node.Clear();
         Assert.Equal(node.Data, node.Next.Data);
     }
