@@ -99,13 +99,13 @@ public class VennDiagramTests
     [Fact]
     public void Intersection_NullFirstCircleName_ThrowsArgumentNullException()
     {
-        Exception execption = Assert.Throws<ArgumentNullException>(() => VennDiagram.Intersection("Student Wizards", null!, "Wizards"));
+        Exception execption = Assert.Throws<ArgumentNullException>(() => VennDiagram.Intersection("Null Wizards", null!, "Wizards"));
     }
 
     [Fact]
     public void Intersection_NullSecondCircleName_ThrowsArgumentNullException()
     {
-        Exception execption = Assert.Throws<ArgumentNullException>(() => VennDiagram.Intersection("Shape and also a Color", "Flavors", null!)) ;
+        Exception execption = Assert.Throws<ArgumentNullException>(() => VennDiagram.Intersection("Null Wizards", "Wizards", null!)) ;
     }
 
     [Fact]

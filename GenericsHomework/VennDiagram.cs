@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Linq;
+using System.Globalization;
 
 namespace GenericsHomework;
 
@@ -23,10 +24,10 @@ namespace GenericsHomework;
 
         foreach(Circle<T> circle in Circles[0..^1])
         {
-            circles.Append($"{circle}, ");
+            circles.Append(CultureInfo.InvariantCulture,$"{circle}, ");
         }
 
-        circles.Append($"{Circles[^1]}");
+        circles.Append(CultureInfo.InvariantCulture, $"{Circles[^1]}");
 
         return circles.ToString();
     }
