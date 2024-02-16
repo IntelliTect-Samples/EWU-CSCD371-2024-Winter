@@ -24,14 +24,10 @@ public class Node<T>
 
         Node<T> cur = this;
 
-        while( cur.Next != this )
-        {
-            cur = cur.Next;
-        }
-
-        Node<T> nextNode = new(data);
+        Node<T> nextNode = new(data){
+            Next = cur.Next
+        };
         cur.Next = nextNode;
-        nextNode.Next = this;
     }
 
     public override string ToString()

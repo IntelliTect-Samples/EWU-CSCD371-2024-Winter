@@ -26,7 +26,7 @@ public class NodeTests
         Node<double> node = new(1.0);
         node.Append(2.0);
         node.Append(3.0);
-        Assert.Equal(3.0, node.Next.Next.Data);
+        Assert.Equal(2.0, node.Next.Next.Data);
     }
 
     [Fact]
@@ -61,7 +61,7 @@ public class NodeTests
         Node<string> node = new("Inigo Montoya");
         node.Append("Butter Cup");
         node.Append("Prince Johan");
-        Assert.Equal("Linked List: Node 1: Inigo Montoya, Node 2: Butter Cup, Node 3: Prince Johan, }", node.ToString());
+        Assert.Equal("Linked List: Node 1: Inigo Montoya, Node 2: Prince Johan, Node 3: Butter Cup, }", node.ToString());
     }
 
     [Fact]
