@@ -33,17 +33,10 @@ public class NodeTests
     }
 
     [Fact]
-    public void ToString_NullData_ThrowsInvalidOperationException()
-    {
-        Assert.Throws<InvalidOperationException>(() => new Node<object>(null!).ToString());
-    }
-
-    [Fact]
     public void ToString_ValidData_ReturnsStringSuccesfully()
     {
         Assert.Equal("Alexa", NodeList.ToString());
         Assert.Equal("is", NodeList.Next.ToString());
-
     }
 
     [Fact]

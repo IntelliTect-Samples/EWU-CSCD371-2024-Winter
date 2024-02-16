@@ -5,6 +5,7 @@ namespace GenericsHomework;
     {
         public Node(T item)
         {
+            ArgumentNullException.ThrowIfNull(item, nameof(item)); 
             Data = item;
             Next = this;
         }
@@ -14,17 +15,14 @@ namespace GenericsHomework;
         
         public override string ToString()
         {
-            if (Data==null)
-                throw new InvalidOperationException(nameof(Data)); 
-            else
-            {
-                return Data.ToString()!;
-            }
+                return Data!.ToString()!;
         }
 
         public void Append(T item)
         {
-            if (Exists(item))
+        ArgumentNullException.ThrowIfNull(item,nameof(item));
+
+        if (Exists(item))
             {
                 throw new InvalidOperationException(nameof(item));
             }
@@ -65,6 +63,8 @@ namespace GenericsHomework;
 
     public bool Exists(T item)
     {
+     ArgumentNullException.ThrowIfNull(item, nameof(item));
+
         Node<T> currentNode = this;
 
     do
