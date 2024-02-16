@@ -8,17 +8,29 @@ namespace GenericsHomework
 {
     public class Circle<T>
     {
-        public string Name { get; }
-        public Node<T>? Elements { get; private set; }
 
-        public Circle(string name)
+        public Circle(T item)
         {
-            Name = name ?? throw new ArgumentNullException(nameof(name));
-         }
-
-        public void Add(string v)
-        {
-            throw new NotImplementedException();
+            Data = item;
+            Elements = new Node<T>(item);
         }
+
+        public Node<T> Elements { get; private set; }
+        public T Data { get; set; }
+
+        public void Add(T newElement)
+        {
+            Elements.Append(newElement);
+        }
+        public override string ToString()
+        {
+            if (Data == null)
+                throw new InvalidOperationException(nameof(Data));
+            else
+            {
+                return Data.ToString()!;
+            }
+        }
+
     }
     }

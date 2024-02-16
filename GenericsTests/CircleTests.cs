@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Bson;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,12 +10,12 @@ namespace GenericsHomework.Tests
 {
     public class CircleTests
     {
-       
+
         [Fact]
-       public void  Constructor_ValidName_SetsNameSuccessfully()
+        public void Constructor_ValidItem_SetsDataSuccessfully()
         {
             Circle<string> circle = new Circle<string>("Johanne");
-            Assert.Equal("Johanne", circle.Name);
+            Assert.Equal("Johanne", circle.Data);
 
         }
         [Fact]
@@ -22,7 +23,14 @@ namespace GenericsHomework.Tests
         {
             Circle<string> circle = new Circle<string>("Alexa");
             circle.Add("Darrington");
-            Assert.Equal("Darrington", circle.Elements!.Data);
+            Assert.Equal("Darrington", circle.Elements.Next.Data);
+
+        }
+        [Fact]
+        public void ToString_ValidData_PrintsSuccessfully()
+        {
+            Circle<string> circle = new Circle<string>("Benjamin");
+            Assert.Equal("Benjamin", circle.ToString());
 
         }
 
