@@ -4,6 +4,7 @@ public class Node<T>(T data)
 {
     //Can add contraint such as "where T : class" to ensure homogeneous values
     //Can possibly also add "public T Data { get; }" to ensure pproperty is non nullable.
+
     public T Data { get; } = data;
     private Node<T>? next; 
     public Node<T> Next
