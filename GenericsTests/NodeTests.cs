@@ -15,6 +15,24 @@ public class NodeTests
     }
 
     [Fact]
+    public void Constructor_NullData_ThrowsArgumentNullException()
+    {
+        Assert.Throws<ArgumentNullException>(() => new Node<string>(null!));
+    }
+
+    [Fact]
+    public void Append_NullData_ThrowsArgumentNullException()
+    {
+        Assert.Throws<ArgumentNullException>(()=>NodeList.Append(null!));
+    }
+
+    [Fact]
+    public void Exists_NullData_ThrowsArgumentNullException()
+    {
+        Assert.Throws<ArgumentNullException>(() => NodeList.Exists(null!));
+    }
+
+    [Fact]
     public void ToString_NullData_ThrowsInvalidOperationException()
     {
         Assert.Throws<InvalidOperationException>(() => new Node<object>(null!).ToString());
