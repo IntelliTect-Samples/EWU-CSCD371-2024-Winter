@@ -20,6 +20,7 @@ namespace GenericsHomework
 
         public void Add(T newElement)
         {
+            ArgumentNullException.ThrowIfNull(newElement);
             Elements.Append(newElement);
         }
         public override string ToString()

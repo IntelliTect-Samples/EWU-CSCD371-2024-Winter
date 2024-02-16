@@ -19,6 +19,15 @@ namespace GenericsHomework.Tests
 
         }
         [Fact]
+        public void Add_NullElement_ThrowsNullException()
+        {
+            Circle<string> circle = new Circle<string>("Circle");
+
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => circle.Add(null!));
+
+        }
+        [Fact]
         public void Add_MoreCircles_AddsSuccesfully()
         {
             Circle<string> circle = new Circle<string>("Alexa");
