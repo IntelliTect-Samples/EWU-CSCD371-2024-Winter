@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,10 @@ namespace GenericsHomework
             Data = data;
         }
 
-
-
+        public void AddCircles(Circle<T> circle)
+        {
+            ArgumentNullException.ThrowIfNull(circle);
+            Circles.Add(circle);
+        }
     }
 }

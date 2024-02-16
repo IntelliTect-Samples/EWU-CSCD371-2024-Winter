@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Bson;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,6 +31,33 @@ namespace GenericsHomework.Tests
             Assert.Contains(circle1, venn.Circles); // Check if circle1 is present
             Assert.Contains(circle2, venn.Circles); // Check if circle2 is present
         }
+        [Fact]
+        public void AddCircles_NullCircle_ThrowsNullException()
+        {
+            // Arrange
+            var circle = new Circle<string>("Michael");
+            var vennDiagram = new VennDiagram<string>(new List<Circle<string>> { circle }, "TestData");
+
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => { vennDiagram.AddCircles(null!); });
+        }
+        [Fact]
+        public void AddCircles_ValidCircles_AddsSuccessfully()
+        {
+            // Arrange
+            Circle<string> circleOne = new Circle<string>("Circle one");
+            VennDiagram<string> vennDiagram = new VennDiagram<string>(new List<Circle<string>> { circleOne }, "ValidData");
+
+            // Act
+            Circle<string> circleTwo = new Circle<string>("Circle two");
+            vennDiagram.AddCircles(circleTwo);
+
+            // Assert
+            Assert.Contains(circleTwo, vennDiagram.Circles);
+        }
+
+
+      
 
     }
 
