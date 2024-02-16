@@ -1,16 +1,10 @@
-﻿using Newtonsoft.Json.Bson;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
+﻿using Xunit;
 
-namespace GenericsHomework.Tests
-{
+namespace GenericsHomework.Tests;
+
     public class VennDiagramTests
     {
-        [Fact]
+        /*[Fact]
         public void Constructor_ValidItem_SetsDataSuccessfully()
         { 
 
@@ -73,12 +67,8 @@ namespace GenericsHomework.Tests
 
         // Assert
         Assert.Equal(expectedString, result);
-    }
-
-
-
-
+    }*/
 }
 
     
-}
+

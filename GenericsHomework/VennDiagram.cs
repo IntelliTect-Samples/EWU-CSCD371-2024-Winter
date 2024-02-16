@@ -27,10 +27,10 @@ namespace GenericsHomework;
             StringBuilder result = new StringBuilder();
             result.Append("{");
 
-            foreach (var circle in Circles)
+/*            foreach (var circle in Circles)
             {
                 result.Append($"{{{circle.Data}}}, ");
-            }
+            }*/
 
             // Remove the trailing comma and space
             result.Length -= 2;
