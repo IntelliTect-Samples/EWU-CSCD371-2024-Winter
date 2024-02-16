@@ -1,4 +1,6 @@
-﻿using Xunit;
+﻿using NuGet.Frameworks;
+using Xunit;
+using Xunit.Sdk;
 
 namespace GenericsHomework.Tests;
 
@@ -34,13 +36,27 @@ public class VennDiagramTests
         Assert.Contains(circle1, venn.Circles); // Check if circle1 is present
         Assert.Contains(circle2, venn.Circles); // Check if circle2 is present
     }
+
     [Fact]
-    public void AddCircles_NullCircle_ThrowsNullException()
+    public void Exists_ExistingCircleName_ReturnsTrue()
     {
-        Assert.Throws<ArgumentNullException>(() => { new VennDiagram<string>("TestData", [new Circle<string>("Circle3")]).AddCircles(null!); });
+        Assert.True(VennDiagram.Exists("Superheroes"));
+
+    }
+
+    [Fact]
+    public void Exists_NonexistentCircleName_ReturnsFalse()
+    {
+        Assert.False(VennDiagram.Exists("Princesses"));
+    }
+
+    [Fact]
+    public void Add_NullCircle_ThrowsNullException()
+    {
+        Assert.Throws<ArgumentNullException>(() => { new VennDiagram<string>("TestData", [new Circle<string>("Circle3")]).Add(null!); });
     }
     [Fact]
-    public void AddCircles_ValidCircles_AddsSuccessfully()
+    public void Add_ValidCircles_AddsSuccessfully()
     {
         // Arrange
         Circle<string> circleOne = new("Circle4");
@@ -48,10 +64,16 @@ public class VennDiagramTests
 
         // Act
         Circle<string> circleTwo = new("Circle5");
-        vennDiagram.AddCircles(circleTwo);
+        vennDiagram.Add(circleTwo);
 
         // Assert
         Assert.Contains(circleTwo, vennDiagram.Circles);
+    }
+
+    [Fact]
+    public void Add_DuplicateNameCircle_ThrowsArgumentException()
+    {
+        Assert.Throws<ArgumentException>(() => VennDiagram.Add(new Circle<string>("Superheroes")));
     }
 
     [Fact]

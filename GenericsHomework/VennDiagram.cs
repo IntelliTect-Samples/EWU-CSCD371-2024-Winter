@@ -9,10 +9,23 @@ namespace GenericsHomework;
     public List<Circle<T>> Circles { get; private set; } = Circles ?? [];
     public string Name { get; } = Name;
 
-    public void AddCircles(Circle<T> circle)
+    public void Add(Circle<T> circle)
     {
         ArgumentNullException.ThrowIfNull(circle);
+
+        if (Exists(circle.Name))
+        {
+            throw new ArgumentException("Name of circle already exists within Diagram", nameof(circle));
+        }
+
         Circles.Add(circle);
+    }
+
+    public bool Exists(string name)
+    {
+        List<string> circleNames = Circles.Where(circle => circle.Name == name).Select(circle => circle.Name).ToList();
+
+        return circleNames.Count != 0;
     }
 
     public override string ToString()
