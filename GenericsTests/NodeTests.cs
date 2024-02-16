@@ -55,27 +55,18 @@ public class NodeTests
         newNode.Append("New Node2");
         newNode.Clear();
 
-        Assert.Equal(newNode, newNode.Next);
+        Assert.Same(newNode, newNode.Next);
     }
 
-    [Fact]
-    public void Exists_NodeExistsAtEnd_ReturnsTrue()
+    [Theory]
+    [InlineData("best!")]
+    [InlineData("the")]
+    [InlineData("Alexa")]
+    public void Exists_NodeExists_ReturnsTrue(string data)
     {
-        Assert.True(NodeList.Exists("best!"));
+        Assert.True(NodeList.Exists(data));
     }
 
-    [Fact]
-    public void Exists_NodeExistsInMiddle_ReturnsTrue()
-    {
-
-        Assert.True(NodeList.Exists("the"));
-    }
-
-    [Fact]
-    public void Exists_NodeExistsAtStart_ReturnsTrue()
-    {
-        Assert.True(NodeList.Exists("Alexa"));
-    }
 
     [Fact]
     public void Exists_NodeDoesNotExists_ReturnsFalse()
