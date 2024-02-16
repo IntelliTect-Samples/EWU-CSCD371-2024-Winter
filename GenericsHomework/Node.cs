@@ -12,16 +12,7 @@ public class Node<T>
         Data = data;
         Next = this;
     }
-    public Node<T> Next { 
-        get
-        { 
-            return _Next!;
-        }  
-        private set
-        { 
-            _Next = value;
-        } 
-    }
+    public Node<T> Next { get; private set;}
 
     public void Append(T data)
     {
