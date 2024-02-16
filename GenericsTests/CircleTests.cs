@@ -1,13 +1,7 @@
-﻿using Newtonsoft.Json.Bson;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
+﻿using Xunit;
 
-namespace GenericsHomework.Tests
-{
+namespace GenericsHomework.Tests;
+
     public class CircleTests
     {
 
@@ -46,4 +40,3 @@ namespace GenericsHomework.Tests
         }
 
     }
-}

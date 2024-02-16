@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+namespace GenericsHomework;
 
-namespace GenericsHomework
-{
     public class Circle<T>
     {
 
@@ -33,5 +28,4 @@ namespace GenericsHomework
             }
         }
 
-    }
     }

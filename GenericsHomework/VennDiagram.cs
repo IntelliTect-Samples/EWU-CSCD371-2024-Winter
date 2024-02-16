@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
+﻿
 using System.Text;
-using System.Threading.Tasks;
 
-namespace GenericsHomework
-{
+namespace GenericsHomework;
+
     public class VennDiagram<T>
     {
         public List<Circle<T>> Circles { get; private set; }
@@ -45,4 +41,3 @@ namespace GenericsHomework
         }
 
     }
-}
