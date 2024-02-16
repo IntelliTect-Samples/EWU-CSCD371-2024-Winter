@@ -24,6 +24,7 @@ public class NodeTests
     {
         Node<int> node = new(1);
         node.Append(2);
+        node.Append(3);
         Assert.Equal(2, node.Next.Data);
     }
 
