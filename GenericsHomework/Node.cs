@@ -2,7 +2,10 @@
 
 public class Node<T>
 {
-    private Node<T>? _Next;
+    //We know that the next atribute will never be null
+    #nullable disable
+    private Node<T> _Next;
+    #nullable enable
     public T Data { get; set; }
     public Node(T data)
     {
