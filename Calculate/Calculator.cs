@@ -3,8 +3,11 @@ namespace Calculate;
 
 public class Calculator
 {
-    public static void Add(object value1, object value2)
+    public static double Add(int value1, int value2)
     {
-        throw new NotImplementedException();
+        ArgumentNullException.ThrowIfNull(value1);
+        ArgumentNullException.ThrowIfNull(value2);
+
+        return value1 + value2;
     }
 }
