@@ -10,11 +10,22 @@ public class CalculatorTests
     [InlineData(-2, -5, 3)]
     [InlineData(100, 99, 1)]
     [InlineData(25, 14, 11)]
-    public void Add_ReturnCorrectResult_True(double expected, int value1, int value2)
+    public void Add_ReturnCorrectResult_True(int expected, int value1, int value2)
     {
-        double result = Calculator.Add(value1, value2);
+        int result = Calculator.Add(value1, value2);
         Assert.Equal(expected, result);
     }
+
+
+    [Theory]
+    [InlineData(0,1,1)]
+    public void Subtract_ReturnCorrectResult_True(int expected, int value1, int value2)
+    {
+        int result = Calculator.Subtract(value1, value2);
+        Assert.Equal(expected, result);
+    }
+
+
     [Fact]
     public void Multilple_Success()
     {
