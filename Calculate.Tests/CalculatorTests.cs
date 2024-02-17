@@ -13,17 +13,22 @@ public class CalculatorTests
     public void Add_ReturnCorrectResult_True(double expected, int value1, int value2)
     {
         double result = Calculator.Add(value1, value2);
-        Assert.Equal(expected, result);
+        Assert.Equal<int>(expected, result);
     }
-    [Fact]
-    public void Multilple_Success()
+    [Theory]
+    [InlineData(12,3,4)]
+    [InlineData(12,2,6)]
+    public void Multilple_Success(int expected, int value1, int value2)
     {
-        Assert.Equal<int>(12, Calculator.Multiple(3,4));
+        Assert.Equal<int>(expected, Calculator.Multiple(value1, value2));
     }
 
-    [Fact]
-    public void Divide_Success()
+    [Theory]
+    [InlineData(0.5,1,2)]
+    [InlineData(2,4,2)]
+    [InlineData(2,8,4)]
+    public void Divide_Success(int expected, int value1, int value2)
     {
-        Assert.Equal<double>(2.0, Calculator.Divide(8,4));
+        Assert.Equal<double>(expected, Calculator.Divide( value1, value2));
     }
 }
