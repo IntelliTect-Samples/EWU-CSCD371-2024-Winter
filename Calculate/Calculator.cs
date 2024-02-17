@@ -2,7 +2,7 @@
 
 public class Calculator
 {
-    public static int Multilple(int multiplicand, int multiplier)
+    public static int Multiple(int multiplicand, int multiplier)
     {
         return multiplicand * multiplier;
     }
