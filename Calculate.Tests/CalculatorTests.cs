@@ -26,7 +26,7 @@ public class CalculatorTests
     public void Subtract_ReturnCorrectResult_True(int expected, int value1, int value2)
     {
         int result = Calculator.Subtract(value1, value2);
-        Assert.Equal(expected, result);
+        Assert.Equal<int>(expected, result);
     }
 
 
