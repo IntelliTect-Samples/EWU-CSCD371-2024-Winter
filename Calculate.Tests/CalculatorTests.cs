@@ -1,4 +1,7 @@
-﻿namespace Calculate.Tests;
+using Xunit;
+using Xunit.Sdk;
+
+namespace Calculate.Tests;
 
 public class CalculatorTests
 {
@@ -11,5 +14,16 @@ public class CalculatorTests
     {
         double result = Calculator.Add(value1, value2);
         Assert.Equal(expected, result);
+    }
+    [Fact]
+    public void Multilple_Success()
+    {
+        Assert.Equal<int>(12, Calculator.Multiple(3,4));
+    }
+
+    [Fact]
+    public void Divide_Success()
+    {
+        Assert.Equal<double>(2.0, Calculator.Divide(8,4));
     }
 }
