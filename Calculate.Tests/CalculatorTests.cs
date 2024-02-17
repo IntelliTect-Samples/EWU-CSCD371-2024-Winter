@@ -19,6 +19,10 @@ public class CalculatorTests
 
     [Theory]
     [InlineData(0,1,1)]
+    [InlineData(0, 100, 100)]
+    [InlineData(-1, 1, 2)]
+    [InlineData(-101,-100, 1)]
+    [InlineData(0, -1, -1)]
     public void Subtract_ReturnCorrectResult_True(int expected, int value1, int value2)
     {
         int result = Calculator.Subtract(value1, value2);
@@ -27,7 +31,7 @@ public class CalculatorTests
 
 
     [Fact]
-    public void Multilple_Success()
+    public void Multiple_Success()
     {
         Assert.Equal<int>(12, Calculator.Multiple(3,4));
     }
