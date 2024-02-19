@@ -4,17 +4,20 @@ public class Calculator
 {
     public static int Add(int a, int b)
     {
-        return a + b;
+        int answer = a + b;
+        return answer;
     }
 
     public static int Subtract(int a, int b)
     {
-        return a - b;
+        int answer = a - b;
+        return answer;
     }
 
     public static int Multiple(int a, int b)
     {
-        return a * b;
+        int answer = a * b;
+        return answer;
     }
 
     public static int Divide(int a, int b)
@@ -24,7 +27,8 @@ public class Calculator
             throw new ArgumentException("Divide by 0 Error");
         }
 
-        return a / b;
+        int answer = a / b;
+        return answer;
     }
 
     public static void TryCalculate()
