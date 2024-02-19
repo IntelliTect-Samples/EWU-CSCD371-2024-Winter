@@ -71,6 +71,6 @@ public class CalculatorTests
         Calculator calculator = new();
         bool result = calculator.TryCalculate(expression, out int? answer);
         Assert.True(result);
-        Assert.Equal(expected, answer);
+        Assert.Equal<int?>(expected, answer);
     } 
 }
