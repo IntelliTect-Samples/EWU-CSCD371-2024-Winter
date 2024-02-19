@@ -49,7 +49,7 @@ public class Calculator
             {
                 if(calcParts[1] == "+" || calcParts[1] == "-" || calcParts[1] == "*" || calcParts[1] == "/")
                 {
-                    char[] op = calcParts[2].ToCharArray();
+                    char[] op = calcParts[1].ToCharArray();
                     Func<int,int,int> operation = MathematicalOperations[op[0]];
                     return true;
                 }
