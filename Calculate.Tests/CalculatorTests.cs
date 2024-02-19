@@ -64,6 +64,8 @@ public class CalculatorTests
     [Theory]
     [InlineData("3 + 4")]
     [InlineData("42 - 2")]
+    [InlineData("9999999 * 0")]
+    [InlineData("100 / 100")]
     public void TryCalculate(string expression)
     {
         Calculator calculator = new();
