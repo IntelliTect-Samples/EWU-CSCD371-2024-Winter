@@ -16,9 +16,17 @@ public class Program
     public static void Main(string[] args )
     {
         Program program = new();
+        Calculator calculator = new();
+        string input;
+        int? answer;
+
+        do{
         program.WriteLine("Please enter something: ");
-        string input = program.ReadLine();
-        program.WriteLine($"You entered: {input}");
+        input = program.ReadLine();
+
+        }while(!calculator.TryCalculate(input, out answer));
+
+        program.WriteLine($"The answer is: {answer}");
     }
 
 }

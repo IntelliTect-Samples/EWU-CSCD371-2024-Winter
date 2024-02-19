@@ -69,8 +69,7 @@ public class CalculatorTests
     public void TryCalculate(string expression)
     {
         Calculator calculator = new();
-        int? answer = null;
-        bool result = calculator.TryCalculate(expression, answer);
+        bool result = calculator.TryCalculate(expression, out int? answer);
         Assert.True(result);
     } 
 }
