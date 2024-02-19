@@ -1,6 +1,6 @@
 namespace CalculateTests.Test;
 
-    public class CalculateTests
+    public class ProgramTests
     {
         [Fact]
         public void Test1()
