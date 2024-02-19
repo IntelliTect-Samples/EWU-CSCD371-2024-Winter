@@ -41,22 +41,26 @@ public class Calculator
     {
         string [] calcParts = calculation.Split(" ");
 
-        if(calcParts.Length < 3 || calcParts.Length > 3){
+        if(calcParts.Length != 3)
+        {
             result = null;
             return false;
         }
-        else{
+        else
+        {
             if(calcParts[0].All(char.IsDigit) && calcParts[2].All(char.IsDigit))
             {
-                if(calcParts[1] == "+" || calcParts[1] == "-" || calcParts[1] == "*" || calcParts[1] == "/")
+                if (MathematicalOperations.ContainsKey(char.Parse(calcParts[1])))
                 {
-                    try{
-                    char[] op = calcParts[1].ToCharArray();
-                    Func<int,int,int> operation = MathematicalOperations[op[0]];
-                    result = operation(Int32.Parse(calcParts[0]), Int32.Parse(calcParts[2]));
-                    return true;
+                    try
+                    {
+                        char[] op = calcParts[1].ToCharArray();
+                        Func<int,int,int> operation = MathematicalOperations[op[0]];
+                        result = operation(Int32.Parse(calcParts[0]), Int32.Parse(calcParts[2]));
+                        return true;
                     }
-                    catch (FormatException){
+                    catch (FormatException)
+                    {
                         throw new FormatException($"Unable to parse {calcParts[0]} or {calcParts[3]}");
                     }
                 }

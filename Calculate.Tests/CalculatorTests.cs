@@ -62,15 +62,16 @@ public class CalculatorTests
     }
 
     [Theory]
-    [InlineData("3 + 4")]
-    [InlineData("42 - 2")]
-    [InlineData("9999999 * 0")]
-    [InlineData("100 / 100")]
-    public void TryCalculate(string expression)
+    [InlineData(7, "3 + 4")]
+    [InlineData(40, "42 - 2")]
+    [InlineData(0, "9999999 * 0")]
+    [InlineData(1, "100 / 100")]
+    public void TryCalculate(int expected, string expression)
     {
         Calculator calculator = new();
         int? answer = null;
-        bool result = calculator.TryCalculate(expression, answer);
+        bool result = calculator.TryCalculate(expression, out answer);
         Assert.True(result);
+        Assert.Equal(expected, answer);
     } 
 }
