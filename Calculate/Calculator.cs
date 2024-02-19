@@ -45,9 +45,9 @@ public class Calculator
             return false;
         }
         else{
-            if(calcParts[0].All(char.IsDigit) && calcParts[3].All(char.IsDigit))
+            if(calcParts[0].All(char.IsDigit) && calcParts[2].All(char.IsDigit))
             {
-                if(calcParts[2] == "+" || calcParts[2] == "-" || calcParts[2] == "*" || calcParts[2] == "/")
+                if(calcParts[1] == "+" || calcParts[1] == "-" || calcParts[1] == "*" || calcParts[1] == "/")
                 {
                     char[] op = calcParts[2].ToCharArray();
                     Func<int,int,int> operation = MathematicalOperations[op[0]];
