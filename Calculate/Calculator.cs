@@ -37,11 +37,12 @@ public class Calculator
         return dividend / divisor;
     }
 
-    public bool TryCalculate(string calculation)
+    public bool TryCalculate(string calculation, out int? result)
     {
         string [] calcParts = calculation.Split(" ");
 
         if(calcParts.Length < 3 || calcParts.Length > 3){
+            result = null;
             return false;
         }
         else{
@@ -49,12 +50,19 @@ public class Calculator
             {
                 if(calcParts[1] == "+" || calcParts[1] == "-" || calcParts[1] == "*" || calcParts[1] == "/")
                 {
+                    try{
                     char[] op = calcParts[1].ToCharArray();
                     Func<int,int,int> operation = MathematicalOperations[op[0]];
+                    result = operation(Int32.Parse(calcParts[0]), Int32.Parse(calcParts[2]));
                     return true;
+                    }
+                    catch (FormatException){
+                        throw new FormatException($"Unable to parse {calcParts[0]} or {calcParts[3]}");
+                    }
                 }
             }
         }
+        result = null;
         return false;
     }
 }
