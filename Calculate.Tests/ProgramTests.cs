@@ -38,7 +38,10 @@ public class ProgramTests
 
 public class MockClass
 {
+    //Output will never be null
+    #nullable disable
     public string Output { get; set; }
+    #nullable enable
     public void WriteLine(string input)
     {
         Output = input;
