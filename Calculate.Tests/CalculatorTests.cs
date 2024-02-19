@@ -63,7 +63,7 @@ public class CalculatorTests
 
     [Theory]
     [InlineData("3 + 4")]
-    [InlineData( "42 - 2")]
+    [InlineData("42 - 2")]
     public void TryCalculate(string expression)
     {
         Calculator calculator = new();
