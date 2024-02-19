@@ -1,10 +1,13 @@
+using Xunit;
+
 namespace Calculate.Tests;
 
-public class UnitTest1
+public class ProgramTests
 {
     [Fact]
-    public void Test1()
+    public void WriteLine_OutputMatch_True()
     {
+        
 
     }
 }
