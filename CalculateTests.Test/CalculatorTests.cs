@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace CalculateTests.Test;
 
-    internal class CalculatorTests
+//XUnit tests - Assert.Equal are generic by default
+
+internal class CalculatorTests
     {
     }
 

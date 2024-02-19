@@ -2,7 +2,10 @@ namespace CalculateTests.Test;
 
     public class ProgramTests
     {
-        [Fact]
+
+    //XUnit tests - Assert.Equal are generic by default
+
+    [Fact]
         public void Test1()
         {
 
