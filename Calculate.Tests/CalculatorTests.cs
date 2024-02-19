@@ -60,4 +60,14 @@ public class CalculatorTests
         int result = operation(value1, value2);
         Assert.Equal<int>(expected, result);
     }
+
+    [Theory]
+    [InlineData("3 + 4")]
+    [InlineData( "42 - 2")]
+    public void TryCalculate(string expression)
+    {
+        Calculator calculator = new();
+        bool result = calculator.TryCalculate(expression);
+        Assert.True(result);
+    } 
 }
