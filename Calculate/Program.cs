@@ -1,6 +1,16 @@
 ﻿namespace Calculate;
-public abstract class Program
+public class Program
 {
-    public abstract string WriteLine{ get; init;}
-    public abstract string ReadLine { get; init;}
+    public string WriteLine{ get; init;}
+    public string ReadLine { get; init;}
+
+    public Program()
+    {
+
+    }
+
+    public static void Main(string[] args)
+    {
+        Calculator calculator = new();
+    }
 }
