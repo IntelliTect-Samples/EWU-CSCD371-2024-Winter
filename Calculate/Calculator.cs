@@ -4,6 +4,16 @@ namespace Calculate;
 public class Calculator
 {
 
+    public IReadOnlyDictionary<char, Func<int, int, int>> MathematicalOperations { get; } = 
+        new Dictionary<char, Func<int, int, int>>()
+        {
+            ['+'] = Add,
+            ['-'] = Subtract,
+            ['*'] = Multiple,
+            ['/'] = Divide
+
+        };
+
     public static int Add(int value1, int value2)
     {
         return value1 + value2;
@@ -19,8 +29,8 @@ public class Calculator
         return multiplicand * multiplier;
     }
 
-    public static double Divide(int dividend, int divisor)
+    public static int Divide(int dividend, int divisor)
     {
-        return dividend / (double) divisor;
+        return dividend / divisor;
     }
 }

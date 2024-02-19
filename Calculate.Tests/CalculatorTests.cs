@@ -42,8 +42,22 @@ public class CalculatorTests
     [InlineData(0.5,1,2)]
     [InlineData(2,4,2)]
     [InlineData(2,8,4)]
-    public void Divide_Success(double expected, int value1, int value2)
+    public void Divide_Success(int expected, int value1, int value2)
     {
-        Assert.Equal<double>(expected, Calculator.Divide( value1, value2));
+        Assert.Equal<int>(expected, Calculator.Divide( value1, value2));
+    }
+
+    [Theory]
+    [InlineData(4, '+', 2, 2)]
+    [InlineData(10, '-', 21, 11)]
+    [InlineData(-99, '+', -100, 1)]
+    [InlineData(50, '*', 5, 10)]
+    [InlineData(25, '/', 75, 3)]
+    public void MathematicalOperations(int expected, char mathSymbol, int value1, int value2)
+    {
+        Calculator calculator = new();
+        Func<int,int,int> operation = calculator.MathematicalOperations[mathSymbol];
+        int result = operation(value1, value2);
+        Assert.Equal<int>(expected, result);
     }
 }
