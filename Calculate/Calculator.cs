@@ -1,4 +1,6 @@
 
+using System.Security.Cryptography;
+
 namespace Calculate;
 
 public class Calculator
@@ -13,6 +15,7 @@ public class Calculator
             ['/'] = Divide
 
         };
+
 
     public static int Add(int value1, int value2)
     {
@@ -32,5 +35,26 @@ public class Calculator
     public static int Divide(int dividend, int divisor)
     {
         return dividend / divisor;
+    }
+
+    public bool TryCalculate(string calculation)
+    {
+        string [] calcParts = calculation.Split(" ");
+
+        if(calcParts.Length < 3 || calcParts.Length > 3){
+            return false;
+        }
+        else{
+            if(calcParts[0].All(char.IsDigit) && calcParts[3].All(char.IsDigit))
+            {
+                if(calcParts[2] == "+" || calcParts[2] == "-" || calcParts[2] == "*" || calcParts[2] == "/")
+                {
+                    char[] op = calcParts[2].ToCharArray();
+                    Func<int,int,int> operation = MathematicalOperations[op[0]];
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
