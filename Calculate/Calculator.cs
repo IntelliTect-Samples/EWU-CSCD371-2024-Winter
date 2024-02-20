@@ -42,7 +42,7 @@ public class Calculator
         return answer;
     }
 
-    public bool TryCalculate(string expression, out double? result)
+    public static bool TryCalculate(string expression, out double? result)
     {
         string[] equationParts = expression.Split(" ");
 
