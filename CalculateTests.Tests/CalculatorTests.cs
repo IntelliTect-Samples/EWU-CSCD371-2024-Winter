@@ -1,8 +1,7 @@
 ﻿using Xunit;
 using Calculate;
 
-namespace CalculateTests.Test
-{
+namespace CalculateTests.Test;
     public class CalculatorTests
     {
         [Fact]
@@ -80,4 +79,3 @@ namespace CalculateTests.Test
             Assert.Equal(expected, actual);
         }
     }
-}
