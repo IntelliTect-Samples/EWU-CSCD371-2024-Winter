@@ -6,7 +6,7 @@ namespace CalculateTests.Test
     public class CalculatorTests
     {
         [Fact]
-        public void TestAdd()
+        public void Add_PositiveValues_ReturnsCorrect()
         {
             // Arrange
             int x = 5;
@@ -20,7 +20,7 @@ namespace CalculateTests.Test
         }
 
         [Fact]
-        public void TestSubtract()
+        public void Subtract_PositiveValues_ReturnsCorrect()
         {
             // Arrange
             int x = 5;
@@ -34,7 +34,7 @@ namespace CalculateTests.Test
         }
 
         [Fact]
-        public void TestMultiply()
+        public void Multiply_PositiveValues_ReturnsCorrect()
         {
             // Arrange
             int x = 5;
@@ -48,7 +48,7 @@ namespace CalculateTests.Test
         }
 
         [Fact]
-        public void TestDivide()
+        public void Divide_PositiveValues_ReturnsCorrect()
         {
             // Arrange
             int x = 6;
