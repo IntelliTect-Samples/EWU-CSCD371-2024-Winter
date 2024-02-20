@@ -1,4 +1,5 @@
-﻿namespace Calculate;
+﻿
+namespace Calculate;
 
 public class Calculator
 {
@@ -27,5 +28,9 @@ public class Calculator
         return num1 / num2;
     }
 
+    public static bool TryCalculate(string v)
+    {
+        throw new NotImplementedException();
+    }
 }
 

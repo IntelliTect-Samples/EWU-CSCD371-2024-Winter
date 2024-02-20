@@ -27,4 +27,10 @@ namespace Calculate.Tests;
             Assert.Equal(1, Calculator.Divide(3, 3));
         }
 
+        [Fact]
+        public void TryCalcuate_ValidAddition_ReturnsTrue()
+        {
+            Assert.True(Calculator.TryCalculate("3 + 3"));
+        }
+
 }
