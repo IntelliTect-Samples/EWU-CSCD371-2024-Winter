@@ -30,13 +30,12 @@ namespace Calculate.Tests;
         [Theory]
         [InlineData(6, "3 + 3")]
         [InlineData(0, "3 - 3")]
-        [InlineData(125, "45 * 3")]
-        [InlineData(4, "64 / 4")]
+        [InlineData(135, "45 * 3")]
+        [InlineData(16, "64 / 4")]
         public void TryCalcuate_ValidExpression_calculatesCorrectly(int expected, string expression)
         {
-
-        Calculator.TryCalculate(expression, out int res);
-        Assert.Equal(expected, res);
+            Calculator.TryCalculate(expression, out int res);
+            Assert.Equal(expected, res);
         }
 
 }
