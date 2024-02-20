@@ -36,6 +36,7 @@ public class Calculator
         int num1 = 0;
         int num2 = 0;
         result = 0;
+
         if (int.TryParse(ops[0], out num1) && int.TryParse(ops[2], out num2) )
         {
 

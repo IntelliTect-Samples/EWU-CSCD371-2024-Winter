@@ -43,9 +43,19 @@ namespace Calculate.Tests;
         [InlineData("One + 2")]
         [InlineData("1 + Two")]
         [InlineData("Oon - Two")]
-        public void TryCalculate_InvalidExpression_ReturnsFalse(string expression)
+        public void TryCalculate_InvalidOperands_ReturnsFalse(string expression)
         {
         Assert.False(Calculator.TryCalculate(expression, out _));
+        }
+
+        [Theory]
+        [InlineData("1+ 2")]
+        [InlineData("1 +2")]
+        [InlineData("1  -  2")]
+        [InlineData("1-2")]
+        public void TryCalculate_UnformattedWhiteSpace_ReturnsFalse(string expression)
+        {
+            Assert.False(Calculator.TryCalculate(expression, out _));
         }
 
 }
