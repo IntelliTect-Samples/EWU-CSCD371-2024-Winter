@@ -1,4 +1,5 @@
 ﻿
+using System.Linq.Expressions;
 using Xunit;
 
 namespace Calculate.Tests;
@@ -32,10 +33,16 @@ namespace Calculate.Tests;
         [InlineData(0, "3 - 3")]
         [InlineData(135, "45 * 3")]
         [InlineData(16, "64 / 4")]
-        public void TryCalcuate_ValidExpression_calculatesCorrectly(int expected, string expression)
+        public void TryCalcuate_ValidExpression_CalculatesCorrectly(int expected, string expression)
         {
             Calculator.TryCalculate(expression, out int res);
             Assert.Equal(expected, res);
+        }
+
+        [Fact]
+        public void TryCalculate_InvalidExpression_ReturnsFalse()
+        {
+        Assert.False(Calculator.TryCalculate("One + 3", out _));
         }
 
 }
