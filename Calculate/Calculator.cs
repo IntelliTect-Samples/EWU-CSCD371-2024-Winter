@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Calculate;
-    internal class Calculator
+    public class Calculator
     {
 
 
