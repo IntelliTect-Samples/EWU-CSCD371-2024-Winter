@@ -13,6 +13,11 @@ public class Program
         ReadLine = readLine;
     }
 
+    public static void Main(string[] args)
+        {
+            // Your application logic goes here
+        }
+
 }
 
 
