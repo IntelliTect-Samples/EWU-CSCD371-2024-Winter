@@ -4,11 +4,13 @@ namespace Calculate;
 public class Calculator
 {
 
-    public IReadOnlyDictionary<char, int> MathematicalOperations { get; } = new Dictionary<char, int>()
-        { {'+',0 },
-        {'-',1 },
-        {'-',2 },
-        {'-',3 }};
+    public IReadOnlyDictionary<char, Func<int,int,int>> MathematicalOperations { get; } = new Dictionary<char, Func<int, int, int>>()
+        { 
+        {'+',Add},
+        {'-',Subtract},
+        {'*',Multiply },
+        {'/', Divide}
+        };
     
     public static int Add(int num1, int num2)
     {
