@@ -1,9 +1,4 @@
 ﻿using Calculate;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace CalculateTests;
@@ -53,6 +48,25 @@ public class CalculatorTests
         int result = Calculator.Divide(a, b);
 
         Assert.Equal(expected, result);
+    }
+
+    [Fact]
+    public void TestDivide_ZeroDenominator_Throws()
+    {
+        Assert.Throws<ArgumentException>(() => Calculator.Divide(3, 0));
+    }
+
+    [Theory]
+    [InlineData("2 + 3", 5, true)]
+    [InlineData("-4 - 3", -7, true)]
+    [InlineData("2", 0, false)]
+    [InlineData("2+3", 0, false)]
+    public void TestTryCalculate_ReturnsCorrectValues(string input, int expectedOutput, bool expectedValidity)
+    {
+        Calculator calc = new();
+        bool valid = calc.TryCalculate(input, out int result);
+        Assert.Equal(expectedValidity, valid);
+        Assert.Equal(expectedOutput, result);
     }
 }
 
