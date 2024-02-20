@@ -1,10 +1,9 @@
-﻿namespace Calculate
+﻿namespace Calculate;
+public class Program
 {
-    internal class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello, World!");
-        }
-    }
+    public Action<string> WriteLine { get; init; } = Console.WriteLine;
+    public Func<string?> ReadLine { get; init; } = Console.ReadLine;
+
+
 }
+
