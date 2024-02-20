@@ -11,10 +11,12 @@ public class Calculator<T> where T : INumber<T>
         ['/'] = Divide
     };
 
+#pragma warning disable CA1000
     public static T Add(T a, T b) => a + b;
     public static T Subtract(T a, T b) => a - b;
     public static T Multiply(T a, T b) => a * b;
     public static T Divide(T a, T b) => !b.Equals(0) ? a / b : throw new ArgumentException("Can't divide by 0", nameof(b));
+#pragma warning restore CA1000
 
     public bool TryCalculate(string calculation, out float result)
     {
