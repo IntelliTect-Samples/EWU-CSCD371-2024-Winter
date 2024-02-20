@@ -7,13 +7,21 @@ public class ProgramTests
     [Fact]
     public void Program_ValidExpression_VerifiesConsole()
     {
-        ConsoleAssert.Expect("Testing WriteLine",
-            () =>
-            {
-                Program program = new();
-                program.WriteLine("Testing WriteLine");
-                var result = program.ReadLine();
-                Assert.NotNull(result);
-            });
+        List<string> args = [];
+        Action<string> fWriteLine = args.Add;
+        string? fInput = "3 + 4";
+        string? fReadLine() => fInput;
+
+        Program program = new()
+        {
+            WriteLine = fWriteLine,
+            ReadLine = fReadLine
+        };
+
+        Program.Main([]);
+
+        Assert.Contains("Enter an expression: ", args);
+        Assert.Contains("Result: 7", args);
+
     }
 }
