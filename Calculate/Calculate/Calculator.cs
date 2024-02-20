@@ -13,7 +13,7 @@ internal class Calculator
     public static int Multiply(int a, int b) => a * b;
     public static int Divide(int a, int b) => a / b;
 
-    public readonly IReadOnlyDictionary<char, Func<int, int, int>> MathOperations =
+    public readonly IReadOnlyDictionary<char, Func<int, int, int>> MathematicalOperations =
         new Dictionary<char, Func<int, int, int>>
         {
             {'+', Add },
@@ -31,7 +31,7 @@ internal class Calculator
         if (!int.TryParse(parts[0], out int lhs) || !int.TryParse(parts[2], out int rhs)) return false;
 
         char op = parts[1][0];
-        if(!MathOperations.TryGetValue(op, out var func)) return false;
+        if(!MathematicalOperations.TryGetValue(op, out var func)) return false;
 
         result = func(lhs, rhs);
         return true;

@@ -5,7 +5,7 @@ namespace Calculate;
 public class Program
 {
     public Action<string> WriteLine { get; init; }
-    public Func<string> ReadLine { get; init; }
+    public Func<string?> ReadLine { get; init; } //ReadLine may return null, this is so we can catch the null error later on
 
     public Program()
     {
@@ -13,10 +13,10 @@ public class Program
         ReadLine = Console.ReadLine;
     }
 
-    public Program(Action<string> writeLine, Func<string> readLine)
+    public Program(Action<string> writeLine, Func<string?> readLine)
     {
-        WriteLine = writeLine;
-        ReadLine = readLine;
+        WriteLine = writeLine ?? throw new ArgumentNullException(nameof(writeLine));
+        ReadLine = readLine ?? throw new ArgumentNullException(nameof(readLine));
     }
 
     public static void Main(string[] args)
@@ -25,8 +25,8 @@ public class Program
         Calculator calculator = new();
 
         program.WriteLine("Enter an expression: ");
-        string expression = program.ReadLine();
-        if (calculator.TryCalculate(expression, out var result))
+        string? expression = program.ReadLine();
+        if (expression != null && calculator.TryCalculate(expression, out var result))
         {
             program.WriteLine($"Result: {result}");
         }
