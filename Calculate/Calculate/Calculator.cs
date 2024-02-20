@@ -6,12 +6,17 @@ using System.Threading.Tasks;
 
 namespace Calculate;
 
-internal class Calculator
+public class Calculator
 {
     public static int Add(int a, int b) => a + b;
     public static int Subtract(int a, int b) => a - b;
     public static int Multiply(int a, int b) => a * b;
-    public static int Divide(int a, int b) => a / b;
+    public static int Divide(int a, int b) 
+    {
+        if (b == 0)
+            throw new ArgumentException("Cannot Divide by Zero.");
+        return a / b;
+    }
 
     public readonly IReadOnlyDictionary<char, Func<int, int, int>> MathematicalOperations =
         new Dictionary<char, Func<int, int, int>>
@@ -24,6 +29,7 @@ internal class Calculator
 
     public bool TryCalculate(string expression, out int result)
     {
+        ArgumentNullException.ThrowIfNull(expression);
         result = 0;
         string[] parts = expression.Split(' ');
         if (parts.Length != 3) return false;
