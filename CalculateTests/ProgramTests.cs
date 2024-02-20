@@ -43,7 +43,7 @@ public class ProgramTests
 
     [Theory]
     [InlineData("-4 - 5", "Result of -4 - 5 = -9")]
-    [InlineData("4.5 + 3.5", Program.InvalidInputMessage)]
+    [InlineData("4.5 + 3.5", "Result of 4.5 + 3.5 = 8")]
     [InlineData("-4-5", Program.InvalidInputMessage)]
     public void TestCalculateInput_OutputsCorrectValue(string input, string expectedOutput)
     {

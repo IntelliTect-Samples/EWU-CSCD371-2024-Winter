@@ -1,7 +1,9 @@
-﻿namespace Calculate;
-public class Calculator
+﻿using System.Numerics;
+
+namespace Calculate;
+public class Calculator<T> where T : INumber<T>
 {
-    public IReadOnlyDictionary<char, Func<int, int, int>> MathematicalOperations { get; } = new Dictionary<char, Func<int, int, int>>
+    public IReadOnlyDictionary<char, Func<T, T, T>> MathematicalOperations { get; } = new Dictionary<char, Func<T, T, T>>
     {
         ['+'] = Add,
         ['-'] = Subtract,
@@ -9,12 +11,12 @@ public class Calculator
         ['/'] = Divide
     };
 
-    public static int Add(int a, int b) => a + b;
-    public static int Subtract(int a, int b) => a - b;
-    public static int Multiply(int a, int b) => a * b;
-    public static int Divide(int a, int b) => b != 0 ? a / b : throw new ArgumentException("Can't divide by 0", nameof(b));
+    public static T Add(T a, T b) => a + b;
+    public static T Subtract(T a, T b) => a - b;
+    public static T Multiply(T a, T b) => a * b;
+    public static T Divide(T a, T b) => !b.Equals(0) ? a / b : throw new ArgumentException("Can't divide by 0", nameof(b));
 
-    public bool TryCalculate(string calculation, out int result)
+    public bool TryCalculate(string calculation, out float result)
     {
         ArgumentException.ThrowIfNullOrEmpty(calculation, nameof(calculation));
         string[] parts = calculation.Split(' ');
@@ -23,11 +25,11 @@ public class Calculator
         {
            return false;
         }
-        int lOperand;
-        int rOperand;
+        float lOperand;
+        float rOperand;
         char operatorChar = parts[1][0];
 
-        if(!int.TryParse(parts[0], out lOperand) || !int.TryParse(parts[2], out rOperand))
+        if(!float.TryParse(parts[0], out lOperand) || !float.TryParse(parts[2], out rOperand))
         {
             return false;
         }
@@ -35,9 +37,9 @@ public class Calculator
         {
             return false;
         }
-        if(MathematicalOperations.TryGetValue(operatorChar, out Func<int, int, int>? operation))
+        if(MathematicalOperations.TryGetValue(operatorChar, out var operation))
         {
-            result = operation(lOperand, rOperand);
+            result = (float)(object)operation((T)(object)lOperand, (T)(object)rOperand);
             return true;
         }
         return false;

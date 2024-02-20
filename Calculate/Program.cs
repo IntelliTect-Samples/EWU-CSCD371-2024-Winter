@@ -15,8 +15,8 @@ public class Program
             WriteLine("No input given");
             return;
         }
-        Calculator calculator = new();
-        if (calculator.TryCalculate(input, out int result))
+        Calculator<float> calculator = new();
+        if (calculator.TryCalculate(input, out float result))
         {
             WriteLine($"Result of {input} = {result}");
         }
