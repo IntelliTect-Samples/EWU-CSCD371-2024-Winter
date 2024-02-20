@@ -59,7 +59,7 @@ namespace Calculate.Tests;
         }
 
         [Theory]
-        [InlineData("1 / 2")]
+        [InlineData("1 # 2")]
         [InlineData("1 ^ 2")]
         [InlineData("1 ** 2")]
         [InlineData("1 @ 2")]

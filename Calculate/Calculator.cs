@@ -38,6 +38,7 @@ public class Calculator
         result = 0;
 
         if(ops.Length != 3) { return false; }
+        if (ops[1].Length != 1) { return false; }
 
         if (int.TryParse(ops[0], out num1) && int.TryParse(ops[2], out num2) )
         {
