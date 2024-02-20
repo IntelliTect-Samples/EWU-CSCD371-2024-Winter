@@ -14,7 +14,7 @@ namespace Calculate.Tests;
         [Fact]
         public void Subtract_ValidNumbers_ReturnsExpectedResult()
         {
-            Assert.Equal(4, Calculator.Subtract(6, 3));
+            Assert.Equal(3, Calculator.Subtract(6, 3));
         }
         [Fact]
         public void Multiply_ValidNumbers_ReturnsExpectedResult()
