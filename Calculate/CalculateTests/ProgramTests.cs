@@ -1,5 +1,6 @@
 using Calculate;
 using Xunit;
+using System.IO;
 
 namespace CalculateTests;
 
@@ -19,15 +20,24 @@ public class ProgramTests
         Assert.Equal(expectedOutput, actualOutput);
     }
 
-    [Fact]
-    public void TestReadLine_ValidInput_Success()
+    [Theory]
+    [InlineData("Test input")]
+    [InlineData("More input")]
+    public void TestReadLine_ValidInput_Success(string input)
     {
         Program program = new();
-        String expectedInput = "Test Input";
-        Console.SetIn(new System.IO.StringReader(expectedInput));
+        Console.SetIn(new StringReader(input));
 
         string? actualInput = program.ReadLine();
+        Assert.Equal(input, actualInput);
+    }
 
-        Assert.Equal(expectedInput, actualInput);
+    [Fact]
+    public void TestReadLine_NoInput_ReturnsNull()
+    {
+        Program program = new();
+        Console.SetIn(new StringReader(""));
+        string? actualInput = program.ReadLine();
+        Assert.Null(actualInput);
     }
 }
