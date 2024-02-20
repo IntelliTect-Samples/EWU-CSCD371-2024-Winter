@@ -28,9 +28,22 @@ public class Calculator
         return num1 / num2;
     }
 
-    public static bool TryCalculate(string v)
+    public static bool TryCalculate(string expresion, out int result)
     {
-        throw new NotImplementedException();
+        string[] ops = expresion.Split(' ');
+        int num1 = 0;
+        int num2 = 0;
+        result = 0;
+        if (int.TryParse(ops[0], out num1) && int.TryParse(ops[2], out num2) )
+        {
+            if (ops[1] == "+")
+            {
+                result = Add(num1,num2);
+                return true;
+            }
+        }
+
+        return false;
     }
 }
 

@@ -30,7 +30,10 @@ namespace Calculate.Tests;
         [Fact]
         public void TryCalcuate_ValidAddition_ReturnsTrue()
         {
-            Assert.True(Calculator.TryCalculate("3 + 3"));
+
+            int res = 0;
+            Calculator.TryCalculate("3 + 3", out res);
+            Assert.Equal(6, res);
         }
 
 }
