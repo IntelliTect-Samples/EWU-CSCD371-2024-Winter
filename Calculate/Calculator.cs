@@ -42,6 +42,8 @@ public class Calculator
         if (int.TryParse(ops[0], out num1) && int.TryParse(ops[2], out num2) )
         {
 
+            if(!MathematicalOperations.ContainsKey(ops[1][0])) { return false; }
+
             var operand = MathematicalOperations[ops[1][0]];
             result = operand(num1, num2);
         }
