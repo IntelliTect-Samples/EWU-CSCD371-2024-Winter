@@ -45,7 +45,7 @@ namespace Calculate.Tests;
         [InlineData("Oon - Two")]
         public void TryCalculate_InvalidOperands_ReturnsFalse(string expression)
         {
-        Assert.False(Calculator.TryCalculate(expression, out _));
+            Assert.False(Calculator.TryCalculate(expression, out _));
         }
 
         [Theory]
