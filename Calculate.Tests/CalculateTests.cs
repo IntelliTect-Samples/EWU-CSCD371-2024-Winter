@@ -27,13 +27,16 @@ namespace Calculate.Tests;
             Assert.Equal(1, Calculator.Divide(3, 3));
         }
 
-        [Fact]
-        public void TryCalcuate_ValidAddition_ReturnsTrue()
+        [Theory]
+        [InlineData(6, "3 + 3")]
+        [InlineData(0, "3 - 3")]
+        [InlineData(125, "45 * 3")]
+        [InlineData(4, "64 / 4")]
+        public void TryCalcuate_ValidExpression_calculatesCorrectly(int expected, string expression)
         {
 
-            int res = 0;
-            Calculator.TryCalculate("3 + 3", out res);
-            Assert.Equal(6, res);
+        Calculator.TryCalculate(expression, out int res);
+        Assert.Equal(expected, res);
         }
 
 }
