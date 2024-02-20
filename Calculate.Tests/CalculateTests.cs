@@ -5,10 +5,11 @@ namespace Calculate.Tests;
 
     public class CalculateTests
     {
-        [Fact]
-        public void Test1()
-        {
 
+        [Fact]
+        public void Add_ValidNumber_ReturnsAdditionResult()
+        {
+            Assert.Equal(3, Calculator.Add(3, 3));
         }
     
 }
