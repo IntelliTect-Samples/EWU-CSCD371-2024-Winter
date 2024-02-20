@@ -58,4 +58,14 @@ namespace Calculate.Tests;
             Assert.False(Calculator.TryCalculate(expression, out _));
         }
 
+        [Theory]
+        [InlineData("1 / 2")]
+        [InlineData("1 ^ 2")]
+        [InlineData("1 ** 2")]
+        [InlineData("1 @ 2")]
+        public void TryCalculate_InvalidOperator_ReturnsFalse(string expression)
+        {
+            Assert.False(Calculator.TryCalculate(expression, out _));
+        }
+
 }
