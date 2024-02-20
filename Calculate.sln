@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34408.163
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculate", "Calculate\Calculate.csproj", "{DFAE3972-7FA4-4C42-B877-1322462D5151}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculate.Tests", "\Calculate.Tests\Calculate.Tests.csproj", "{5A615616-AA78-44DF-8773-EA70369C9949}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculate.Tests", "Calculate.Tests\Calculate.Tests.csproj", "{5A615616-AA78-44DF-8773-EA70369C9949}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C2E9F43A-D9F9-4960-AA14-5EDF5E426BCF}"
 	ProjectSection(SolutionItems) = preProject
