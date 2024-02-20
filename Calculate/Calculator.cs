@@ -4,7 +4,7 @@ namespace Calculate;
 public class Calculator
 {
 
-    public IReadOnlyDictionary<char, Func<int,int,int>> MathematicalOperations { get; } = new Dictionary<char, Func<int, int, int>>()
+    public static IReadOnlyDictionary<char, Func<int,int,int>> MathematicalOperations { get; } = new Dictionary<char, Func<int, int, int>>()
         { 
         {'+',Add},
         {'-',Subtract},
@@ -38,11 +38,9 @@ public class Calculator
         result = 0;
         if (int.TryParse(ops[0], out num1) && int.TryParse(ops[2], out num2) )
         {
-            if (ops[1] == "+")
-            {
-                result = Add(num1,num2);
-                return true;
-            }
+
+            var operand = MathematicalOperations[ops[1][0]];
+            result = operand(num1, num2);
         }
 
         return false;
