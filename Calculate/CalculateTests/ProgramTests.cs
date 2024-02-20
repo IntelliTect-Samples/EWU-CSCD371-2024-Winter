@@ -40,4 +40,20 @@ public class ProgramTests
         string? actualInput = program.ReadLine();
         Assert.Null(actualInput);
     }
+
+    [Theory]
+    [InlineData("-4 - 5", "Result of -4 - 5 = -9")]
+    [InlineData("4.5 + 3.5", Program.InvalidInputMessage)]
+    [InlineData("-4-5", Program.InvalidInputMessage)]
+    public void TestCalculateInput_OutputsCorrectValue(string input, string expectedOutput)
+    {
+        string output = "";
+        Program program = new()
+        {
+            ReadLine = () => input,
+            WriteLine = (s) => output = s
+        };
+        program.CalculateInput();
+        Assert.Equal(expectedOutput, output);
+    }
 }
