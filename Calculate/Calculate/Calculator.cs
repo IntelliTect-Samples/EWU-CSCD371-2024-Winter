@@ -8,6 +8,17 @@ namespace Calculate;
 
 public class Calculator
 {
+    private readonly IReadOnlyDictionary<char, Func<int, int, int>> mathematicalOperations =
+        new Dictionary<char, Func<int, int, int>>
+        {
+            {'+', Add },
+            {'-', Subtract },
+            {'*', Multiply },
+            {'/', Divide }
+        };
+
+    public IReadOnlyDictionary<char, Func<int, int, int>> MathematicalOperations => mathematicalOperations;
+
     public static int Add(int a, int b) => a + b;
     public static int Subtract(int a, int b) => a - b;
     public static int Multiply(int a, int b) => a * b;
@@ -17,15 +28,6 @@ public class Calculator
             throw new ArgumentException("Cannot Divide by Zero.");
         return a / b;
     }
-
-    public readonly IReadOnlyDictionary<char, Func<int, int, int>> MathematicalOperations =
-        new Dictionary<char, Func<int, int, int>>
-        {
-            {'+', Add },
-            {'-', Subtract },
-            {'*', Multiply },
-            {'/', Divide }
-        };
 
     public bool TryCalculate(string expression, out int result)
     {
@@ -37,7 +39,7 @@ public class Calculator
         if (!int.TryParse(parts[0], out int lhs) || !int.TryParse(parts[2], out int rhs)) return false;
 
         char op = parts[1][0];
-        if(!MathematicalOperations.TryGetValue(op, out var func)) return false;
+        if(!mathematicalOperations.TryGetValue(op, out var func)) return false;
 
         result = func(lhs, rhs);
         return true;

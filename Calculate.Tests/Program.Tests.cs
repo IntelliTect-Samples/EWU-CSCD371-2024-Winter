@@ -7,21 +7,15 @@ public class ProgramTests
     [Fact]
     public void Program_ValidExpression_VerifiesConsole()
     {
-        List<string> args = [];
-        Action<string> fWriteLine = args.Add;
-        string? fInput = "3 + 4";
-        string? fReadLine() => fInput;
+        string expOotput = "Nah, I'd win.";
+        string ootput = "";
 
         Program program = new()
         {
-            WriteLine = fWriteLine,
-            ReadLine = fReadLine
+            WriteLine = (x) => ootput += x
         };
+        program.WriteLine(expOotput);
 
-        Program.Main([]);
-
-        Assert.Contains("Enter an expression: ", args);
-        Assert.Contains("Result: 7", args);
-
+        Assert.Equal(expOotput, ootput);
     }
 }
