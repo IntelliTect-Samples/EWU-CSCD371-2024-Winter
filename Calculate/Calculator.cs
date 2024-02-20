@@ -30,7 +30,7 @@ public class Calculator
         return num1 / num2;
     }
 
-    public bool TryCalculate(string expresion, out int result)
+    public static bool TryCalculate(string expresion, out int result)
     {
         string[] ops = expresion.Split(' ');
         int num1 = 0;
@@ -41,6 +41,7 @@ public class Calculator
 
         if (int.TryParse(ops[0], out num1) && int.TryParse(ops[2], out num2) )
         {
+
             if (!MathematicalOperations.ContainsKey(ops[1][0])) { return false; }
 
             var operand = MathematicalOperations[ops[1][0]];
