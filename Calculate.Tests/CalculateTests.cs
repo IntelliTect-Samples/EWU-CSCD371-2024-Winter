@@ -39,10 +39,13 @@ namespace Calculate.Tests;
             Assert.Equal(expected, res);
         }
 
-        [Fact]
-        public void TryCalculate_InvalidExpression_ReturnsFalse()
+        [Theory]
+        [InlineData("One + 2")]
+        [InlineData("1 + Two")]
+        [InlineData("Oon - Two")]
+        public void TryCalculate_InvalidExpression_ReturnsFalse(string expression)
         {
-        Assert.False(Calculator.TryCalculate("One + 3", out _));
+        Assert.False(Calculator.TryCalculate(expression, out _));
         }
 
 }
