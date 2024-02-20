@@ -5,7 +5,7 @@ namespace Calculate.Tests;
     public class ProgramTests
     {
         [Fact]
-        public void Constructor_WriteLineProperty_ExpectedBehaviour()
+        public void DefaultConstructor_WriteLineProperty_ExpectedBehaviour()
         {
             Program program = new();
             using StringWriter mockConsole = new();
@@ -17,4 +17,15 @@ namespace Calculate.Tests;
             Assert.Contains("Hello", mockConsole.ToString());
 
         }
-    }
+    [Fact]
+        public void DefaultConstructor_ReadLineProperty_ExpectedBehaviour()
+        {
+            Program program = new();
+            
+
+            Console.SetIn(new StringReader("Hello"));
+
+            Assert.Equal("Hello", program.ReadLine());
+
+        }
+}
