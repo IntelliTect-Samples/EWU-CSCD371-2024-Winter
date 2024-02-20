@@ -60,5 +60,24 @@ namespace CalculateTests.Test
             // Assert
             Assert.Equal(2, result);
         }
+
+
+        [Theory]
+        [InlineData("3 + 4", 7)] // Valid addition
+        [InlineData("42 - 2", 40)] // Valid subtraction
+        [InlineData("6 * 7", 42)] // Valid multiplication
+        [InlineData("10 / 2", 5)] // Valid division
+        public void TryCalculate_ValidExpression_ReturnsTrue(string expression, double expected)
+        {
+            // Arrange
+            var calculator = new Calculator();
+
+            // Act
+            bool result = calculator.TryCalculate(expression, out double actual);
+
+            // Assert
+            Assert.True(result);
+            Assert.Equal(expected, actual);
+        }
     }
 }
