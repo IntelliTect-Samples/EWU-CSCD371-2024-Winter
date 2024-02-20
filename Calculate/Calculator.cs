@@ -41,8 +41,34 @@ public class Calculator
         return answer;
     }
 
-    public static void TryCalculate()
+    public bool TryCalculate(string expression, out double? result)
     {
+        string[] equationParts = expression.Split(" ");
 
+        if (equationParts.Length != 3)
+        {
+            result = null;
+            return false;
+        } 
+        else
+        {
+            if (double.TryParse(equationParts[0], out double variable1) && double.TryParse(equationParts[2], out double variable2))
+            {
+                try
+                {
+                    char[] opperand = equationParts[1].ToCharArray();
+                    Func<double, double, double> opperation = MathematicalOperations[opperand[0]];
+                    result = opperation(double.Parse(equationParts[0]), double.Parse(equationParts[2]));
+                    return true;
+                }
+                catch (FormatException)
+                {
+                    throw new FormatException($"Unable to Parse {equationParts[0]} or {equationParts[3]}");
+                }
+
+            }
+        }
+        result = null;
+        return false;
     }
 }
