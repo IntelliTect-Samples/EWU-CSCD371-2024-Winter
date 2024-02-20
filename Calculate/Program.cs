@@ -1,4 +1,6 @@
-﻿namespace Calculate;
+﻿using System.Globalization;
+
+namespace Calculate;
 
 public class Program(Action<string> WriteLine, Func<string?> ReadLine)
 {
@@ -23,7 +25,7 @@ public class Program(Action<string> WriteLine, Func<string?> ReadLine)
 
         } while (!Calculator.TryCalculate(expression!, out res));
 
-        program.WriteLine(res.ToString());
+        program.WriteLine(res.ToString(CultureInfo.InvariantCulture));
  
     }
 }
