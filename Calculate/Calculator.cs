@@ -1,33 +1,43 @@
-﻿namespace Calculate;
+﻿using System.Collections.Generic;
+
+namespace Calculate;
 
 public class Calculator
 {
-    public static int Add(int a, int b)
+    public static IReadOnlyDictionary<char, Func<double, double, double>> MathematicalOperations { get; }
+    = new Dictionary<char, Func<double, double, double>>()
     {
-        int answer = a + b;
+        ['+'] = Add,
+        ['-'] = Subtract,
+        ['*'] = Multiple,
+        ['/'] = Divide,
+    };
+    public static double Add(double a, double b)
+    {
+        double answer = a + b;
         return answer;
     }
 
-    public static int Subtract(int a, int b)
+    public static double Subtract(double a, double b)
     {
-        int answer = a - b;
+        double answer = a - b;
         return answer;
     }
 
-    public static int Multiple(int a, int b)
+    public static double Multiple(double a, double b)
     {
-        int answer = a * b;
+        double answer = a * b;
         return answer;
     }
 
-    public static int Divide(int a, int b)
+    public static double Divide(double a, double b)
     {
         if (b == 0)
         {
             throw new ArgumentException("Divide by 0 Error");
         }
 
-        int answer = a / b;
+        double answer = a / b;
         return answer;
     }
 
