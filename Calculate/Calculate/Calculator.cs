@@ -8,7 +8,7 @@ namespace Calculate;
 
 public class Calculator
 {
-    private readonly IReadOnlyDictionary<char, Func<int, int, int>> mathematicalOperations =
+    private readonly Dictionary<char, Func<int, int, int>> mathematicalOperations =
         new Dictionary<char, Func<int, int, int>>
         {
             {'+', Add },
@@ -17,7 +17,7 @@ public class Calculator
             {'/', Divide }
         };
 
-    public IReadOnlyDictionary<char, Func<int, int, int>> MathematicalOperations => mathematicalOperations;
+    public Dictionary<char, Func<int, int, int>> MathematicalOperations => mathematicalOperations;
 
     public static int Add(int a, int b) => a + b;
     public static int Subtract(int a, int b) => a - b;
