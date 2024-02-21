@@ -15,7 +15,7 @@ public class Node<T>
 
         if(Exists(data))
         {
-            throw new ArgumentException("The value already exists");
+            throw new Exception("The value already exists");
         }
 
         Node<T> cur = this;
