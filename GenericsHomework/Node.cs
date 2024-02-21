@@ -20,7 +20,8 @@ public class Node<T>
 
         Node<T> cur = this;
 
-        Node<T> nextNode = new(data){
+        Node<T> nextNode = new(data)
+        {
             Next = cur.Next
         };
         cur.Next = nextNode;
