@@ -33,20 +33,17 @@ public class Calculator
     public static bool TryCalculate(string expresion, out int result)
     {
         string[] ops = expresion.Split(' ');
-        int num1 = 0;
-        int num2 = 0;
         result = 0;
 
-        if(ops.Length != 3) { return false; }
+        if (ops.Length != 3) { return false; }
         if (ops[1].Length != 1) { return false; }
 
-        if (int.TryParse(ops[0], out num1) && int.TryParse(ops[2], out num2) )
+        if (int.TryParse(ops[0], out int num1) && int.TryParse(ops[2], out int num2))
         {
 
             if (!MathematicalOperations.ContainsKey(ops[1][0])) { return false; }
 
-            var operand = MathematicalOperations[ops[1][0]];
-            result = operand(num1, num2);
+            result = MathematicalOperations[ops[1][0]](num1, num2);
             return true;
         }
         return false;

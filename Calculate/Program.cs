@@ -15,7 +15,7 @@ public class Program
     {
 
         int res;
-        string? expression = "Test";
+        string? expression;
         Program program = new();
         do
         {
