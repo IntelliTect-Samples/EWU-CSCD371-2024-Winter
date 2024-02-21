@@ -8,7 +8,7 @@
 
 	<ItemGroup>
 		<Reference Include="ConsoleUtilites">
-			<HintPath>..\ConsoleUtilites\bin\Debug\net8.0\ConsoleUtilites.dll</HintPath>
+			<HintPath>..\ConsoleUtilites.dll</HintPath>
 		</Reference>
 	</ItemGroup>
 

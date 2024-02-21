@@ -9,10 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculate.Tests", "Calculat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4867A848-CEDB-488D-8E41-909EEA33195A}"
 	ProjectSection(SolutionItems) = preProject
+		ConsoleUtilites.dll = ConsoleUtilites.dll
 		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleUtilites", "ConsoleUtilites\ConsoleUtilites.csproj", "{55CB9FFB-E8DE-448C-84BB-004D180EDBB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleUtilites", "ConsoleUtilites\ConsoleUtilites.csproj", "{55CB9FFB-E8DE-448C-84BB-004D180EDBB7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
