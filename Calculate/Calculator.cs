@@ -4,7 +4,7 @@ namespace Calculate;
 public class Calculator
 {
 
-    public static IReadOnlyDictionary<char, Func<int,int,int>> MathematicalOperations { get; } = new Dictionary<char, Func<int, int, int>>()
+    public IReadOnlyDictionary<char, Func<int,int,int>> MathematicalOperations { get; } = new Dictionary<char, Func<int, int, int>>()
         { 
         {'+',Add},
         {'-',Subtract},
