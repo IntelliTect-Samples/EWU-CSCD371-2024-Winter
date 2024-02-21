@@ -65,12 +65,12 @@ public class NodeTests
     }
 
     [Fact]
-    public void Append_ExistedValue_ThrowException()
+    public void Append_ExistedValue_ThrowArgumentException()
     {
         Node<int> node = new(1);
         node.Append(2);
         node.Append(3);
-        Assert.Throws<Exception>(
+        Assert.Throws<ArgumentException>(
             () => node.Append(1));
 
     }
