@@ -12,7 +12,7 @@ public class ProgramTests
 
         Program program = new()
         {
-            WriteLine = (x) => ootput += x
+            WriteLine = (x) => ootput += x//Here, the output is caught and saved to the variable
         };
         program.WriteLine(expOotput);
 
