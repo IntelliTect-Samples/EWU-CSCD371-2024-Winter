@@ -11,10 +11,6 @@
 
 	</PropertyGroup>
 
-	<ItemGroup>
-		<Reference Include="ConsoleUtilites">
-			<HintPath>..\ConsoleUtilites.dll</HintPath>
-		</Reference>
-	</ItemGroup>
+
 
 </Project>
