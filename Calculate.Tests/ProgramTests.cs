@@ -1,6 +1,8 @@
 using Xunit;
 using System;
 using System.IO;
+using IntelliTect.TestTools.Console;
+using Microsoft.VisualStudio.TestPlatform.TestHost;
 
 namespace Calculate.Tests;
 
@@ -44,5 +46,24 @@ public class ProgramTests
         string result = program.ReadLine();
 
         Assert.Null(result);
+    }
+
+
+    [Fact]
+    public void Program_DefaultConstructor_EqualsConsole()
+    {
+        Program program = new();
+
+        Assert.Equal(Console.WriteLine, program.WriteLine);
+        Assert.Equal(Console.ReadLine, program.ReadLine);
+    }
+
+    [Fact]
+    public void Main_UserGivesGoodInput_MatchExpected()
+    {
+        string view = @"Enter Simple Equation: <<2 + 2
+>>
+Answer: 4";
+        IntelliTect.TestTools.Console.ConsoleAssert.Expect(view, Program.Main);
     }
 }
