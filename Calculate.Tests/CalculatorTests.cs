@@ -80,4 +80,15 @@ public class CalculatorTests
         Assert.False(Calculator.TryCalculate(input, out int? ans));
         Assert.Null(ans);
     }
+
+    [Theory]
+    [InlineData("2 + 0", 2)]
+    [InlineData("4 - 2", 2)]
+    [InlineData("2 * 1", 2)]
+    [InlineData("4 / 2", 2)]
+    public void TryCalculate_ValidOperations_ParsesSuccessfully(string equation, int answer)
+    {
+        Calculator.TryCalculate(equation, out int? result);
+        Assert.Equal(answer, result);
+    }
 }
