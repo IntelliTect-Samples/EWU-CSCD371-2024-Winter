@@ -1,6 +1,3 @@
-
-using System.Security.Cryptography;
-
 namespace Calculate;
 
 public class Calculator
