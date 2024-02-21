@@ -91,4 +91,11 @@ public class CalculatorTests
         Calculator.TryCalculate(equation, out int? result);
         Assert.Equal(answer, result);
     }
+
+    [Fact]
+    public void TryCalculate_Whitespace_ReturnsFalse()
+    {
+        string input = "1+  2";
+        Assert.False(Calculator.TryCalculate(input, out int? ans));
+    }
 }
