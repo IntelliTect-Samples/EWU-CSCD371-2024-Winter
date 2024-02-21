@@ -7,7 +7,7 @@ namespace CalculateTests.Tests;
 
     //XUnit tests - Assert.Equal are generic by default
        [Fact]
-        public void WriteLine_Property_Invokes_WriteLine_Delegate_Correctly()
+        public void WriteLine_InvokesWriteLine_Success()
         {
             // Arrange
             var expectedOutput = "Test Output";
@@ -26,7 +26,7 @@ namespace CalculateTests.Tests;
         }
 
         [Fact]
-        public void ReadLine_Property_Invokes_ReadLine_Delegate_Correctly()
+        public void ReadLine_InvokesReadLine_Success()
         {
             // Arrange
             var expectedInput = "Test Input";
