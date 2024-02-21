@@ -59,12 +59,13 @@ public class Calculator
                 {
                     char[] opperand = equationParts[1].ToCharArray();
                     Func<double, double, double> opperation = MathematicalOperations[opperand[0]];
-                    result = opperation(double.Parse(equationParts[0]), double.Parse(equationParts[2]));
+                    //result = opperation(double.Parse(equationParts[0]), double.Parse(equationParts[2]));
+                    result = opperation(variable1, variable2);
                     return true;
                 }
                 catch (FormatException)
                 {
-                    throw new FormatException($"Unable to Parse {equationParts[0]} or {equationParts[3]}");
+                    throw new FormatException($"Unable to Parse {equationParts[0]} or {equationParts[2]}");
                 }
 
             }
