@@ -14,7 +14,7 @@ public class Program
         Program program = new();
         //Calculator calculator = new();
         string input;
-        double? answer;
+        int? answer;
 
         do
         {

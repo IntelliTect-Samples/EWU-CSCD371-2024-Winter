@@ -5,44 +5,44 @@ namespace Calculate;
 
 public class Calculator
 {
-    public static IReadOnlyDictionary<char, Func<double, double, double>> MathematicalOperations { get; }
-    = new Dictionary<char, Func<double, double, double>>()
+    public static IReadOnlyDictionary<char, Func<int, int, int>> MathematicalOperations { get; }
+    = new Dictionary<char, Func<int, int, int>>()
     {
         ['+'] = Add,
         ['-'] = Subtract,
         ['*'] = Multiple,
         ['/'] = Divide,
     };
-    public static double Add(double a, double b)
+    public static int Add(int a, int b)
     {
-        double answer = a + b;
+        int answer = a + b;
         return answer;
     }
 
-    public static double Subtract(double a, double b)
+    public static int Subtract(int a, int b)
     {
-        double answer = a - b;
+        int answer = a - b;
         return answer;
     }
 
-    public static double Multiple(double a, double b)
+    public static int Multiple(int a, int b)
     {
-        double answer = a * b;
+        int answer = a * b;
         return answer;
     }
 
-    public static double Divide(double a, double b)
+    public static int Divide(int a, int b)
     {
         if (b == 0)
         {
             throw new ArgumentException("Divide by 0 Error");
         }
 
-        double answer = a / b;
+        int answer = a / b;
         return answer;
     }
 
-    public static bool TryCalculate(string expression, out double? result)
+    public static bool TryCalculate(string expression, out int? result)
     {
         string[] equationParts = expression.Split(" ");
 
@@ -53,7 +53,7 @@ public class Calculator
         }
         else
         {
-            if (double.TryParse(equationParts[0], out double variable1) && double.TryParse(equationParts[2], out double variable2))
+            if (int.TryParse(equationParts[0], out int variable1) && int.TryParse(equationParts[2], out int variable2))
             {
                 try
                 {
@@ -64,7 +64,7 @@ public class Calculator
                         return false;
                     }
 
-                    Func<double, double, double> opperation = MathematicalOperations[opperand[0]];
+                    Func<int, int, int> opperation = MathematicalOperations[opperand[0]];
                     //result = opperation(double.Parse(equationParts[0]), double.Parse(equationParts[2]));
                     result = opperation(variable1, variable2);
                     return true;
