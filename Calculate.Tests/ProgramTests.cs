@@ -34,5 +34,15 @@ public class ProgramTests
         Assert.Equal(testString, result);
     }
 
+    [Fact]
+    public void ReadLine_NoInput_Fails()
+    {
+        using StringReader reader = new("");
+        Console.SetIn(reader);
 
+        Program program = new();
+        string result = program.ReadLine();
+
+        Assert.Null(result);
+    }
 }
