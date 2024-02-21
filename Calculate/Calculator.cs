@@ -9,10 +9,10 @@ namespace Calculate;
     {
 
 
-    public static int Add(int x, int y) => x + y;
-    public static int Subtract(int x, int y) => x - y;
-    public static int Multiply(int x, int y) => x * y;
-    public static int Divide(int x, int y) => x / y;
+    public static double Add(double x, double y) => x + y;
+    public static double Subtract(double x, double y) => x - y;
+    public static double Multiply(double x, double y) => x * y;
+    public static double Divide(double x, double y) => x / y;
 
     public IReadOnlyDictionary<char, Func<double, double, double>> MathematicalOperations { get; } =
     new Dictionary<char, Func<double, double, double>>

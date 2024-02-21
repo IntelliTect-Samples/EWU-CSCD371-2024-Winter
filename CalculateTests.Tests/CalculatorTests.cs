@@ -8,11 +8,11 @@ namespace CalculateTests.Test;
         public void Add_PositiveValues_ReturnsCorrect()
         {
             // Arrange
-            int x = 5;
-            int y = 3;
+            double x = 5;
+            double y = 3;
 
             // Act
-            int result = Calculator.Add(x, y);
+            double result = Calculator.Add(x, y);
 
             // Assert
             Assert.Equal(8, result);
@@ -22,11 +22,11 @@ namespace CalculateTests.Test;
         public void Subtract_PositiveValues_ReturnsCorrect()
         {
             // Arrange
-            int x = 5;
-            int y = 3;
+            double x = 5;
+            double y = 3;
 
             // Act
-            int result = Calculator.Subtract(x, y);
+            double result = Calculator.Subtract(x, y);
 
             // Assert
             Assert.Equal(2, result);
@@ -36,11 +36,11 @@ namespace CalculateTests.Test;
         public void Multiply_PositiveValues_ReturnsCorrect()
         {
             // Arrange
-            int x = 5;
-            int y = 3;
+            double x = 5;
+            double y = 3;
 
             // Act
-            int result = Calculator.Multiply(x, y);
+            double result = Calculator.Multiply(x, y);
 
             // Assert
             Assert.Equal(15, result);
@@ -50,11 +50,11 @@ namespace CalculateTests.Test;
         public void Divide_PositiveValues_ReturnsCorrect()
         {
             // Arrange
-            int x = 6;
-            int y = 3;
+            double x = 6;
+            double y = 3;
 
             // Act
-            int result = Calculator.Divide(x, y);
+            double result = Calculator.Divide(x, y);
 
             // Assert
             Assert.Equal(2, result);
