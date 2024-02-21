@@ -53,7 +53,7 @@ public class Calculator
                     {
                         char[] op = calcParts[1].ToCharArray();
                         Func<int,int,int> operation = MathematicalOperations[op[0]];
-                        result = operation(Int32.Parse(calcParts[0]), Int32.Parse(calcParts[2]));
+                        result = operation(int.Parse(calcParts[0]), int.Parse(calcParts[2]));
                         return true;
                     }
                     catch (FormatException)
