@@ -5,7 +5,7 @@ namespace Calculate.Tests;
 public class ProgramTests : IDisposable
 {
 
-    // Will never be null as it is set in constructor
+    // Will never be null as properties is set in constructor
     #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     public static string TempPath { get; set; }
     public static Program DefaultProgram { get; set; }
@@ -82,6 +82,12 @@ public class ProgramTests : IDisposable
 
         Assert.Equal("Testing File Reading", InitProgram.ReadLine());
         Assert.Equal("Testing File Reading", InitProgram.ReadLine());
+
+    }
+
+    [Fact]
+    public void Constructor_DefaultReadFileWrite()
+    {
 
     }
 

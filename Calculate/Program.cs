@@ -17,12 +17,13 @@ public class Program
         int res;
         string? expression;
         Program program = new();
+        Calculator calculator = new Calculator();
         do
         {
             program.WriteLine("Please Enter Your Expression: ");
             expression = program.ReadLine();
 
-        } while (!Calculator.TryCalculate(expression!, out res));
+        } while (!calculator.TryCalculate(expression!, out res));
 
         program.WriteLine(res.ToString(CultureInfo.InvariantCulture));
  

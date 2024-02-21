@@ -6,6 +6,12 @@ namespace Calculate.Tests;
 
     public class CalculateTests
     {
+        public Calculator Calculator { get;}
+
+        public CalculateTests() 
+        {
+            Calculator = new Calculator();
+        }
 
         [Fact]
         public void Add_ValidNumbers_ReturnsExpectedResult()

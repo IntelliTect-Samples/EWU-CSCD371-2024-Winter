@@ -30,7 +30,7 @@ public class Calculator
         return num1 / num2;
     }
 
-    public static bool TryCalculate(string expresion, out int result)
+    public bool TryCalculate(string expresion, out int result)
     {
         string[] ops = expresion.Split(' ');
         result = 0;
