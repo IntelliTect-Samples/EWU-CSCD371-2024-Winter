@@ -1,7 +1,7 @@
 ﻿using Xunit;
 using Calculate;
 
-namespace CalculateTests.Test;
+namespace CalculateTests.Tests;
     public class CalculatorTests
     {
         [Fact]
