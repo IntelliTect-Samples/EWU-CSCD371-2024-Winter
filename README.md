@@ -1,6 +1,6 @@
 # Assignment
 
-The purpose of this assignment is to learn how to write a generic class and a generic method. To accomplish this you will write a linked list that circles back on itself. We will also look at exception throwing and handling.
+The purpose of this assignment is to learn how to write a generic class and a generic method. To accomplish this you will write a linked list that __circles__ back on itself. We will also look at exception throwing and handling.
 
 ## Reading
 
@@ -18,11 +18,11 @@ Chapters 11, 12
     - The `Next` property should be non-nullable (careful to follow the non-nullable property guidelines) ❌✔
     - The `Next` property setter should be private. ❌✔
   - Add an `Append` method that takes a value and appends a new `Node` instance after the current node (by invoking the `Next` property). ❌✔
-  - Add a Clear method that effectively removes all items from a list except the current node. Pay attention as to whether you should be concerned with the following:
+  - Add a `Clear` method that effectively removes all items from a list except the current node. Pay attention as to whether you should be concerned with the following:
     - Whether it is sufficient to only set Next to itself ❌✔
     - Whether to set the removed items to circle back on themselves. In other words, whether to close the loop of the removed items. (Provide a test to show why this is required if it is required). ❌✔
-    - Given there is a circular list of items, provide a comment to indicate whether you need to worry about garbage collection because all the items point to each other and therefore may never be garbage collected. ❌✔
-  - Create an Exists method to test to see if a value exists in the list. ❌✔
+    - Given there is a circular list of items, provide a comment to indicate whether you need to worry about garbage collection because all the items point to each other and, therefore, may never be garbage collected. ❌✔
+  - Create an Exists method to test whether a value exists in the list. ❌✔
   - Throw an error on an attempt to Append a duplicate value. (Make sure you test for this case) ❌✔
 - You should not rely on any BCL generic classes for your implementation. ❌✔
 
@@ -41,7 +41,6 @@ Do one of the following two options (or both if you want extra, extra credit) :)
 ## Fundamentals
 
 - Place all shared project properties into a `Directory.Build.Props` file.
-- Place all shared project items into a `Directory.Build.targets` file.
 - nullable reference types is enabled  ❌✔
 - Ensure that you turn on code analysis for all projects(EnableNETAnalyzers)  ❌✔
 - Set LangVersion and the TargetFramework to the latest released versions available (preview versions optional)   ❌✔
