@@ -12,7 +12,7 @@ public class Program
     public static void Main(string[] args)
     {
         Program program = new();
-        Calculator calculator = new();
+        //Calculator calculator = new();
         string input;
         double? answer;
 
@@ -21,7 +21,8 @@ public class Program
             program.WriteLine("Enter Simple Equation: ");
             input = program.ReadLine();
         }
-        while (!calculator.TryCalculate(input, out answer));
+        //while (!calculator.TryCalculate(input, out answer));
+        while (!Calculator.TryCalculate(input, out answer));
 
         program.WriteLine($"Answer: {answer}");
     }
