@@ -17,7 +17,7 @@ public class ProgramTests
         Program program = new();
         program.WriteLine(testString);
 
-        Assert.Equal(testString + "\r\n", writer.ToString());
+        Assert.Equal(testString + Environment.NewLine, writer.ToString());
     }
 
     [Fact]
