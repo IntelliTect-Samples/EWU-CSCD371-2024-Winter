@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleUtilites", "ConsoleUtilites\ConsoleUtilites.csproj", "{55CB9FFB-E8DE-448C-84BB-004D180EDBB7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{B1BB1230-577F-4FE8-BE3A-EE66FA75F67F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1BB1230-577F-4FE8-BE3A-EE66FA75F67F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1BB1230-577F-4FE8-BE3A-EE66FA75F67F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55CB9FFB-E8DE-448C-84BB-004D180EDBB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55CB9FFB-E8DE-448C-84BB-004D180EDBB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55CB9FFB-E8DE-448C-84BB-004D180EDBB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55CB9FFB-E8DE-448C-84BB-004D180EDBB7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

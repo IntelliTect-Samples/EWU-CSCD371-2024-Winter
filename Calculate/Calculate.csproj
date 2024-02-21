@@ -6,4 +6,14 @@
 
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ConsoleUtilites\ConsoleUtilites.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ConsoleUtilites">
+      <HintPath>..\ConsoleUtilites\bin\Debug\net8.0\ConsoleUtilites.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
