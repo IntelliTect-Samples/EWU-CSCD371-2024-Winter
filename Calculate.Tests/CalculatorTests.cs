@@ -9,7 +9,6 @@ public class CalculatorTests
     [InlineData(4, 2, 2)]
     [InlineData(9, 6, 3)]
     [InlineData(-3, -5, 2)]
-    [InlineData(5.5, 2.2, 3.3)]
     public void Add_ReturnSumOfTwoValues_Equal(int expected, int val1, int val2)
     {
         int sum = Calculator.Add(val1, val2);
@@ -20,7 +19,6 @@ public class CalculatorTests
     [InlineData(0, 2, 2)]
     [InlineData(3, 6, 3)]
     [InlineData(-7, -5, 2)]
-    [InlineData(7.8, 8, 0.2)]
     public void Subtract_ReturnDifferenceOfTwoValues_Equal(int expected, int val1, int val2)
     {
         int difference = Calculator.Subtract(val1, val2);
@@ -30,7 +28,6 @@ public class CalculatorTests
     [Theory]
     [InlineData(4, 2, 2)]
     [InlineData(18, 6, 3)]
-    [InlineData(6.6, 3.3, 2)]
     public void Multiply_ReturnProductOfTwoValues_Equal(int expected, int val1, int val2)
     {
         int product = Calculator.Multiple(val1, val2);
@@ -40,7 +37,6 @@ public class CalculatorTests
     [Theory]
     [InlineData(1, 2, 2)]
     [InlineData(2, 6, 3)]
-    [InlineData(2.5, 5, 2)]
     public void Divide_ReturnQuotientOfTwoValues_Equal(int expected, int val1, int val2)
     {
         int quotient = Calculator.Divide(val1, val2);
@@ -58,10 +54,10 @@ public class CalculatorTests
     [InlineData('-', 0, 2, 2)]
     [InlineData('*', 4, 2, 2)]
     [InlineData('/', 1, 2, 2)]
-    [InlineData('+', 79.3, 56.1, 23.2)]
-    [InlineData('-', -5.5, 36.5, 42)]
-    [InlineData('*', 19.2, 9.6, 2)]
-    [InlineData('/', 1.5, -18, -12)]
+    [InlineData('+', 79, 56, 23)]
+    [InlineData('-', -6, 36, 42)]
+    [InlineData('*', 18, 9, 2)]
+    [InlineData('/', 2, -18, -9)]
     public void MathematicalOperations_VariousOperations_Equal(char operatorSymbol, int expected, int val1, int val2)
     {
         var operation = Calculator.MathematicalOperations[operatorSymbol];
