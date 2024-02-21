@@ -68,4 +68,20 @@ public class CalculatorTests
         double result = operation(val1, val2);
         Assert.Equal(expected, result);
     }
+
+    [Fact]
+    public void TryCalculate_TooManyParams_FalseAndNullAnswer()
+    {
+        string input = "7 + 8 6";
+        Assert.False(Calculator.TryCalculate(input, out double? ans));
+        Assert.Null(ans);
+    }
+
+    [Fact]
+    public void TryCalculate_BadOperatorSymbol_FalseAndNullAnswer()
+    {
+        string input = "3 , 4";
+        Assert.False(Calculator.TryCalculate(input, out double? ans));
+        Assert.Null(ans);
+    }
 }
