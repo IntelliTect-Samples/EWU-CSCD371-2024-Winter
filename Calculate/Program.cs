@@ -3,15 +3,11 @@
 public class Program
 {
 
-    public Action<string> WriteLine { get; init; }
-    public Func<string> ReadLine { get; init; }
+    public Action<string> WriteLine { get; init; } = System.Console.WriteLine;
+    public Func<string?> ReadLine { get; init; } = System.Console.ReadLine;
 
 
-    public Program(Action<string> writeLine, Func<string> readLine)
-    {
-        WriteLine = writeLine;
-        ReadLine = readLine;
-    }
+    public Program() { }
 
     public static void Main(string[] args)
         {
