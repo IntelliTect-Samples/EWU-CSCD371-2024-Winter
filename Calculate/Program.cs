@@ -2,13 +2,12 @@
 
 namespace Calculate;
 
-public class Program(Action<string> WriteLine, Func<string?> ReadLine)
+public class Program
 {
-    public Action<string> WriteLine { get; init; } = WriteLine;
-    public Func<string?> ReadLine { get; init; } = ReadLine;
+    public Action<string> WriteLine { get; init; } = Console.WriteLine;
+    public Func<string?> ReadLine { get; init; } = Console.ReadLine;
 
-
-    public Program() : this(Console.WriteLine, Console.ReadLine)
+    public Program()
     {
     }
 
