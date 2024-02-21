@@ -4,8 +4,6 @@ namespace Calculate;
 
 public class Program : ProgramBase
 {
-
-
     public Program()
     {
     }
