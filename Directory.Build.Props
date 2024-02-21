@@ -1,8 +1,0 @@
-<Project>
-    <PropertyGroup>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-	    <EnableNETAnalyzers>true</EnableNETAnalyzers>
-	    <LangVersion>12.0</LangVersion>
-    </PropertyGroup>
-</Project>
