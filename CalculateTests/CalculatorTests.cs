@@ -67,6 +67,15 @@ public class CalculatorTests
     }
 
     [Theory]
+    [InlineData("")]
+    [InlineData(null)]
+    public void TestTryCalculate_NullOrEmpty_ReturnsFalse(string input)
+    {
+        Calculator<float> calc = new();
+        Assert.False(calc.TryCalculate(input, out float blah));
+    }
+
+    [Theory]
     [InlineData("2 + 3", 5, true)]
     [InlineData("-4 - 3", -7, true)]
     [InlineData("2", 0, false)]

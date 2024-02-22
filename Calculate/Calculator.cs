@@ -22,7 +22,11 @@ public class Calculator<T> where T : INumber<T>
 
     public bool TryCalculate(string calculation, out float result)
     {
-        ArgumentException.ThrowIfNullOrEmpty(calculation, nameof(calculation));
+        if(calculation == null || calculation == "")
+        {
+            result = 0;
+            return false;
+        }
         string[] parts = calculation.Split(' ');
         result = 0;
         if(parts.Length != 3)
