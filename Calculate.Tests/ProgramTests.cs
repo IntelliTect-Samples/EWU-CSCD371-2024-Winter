@@ -84,12 +84,6 @@ public class ProgramTests : IDisposable
 
     }
 
-    [Fact]
-    public void Constructor_DefaultReadFileWrite()
-    {
-
-    }
-
     public void Dispose()
     {
         if (File.Exists(TempPath))

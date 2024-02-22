@@ -10,7 +10,7 @@ public class Calculator<T> where T : INumber<T>
         { 
         {'+',(num1, num2) => num1 + num2},
         {'-',(num1, num2) => num1 - num2},
-        {'*',(num1, num2) => num1 * num2 },
+        {'*',(num1, num2) => num1 * num2},
         {'/', (num1, num2) => {
             if(num2 == T.Zero) 
                 throw new DivideByZeroException(nameof(num2));
