@@ -11,6 +11,8 @@ public class Calculator<T> where T : INumber<T>
         ['/'] = Divide
     };
 
+// CA1000 is disabled for this section because the arithmetic methods are required to be static per instructions,
+// and this causes warnings when we make them generic for the extra credit
 #pragma warning disable CA1000
     public static T Add(T a, T b) => a + b;
     public static T Subtract(T a, T b) => a - b;
