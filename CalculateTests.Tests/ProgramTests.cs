@@ -10,9 +10,9 @@ namespace CalculateTests.Tests;
         public void WriteLine_InvokesWriteLine_Success()
         {
             // Arrange
-            var expectedOutput = "Test Output";
+            string expectedOutput = "Test Output";
             string? actualOutput = null;
-            var program = new Program
+            Program program = new()
             {
                 // Set custom WriteLine delegate
                 WriteLine = (text) => actualOutput = text
@@ -29,15 +29,15 @@ namespace CalculateTests.Tests;
         public void ReadLine_InvokesReadLine_Success()
         {
             // Arrange
-            var expectedInput = "Test Input";
-            var program = new Program
+            string expectedInput = "Test Input";
+            Program program = new()
             {
                 // Set custom ReadLine delegate
                 ReadLine = () => expectedInput
             };
 
             // Act
-            var userInput = program.ReadLine();
+            string? userInput = program.ReadLine();
 
             // Assert
             Assert.Equal(expectedInput, userInput); // Verify ReadLine behavior
