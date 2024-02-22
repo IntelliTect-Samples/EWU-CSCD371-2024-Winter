@@ -98,4 +98,12 @@ public class CalculatorTests
         string input = "1+  2";
         Assert.False(Calculator.TryCalculate(input, out int? ans));
     }
+
+    [Fact]
+    public void TryCalculate_OperandsAreNotInts_ReturnsFalse()
+    {
+        string input = "1.3 +  2.3";
+        Assert.False(Calculator.TryCalculate(input, out int? ans));
+        Assert.Null(ans);
+    }
 }
