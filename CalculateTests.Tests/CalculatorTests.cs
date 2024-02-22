@@ -69,7 +69,7 @@ namespace CalculateTests.Tests;
         public void TryCalculate_ValidExpression_ReturnsTrue(string expression, double expected)
         {
             // Arrange
-            var calculator = new Calculator();
+            Calculator calculator = new Calculator();
 
             // Act
             bool result = calculator.TryCalculate(expression, out double actual);
