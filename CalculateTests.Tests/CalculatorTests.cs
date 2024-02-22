@@ -61,7 +61,7 @@ namespace CalculateTests.Tests;
         }
 
         [Fact]
-        public void Divide_ByZero_Throws_Exception()
+        public void Divide_ByZero_ThrowsException()
         {
             // Arrange
             double x = 10;
