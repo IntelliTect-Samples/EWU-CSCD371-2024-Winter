@@ -13,23 +13,11 @@ public class Calculator
         ['*'] = Multiple,
         ['/'] = Divide,
     };
-    public static int Add(int a, int b)
-    {
-        int answer = a + b;
-        return answer;
-    }
+    public static int Add(int a, int b) => a + b; 
 
-    public static int Subtract(int a, int b)
-    {
-        int answer = a - b;
-        return answer;
-    }
+    public static int Subtract(int a, int b) => a - b;
 
-    public static int Multiple(int a, int b)
-    {
-        int answer = a * b;
-        return answer;
-    }
+    public static int Multiple(int a, int b) => a * b;
 
     public static int Divide(int a, int b)
     {
@@ -57,14 +45,14 @@ public class Calculator
             {
                 try
                 {
-                    char[] opperand = equationParts[1].ToCharArray();
-                    if (!MathematicalOperations.ContainsKey(opperand[0]))
+                    char opperand = equationParts[1][0];
+                    if (!MathematicalOperations.ContainsKey(opperand))
                     {
                         result = null;
                         return false;
                     }
 
-                    Func<int, int, int> opperation = MathematicalOperations[opperand[0]];
+                    Func<int, int, int> opperation = MathematicalOperations[opperand];
                     //result = opperation(double.Parse(equationParts[0]), double.Parse(equationParts[2]));
                     result = opperation(variable1, variable2);
                     return true;
