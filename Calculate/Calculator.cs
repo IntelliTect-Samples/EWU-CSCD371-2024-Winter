@@ -1,7 +1,7 @@
 ﻿using System.Numerics;
 
 namespace Calculate;
-public class Calculator<T> where T : INumber<T>
+public class Calculator<T> where T : INumber<T>, IParsable<T>
 {
     public IReadOnlyDictionary<char, Func<T, T, T>> MathematicalOperations { get; } = new Dictionary<char, Func<T, T, T>>
     {
@@ -20,24 +20,25 @@ public class Calculator<T> where T : INumber<T>
     public static T Divide(T a, T b) => !b.Equals(0) ? a / b : throw new ArgumentException("Can't divide by 0", nameof(b));
 #pragma warning restore CA1000
 
-    public bool TryCalculate(string calculation, out float result)
+    public bool TryCalculate(string calculation, out T result)
     {
         if(calculation == null || calculation == "")
         {
-            result = 0;
+            result = T.Zero;
             return false;
         }
         string[] parts = calculation.Split(' ');
-        result = 0;
+        result = T.Zero;
         if(parts.Length != 3)
         {
            return false;
         }
-        float lOperand;
-        float rOperand;
+        T lOperand = T.Zero;
+        T rOperand = T.Zero;
         char operatorChar = parts[1][0];
 
-        if(!float.TryParse(parts[0], out lOperand) || !float.TryParse(parts[2], out rOperand))
+        if(!T.TryParse(parts[0], System.Globalization.NumberFormatInfo.CurrentInfo, out lOperand!)
+            || !T.TryParse(parts[2], System.Globalization.NumberFormatInfo.CurrentInfo, out rOperand!))
         {
             return false;
         }
@@ -47,7 +48,7 @@ public class Calculator<T> where T : INumber<T>
         }
         if(MathematicalOperations.TryGetValue(operatorChar, out var operation))
         {
-            result = (float)(object)operation((T)(object)lOperand, (T)(object)rOperand);
+            result = operation(lOperand, rOperand);
             return true;
         }
         return false;
