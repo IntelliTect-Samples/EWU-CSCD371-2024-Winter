@@ -60,6 +60,17 @@ namespace CalculateTests.Tests;
             Assert.Equal(2, result);
         }
 
+        [Fact]
+        public void Divide_ByZero_Throws_Exception()
+        {
+            // Arrange
+            double x = 10;
+            double y = 0;
+
+            // Act & Assert
+            Assert.Throws<ArgumentException>(() => Calculator.Divide(x, y));
+        }
+
 
         [Theory]
         [InlineData("3 + 4", 7)] // Valid addition
