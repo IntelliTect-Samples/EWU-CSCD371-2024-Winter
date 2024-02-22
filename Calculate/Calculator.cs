@@ -1,44 +1,33 @@
-﻿
+﻿using System.Globalization;
+using System.Numerics;
+
 namespace Calculate;
 
-public class Calculator
+public class Calculator<T> where T : INumber<T>
 {
 
-    public IReadOnlyDictionary<char, Func<int,int,int>> MathematicalOperations { get; } = new Dictionary<char, Func<int, int, int>>()
+    public IReadOnlyDictionary<char, Func<T, T, T>> MathematicalOperations { get; } = new Dictionary<char, Func<T, T, T>>()
         { 
-        {'+',Add},
-        {'-',Subtract},
-        {'*',Multiply },
-        {'/', Divide}
+        {'+',(num1, num2) => num1 + num2},
+        {'-',(num1, num2) => num1 - num2},
+        {'*',(num1, num2) => num1 * num2 },
+        {'/', (num1, num2) => {
+            if(num2 == T.Zero) 
+                throw new DivideByZeroException(nameof(num2));
+                return num1 / num2;
+            } }
         };
-    
-    public static int Add(int num1, int num2)
-    {
-        return num1 + num2;
-    }
-    public static int Subtract(int num1, int num2)
-    {
-        return num1 - num2;
 
-    }
-    public static int Multiply(int num1, int num2)
-    {
-        return num1 * num2;
-    }
-    public static int Divide(int num1, int num2)
-    {
-        return num1 / num2;
-    }
 
-    public bool TryCalculate(string expresion, out int result)
+    public bool TryCalculate(string expresion, out T result)
     {
         string[] ops = expresion.Split(' ');
-        result = 0;
+        result = T.Zero;
 
         if (ops.Length != 3) { return false; }
         if (ops[1].Length != 1) { return false; }
 
-        if (int.TryParse(ops[0], out int num1) && int.TryParse(ops[2], out int num2))
+        if (T.TryParse(ops[0], CultureInfo.InvariantCulture ,out T? num1) && T.TryParse(ops[2], CultureInfo.InvariantCulture, out T? num2))
         {
 
             if (!MathematicalOperations.ContainsKey(ops[1][0])) { return false; }

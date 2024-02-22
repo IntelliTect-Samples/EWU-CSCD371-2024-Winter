@@ -14,7 +14,7 @@ public class Program : ProgramBase
         int res;
         string? expression;
         Program program = new();
-        Calculator calculator = new Calculator();
+        Calculator<int> calculator = new();
         do
         {
             program.WriteLine("Please Enter Your Expression: ");
