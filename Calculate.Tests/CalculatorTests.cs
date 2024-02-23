@@ -35,7 +35,7 @@ public class CalculatorTests
     [InlineData(12,2,6)]
     public void Multilple_Success(int expected, int value1, int value2)
     {
-        Assert.Equal<int>(expected, Calculator.Multiple(value1, value2));
+        Assert.Equal<int>(expected, Calculator.Multiply(value1, value2));
     }
 
     [Theory]
