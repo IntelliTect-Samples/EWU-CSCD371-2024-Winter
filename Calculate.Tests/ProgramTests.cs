@@ -21,7 +21,7 @@ public class ProgramTests
     }
 
     [Fact]
-    public void ReadLine_OutputMatch_Ture()
+    public void ReadLine_OutputMatch_True()
     {
         string input = "Input? Again?";
         MockClass mockClass = new();
