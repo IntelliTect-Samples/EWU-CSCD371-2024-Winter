@@ -10,7 +10,7 @@ public class Calculator
         {
             ['+'] = Add,
             ['-'] = Subtract,
-            ['*'] = Multiple,
+            ['*'] = Multiply,
             ['/'] = Divide
 
         };
@@ -26,7 +26,7 @@ public class Calculator
         return value1 - value2;
     }
 
-    public static int Multiple(int multiplicand, int multiplier)
+    public static int Multiply(int multiplicand, int multiplier)
     {
         return multiplicand * multiplier;
     }
