@@ -19,7 +19,7 @@ public class Program
         int? answer;
 
         do{
-        program.WriteLine("Please enter something: ");
+        program.WriteLine("Please enter your equation: ");
         input = program.ReadLine();
 
         }while(!calculator.TryCalculate(input, out answer));
