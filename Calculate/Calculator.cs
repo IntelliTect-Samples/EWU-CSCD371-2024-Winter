@@ -33,6 +33,9 @@ public class Calculator
 
     public static int Divide(int dividend, int divisor)
     {
+        if(divisor == 0){
+            throw new InvalidOperationException("can't divide by 0");
+        }
         return dividend / divisor;
     }
 
