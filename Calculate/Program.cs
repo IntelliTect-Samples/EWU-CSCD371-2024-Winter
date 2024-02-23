@@ -22,6 +22,10 @@ public class Program
         program.WriteLine("Please enter your equation: ");
         input = program.ReadLine();
 
+        if(!calculator.TryCalculate(input, out answer)) 
+        {
+            program.WriteLine("Please make sure you input is valid. Ex: 3 + 4, 42 - 2");
+        }
         }while(!calculator.TryCalculate(input, out answer));
 
         program.WriteLine($"The answer is: {answer}");
