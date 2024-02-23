@@ -5,17 +5,41 @@ namespace Calculate;
 
 public class Calculator<T> where T : INumber<T>
 {
-    public IReadOnlyDictionary<char, Func<T, T, T>> MathematicalOperations { get; } = new Dictionary<char, Func<T, T, T>>()
-        { 
-        {'+',(num1, num2) => num1 + num2},
-        {'-',(num1, num2) => num1 - num2},
-        {'*',(num1, num2) => num1 * num2},
-        {'/', (num1, num2) => {
-            if(num2 == T.Zero) 
-                throw new DivideByZeroException(nameof(num2));
-                return num1 / num2;
-            } }
+    public IReadOnlyDictionary<char, Func<T, T, T>> MathematicalOperations { get; }
+
+    public Calculator()
+    {
+        MathematicalOperations = new Dictionary<char, Func<T, T, T>>()
+        {
+            {'+',Add},
+            {'-',Subtract},
+            {'*',Multiply},
+            {'/',Divide }
         };
+    }
+
+    public T Add(T value, T value2)
+    {
+        return value + value2;
+    }
+
+    public T Subtract(T value, T value2)
+    {
+        return value - value2;
+    }
+
+    public T Multiply(T value, T value2)
+    {
+        return value * value2;
+    }
+
+    public T Divide(T value, T value2)
+    {
+        if (value2 == T.Zero)
+            throw new DivideByZeroException("Cannot divide by zero");
+
+        return value / value2;
+    }
 
     public bool TryCalculate(string? expresion, out T result)
     {

@@ -15,28 +15,28 @@ namespace Calculate.Tests;
         [Fact]
         public void Add_ValidNumbers_ReturnsExpectedResult()
         {
-            Assert.Equal(6, Calculator.MathematicalOperations['+'](3.0, 3));
+            Assert.Equal(6, Calculator.Add(3.0, 3));
         }
         [Fact]
         public void Subtract_ValidNumbers_ReturnsExpectedResult()
         {
             Calculator<float> floatCalculator = new();
-            Assert.Equal(6.4 - 3.7, Calculator.MathematicalOperations['-'](6.4, 3.7));
+            Assert.Equal(6.4 - 3.7, Calculator.Subtract(6.4, 3.7));
         }
         [Fact]
         public void Multiply_ValidNumbers_ReturnsExpectedResult()
         {
-            Assert.Equal(9, Calculator.MathematicalOperations['*'](3, 3));
+            Assert.Equal(9, Calculator.Multiply(3, 3));
         }
         [Fact]
         public void Divide_ValidNumbers_ReturnsExpectedResult()
         {
-            Assert.Equal(1, Calculator.MathematicalOperations['/'](3, 3));
+            Assert.Equal(1, Calculator.Divide(3, 3));
         }
         [Fact]
         public void Divide_ZeroDenominator_ThrowsDivideByZeroException()
         {
-            Assert.Throws<DivideByZeroException>(() => Calculator.MathematicalOperations['/'](3, 0));
+            Assert.Throws<DivideByZeroException>(() => Calculator.Divide(3, 0));
         }
 
         [Theory]
