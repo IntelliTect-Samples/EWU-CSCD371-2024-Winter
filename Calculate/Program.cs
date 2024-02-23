@@ -20,7 +20,7 @@ public class Program : ProgramBase
             program.WriteLine("Please Enter Your Expression: ");
             expression = program.ReadLine();
 
-        } while (!calculator.TryCalculate(expression!, out res));
+        } while (!calculator.TryCalculate(expression, out res) );
 
         program.WriteLine(res.ToString(CultureInfo.InvariantCulture));
  

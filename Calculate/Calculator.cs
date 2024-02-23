@@ -19,8 +19,10 @@ public class Calculator<T> where T : INumber<T>
         };
 
 
-    public bool TryCalculate(string expresion, out T result)
+    public bool TryCalculate(string? expresion, out T result)
     {
+        result = T.Zero;
+        if (expresion == null) { return false; }
         string[] ops = expresion.Split(' ');
         result = T.Zero;
 
