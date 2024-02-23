@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace Calculate;
 
 public class Calculator
@@ -53,7 +55,7 @@ public class Calculator
                     {
                         char[] op = calcParts[1].ToCharArray();
                         Func<int,int,int> operation = MathematicalOperations[op[0]];
-                        result = operation(int.Parse(calcParts[0]), int.Parse(calcParts[2]));
+                        result = operation(int.Parse(calcParts[0], CultureInfo.InvariantCulture), int.Parse(calcParts[2], CultureInfo.InvariantCulture));
                         return true;
                     }
                     catch (FormatException)
