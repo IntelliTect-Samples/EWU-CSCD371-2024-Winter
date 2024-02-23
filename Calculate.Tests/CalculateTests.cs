@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using System.Linq.Expressions;
+using Xunit;
 
 namespace Calculate.Tests;
 
@@ -40,7 +41,7 @@ namespace Calculate.Tests;
 
         [Theory]
         [InlineData(6, "3 + 3")]
-        [InlineData(0, "3 - 3")]
+        [InlineData(3.9-3.7, "3.9 - 3.7")]
         [InlineData(135, "45 * 3")]
         [InlineData(16, "64 / 4")]
         public void TryCalcuate_ValidExpression_CalculatesCorrectly(double expected, string expression)
@@ -76,6 +77,12 @@ namespace Calculate.Tests;
         public void TryCalculate_InvalidOperator_ReturnsFalse(string expression)
         {
             Assert.False(Calculator.TryCalculate(expression, out _));
+        }
+
+        [Fact]
+        public void TryCalculate_NullExpresion_ReturnsFalse()
+        {
+            Assert.False(Calculator.TryCalculate(null, out _));
         }
 
 }
