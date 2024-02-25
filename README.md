@@ -1,5 +1,7 @@
 # Assignment
 
+## IMPORTANT NOTICE: YOU MUST HAVE A DIFFERENT PARTNER FOR THIS ASSIGNMENT
+
 The purpose of this assignment is to solidify your learning of:
 
 - Lambda expressions
