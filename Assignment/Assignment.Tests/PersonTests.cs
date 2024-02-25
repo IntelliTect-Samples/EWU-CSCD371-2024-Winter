@@ -29,12 +29,12 @@ public class PersonTests
         Person rowPerson = Person.FromCsvRow(row);
         (string firstName, string lastName, string email, string streetAddress, string city,
             string state, string zipCode) = rowPerson;
-        Assert.AreEqual(firstName, expectedRowPerson.FirstName);
-        Assert.AreEqual(lastName, expectedRowPerson.LastName);
-        Assert.AreEqual(email, expectedRowPerson.EmailAddress);
-        Assert.AreEqual(streetAddress, expectedRowPerson.Address.StreetAddress);
-        Assert.AreEqual(city, expectedRowPerson.Address.City);
-        Assert.AreEqual(state, expectedRowPerson.Address.State);
-        Assert.AreEqual(zipCode, expectedRowPerson.Address.Zip);
+        Assert.AreEqual(expectedRowPerson.FirstName, firstName);
+        Assert.AreEqual(expectedRowPerson.LastName, lastName);
+        Assert.AreEqual(expectedRowPerson.EmailAddress, email);
+        Assert.AreEqual(expectedRowPerson.Address.StreetAddress, streetAddress);
+        Assert.AreEqual(expectedRowPerson.Address.City, city);
+        Assert.AreEqual(expectedRowPerson.Address.State, state);
+        Assert.AreEqual(expectedRowPerson.Address.Zip, zipCode);
     }
 }
