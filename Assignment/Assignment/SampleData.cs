@@ -28,10 +28,10 @@ public class SampleData : ISampleData
         // check for column consistency
         // TODO: account for quoted commas
         int l = 1;
-        foreach(string line in data)
+        foreach (string line in data)
         {
             int lineColumns = line.Split(",").Length;
-            if(lineColumns != columns)
+            if (lineColumns != columns)
             {
                 throw new Exception($"Unable to parse csv, inconsistent number of columns ({lineColumns} != {columns} on line {l})");
             }
@@ -55,15 +55,22 @@ public class SampleData : ISampleData
         FromCsvString(File.ReadAllText(path));
 
     // 2.
-    public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()  =>
-        CsvRows.Distinct().Order();
+    public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows() =>
+        (from person in People
+        select person.Address.State).Distinct().Order();
 
     // 3.
     public string GetAggregateSortedListOfStatesUsingCsvRows()
         => throw new NotImplementedException();
 
     // 4.
-    public IEnumerable<IPerson> People => throw new NotImplementedException();
+    public IEnumerable<IPerson> People =>
+        from row in CsvRows
+        select Person.FromCsvRow(row)
+        into person
+        orderby person.Address.State, person.Address.City, person.Address.Zip
+        select person;
+        
 
     // 5.
     public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(
