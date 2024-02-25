@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace Assignment
 {
@@ -27,14 +28,51 @@ namespace Assignment
                                                                            //though selecting only states I am unsure how to do 
 
         // 4.
-        public IEnumerable<IPerson> People => throw new NotImplementedException();
+        public IEnumerable<IPerson> People
+        {
+            get
+            {
+                return CsvRows.Select(row =>
+                {
+                    var fields = row.Split(',');
+                    return new Person
+                    {
+                        FirstName = fields[1],
+                        LastName = fields[2],
+                        Address = new Address(
+                            streetAddress: fields[3],
+                            city: fields[4],
+                            state: fields[5],
+                            zip: fields[6]),
+                        EmailAddress = fields[7]
+                    };
+                }).OrderBy(p => p.Address.State)
+                .ThenBy(p => p.Address.City)
+                .ThenBy(p => p.Address.Zip)
+                .Cast<IPerson>();// This Implementation is a total guess, but it may be close.
+            }
+        }
 
         // 5.
         public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(
-            Predicate<string> filter) => throw new NotImplementedException();
+            Predicate<string> filter) 
+            => People.Where(p => filter(p.EmailAddress))
+            .Select(p => (p.FirstName, p.LastName)); //This one may be right, but again a first go.
 
         // 6.
         public string GetAggregateListOfStatesGivenPeopleCollection(
-            IEnumerable<IPerson> people) => throw new NotImplementedException();
+            IEnumerable<IPerson> people)
+        {
+            var uniqueSortedStates = people
+                .Select(person => person.Address.State)
+                .Distinct()
+                .OrderBy(state => state);
+
+            string res = uniqueSortedStates
+                .Aggregate(new StringBuilder(), (sb, state) => sb.Append(sb.Length == 0 ? "" : ",").Append(state))
+                .ToString();
+
+            return res;//This one may need to be adjusted, as I sort of guessed on the Length check.
+        }
     }
 }
