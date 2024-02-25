@@ -37,7 +37,7 @@ public class SampleData : ISampleData
             }
             l++;
         }
-        
+
         return new()
         {
             Columns = columns,
@@ -46,7 +46,8 @@ public class SampleData : ISampleData
     }
 
     /// <summary>
-    /// FromFile takes a file path as input, validating it and returning a container
+    /// FromFile takes a file path as input, validating it and returning a container. Because it
+    /// does not keep the stream open as an object, the IDisposable pattern is not needed
     /// </summary>
     /// <param name="path">path to a CSV-formated file</param>
     /// <returns>an object containing the lines</returns>
