@@ -8,14 +8,14 @@ namespace Assignment.Tests;
 public class SampleDataTests
 {
     [TestMethod]
-    public void ParseFile_SetsCorrectColumns()
+    public void FromCsvString_SetsCorrectColumns()
     {
         SampleData sampleData = SampleData.FromCsvString(TestingCsvData.Data);
         Assert.AreEqual<int>(TestingCsvData.DataColumns, sampleData.Columns);
     }
 
     [TestMethod]
-    public void ParseFile_ThrowsIfNullOrEmpty()
+    public void FromCsvString_ThrowsIfNullOrEmpty()
     {
         Assert.ThrowsException<ArgumentException>(() =>
             SampleData.FromCsvString(""));
@@ -24,14 +24,14 @@ public class SampleDataTests
     }
 
     [TestMethod]
-    public void ParseFile_ThrowsExceptionIfInconsistentColumns()
+    public void FromCsvString_ThrowsExceptionIfInconsistentColumns()
     {
         Assert.ThrowsException<Exception>(() =>
             SampleData.FromCsvString(TestingCsvData.InconsistentColumnData));
     }
 
     [TestMethod]
-    public void ParseFile_SkipsFirstRow()
+    public void FromCsvString_SkipsFirstRow()
     {
         SampleData sampleData = SampleData.FromCsvString(TestingCsvData.Data);
         string firstDataLine = sampleData.CsvRows.First();
