@@ -111,4 +111,23 @@ public class SampleDataTests
             Assert.AreEqual(states2[i], states[i]);
         }
     }
+
+    [TestMethod]
+    public void FilterByEmailAddress_SetFilterToNull_ThrowArgumentNullException()
+    {
+        SampleData sampleData = SampleData.FromCsvString(TestingCsvData.Data);
+        Assert.ThrowsException<ArgumentNullException>(
+            () => sampleData.FilterByEmailAddress(null!));
+    }
+
+    [TestMethod]
+    public void FilterByEmailAddress_SetFilterToSpecificEmail_Ture()
+    {
+        // sdennington9@chron.com an email of 10'th person in People.csv. First = Scarface, Last = Dennington
+        (string firstName, string lastName) expected = ("Scarface", "Dennington");
+        SampleData sampleData = SampleData.FromCsvString(TestingCsvData.Data);
+        Predicate<string> filter = email => email == "sdennington9@chron.com";
+        IEnumerable<(string firstName, string lastName)> actual = sampleData.FilterByEmailAddress(filter);
+        Assert.AreEqual(expected, actual.First());
+    }
 }
