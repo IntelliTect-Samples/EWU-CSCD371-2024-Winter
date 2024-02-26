@@ -62,8 +62,8 @@ public class SampleData : ISampleData
     // 3.
     public string GetAggregateSortedListOfStatesUsingCsvRows()
     {
-        string[] states = GetUniqueSortedListOfStatesGivenCsvRows().ToArray();
-        return string.Join(",", states);
+        return GetUniqueSortedListOfStatesGivenCsvRows()
+            .Aggregate((stateL, stateR) => $"{stateL},{stateR}");
     }
 
 
@@ -91,6 +91,12 @@ public class SampleData : ISampleData
     }
 
     // 6.
-    public string GetAggregateListOfStatesGivenPeopleCollection(
-        IEnumerable<IPerson> people) => throw new NotImplementedException();
+    public string GetAggregateListOfStatesGivenPeopleCollection(IEnumerable<IPerson> people)
+    {
+        ArgumentNullException.ThrowIfNull(people);
+        return people
+            .Select(person => person.Address.State)
+            .Distinct()
+            .Aggregate((stateL, stateR) => $"{stateL},{stateR}");
+    }
 }
