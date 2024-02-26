@@ -1,27 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Assignment
+namespace Assignment;
+public interface ISampleData
 {
-    public interface ISampleData
-    {
-        // 1.
-        IEnumerable<string> CsvRows { get; }
-        
-        // 2.
-        IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows();
+    // 1.
+    IEnumerable<string> CsvRows { get; }
 
-        // 3.
-        string GetAggregateSortedListOfStatesUsingCsvRows();
+    // 2.
+    IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows();
 
-        // 4.
-        IEnumerable<IPerson> People { get; }
+    // 3.
+    string GetAggregateSortedListOfStatesUsingCsvRows();
 
-        // 5.
-        IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(Predicate<string> filter);
+    // 4.
+    IEnumerable<IPerson> People { get; }
 
-        // 6.
-        string GetAggregateListOfStatesGivenPeopleCollection(IEnumerable<IPerson> people);
+    // 5.
+    IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(Predicate<string> filter);
 
-    }
+    // 6.
+    string GetAggregateListOfStatesGivenPeopleCollection(IEnumerable<IPerson> people);
+
 }
+
