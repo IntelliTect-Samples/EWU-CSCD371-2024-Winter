@@ -1,24 +1,24 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
-namespace GenericsHomework;
+namespace Assignment;
 
-public class Node<T>(T data)
+public class Node<T> : IEnumerable<T>
 {
-    //Can add contraint such as "where T : class" to ensure homogeneous values
-    //Can possibly also add "public T Data { get; }" to ensure pproperty is non nullable.
+    public T Data { get; }
+    public Node<T> Next { get; private set; }
 
-    public T Data { get; } = data;
-    private Node<T>? next; 
-    public Node<T> Next
+    public Node(T data)
     {
-        get => next ?? this;
-        private set => next = value;
+        Data = data;
+        Next = this;
     }
 
-    public override string ToString()
+    public override string? ToString()
     {
-        return Data?.ToString() ?? string.Empty;
+        if (Data == null) return null;
+        return Data.ToString();
     }
 
     public void Append(T data)
@@ -60,9 +60,34 @@ public class Node<T>(T data)
 
     public void Clear()
     {
-        Node<T> cur = this;//Create a new Node that holds the same data, this node is not connected to the rest of the list.
-        Next = this; //Setting Next will remove external References.
-        //Garbage Collection won't be a problem here as these objects are no longer referenced, and are collected automatically.
-        //Circular references are broken at this point, which ultimately prevents memory leaks.
+        Node<T> cur = this;
+        Next = this; 
+    }
+
+    public IEnumerator<T> GetEnumerator()
+    {
+        Node<T> cur = this;
+        do
+        {
+            yield return cur.Data;
+            cur = cur.Next;
+        } while (cur != this);
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
+
+    public IEnumerable<T> ChildItems(int maximum)
+    {
+        if (maximum < 1) yield break;
+
+        Node<T> cur = this.Next;
+        for(int i = 0; i < maximum && cur != this; i++)
+        {
+            yield return cur.Data;
+            cur = cur.Next;
+        }
     }
 }
