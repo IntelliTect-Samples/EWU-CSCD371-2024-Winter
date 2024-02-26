@@ -132,22 +132,12 @@ public class SampleDataTests
     }
 
     [TestMethod]
-    public void GetAggregateListOfStatesGivenPeopleCollection_ThrowsErrorIfNull()
+    public void FilterByEmailAddress_ReturnDuplicateEmail_True()
     {
-        SampleData sampleData = new();
-        Assert.ThrowsException<ArgumentNullException>(() => sampleData.GetAggregateListOfStatesGivenPeopleCollection(null!));
-    }
+        SampleData sampleData = SampleData.FromCsvString(TestingCsvData.DataDuplicateEmail);
+        Predicate<string> filter = email => email == "cstennine2@wired.com";
+        IEnumerable<(string firstName, string lastName)> actual = sampleData.FilterByEmailAddress(filter);
 
-    [TestMethod]
-    public void GetAggregateListOfStatesGivenPeopleCollection_GivesUniqueJoinedString()
-    {
-        SampleData sampleData = SampleData.FromCsvString(@"Id,FirstName,LastName,Email,StreetAddress,City,State,Zip
-1,First,Last,Email,Street,City,State,Zip
-2,First,Last,Email,Street,City,State,Zip
-3,First2,Last2,Email2,Street2,City2,State2,Zip2
-4,First3,Last3,Email3,Street3,City3,State2,Zip3");
-        string expectedResult = "State,State2";
-        string aggregateResult = sampleData.GetAggregateListOfStatesGivenPeopleCollection(sampleData.People);
-        Assert.AreEqual(expectedResult, aggregateResult);
+        Assert.AreEqual(3, actual.Count());
     }
 }

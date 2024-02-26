@@ -62,4 +62,16 @@ public static class TestingCsvData
 50,Claudell,Leathe,cleathe1d@columbia.edu,30262 Steensland Way,Newport News,VA,87930";
 
     public const string UniqueStates = "AL,AZ,CA,DC,FL,GA,IN,KS,LA,MD,MN,MO,MT,NC,NE,NH,NV,NY,OR,PA,SC,TN,TX,UT,VA,WA,WV";
+
+    public const string DataDuplicateEmail = @"Id,FirstName,LastName,Email,StreetAddress,City,State,Zip
+1,Priscilla,Jenyns,pjenyns0@state.gov,7884 Corry Way,Helena,MT,70577
+2,Karin,Joder,kjoder1@quantcast.com,03594 Florence Park,Tampa,FL,71961
+3,Chadd,Stennine,cstennine2@wired.com,94148 Kings Terrace,Long Beach,CA,59721
+4,Fremont,Pallaske,fpallaske3@umich.edu,16958 Forster Crossing,Atlanta,GA,10687
+5,Melisa,Kerslake,mkerslake4@dion.ne.jp,283 Pawling Parkway,Dallas,TX,88632
+6,Darline,Brauner,dbrauner5@biglobe.ne.jp,33 Menomonie Trail,Atlanta,GA,10687
+7,Issiah,Bester,cstennine2@wired.com,96 Independence Hill,Richmond,VA,37731
+8,Joly,Scneider,jscneider7@pagesperso-orange.fr,53 Grim Point,Spokane,WA,99022
+9,Swen,Mulvany,smulvany8@surveymonkey.com,71258 Cambridge Avenue,Erie,PA,53141
+10,Scarface,Dennington,cstennine2@wired.com,9978 Maple Wood Parkway,Memphis,TN,99928";
 }
