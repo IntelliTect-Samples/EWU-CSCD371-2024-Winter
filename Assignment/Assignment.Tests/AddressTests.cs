@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Assignment.Tests;
-public interface IAddressTests
+public interface AddressTests
 {
 }
 

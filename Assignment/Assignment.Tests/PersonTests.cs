@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Assignment.Tests;
-public interface IPersonTests
+public interface PersonTests
 {
 }
 
