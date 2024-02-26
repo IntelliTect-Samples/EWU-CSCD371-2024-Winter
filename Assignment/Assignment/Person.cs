@@ -27,6 +27,20 @@ public class Person(string firstName, string lastName, IAddress address, string 
         (StreetAddress, City, State, Zip) = (Address)Address;
     }
 
+    public string ToCsvRow()
+    {
+        string[] preJoin = [FirstName,LastName, EmailAddress, Address.StreetAddress, Address.City,
+            Address.State, Address.Zip];
+        for(int i = 0; i < preJoin.Length; i++)
+        {
+            if (preJoin[i].Contains(","))
+            {
+                preJoin[i] = $"\"{preJoin[i]}\"";
+            }
+        }
+        return string.Join(",", preJoin);
+    }
+
     public string FirstName { get; set; } = firstName;
     public string LastName { get; set; } = lastName;
     public IAddress Address { get; set; } = address;

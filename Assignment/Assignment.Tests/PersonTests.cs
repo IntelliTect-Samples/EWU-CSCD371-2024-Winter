@@ -37,4 +37,22 @@ public class PersonTests
         Assert.AreEqual(expectedRowPerson.Address.State, state);
         Assert.AreEqual(expectedRowPerson.Address.Zip, zipCode);
     }
+
+    [TestMethod]
+    public void ToCsvRow_NoComma_ReturnsCorrectData()
+    {
+        Person personNoComma = new("First", "Last", new Address("Street", "City", "State", "Zip"), "Email");
+        string row = personNoComma.ToCsvRow();
+        string expectedRow = "First,Last,Email,Street,City,State,Zip";
+        Assert.AreEqual(expectedRow, row);
+    }
+
+    [TestMethod]
+    public void ToCsvRow_WithComma_ReturnsCorrectData()
+    {
+        Person personNoComma = new("F,irst", "Last", new Address("Street", "City", "State", "Zip"), "Email");
+        string row = personNoComma.ToCsvRow();
+        string expectedRow = "\"F,irst\",Last,Email,Street,City,State,Zip";
+        Assert.AreEqual(expectedRow, row);
+    }
 }
