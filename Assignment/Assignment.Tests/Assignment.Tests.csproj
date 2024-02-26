@@ -10,6 +10,7 @@
     <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
     <PackageReference Include="coverlet.collector" Version="1.0.1" />
     <PackageReference Include="NUnit" Version="4.1.0" />
+    <PackageReference Include="xunit.extensibility.core" Version="2.7.0" />
   </ItemGroup>
 
   <ItemGroup>

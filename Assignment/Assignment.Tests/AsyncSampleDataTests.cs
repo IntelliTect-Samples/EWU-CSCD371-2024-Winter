@@ -6,7 +6,7 @@ using Assignment;
 using Xunit;
 
 namespace Assignment.Tests;
-public interface AsyncSampleDataTests
+public class AsyncSampleDataTests
 {
 }
 

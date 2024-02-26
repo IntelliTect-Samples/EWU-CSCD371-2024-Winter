@@ -6,7 +6,7 @@ using Assignment;
 using Xunit;
 
 namespace Assignment.Tests;
-public interface AddressTests
+public class AddressTests
 {
 }
 

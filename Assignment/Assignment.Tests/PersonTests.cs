@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Assignment;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
 namespace Assignment.Tests;
 public class PersonTests
@@ -20,10 +21,10 @@ public class PersonTests
         var person = new Person(firstName, lastName, address, emailAddress);
 
         // Assert
-        Assert.Equal(firstName, person.FirstName);
-        Assert.Equal(lastName, person.LastName);
-        Assert.Equal(address, person.Address);
-        Assert.Equal(emailAddress, person.EmailAddress);
+        Assert.Equals(firstName, person.FirstName);
+        Assert.Equals(lastName, person.LastName);
+        Assert.Equals(address, person.Address);
+        Assert.Equals(emailAddress, person.EmailAddress);
     }
 
     [Fact]
@@ -36,20 +37,21 @@ public class PersonTests
         person.FirstName = "Jane";
 
         // Assert
-        Assert.Equal("Jane", person.FirstName);
+        Assert.Equals("Jane", person.FirstName);
     }
 
     [Fact]
     public void LastName_CanBeSetAndRetrieved()
     {
         // Arrange
-        var person = new Person("John", "Doe", new Address("123 Main St", "Anytown", "CA", "12345"), "john@example.com");
-
-        // Act
-        person.LastName = "Smith";
+        var person = new Person("John", "Doe", new Address("123 Main St", "Anytown", "CA", "12345"), "john@example.com")
+        {
+            // Act
+            LastName = "Smith"
+        };
 
         // Assert
-        Assert.Equal("Smith", person.LastName);
+        Assert.Equals("Smith", person.LastName);
     }
 
     [Fact]
@@ -63,7 +65,7 @@ public class PersonTests
         person.Address = address;
 
         // Assert
-        Assert.Equal(address, person.Address);
+        Assert.Equals(address, person.Address);
     }
 
     [Fact]
@@ -76,6 +78,6 @@ public class PersonTests
         person.EmailAddress = "jane@example.com";
 
         // Assert
-        Assert.Equal("jane@example.com", person.EmailAddress);
+        Assert.Equals("jane@example.com", person.EmailAddress);
     }
 }
