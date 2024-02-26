@@ -77,4 +77,38 @@ public class SampleDataTests
         string sortedStates = sampleData.GetAggregateSortedListOfStatesUsingCsvRows();
         Assert.AreEqual<string>(expected, sortedStates);
     }
+
+    [TestMethod]
+    public void GetUniqueSortedListOfStatesGivenCsvRows_ReturnsCorrectData_Hardcoded()
+    {
+        List<string> states = SampleData.FromCsvString(@"Id,FirstName,LastName,Email,StreetAddress,City,State,Zip
+1,B,B,B,B,B,B,B
+2,B,B,B,B,B,B,B
+3,A,A,A,A,A,A,A
+4,a,a,a,a,a,a,a").GetUniqueSortedListOfStatesGivenCsvRows().ToList();
+        string[] expectedStates = ["a", "A", "B"];
+        for (int i = 0; i < states.Count; i++)
+        {
+            Assert.AreEqual(expectedStates[i], states[i]);
+        }
+    }
+    [TestMethod]
+    public void GetUniqueSortedListOfStatesGivenCsvRows_ReturnsCorrectData_LINQ()
+    {
+        List<string> states = SampleData.FromCsvString(@"Id,FirstName,LastName,Email,StreetAddress,City,State,Zip
+1,B,B,B,B,B,B,B
+2,B,B,B,B,B,B,B
+3,C,C,C,C,C,C,C
+4,A,A,A,A,A,A,A
+5,A,A,A,A,A,A,A
+6,a,a,a,a,a,a,a
+7,a,a,a,a,a,a,a").GetUniqueSortedListOfStatesGivenCsvRows().ToList();
+
+        List<string> states2 = [.. (from state in states orderby state ascending select state)];
+
+        for (int i = 0; i < states.Count; i++)
+        {
+            Assert.AreEqual(states2[i], states[i]);
+        }
+    }
 }
