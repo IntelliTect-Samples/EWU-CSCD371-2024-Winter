@@ -68,6 +68,9 @@ public class SampleData : ISampleData
 
 
     // 4.
+    // The People property cannot be reliably compared to CsvRows, since it is ordered
+    // by the getter method which may or may not change the data in CsvRows, depending
+    // on the data
     public IEnumerable<IPerson> People =>
         from row in CsvRows
         select Person.FromCsvRow(row)
