@@ -6,8 +6,26 @@ namespace Assignment
     public class SampleData : ISampleData
     {
         // 1.
-        public IEnumerable<string> CsvRows => throw new NotImplementedException();
+        public IEnumerable<string> CsvRows
+        {
+            get
+            {
+                // Specify the path to the People.csv file
+                string csvFilePath = "People.csv";
 
+                // Check if the file exists
+                if (File.Exists(csvFilePath))
+                {
+                    // Read all lines from the file and return as enumerable
+                    return File.ReadLines(csvFilePath);
+                }
+                else
+                {
+                    // If the file doesn't exist, throw an exception or handle it appropriately
+                    throw new FileNotFoundException("People.csv file not found.");
+                }
+            }
+        }
         // 2.
         public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows() 
             => throw new NotImplementedException();
