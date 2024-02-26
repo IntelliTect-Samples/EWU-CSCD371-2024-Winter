@@ -61,7 +61,11 @@ public class SampleData : ISampleData
 
     // 3.
     public string GetAggregateSortedListOfStatesUsingCsvRows()
-        => throw new NotImplementedException();
+    {
+        string[] states = GetUniqueSortedListOfStatesGivenCsvRows().ToArray();
+        return string.Join(",", states);
+    }
+
 
     // 4.
     public IEnumerable<IPerson> People =>

@@ -74,8 +74,8 @@ public class SampleDataTests
     {
         string expected = TestingCsvData.UniqueStates;
         SampleData sampleData = SampleData.FromCsvString(TestingCsvData.Data);
-        string sortedStates = sampleData.GetAggregateSortedListOfStatesUsingCsvRows();
-        Assert.AreEqual<string>(expected, sortedStates);
+        string actual = sampleData.GetAggregateSortedListOfStatesUsingCsvRows();
+        Assert.AreEqual(expected, actual);
     }
 
     [TestMethod]
