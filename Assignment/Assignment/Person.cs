@@ -24,10 +24,7 @@ public class Person(string firstName, string lastName, IAddress address, string 
         FirstName = this.FirstName;
         LastName = this.LastName;
         EmailAddress = this.EmailAddress;
-        StreetAddress = Address.StreetAddress;
-        City = Address.City;
-        State = Address.State;
-        Zip = Address.Zip;
+        (StreetAddress, City, State, Zip) = (Address)Address;
     }
 
     public string FirstName { get; set; } = firstName;
