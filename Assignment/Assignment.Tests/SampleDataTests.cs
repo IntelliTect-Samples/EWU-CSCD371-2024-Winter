@@ -68,4 +68,13 @@ public class SampleDataTests
             Assert.AreEqual(1, states.Where((s) => s == state).Count());
         }
     }
+
+    [TestMethod]
+    public void GetAggregateSortedListOfStatesUsingCsvRows_GivesAggregateSortedStates()
+    {
+        string expected = TestingCsvData.UniqueStates;
+        SampleData sampleData = SampleData.FromCsvString(TestingCsvData.Data);
+        string sortedStates = sampleData.GetAggregateSortedListOfStatesUsingCsvRows();
+        Assert.AreEqual<string>(expected, sortedStates);
+    }
 }

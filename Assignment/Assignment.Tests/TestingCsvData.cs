@@ -60,4 +60,6 @@ public static class TestingCsvData
 48,Constantia,Sogg,csogg1b@list-manage.com,6217 Amoth Road,Gaithersburg,MD,79967
 49,Arthur,Myles,amyles1c@miibeian.gov.cn,4718 Thackeray Pass,Mobile,AL,37308
 50,Claudell,Leathe,cleathe1d@columbia.edu,30262 Steensland Way,Newport News,VA,87930";
+
+    public const string UniqueStates = "AL,AZ,CA,DC,FL,GA,IN,KS,LA,MD,MN,MO,MT,NC,NE,NH,NV,NY,OR,PA,SC,TN,TX,UT,VA,WA,WV";
 }
