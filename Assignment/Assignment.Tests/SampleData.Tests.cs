@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Xunit;
 
 namespace Assignment.Tests;
 
@@ -29,7 +28,7 @@ public class SampleDataTests
             File.Delete(TestCsvFilePath);
     }
 
-    [Fact]
+    [TestMethod]
     public void CsvRows_ReturnsAllRowsFromFile()
     {
         var sampleData = new SampleData();
@@ -41,7 +40,7 @@ public class SampleDataTests
         //Assert.Contains("Jane,Smith,456 Elm St,Other City,NY,67890,jane@example.com", result);
     }
 
-    [Fact]
+    [TestMethod]
     public void GetUniqueSortedListOfStatesGivenCsvRows_ReturnsUniqueSortedStates()
     {
         var sampleData = new SampleData();
@@ -53,7 +52,7 @@ public class SampleDataTests
         Assert.AreEqual("NY", result[1]);
     }
 
-    [Fact]
+    [TestMethod]
     public void GetAggregateSortedListOfStatesUsingCsvRows_ReturnsAggregateSortedStates()
     {
         var sampleData = new SampleData();
@@ -63,7 +62,7 @@ public class SampleDataTests
         Assert.AreEqual("CA,NY", result);
     }
 
-    [Fact]
+    [TestMethod]
     public void People_ReturnsListOfPeople()
     {
         var sampleData = new SampleData();
@@ -75,7 +74,7 @@ public class SampleDataTests
         //Assert.Contains(result, p => p.FirstName == "Jane" && p.LastName == "Smith");
     }
 
-    [Fact]
+    [TestMethod]
     public void FilterByEmailAddress_ReturnsFilteredPeople()
     {
         var sampleData = new SampleData();
@@ -89,7 +88,7 @@ public class SampleDataTests
         Assert.AreEqual(("Jane", "Smith"), result[1]);
     }
 
-    [Fact]
+    [TestMethod]
     public void GetAggregateListOfStatesGivenPeopleCollection_ReturnsAggregateListOfStates()
     {
         var sampleData = new SampleData();

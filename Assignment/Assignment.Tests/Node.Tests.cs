@@ -1,39 +1,33 @@
-﻿using Xunit;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assignment.Tests;
 
 [TestClass]
 public class NodeTests
 {
-    [Fact]
+    [TestMethod]
     public void Append_SingleItem_Succeed()
     {
         Node<int> node = new(1);
         var expected = new[] { 1 };
 
-        Assert.Equals(expected, node);
+        Assert.AreEqual(expected, [.. node]);
     }
 
-    [Fact]
-    public static void Append_MultipleItems_Succeed()
+    [TestMethod]
+    public void Append_MultipleItems_Succeed()
     {
         Node<int> node = new(1);
         node.Append(2);
         node.Append(3);
         var expected = new[] { 1, 2, 3 };
 
-        Assert.Equals(expected, node);
+        Assert.AreEqual(expected, node);
     }
 
-    [Fact]
-    public static void Exists_ItemExists_ReturnsTrue()
+    [TestMethod]
+    public void Exists_ItemExists_ReturnsTrue()
     {
         Node<int> node = new(1);
         node.Append(2);
@@ -42,8 +36,8 @@ public class NodeTests
         Assert.IsTrue(node.Exists(2));
     }
 
-    [Fact]
-    public static void Exists_ItemNotExist_ReturnsFalse()
+    [TestMethod]
+    public void Exists_ItemNotExist_ReturnsFalse()
     {
         Node<int> node = new(1);
         node.Append(2);
@@ -52,8 +46,8 @@ public class NodeTests
         Assert.IsFalse(node.Exists(4));
     }
 
-    [Fact]
-    public static void ChildItems_ReturnsCorrect_Succeed()
+    [TestMethod]
+    public void ChildItems_ReturnsCorrect_Succeed()
     {
         Node<int> node = new(1);
         node.Append(2);
@@ -63,17 +57,17 @@ public class NodeTests
         var expected = new[] { 2, 3 };
         var res = node.ChildItems(2).ToArray();
 
-        Assert.Equals(expected, res);
+        Assert.AreEqual(expected, res);
     }
 
-    [Fact]
-    public static void Clear_Clears_Success()
+    [TestMethod]
+    public void Clear_Clears_Success()
     {
         Node<int> node = new(1);
         node.Append(2);
         node.Clear();
         var expected = new[] { 2 };
 
-        Assert.Equals(expected, node);
+        Assert.AreEqual(expected, node);
     }
 }

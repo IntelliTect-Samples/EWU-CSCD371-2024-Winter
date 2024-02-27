@@ -4,11 +4,10 @@ using System.IO;
 using System.Linq;
 using Assignment;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Xunit;
 namespace Assignment.Tests;
 public class PersonTests
 {
-    [Fact]
+    [TestMethod]
     public void Constructor_Initializes_Person_Object()
     {
         // Arrange
@@ -27,7 +26,7 @@ public class PersonTests
         Assert.Equals(emailAddress, person.EmailAddress);
     }
 
-    [Fact]
+    [TestMethod]
     public void FirstName_CanBeSetAndRetrieved()
     {
         // Arrange
@@ -40,7 +39,7 @@ public class PersonTests
         Assert.Equals("Jane", person.FirstName);
     }
 
-    [Fact]
+    [TestMethod]
     public void LastName_CanBeSetAndRetrieved()
     {
         // Arrange
@@ -54,7 +53,7 @@ public class PersonTests
         Assert.Equals("Smith", person.LastName);
     }
 
-    [Fact]
+    [TestMethod]
     public void Address_CanBeSetAndRetrieved()
     {
         // Arrange
@@ -68,7 +67,7 @@ public class PersonTests
         Assert.Equals(address, person.Address);
     }
 
-    [Fact]
+    [TestMethod]
     public void EmailAddress_CanBeSetAndRetrieved()
     {
         // Arrange
