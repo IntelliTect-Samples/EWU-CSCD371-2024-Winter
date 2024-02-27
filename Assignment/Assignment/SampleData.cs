@@ -60,8 +60,15 @@ public class SampleData : ISampleData
         select person.Address.State).Distinct().Order();
 
     // 3.
+    /// <summary>
+    /// Returns a sorted comma separated list of unique states. Doing it this way instead
+    /// of calling ToArray on the result of GetUniqueSortedListOfStatesGivenCsvRows()
+    /// allows us to make use of lazy evaluation 
+    /// </summary>
+    /// <returns></returns>
     public string GetAggregateSortedListOfStatesUsingCsvRows()
     {
+        //return string.Join(",", GetUniqueSortedListOfStatesGivenCsvRows().ToArray());
         return GetUniqueSortedListOfStatesGivenCsvRows()
             .Aggregate((stateL, stateR) => $"{stateL},{stateR}");
     }
