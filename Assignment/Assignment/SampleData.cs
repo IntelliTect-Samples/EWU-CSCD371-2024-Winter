@@ -16,8 +16,8 @@ namespace Assignment
                 // Check if the file exists
                 if (File.Exists(csvFilePath))
                 {
-                    // Read all lines from the file and return as enumerable
-                    return File.ReadLines(csvFilePath);
+                    // Read all lines from the file and return as enumerable, skipping the first row
+                    return File.ReadLines(csvFilePath).Skip(1);
                 }
                 else
                 {
