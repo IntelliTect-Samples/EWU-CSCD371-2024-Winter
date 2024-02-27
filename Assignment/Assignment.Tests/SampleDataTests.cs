@@ -140,4 +140,15 @@ public class SampleDataTests
 
         Assert.AreEqual(3, actual.Count());
     }
+
+    [TestMethod]
+    [DataRow(TestingCsvData.Data)]
+    [DataRow(TestingCsvData.DataDuplicateEmail)]
+    public void GetAggregateListOfStatesGivenPeopleCollection_ReturnsSameAs_GetUniqueSortedListOfStatesGivenCsvRows(string csvSource)
+    {
+        SampleData sampleData = SampleData.FromCsvString(csvSource);
+        string aggregateWithPeople = sampleData.GetAggregateListOfStatesGivenPeopleCollection(sampleData.People);
+        string aggregateUsingCsvRows = sampleData.GetAggregateSortedListOfStatesUsingCsvRows();
+        Assert.AreEqual(aggregateWithPeople, aggregateUsingCsvRows);
+    }
 }
