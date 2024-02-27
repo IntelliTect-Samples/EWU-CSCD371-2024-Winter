@@ -72,6 +72,12 @@ public class Node<T> : IEnumerable<Node<T>> where T : IEquatable<T>
         return atEnd;
     }
 
+    public IEnumerable<Node<T>> ChildItems(int maximum)
+    {
+        int n = 0;
+        return Next.TakeWhile(child => n++ < maximum);
+    }
+
     public IEnumerator<Node<T>> GetEnumerator() => new NodeEnumerator<T>(this);
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

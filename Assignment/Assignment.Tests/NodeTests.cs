@@ -60,4 +60,18 @@ public class NodeTests
         string joined = string.Join(",", aggregate);
         Assert.AreEqual("3,4,5,6", joined);
     }
+
+    [TestMethod]
+    public void ChildItems_GetsNoMoreThanMax()
+    {
+        Node<int> node = new(0);
+        node.Append(1);
+        node.Append(2);
+        node.Append(3);
+        node.Append(4);
+        node.Append(5);
+        node.Append(6);
+        Assert.AreEqual(6, node.Count());
+        Assert.AreEqual(4, node.ChildItems(4).Count());
+    }
 }
