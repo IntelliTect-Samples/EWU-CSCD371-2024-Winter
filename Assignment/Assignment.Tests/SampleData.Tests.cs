@@ -12,7 +12,8 @@ public class SampleDataTests
     //I tried my best with these but only 1 is currently passing haha
     private const string TestCsvFilePath = "TestPeople.csv"; // Makes a testing file with sample data
 
-    public SampleDataTests()
+    [TestInitialize]
+    public void Initialize()
     {
         // Sample Data added to the test file
         var testCsvContent = "FirstName,LastName,StreetAddress,City,State,Zip,EmailAddress\n" +
@@ -21,7 +22,8 @@ public class SampleDataTests
         File.WriteAllText(TestCsvFilePath, testCsvContent);
     }
 
-    ~SampleDataTests()
+    [TestCleanup]
+    public void Cleanup()
     {
         // Delete the test CSV file
         if (File.Exists(TestCsvFilePath))
@@ -37,7 +39,7 @@ public class SampleDataTests
 
         Assert.AreEqual(2, result.Count);
         //Assert.Contains("John,Doe,123 Main St,Anytown,CA,12345,john@example.com", result);
-        //Assert.Contains("Jane,Smith,456 Elm St,Other City,NY,67890,jane@example.com", result);
+        //CollectionAssert.Contains("Jane,Smith,456 Elm St,Other City,NY,67890,jane@example.com", result);
     }
 
     [TestMethod]
@@ -70,8 +72,8 @@ public class SampleDataTests
         var result = sampleData.People.ToList();
 
         Assert.AreEqual(2, result.Count);
-        //Assert.Contains(result, p => p.FirstName == "John" && p.LastName == "Doe");
-        //Assert.Contains(result, p => p.FirstName == "Jane" && p.LastName == "Smith");
+        //CollectionAssert.Contains(result, p => p.FirstName == "John" && p.LastName == "Doe");
+        //CollectionAssert.Contains(result, p => p.FirstName == "Jane" && p.LastName == "Smith");
     }
 
     [TestMethod]

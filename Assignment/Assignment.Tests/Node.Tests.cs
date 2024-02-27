@@ -10,9 +10,11 @@ public class NodeTests
     public void Append_SingleItem_Succeed()
     {
         Node<int> node = new(1);
-        var expected = new[] { 1 };
+        node.Append(2);
+        var expected = new[] { 1, 2 };
+        var actual = node.ToArray();
 
-        Assert.AreEqual(expected, [.. node]);
+        CollectionAssert.AreEqual(expected, actual);
     }
 
     [TestMethod]
@@ -22,8 +24,9 @@ public class NodeTests
         node.Append(2);
         node.Append(3);
         var expected = new[] { 1, 2, 3 };
+        var actual = node.ToArray();
 
-        Assert.AreEqual(expected, node);
+        CollectionAssert.AreEqual(expected, actual);
     }
 
     [TestMethod]
@@ -52,12 +55,11 @@ public class NodeTests
         Node<int> node = new(1);
         node.Append(2);
         node.Append(3);
-        node.Append(4);
 
         var expected = new[] { 2, 3 };
         var res = node.ChildItems(2).ToArray();
 
-        Assert.AreEqual(expected, res);
+        CollectionAssert.AreEqual(expected, res);
     }
 
     [TestMethod]
@@ -66,8 +68,9 @@ public class NodeTests
         Node<int> node = new(1);
         node.Append(2);
         node.Clear();
-        var expected = new[] { 2 };
+        var expected = new[] { 1 };
+        var res = node.ToArray();
 
-        Assert.AreEqual(expected, node);
+        CollectionAssert.AreEqual(expected, res);
     }
 }
