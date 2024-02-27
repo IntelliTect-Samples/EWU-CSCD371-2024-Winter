@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Assignment.Tests;
 
-[TestFixture]
+[TestClass]
 public class NodeTests
 {
-    [Test]
+    [Fact]
     public void Append_SingleItem_Succeed()
     {
         Node<int> node = new(1);
@@ -20,8 +21,8 @@ public class NodeTests
         Assert.Equals(expected, node);
     }
 
-    [Test]
-    public void Append_MultipleItems_Succeed()
+    [Fact]
+    public static void Append_MultipleItems_Succeed()
     {
         Node<int> node = new(1);
         node.Append(2);
@@ -31,28 +32,28 @@ public class NodeTests
         Assert.Equals(expected, node);
     }
 
-    [Test]
-    public void Exists_ItemExists_ReturnsTrue()
+    [Fact]
+    public static void Exists_ItemExists_ReturnsTrue()
     {
         Node<int> node = new(1);
         node.Append(2);
         node.Append(3);
 
-        Assert.That(node.Exists(2), Is.True);
+        Assert.IsTrue(node.Exists(2));
     }
 
-    [Test]
-    public void Exists_ItemNotExist_ReturnsFalse()
+    [Fact]
+    public static void Exists_ItemNotExist_ReturnsFalse()
     {
         Node<int> node = new(1);
         node.Append(2);
         node.Append(3);
 
-        Assert.That(node.Exists(4), Is.False);
+        Assert.IsFalse(node.Exists(4));
     }
 
-    [Test]
-    public void ChildItems_ReturnsCorrect_Succeed()
+    [Fact]
+    public static void ChildItems_ReturnsCorrect_Succeed()
     {
         Node<int> node = new(1);
         node.Append(2);
@@ -65,8 +66,8 @@ public class NodeTests
         Assert.Equals(expected, res);
     }
 
-    [Test]
-    public void Clear_Clears_Success()
+    [Fact]
+    public static void Clear_Clears_Success()
     {
         Node<int> node = new(1);
         node.Append(2);

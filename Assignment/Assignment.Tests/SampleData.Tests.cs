@@ -6,6 +6,8 @@ using System.Linq;
 using Xunit;
 
 namespace Assignment.Tests;
+
+[TestClass]
 public class SampleDataTests
 {
     //I tried my best with these but only 1 is currently passing haha
