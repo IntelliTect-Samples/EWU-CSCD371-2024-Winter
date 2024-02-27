@@ -3,14 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-//using Assignment;
+using Assignment;
 
 namespace Assignment.Tests;
+
     [TestClass]
     public class SampleDataTests
     {
+
+
         [TestMethod]
-        public void CsvRows_WhenFileExists_ReturnsEnumerableOfRows()
+        public void CsvRows_FileExists_ReturnsEnumerableOfRows()
         {
             // Arrange
             var sampleData = new SampleData();
@@ -24,16 +27,6 @@ namespace Assignment.Tests;
             Assert.IsTrue(expectedRows.Skip(1).SequenceEqual(csvRows)); // Skip first row
         }
 
-        /*[TestMethod]
-        public void CsvRows_WhenFileDoesNotExist_ThrowsFileNotFoundException()
-        {
-            // Arrange
-            var sampleData = new SampleData();
-
-            // Act & Assert
-            Assert.ThrowsException<FileNotFoundException>(() => sampleData.CsvRows.ToList());
-        }*/
-
         // Helper method to create a CSV file with specified rows
         private void CreateCsvFile(string filePath, IEnumerable<string> rows)
         {
@@ -45,4 +38,51 @@ namespace Assignment.Tests;
                 }
             }
         }
+
+        [TestMethod]
+        public void GetUniqueSortedListOfStatesGivenCsvRows_NoDuplicates_ReturnsSortedStates()
+        {
+            // Arrange
+            var sampleData = new SampleData();
+
+            // Act
+            var sortedStates = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
+
+            // Assert
+            // Verify uniqueness
+            var isUnique = sortedStates.Distinct().Count() == sortedStates.Count();
+
+            // Verify sorting
+            var isSorted = sortedStates.Zip(sortedStates.Skip(1), (a, b) => string.Compare(a, b, StringComparison.OrdinalIgnoreCase) <= 0).All(x => x);
+            
+            // Assert both uniqueness and sorting
+            Assert.IsTrue(isUnique, "The list of states contains duplicates.");
+            Assert.IsTrue(isSorted, "The list of states is not sorted correctly.");
+            // The messages will only display if the IsTrue fails
+        }
+
+        [TestMethod]
+        public void GetUniqueSortedListOfStatesGivenCsvRows_HardCoded_ReturnsSortedStates()
+        {
+            // Arrange
+            var hardcodedAddresses = new List<string>
+            {
+                "1,John,Doe,john@example.com,123 Main St,Seattle,WA,98101",
+                "2,Jane,Smith,jane@example.com,456 Elm St,Bellevue,WA,98004",
+            };
+
+            var sampleData = new SampleData();
+
+            // Act
+            var result = sampleData.GetUniqueSortedListOfStatesGivenCsvRows(hardcodedAddresses);
+
+            // Assert
+            var expectedStates = new List<string> { "WA" }; // Adjust based on your data
+            CollectionAssert.AreEqual(expectedStates, result.ToList());
+        }
+
+
+        
+
     }
+
