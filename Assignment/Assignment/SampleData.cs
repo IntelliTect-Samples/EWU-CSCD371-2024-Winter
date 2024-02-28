@@ -29,7 +29,7 @@ namespace Assignment
             }
         }
         // 2.
-       public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
+        public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
         {
             // Read CSV rows from CsvRows property
             var csvRows = CsvRows;
@@ -80,7 +80,7 @@ namespace Assignment
 
             return sortedStates;
         }
-        
+
 
         // 3.
         public string GetAggregateSortedListOfStatesUsingCsvRows()
@@ -99,7 +99,28 @@ namespace Assignment
 
 
         // 4.
-        public IEnumerable<IPerson> People => throw new NotImplementedException();
+        public Person IEnumerable<IPerson>(){
+            //sort by state
+
+            Address address;
+            var sorted = CsvRows.Skip(1).Select(rows =>
+            {
+                string[] col = rows.Split(",");
+                string firstName = col[1];
+                string lastName = col[2];
+                string email = col[3];
+                string streetAdd = col[4];
+                string city = col[5];
+                string state = col[6];
+                string zip = col[7];
+
+                address = new Address(streetAdd, city, state, zip);
+                Person person =  new Person(firstName, lastName, address, email);
+                return person;
+            }).OrderBy(person => person.Address.State).OrderBy(person => person.Address.City).OrderBy(person => person.Address.Zip);
+
+            return sorted;
+        }
 
         // 5.
         public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(
