@@ -1,12 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Assignment
 {
     public class SampleData : ISampleData
     {
+        private const string FILEPATH = "People.csv";
         // 1.
-        public IEnumerable<string> CsvRows => throw new NotImplementedException();
+        public IEnumerable<string> CsvRows
+        {
+            get
+            {
+                using (StreamReader streamReader = new StreamReader(FILEPATH))
+                {
+                    streamReader.ReadLine();
+
+                    while(streamReader.EndOfStream)
+                    {
+                        yield return streamReader.ReadLine()!;
+                    }
+                }
+            }
+        }
 
         // 2.
         public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows() 
