@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Assignment
 {
@@ -25,12 +26,24 @@ namespace Assignment
         }
 
         // 2.
-        public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows() 
-            => throw new NotImplementedException();
+        public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
+        {
+            var states = CsvRows.Select(row =>
+            {
+                // Parse state from each row
+                var state = row.Split(',')[2]; // Assuming state is at index 2
+                return state.Trim(); // Trim any leading/trailing spaces
+            }).Distinct(); // Ensure uniqueness
+
+            return states.OrderBy(state => state); // Sort alphabetically
+        }
 
         // 3.
         public string GetAggregateSortedListOfStatesUsingCsvRows()
-            => throw new NotImplementedException();
+        {
+            var statesArray = GetUniqueSortedListOfStatesGivenCsvRows().ToArray();
+            return string.Join(",", statesArray);
+        }
 
         // 4.
         public IEnumerable<IPerson> People => throw new NotImplementedException();
