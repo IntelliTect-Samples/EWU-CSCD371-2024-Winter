@@ -12,7 +12,13 @@ namespace Assignment
 
         // 2.
         public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows() 
-            => throw new NotImplementedException();
+        {
+          return CsvRows
+            .Select(row => row.Split(',')[6].Trim())
+            .Distinct()
+            .OrderBy(state => state, StringComparer.OrdinalIgnoreCase);
+          //throw new NotImplementedException();
+        }
 
         // 3.
         public string GetAggregateSortedListOfStatesUsingCsvRows()
@@ -29,4 +35,5 @@ namespace Assignment
         public string GetAggregateListOfStatesGivenPeopleCollection(
             IEnumerable<IPerson> people) => throw new NotImplementedException();
     }
+
 }
