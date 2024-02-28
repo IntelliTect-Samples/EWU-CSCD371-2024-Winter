@@ -52,7 +52,7 @@ namespace Assignment
             return sortedStates;
         }
 
-        //2 OVEROAD
+        //2 OVEROAD FOR TESTING
         public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows(IEnumerable<string>? addresses = null)
         {
             IEnumerable<string> csvRows;
@@ -84,7 +84,19 @@ namespace Assignment
 
         // 3.
         public string GetAggregateSortedListOfStatesUsingCsvRows()
-            => throw new NotImplementedException();
+        {
+            // Get unique, sorted list of states
+            var uniqueSortedStates = GetUniqueSortedListOfStatesGivenCsvRows();
+
+            // Select only the state names and convert to array
+            var stateNamesArray = uniqueSortedStates.Select(state => state.Split(',')[6].Trim()).ToArray();
+
+            // Convert array of state names into a comma-separated string
+            string aggregatedStates = string.Join(",", stateNamesArray);
+
+            return aggregatedStates;
+        }
+
 
         // 4.
         public IEnumerable<IPerson> People => throw new NotImplementedException();

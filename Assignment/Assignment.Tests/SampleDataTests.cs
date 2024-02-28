@@ -82,6 +82,30 @@ namespace Assignment.Tests;
         }
 
 
+        [TestMethod]
+        public void GetAggregateSortedListOfStatesUsingCsvRows_ReturnsUniqueCommaSeparatedList()
+        {
+            // Arrange
+            var sampleData = new SampleData();
+
+            // Act
+            var result = sampleData.GetAggregateSortedListOfStatesUsingCsvRows();
+
+            // Assert
+            // Split the result string into an array using comma as separator
+            var statesArray = result.Split(',');
+
+            // Check if each state appears only once
+            var isUnique = statesArray.Distinct().Count() == statesArray.Length;
+
+            // Check if the states are sorted
+            var isSorted = statesArray.SequenceEqual(statesArray.OrderBy(s => s));
+
+            Assert.IsTrue(isUnique, "The list of states contains duplicates.");
+            Assert.IsTrue(isSorted, "The list of states is not sorted correctly.");
+        }
+
+
         
 
     }
