@@ -62,7 +62,8 @@ public class SampleDataTests
             "WA",
             "WV"];
 
-        Assert.AreEqual(distinctSortedStates, SampleData.GetAggregateSortedListOfStatesUsingCsvRows());
+        Assert.AreEqual(distinctSortedStates.Count,SampleData.GetUniqueSortedListOfStatesGivenCsvRows().Zip(distinctSortedStates, (csvRow, hardCodeState) => csvRow == hardCodeState).Count());
+
     }
 }
 

@@ -11,8 +11,8 @@ namespace Assignment
         public IEnumerable<string> CsvRows => File.ReadLines("People.csv").Skip(1);
 
         // 2.
-        public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows() 
-            => throw new NotImplementedException();
+        public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
+            => CsvRows.Select(row => row.Split(',')).Select(row => row[6]).Distinct().OrderBy(state => state);
 
         // 3.
         public string GetAggregateSortedListOfStatesUsingCsvRows()
