@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Assignment.Tests;
 
@@ -31,7 +30,7 @@ public class SampleDataTests
     }
 
     [TestMethod]
-    public void GetUniqueSortedListOfStatesGivenCsvRows_HardCodedAddreses_ReturnsDistinctSortedStateList()
+    public void GetUniqueSortedListOfStatesGivenCsvRows_UsingHardCodedAddreses_ReturnsDistinctSortedStateList()
     {
 
         List<string> distinctSortedStates = ["AL",
@@ -62,8 +61,14 @@ public class SampleDataTests
             "WA",
             "WV"];
 
-        Assert.AreEqual(distinctSortedStates.Count,SampleData.GetUniqueSortedListOfStatesGivenCsvRows().Zip(distinctSortedStates, (csvRow, hardCodeState) => csvRow == hardCodeState).Count());
+        Assert.AreEqual(distinctSortedStates.Count, SampleData.GetUniqueSortedListOfStatesGivenCsvRows().Zip(distinctSortedStates, (csvRow, hardCodeState) => csvRow == hardCodeState).Count());
 
+    }
+
+    [TestMethod]
+    public void GetUniqueSortedListOfStatesGivenCsvRows_UsingLINQ_ReturnsDistinctSortedStateList()
+    {
+        Assert.IsTrue(SampleData.CsvRows.Select(row => row.Split(',')[6]).Distinct().OrderBy(state => state).SequenceEqual(SampleData.GetUniqueSortedListOfStatesGivenCsvRows()));
     }
 }
 
