@@ -27,16 +27,7 @@ public class SampleDataTests
     [TestMethod]
     public void CsvRows_PeopleCsv_ReturnsStringIEnumerable()
     {
-        // Arrange
-        IEnumerable<string> peopleCSV = SampleData.CsvRows;
-        using StreamReader writer = new(PeopleCSVPath);
-
-        // Act
-        writer.ReadLine();
-        string firstRow = writer.ReadLine()!;
-
-        // Assert
-        Assert.AreEqual<string>(peopleCSV.First(), firstRow);
+        Assert.AreEqual<string>(File.ReadLines(PeopleCSVPath).Skip(1).First(), SampleData.CsvRows.First());
     }
 }
 
