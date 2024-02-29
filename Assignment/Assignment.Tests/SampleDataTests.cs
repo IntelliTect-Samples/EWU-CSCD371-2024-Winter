@@ -26,7 +26,7 @@ public class SampleDataTests
     [TestMethod]
     public void CsvRows_PeopleCsv_ReturnsStringIEnumerable()
     {
-        Assert.AreEqual<string>(File.ReadLines(PeopleCSVPath).Skip(1).First(), SampleData.CsvRows.First());
+        Assert.AreEqual(File.ReadLines(PeopleCSVPath).Skip(1).ToArray(), SampleData.CsvRows.ToArray());
     }
 
     [TestMethod]
