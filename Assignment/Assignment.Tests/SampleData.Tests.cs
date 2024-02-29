@@ -72,8 +72,8 @@ public class SampleDataTests
         var result = sampleData.People.ToList();
 
         Assert.AreEqual(2, result.Count);
-        CollectionAssert.Contains(result, p => p.FirstName == "John" && p.LastName == "Doe");
-        CollectionAssert.Contains(result, p => p.FirstName == "Jane" && p.LastName == "Smith");
+        Assert.IsTrue(result.Any(p => p.FirstName == "John" && p.LastName == "Doe"));
+        Assert.IsTrue(result.Any(p => p.FirstName == "Jane" && p.LastName == "Smith"));
     }
 
     [TestMethod]
