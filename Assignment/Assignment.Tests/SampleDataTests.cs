@@ -33,10 +33,10 @@ public class SampleDataTests
 
         // Act
         writer.ReadLine();
-        string? firstRow = writer.ReadLine();
+        string firstRow = writer.ReadLine()!;
 
         // Assert
-        Assert.Equals(peopleCSV.First(), firstRow);
+        Assert.AreEqual<string>(peopleCSV.First(), firstRow);
     }
 }
 
