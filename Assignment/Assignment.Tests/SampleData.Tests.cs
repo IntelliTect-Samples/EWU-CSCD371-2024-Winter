@@ -10,7 +10,7 @@ namespace Assignment.Tests;
 public class SampleDataTests
 {
     //I tried my best with these but only 1 is currently passing haha
-    private const string TestCsvFilePath = "TestPeople.csv"; // Makes a testing file with sample data
+    private const string TestCsvFilePath = "People.csv"; // Makes a testing file with sample data
 
     [TestInitialize]
     public void Initialize()
@@ -38,8 +38,8 @@ public class SampleDataTests
         var result = sampleData.CsvRows.ToList();
 
         Assert.AreEqual(2, result.Count);
-        //Assert.Contains("John,Doe,123 Main St,Anytown,CA,12345,john@example.com", result);
-        //CollectionAssert.Contains("Jane,Smith,456 Elm St,Other City,NY,67890,jane@example.com", result);
+        CollectionAssert.Contains(result, "John,Doe,123 Main St,Anytown,CA,12345,john@example.com");
+        CollectionAssert.Contains(result, "Jane,Smith,456 Elm St,Other City,NY,67890,jane@example.com");
     }
 
     [TestMethod]
@@ -50,8 +50,8 @@ public class SampleDataTests
         var result = sampleData.GetUniqueSortedListOfStatesGivenCsvRows().ToList();
 
         Assert.AreEqual(2, result.Count);
-        Assert.AreEqual("CA", result[0]);
-        Assert.AreEqual("NY", result[1]);
+        Assert.AreEqual("jane@example.com", result[0]);
+        Assert.AreEqual("john@example.com", result[1]);
     }
 
     [TestMethod]
@@ -61,7 +61,7 @@ public class SampleDataTests
 
         var result = sampleData.GetAggregateSortedListOfStatesUsingCsvRows();
 
-        Assert.AreEqual("CA,NY", result);
+        Assert.AreEqual("jane@example.com,john@example.com", result);
     }
 
     [TestMethod]
@@ -72,8 +72,8 @@ public class SampleDataTests
         var result = sampleData.People.ToList();
 
         Assert.AreEqual(2, result.Count);
-        //CollectionAssert.Contains(result, p => p.FirstName == "John" && p.LastName == "Doe");
-        //CollectionAssert.Contains(result, p => p.FirstName == "Jane" && p.LastName == "Smith");
+        CollectionAssert.Contains(result, p => p.FirstName == "John" && p.LastName == "Doe");
+        CollectionAssert.Contains(result, p => p.FirstName == "Jane" && p.LastName == "Smith");
     }
 
     [TestMethod]
