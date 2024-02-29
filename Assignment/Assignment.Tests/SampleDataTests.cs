@@ -29,5 +29,40 @@ public class SampleDataTests
     {
         Assert.AreEqual<string>(File.ReadLines(PeopleCSVPath).Skip(1).First(), SampleData.CsvRows.First());
     }
+
+    [TestMethod]
+    public void GetUniqueSortedListOfStatesGivenCsvRows_HardCodedAddreses_ReturnsDistinctSortedStateList()
+    {
+
+        List<string> distinctSortedStates = ["AL",
+            "AZ",
+            "CA",
+            "DC",
+            "FL",
+            "GA",
+            "IN",
+            "KS",
+            "LA",
+            "MD",
+            "MN",
+            "MO",
+            "MT",
+            "NC",
+            "NE",
+            "NH",
+            "NV",
+            "NY",
+            "OR",
+            "PA",
+            "SC",
+            "TN",
+            "TX",
+            "UT",
+            "VA",
+            "WA",
+            "WV"];
+
+        Assert.AreEqual(distinctSortedStates, SampleData.GetAggregateSortedListOfStatesUsingCsvRows());
+    }
 }
 
