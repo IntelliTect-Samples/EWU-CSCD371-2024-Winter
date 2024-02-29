@@ -70,5 +70,14 @@ public class SampleDataTests
     {
         Assert.IsTrue(SampleData.CsvRows.Select(row => row.Split(',')[6]).Distinct().OrderBy(state => state).SequenceEqual(SampleData.GetUniqueSortedListOfStatesGivenCsvRows()));
     }
+
+    [TestMethod]
+    public void GetUniqueSortedListOfStatesGivenCsvRows_NonEmptyCsvRows_ReturnsSortedStringList()
+    {
+        string uniqueStatesList = "AL, AZ, CA, DC, FL, GA, IN, KS, LA, MD, MN, MO, MT, NC, NE, NH, NV, NY, OR, PA, SC, TN, TX, UT, VA, WA, WV";
+
+        Assert.AreEqual<string>(uniqueStatesList, SampleData.GetAggregateSortedListOfStatesUsingCsvRows());
+    }
+
 }
 
