@@ -43,7 +43,7 @@ public class SampleDataTests
     }
 
     [TestMethod]
-    public void GetUniqueSortedListOfStatesGivenCsvRows_ReturnsUniqueSortedStates()
+    public void GetUniqueSortedListOfEmailsGivenCsvRows_ReturnsUniqueSortedEmails()
     {
         var sampleData = new SampleData();
 
@@ -55,7 +55,7 @@ public class SampleDataTests
     }
 
     [TestMethod]
-    public void GetAggregateSortedListOfStatesUsingCsvRows_ReturnsAggregateSortedStates()
+    public void GetAggregateSortedListOfEmailsUsingCsvRows_ReturnsAggregateSortedEmails()
     {
         var sampleData = new SampleData();
 
