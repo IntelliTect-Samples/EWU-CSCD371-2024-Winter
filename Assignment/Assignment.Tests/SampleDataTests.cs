@@ -41,4 +41,23 @@ public class SampleDataTests
           .Distinct()
           .OrderBy(addr => addr, StringComparer.OrdinalIgnoreCase).ToList(), results.ToList());
     }
+
+    [TestMethod]
+    public void GetAggregateSortedListOfStatesUsingCsvRows()
+    {
+      // Grab list of addresses from before
+      List<string> addresses = new List<string> {"AL", "AZ", "CA", "DC", "FL", "GA", "IN", 
+        "KS", "LA", "MD", "MN", "MO", "MT", "NC", "NE", "NH", "NV", "NY", "OR", "PA", "SC", 
+        "TN", "TX", "UT", "VA", "WA", "WV"};
+      // Join them all into a single string
+      string hardList = string.Join(", ", addresses);
+
+      SampleData sampleData = new();
+      // Get single string of states from method
+      string stateList = sampleData.GetAggregateSortedListOfStatesUsingCsvRows();
+      // make sure string is populated
+      Assert.IsNotNull(stateList);
+      // make sure it is equal to hard coded string of states. 
+      Assert.AreEqual(hardList, stateList);
+    }
 }

@@ -13,16 +13,25 @@ namespace Assignment
         // 2.
         public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows() 
         {
+          // Select the state column and trim just to have states
+          // Make sure each part in the list is Distinct
+          // Order by state name alphebetically 
           return CsvRows
             .Select(row => row.Split(',')[6].Trim())
             .Distinct()
             .OrderBy(state => state, StringComparer.OrdinalIgnoreCase);
-          //throw new NotImplementedException();
         }
 
         // 3.
         public string GetAggregateSortedListOfStatesUsingCsvRows()
-            => throw new NotImplementedException();
+        {
+          // Get IEnumerable list of states from previous fucntion
+          IEnumerable<string> uniqueStates = GetUniqueSortedListOfStatesGivenCsvRows();
+
+          // Create a string and use join to join all parts of the lisr
+          string result = string.Join(", ", uniqueStates);
+          return result;
+        }
 
         // 4.
         public IEnumerable<IPerson> People => throw new NotImplementedException();
