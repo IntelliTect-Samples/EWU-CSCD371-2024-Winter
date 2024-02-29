@@ -43,7 +43,7 @@ public class SampleDataTests
     }
 
     [TestMethod]
-    public void GetAggregateSortedListOfStatesUsingCsvRows()
+    public void GetAggregateSortedListOfStatesUsingCsvRows_InvokeMethod_Success()
     {
       // Grab list of addresses from before
       List<string> addresses = new List<string> {"AL", "AZ", "CA", "DC", "FL", "GA", "IN", 
