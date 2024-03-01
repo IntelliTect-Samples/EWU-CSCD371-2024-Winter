@@ -108,15 +108,15 @@ public class SampleDataTests
     {
 
         // Arrange, Act Assert 
-        Assert.IsTrue(new List<(string, string)> { ("Claudell", "Leathe"), ("Fayette", "Dougherty"), ("Fremont", "Pallaske"), ("Issiah", "Bester"), ("Sancho", "Mahony")   }.SequenceEqual(SampleData.FilterByEmailAddress((email) => email.Contains(".edu")).OrderBy(fullName => fullName.FirstName)));
+        Assert.IsTrue(new List<(string, string)> { ("Claudell", "Leathe"), ("Fayette", "Dougherty"), ("Fremont", "Pallaske"), ("Issiah", "Bester"), ("Sancho", "Mahony")}.SequenceEqual(SampleData.FilterByEmailAddress((email) => email.Contains(".edu")).OrderBy(fullName => fullName.FirstName)));
         
     }
 
     [TestMethod]
     public void GetAggregateListOfStatesGivenPeopleCollection_ValidPersonCollection_ReturnsUniqueStatesList()
     {
-        Assert.AreEqual(SampleData.GetUniqueSortedListOfStatesGivenCsvRows().ToList(), SampleData.GetAggregateListOfStatesGivenPeopleCollection(SampleData.People).OrderBy(state => state).ToList());
-    }
 
+        Assert.AreEqual(SampleData.GetAggregateSortedListOfStatesUsingCsvRows(), string.Join(", ", SampleData.GetAggregateListOfStatesGivenPeopleCollection(SampleData.People).Split(", ").OrderBy(state => state).ToList()));
+    }
 }
 

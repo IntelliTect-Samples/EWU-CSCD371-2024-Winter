@@ -31,6 +31,18 @@ namespace Assignment
 
         // 6.
         public string GetAggregateListOfStatesGivenPeopleCollection(
-            IEnumerable<IPerson> people) => throw new NotImplementedException();
+            IEnumerable<IPerson> people)
+        
+            => string.Join(", ",people
+            .Aggregate(new HashSet<string>(),
+                (set, person)
+                =>
+                {
+                    if (!set.Contains(person.Address.State))
+                        set.Add(person.Address.State);
+
+                    return set;
+                }));
+        
     }
 }
