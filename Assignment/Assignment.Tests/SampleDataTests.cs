@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,7 +27,7 @@ public class SampleDataTests
     [TestMethod]
     public void CsvRows_PeopleCsv_ReturnsStringIEnumerable()
     {
-        Assert.AreEqual(File.ReadLines(PeopleCSVPath).Skip(1).ToArray(), SampleData.CsvRows.ToArray());
+        Assert.IsTrue(File.ReadLines(PeopleCSVPath).Skip(1).SequenceEqual(SampleData.CsvRows.ToArray()));
     }
 
     [TestMethod]
@@ -77,6 +78,20 @@ public class SampleDataTests
         string uniqueStatesList = "AL, AZ, CA, DC, FL, GA, IN, KS, LA, MD, MN, MO, MT, NC, NE, NH, NV, NY, OR, PA, SC, TN, TX, UT, VA, WA, WV";
 
         Assert.AreEqual<string>(uniqueStatesList, SampleData.GetAggregateSortedListOfStatesUsingCsvRows());
+    }
+
+    [TestMethod]
+    public void People_Contains_PeopleElementsSorted()
+    {
+        IEnumerable<Person> persons = SampleData.CsvRows
+            .Select(line => line.Split(","))
+            .OrderBy(line => line[5])
+            .ThenBy(line => line[6])
+            .ThenBy(line => line[7])
+            .Select(line => new Person(line[1], line[2], new Address(line[4], line[5], line[6], line[7]) ,line[3]));
+
+        Assert.IsTrue(persons.SequenceEqual(SampleData.People));
+
     }
 
 }
