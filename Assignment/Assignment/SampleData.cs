@@ -106,50 +106,45 @@ namespace Assignment
 
 
         // 4.
-        IEnumerable<IPerson> ISampleData.People
+        public IEnumerable<IPerson> People
         {
             get
             {
+                Address address;
 
+                //going through the csv file and splitting everything to save into variable we can use for the adress to order by it
+                //we will return a person with first name, last name, address, email 
+                //using this person, we order by the state, then by the city and then by the zip code for each person 
+                //giving us a list of sorted people by address
+                IEnumerable<IPerson> sorted = CsvRows.Skip(1)
+                .Select(rows =>
+                {
+                    string[] col = rows.Split(",");
+                    string firstName = col[1];
+                    string lastName = col[2];
+                    string email = col[3];
+                    string streetAdd = col[4];
+                    string city = col[5];
+                    string state = col[6];
+                    string zip = col[7];
+
+                    address = new(streetAdd, city, state, zip);
+                    Person person = new(firstName, lastName, address, email);
+                    return person;
+                })
+                .OrderBy(person => person.Address.State)
+                .ThenBy(person => person.Address.City)
+                .ThenBy(person => person.Address.Zip);
+
+                return sorted;
             }
-        } 
-        public IEnumerable<IPerson> People()
-        {
-           get{ 
-            Address address;
-
-            //going through the csv file and splitting everything to save into variable we can use for the adress to order by it
-            //we will return a person with first name, last name, address, email 
-            //using this person, we order by the state, then by the city and then by the zip code for each person 
-            //giving us a list of sorted people by address
-            IEnumerable<Person> sorted = CsvRows.Skip(1)
-            .Select(rows =>
-            {
-                string[] col = rows.Split(",");
-                string firstName = col[1];
-                string lastName = col[2];
-                string email = col[3];
-                string streetAdd = col[4];
-                string city = col[5];
-                string state = col[6];
-                string zip = col[7];
-
-                address = new(streetAdd, city, state, zip);
-                Person person = new(firstName, lastName, address, email);
-                return person;
-            })
-            .OrderBy(person => person.Address.State)
-            .OrderBy(person => person.Address.City)
-            .OrderBy(person => person.Address.Zip);
-
-            return sorted;
-           };
         }
 
         // 5.
         public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(Predicate<string> filter) {
             //searching the people list for matching filter predicate, then selecting the tuple firstname, lastname and returning it
-            IEnumerable<(string Fn, string Ln)> matches = People()
+            
+            IEnumerable<(string Fn, string Ln)> matches = People
                 .Where(currentPerson => filter(currentPerson.EmailAddress))
                 .Select(personFullName => (personFullName.FirstName, personFullName.LastName));
             return matches;
@@ -160,7 +155,7 @@ namespace Assignment
         { 
             //using people, we select the state and trim, order by state, choosing only distinct states (making this list unique),
             //we use aggregate to take the first persons state with the second persons state adding a comma in between. 
-            string statesList = People()
+            string statesList = People
                 .Select(person => person.Address.State.Trim())
                 .OrderByDescending(state => state)
                 .Distinct()
