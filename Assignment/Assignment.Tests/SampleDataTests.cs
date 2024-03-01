@@ -34,33 +34,7 @@ public class SampleDataTests
     public void GetUniqueSortedListOfStatesGivenCsvRows_UsingHardCodedAddreses_ReturnsDistinctSortedStateList()
     {
 
-        List<string> distinctSortedStates = ["AL",
-            "AZ",
-            "CA",
-            "DC",
-            "FL",
-            "GA",
-            "IN",
-            "KS",
-            "LA",
-            "MD",
-            "MN",
-            "MO",
-            "MT",
-            "NC",
-            "NE",
-            "NH",
-            "NV",
-            "NY",
-            "OR",
-            "PA",
-            "SC",
-            "TN",
-            "TX",
-            "UT",
-            "VA",
-            "WA",
-            "WV"];
+        List<string> distinctSortedStates = ["AL", "AZ", "CA", "DC", "FL", "GA", "IN", "KS", "LA", "MD", "MN", "MO", "MT", "NC", "NE", "NH", "NV", "NY", "OR", "PA", "SC", "TN", "TX", "UT", "VA", "WA", "WV"];
 
         Assert.AreEqual(distinctSortedStates.Count, SampleData.GetUniqueSortedListOfStatesGivenCsvRows().Zip(distinctSortedStates, (csvRow, hardCodeState) => csvRow == hardCodeState).Count());
 
