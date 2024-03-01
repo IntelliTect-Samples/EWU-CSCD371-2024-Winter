@@ -60,4 +60,24 @@ public class SampleDataTests
       // make sure it is equal to hard coded string of states. 
       Assert.AreEqual(hardList, stateList);
     }
+
+    [TestMethod]
+    public void Persons_Creation_MatchesHardCodedPerson()
+    {
+      SampleData sampleData = new();
+
+      var people = sampleData.People.ToList();
+
+      Assert.AreEqual(50, people.Count);
+
+      // Since we sort by state first, Arthur will be first since 
+      // AL is the first State alphebetically
+      Assert.AreEqual("Arthur", people[0].FirstName);
+      Assert.AreEqual("Myles", people[0].LastName);
+      Assert.AreEqual("amyles1c@miibeian.gov.cn", people[0].EmailAddress);
+      Assert.AreEqual("4718 Thackeray Pass", people[0].Address.StreetAddress);
+      Assert.AreEqual("Mobile", people[0].Address.City);
+      Assert.AreEqual("AL", people[0].Address.State);
+      Assert.AreEqual("37308", people[0].Address.Zip);
+    }
 }
