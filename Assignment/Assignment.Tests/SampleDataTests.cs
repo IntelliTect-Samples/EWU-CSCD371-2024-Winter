@@ -107,9 +107,15 @@ public class SampleDataTests
     public void FilterByEmailAaddress_FilterByEducationEmail_ReturnsIEnumerablePeopleWithEduEmails()
     {
 
-        // Asset, Act, Arrange
+        // Arrange, Act Assert 
         Assert.IsTrue(new List<(string, string)> { ("Claudell", "Leathe"), ("Fayette", "Dougherty"), ("Fremont", "Pallaske"), ("Issiah", "Bester"), ("Sancho", "Mahony")   }.SequenceEqual(SampleData.FilterByEmailAddress((email) => email.Contains(".edu")).OrderBy(fullName => fullName.FirstName)));
         
+    }
+
+    [TestMethod]
+    public void GetAggregateListOfStatesGivenPeopleCollection_ValidPersonCollection_ReturnsUniqueStatesList()
+    {
+        Assert.AreEqual(SampleData.GetUniqueSortedListOfStatesGivenCsvRows().ToList(), SampleData.GetAggregateListOfStatesGivenPeopleCollection(SampleData.People).OrderBy(state => state).ToList());
     }
 
 }
