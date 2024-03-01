@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.Win32.SafeHandles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -121,5 +122,15 @@ public class SampleDataTests
 
         //Issiah does not have a .gov email
         Assert.IsFalse(names.Contains(("Issiah", "Bester")));
+    }
+
+    [TestMethod]
+    public void GetAggregateListOfStatesGivenPeopleCollection_test()//This is not an actual list, this was just to check result
+    {
+        SampleData sampleData = new();
+
+        var people = sampleData.People;
+        string result = sampleData.GetAggregateListOfStatesGivenPeopleCollection(people);
+        Assert.AreEqual("AL,AZ,CA,DC,FL,GA,IN,KS,LA,MD,MN,MO,MT,NC,NE,NH,NV,NY,OR,PA,SC,TN,TX,UT,VA,WA,WV", result);
     }
 }
