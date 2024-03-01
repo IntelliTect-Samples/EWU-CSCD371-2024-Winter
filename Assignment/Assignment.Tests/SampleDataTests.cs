@@ -80,4 +80,46 @@ public class SampleDataTests
       Assert.AreEqual("AL", people[0].Address.State);
       Assert.AreEqual("37308", people[0].Address.Zip);
     }
+
+    [TestMethod]
+    public void FilterByEmailAddress_FilterUsesEquals_Success()
+    {
+        SampleData sampleData = new();
+        
+        //An example of what the filter could be
+        Predicate<string> filter = s => s.Equals("ibester6@psu.edu");
+
+        //The tuple list of names to be returned
+        var names = sampleData.FilterByEmailAddress(filter);
+
+        //Since emails are unique in this list, should be only one result
+        Assert.AreEqual(1, names.Count());
+        Assert.AreEqual(("Issiah", "Bester"), names.Single());
+        
+    }
+
+    [TestMethod]
+    public void FilterByEmailAddress_FilterUsesContains_Success()
+    {
+        SampleData sampleData = new();
+
+        //An example of what the filter could be
+        Predicate<string> filter = s => s.Contains(".gov");
+
+        //The tuple list of names to be returned
+        var names = sampleData.FilterByEmailAddress(filter);
+
+        //Since emails are unique in this list, should be only one result
+        Assert.AreEqual(5, names.Count());
+
+        //These are the only five with .gov
+        Assert.IsTrue(names.Contains(("Priscilla", "Jenyns")));
+        Assert.IsTrue(names.Contains(("Amelia", "Toal")));
+        Assert.IsTrue(names.Contains(("Ev", "Challace")));
+        Assert.IsTrue(names.Contains(("Marijn", "McKennan")));
+        Assert.IsTrue(names.Contains(("Arthur", "Myles")));
+
+        //Issiah does not have a .gov email
+        Assert.IsFalse(names.Contains(("Issiah", "Bester")));
+    }
 }
