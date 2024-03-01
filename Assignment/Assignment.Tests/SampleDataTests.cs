@@ -1,8 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Assignment.Tests;
 
@@ -97,6 +100,17 @@ public class SampleDataTests
 
 
         Assert.IsTrue(persons.SequenceEqual(peopleProperty));
+
+    }
+
+    [TestMethod]
+    public void FilterByEmailAaddress_FilterByEducationEmail_ReturnsIEnumerablePeopleWithEduEmails()
+    {
+
+        // Assert
+        Assert.IsTrue(new List<(string, string)> { ("Fremont", "Pallaske"), ("Issiah", "Bester"), ("Sancho", "Mahony"), ("Fayette", "Dougherty"), ("Claudell", "Leathe") }.SequenceEqual(SampleData.FilterByEmailAddress((email) => email.Contains(".edu")).OrderBy(fullName => fullName.FirstName)));
+        
+
 
     }
 
