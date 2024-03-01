@@ -19,7 +19,11 @@ namespace Assignment
             => string.Join(", ", GetUniqueSortedListOfStatesGivenCsvRows().ToArray());
 
         // 4.
-        public IEnumerable<IPerson> People => throw new NotImplementedException();
+        public IEnumerable<IPerson> People => CsvRows.Select(line => line.Split(","))
+            .OrderBy(line => line[5])
+            .ThenBy(line => line[6])
+            .ThenBy(line => line[7])
+            .Select(line => new Person(line[1], line[2], new Address(line[4], line[5], line[6], line[7]), line[3]));
 
         // 5.
         public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(

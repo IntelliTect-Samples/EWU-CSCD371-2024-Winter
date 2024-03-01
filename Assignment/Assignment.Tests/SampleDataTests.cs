@@ -81,16 +81,22 @@ public class SampleDataTests
     }
 
     [TestMethod]
-    public void People_Contains_PeopleElementsSorted()
+    public void PeopleProperty_PeopleCSV_ReturnsSortedListfOfPeople()
     {
-        IEnumerable<Person> persons = SampleData.CsvRows
+        IEnumerable<string> persons = SampleData.CsvRows
             .Select(line => line.Split(","))
             .OrderBy(line => line[5])
             .ThenBy(line => line[6])
-            .ThenBy(line => line[7])
-            .Select(line => new Person(line[1], line[2], new Address(line[4], line[5], line[6], line[7]) ,line[3]));
+            .ThenBy(line => line[7]).
+            Select(line => line[1..])
+            .Select(line => string.Join(",", line));
 
-        Assert.IsTrue(persons.SequenceEqual(SampleData.People));
+        IEnumerable<string> peopleProperty = SampleData.People
+            .Select(person => 
+            $"{person.FirstName},{person.LastName},{person.EmailAddress},{person.Address.StreetAddress},{person.Address.City},{person.Address.State},{person.Address.Zip}");
+
+
+        Assert.IsTrue(persons.SequenceEqual(peopleProperty));
 
     }
 
