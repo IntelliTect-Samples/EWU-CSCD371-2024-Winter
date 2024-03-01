@@ -99,10 +99,14 @@ namespace Assignment
 
 
         // 4.
-        public Person IEnumerable<IPerson>(){
-            //sort by state
+        public IEnumerable<Person> People(){
 
             Address address;
+
+            //going through the csv file and splitting everything to save into variable we can use for the adress to order by it
+            //we will return a person with first name, last name, address, email 
+            //using this person, we order by the state, then by the city and then by the zip code for each person 
+            //giving us a list of sorted people by address
             var sorted = CsvRows.Skip(1).Select(rows =>
             {
                 string[] col = rows.Split(",");
@@ -123,8 +127,11 @@ namespace Assignment
         }
 
         // 5.
-        public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(
-            Predicate<string> filter) => throw new NotImplementedException();
+        public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(Predicate<string> filter) {
+            //searching the people list for matching filter predicate, then selecting the tuple firstname, lastname and returning it
+            var matches = People().Where(currentPerson => filter(currentPerson.EmailAddress)).Select(personFullName => (personFullName.FirstName, personFullName.LastName));
+            return matches;
+        } 
 
         // 6.
         public string GetAggregateListOfStatesGivenPeopleCollection(
