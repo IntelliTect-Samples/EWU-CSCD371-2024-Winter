@@ -90,8 +90,8 @@ public class SampleDataTests
             .Select(line => line.Split(","))
             .OrderBy(line => line[5])
             .ThenBy(line => line[6])
-            .ThenBy(line => line[7]).
-            Select(line => line[1..])
+            .ThenBy(line => line[7])
+            .Select(line => line[1..])
             .Select(line => string.Join(",", line));
 
         IEnumerable<string> peopleProperty = SampleData.People
@@ -107,11 +107,9 @@ public class SampleDataTests
     public void FilterByEmailAaddress_FilterByEducationEmail_ReturnsIEnumerablePeopleWithEduEmails()
     {
 
-        // Assert
-        Assert.IsTrue(new List<(string, string)> { ("Fremont", "Pallaske"), ("Issiah", "Bester"), ("Sancho", "Mahony"), ("Fayette", "Dougherty"), ("Claudell", "Leathe") }.SequenceEqual(SampleData.FilterByEmailAddress((email) => email.Contains(".edu")).OrderBy(fullName => fullName.FirstName)));
+        // Asset, Act, Arrange
+        Assert.IsTrue(new List<(string, string)> { ("Claudell", "Leathe"), ("Fayette", "Dougherty"), ("Fremont", "Pallaske"), ("Issiah", "Bester"), ("Sancho", "Mahony")   }.SequenceEqual(SampleData.FilterByEmailAddress((email) => email.Contains(".edu")).OrderBy(fullName => fullName.FirstName)));
         
-
-
     }
 
 }
