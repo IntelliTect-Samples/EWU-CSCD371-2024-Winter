@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.Intrinsics.X86;
+using System.Xml;
 
 namespace Assignment
 {
@@ -107,7 +112,7 @@ namespace Assignment
             //we will return a person with first name, last name, address, email 
             //using this person, we order by the state, then by the city and then by the zip code for each person 
             //giving us a list of sorted people by address
-            var sorted = CsvRows.Skip(1).Select(rows =>
+            IEnumerable<Person> sorted = CsvRows.Skip(1).Select(rows =>
             {
                 string[] col = rows.Split(",");
                 string firstName = col[1];
@@ -129,12 +134,18 @@ namespace Assignment
         // 5.
         public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(Predicate<string> filter) {
             //searching the people list for matching filter predicate, then selecting the tuple firstname, lastname and returning it
-            var matches = People().Where(currentPerson => filter(currentPerson.EmailAddress)).Select(personFullName => (personFullName.FirstName, personFullName.LastName));
+            IEnumerable<(string Fn, string Ln)> matches = People().Where(currentPerson => filter(currentPerson.EmailAddress)).Select(personFullName => (personFullName.FirstName, personFullName.LastName));
             return matches;
-        } 
+        }
 
         // 6.
-        public string GetAggregateListOfStatesGivenPeopleCollection(
-            IEnumerable<IPerson> people) => throw new NotImplementedException();
+        public string GetAggregateListOfStatesGivenPeopleCollection(IEnumerable<IPerson> people)
+        { 
+            //using people, we select the state and trim, order by state, choosing only distinct states (making this list unique),
+            //we use aggregate to take the first persons state with the second persons state adding a comma in between. 
+            string statesList = People().Select(person => person.Address.State.Trim()).OrderByDescending(state => state).Distinct().Aggregate((person1state, person2state) => person1state + "," + person2state);
+            return statesList;
+        }
+//            
     }
 }
