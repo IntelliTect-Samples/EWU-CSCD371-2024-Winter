@@ -33,6 +33,9 @@ namespace Assignment
                 }
             }
         }
+
+
+
         // 2.
         public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
         {
@@ -86,7 +89,6 @@ namespace Assignment
             return sortedStates;
         }
 
-
         // 3.
         public string GetAggregateSortedListOfStatesUsingCsvRows()
         {
@@ -104,8 +106,16 @@ namespace Assignment
 
 
         // 4.
-        public IEnumerable<Person> People(){
+        IEnumerable<IPerson> ISampleData.People
+        {
+            get
+            {
 
+            }
+        } 
+        public IEnumerable<IPerson> People()
+        {
+           get{ 
             Address address;
 
             //going through the csv file and splitting everything to save into variable we can use for the adress to order by it
@@ -124,8 +134,8 @@ namespace Assignment
                 string state = col[6];
                 string zip = col[7];
 
-                address = new Address(streetAdd, city, state, zip);
-                Person person =  new Person(firstName, lastName, address, email);
+                address = new(streetAdd, city, state, zip);
+                Person person = new(firstName, lastName, address, email);
                 return person;
             })
             .OrderBy(person => person.Address.State)
@@ -133,6 +143,7 @@ namespace Assignment
             .OrderBy(person => person.Address.Zip);
 
             return sorted;
+           };
         }
 
         // 5.
@@ -155,7 +166,6 @@ namespace Assignment
                 .Distinct()
                 .Aggregate((person1state, person2state) => person1state + "," + person2state);
             return statesList;
-        }
-//            
+        }           
     }
 }
