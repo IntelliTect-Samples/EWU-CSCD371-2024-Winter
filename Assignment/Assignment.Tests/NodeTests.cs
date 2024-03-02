@@ -1,16 +1,19 @@
-
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
 namespace Assignment.Tests;
 
+[TestClass]
 public class NodeTests
 {
 
-    public Node<string> NodeList { get; }
+    // NodeList will contain non nullable values but its set in TestInitialize method
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    public Node<string> NodeList { get; private set; }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public NodeTests() {
+    [TestInitialize]
+    public void InitalizeNodeList() {
         NodeList = new("Alexa");
         NodeList.Append("is");
         NodeList.Append("the");
