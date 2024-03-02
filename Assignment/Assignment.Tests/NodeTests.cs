@@ -122,7 +122,7 @@ public class NodeTests
 
 
     [TestMethod]
-    public void ChildItems_MaximumFive_ReturnsFiveElements()
+    public void ChildItems_MaximumFive_ReturnsFiveItems()
     {
         Node<int> numList = new(1);
         numList.Append(2);
@@ -132,7 +132,6 @@ public class NodeTests
         numList.Append(6);
 
         IEnumerable<Node<int>> nodes = numList.ChildItems(5);
-        Assert.AreEqual(5, nodes.Count());
 
         Assert.IsTrue(new List<int>{2,3,4,5,6}.SequenceEqual(nodes.Select(Node => Node.Data)));
     }
