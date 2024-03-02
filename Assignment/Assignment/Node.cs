@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Assignment;
 
@@ -88,10 +89,10 @@ namespace Assignment;
        return GetEnumerator();
     }
 
-    public IEnumerable<Node<string>> ChildItems(int v)
-    {
-        throw new NotImplementedException();
-    }
+    public IEnumerable<Node<T>> ChildItems(int maximum)
+    =>
+        this.Skip(1).Take(maximum);
+    
 }
 
 

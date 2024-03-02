@@ -107,9 +107,17 @@ public class NodeTests
     [TestMethod]
     public void ChildItems_Maximum3_ReturnsThreeElements()
     {
-        IEnumerable<Node<string>> nodes = NodeList.ChildItems(3);
+        Node<int> numList = new(1);
+        numList.Append(2);
+        numList.Append(3);
+        numList.Append(4);
+        numList.Append(5);
+        numList.Append(6);
 
-        Assert.AreEqual(3, nodes.Count());
+        IEnumerable<Node<int>> nodes = numList.ChildItems(5);
+        Assert.AreEqual(5, nodes.Count());
+
+        Assert.IsTrue(new List<int>{2,3,4,5,6}.SequenceEqual(nodes.Select(Node => Node.Data)));
     }
 
 
