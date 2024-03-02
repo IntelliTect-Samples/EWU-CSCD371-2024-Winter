@@ -16,7 +16,7 @@ public class NodeTests
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
     [TestInitialize]
-    public void InitalizeNodeList() {
+    public void InitializeNodeList() {
         NodeList = new("Alexa");
         NodeList.Append("is");
         NodeList.Append("the");
@@ -42,14 +42,14 @@ public class NodeTests
     }
 
     [TestMethod]
-    public void ToString_ValidData_ReturnsStringSuccesfully()
+    public void ToString_ValidData_ReturnsStringSuccessfully()
     {
         Assert.AreEqual("Alexa", NodeList.ToString());
         Assert.AreEqual("is", NodeList.Next.ToString());
     }
 
     [TestMethod]
-    public void Append_AddedNodes_SuccesfullyReturnsValue()
+    public void Append_AddedNodes_SuccessfullyReturnsValue()
     {
         Node<string> newNode = new("Hiiii");
         newNode.Append("You rock");
