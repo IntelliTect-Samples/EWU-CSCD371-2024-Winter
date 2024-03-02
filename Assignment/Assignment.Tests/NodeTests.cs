@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Linq;
 
 namespace Assignment.Tests;
 
@@ -89,6 +90,16 @@ public class NodeTests
     public void Exists_NodeDoesNotExists_ReturnsFalse()
     {
         Assert.IsFalse(NodeList.Exists("Rahat"));
+    }
+
+    [TestMethod]
+    public void Node_TwoElements_ReturnsTwoCount()
+    {
+        Node<string> newNode = new("IEnumerable");
+        newNode.Append("Checking");
+
+        Assert.AreEqual(2, newNode.Count());
+
     }
 
 

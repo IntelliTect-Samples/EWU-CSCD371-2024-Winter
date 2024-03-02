@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Assignment;
 
-    public class Node<T> where T : notnull
+    public class Node<T> : IEnumerable<Node<T>> where T : notnull
     {
         public Node(T item)
         {
@@ -71,8 +73,18 @@ namespace Assignment;
     } while (currentNode != this);
         return false;
     }
-        
+
+
+    IEnumerator<Node<T>> IEnumerable<Node<T>>.GetEnumerator()
+    {
+        throw new NotImplementedException();
     }
+
+    public IEnumerator GetEnumerator()
+    {
+        throw new NotImplementedException();
+    }
+}
 
 
 
