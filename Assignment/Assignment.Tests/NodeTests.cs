@@ -1,6 +1,9 @@
-using Xunit;
 
-namespace GenericsHomework.Tests;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+
+namespace Assignment.Tests;
 
 public class NodeTests
 {
@@ -14,51 +17,51 @@ public class NodeTests
         NodeList.Append("best!");
     }
 
-    [Fact]
+    [TestMethod]
     public void Constructor_NullData_ThrowsArgumentNullException()
     {
-        Assert.Throws<ArgumentNullException>(() => new Node<string>(null!));
+        Assert.ThrowsException<ArgumentNullException>(() => new Node<string>(null!));
     }
 
-    [Fact]
+    [TestMethod]
     public void Append_NullData_ThrowsArgumentNullException()
     {
-        Assert.Throws<ArgumentNullException>(()=>NodeList.Append(null!));
+        Assert.ThrowsException<ArgumentNullException>(()=>NodeList.Append(null!));
     }
 
-    [Fact]
+    [TestMethod]
     public void Exists_NullData_ThrowsArgumentNullException()
     {
-        Assert.Throws<ArgumentNullException>(() => NodeList.Exists(null!));
+        Assert.ThrowsException<ArgumentNullException>(() => NodeList.Exists(null!));
     }
 
-    [Fact]
+    [TestMethod]
     public void ToString_ValidData_ReturnsStringSuccesfully()
     {
-        Assert.Equal("Alexa", NodeList.ToString());
-        Assert.Equal("is", NodeList.Next.ToString());
+        Assert.AreEqual("Alexa", NodeList.ToString());
+        Assert.AreEqual("is", NodeList.Next.ToString());
     }
 
-    [Fact]
+    [TestMethod]
     public void Append_AddedNodes_SuccesfullyReturnsValue()
     {
         Node<string> newNode = new("Hiiii");
         newNode.Append("You rock");
         newNode.Append("!");
 
-        Assert.Equal("You rock", newNode.Next.Data);
-        Assert.Equal("!", newNode.Next.Next.Data);
+        Assert.AreEqual("You rock", newNode.Next.Data);
+        Assert.AreEqual("!", newNode.Next.Next.Data);
 
     }
-    [Fact]
+    [TestMethod]
     public void Append_DuplicateNodeValue_ThrowsInvalidOperationException()
     {
         Node<string> newNode = new("Copy");
-        Assert.Throws<InvalidOperationException>(() => newNode.Append("Copy"));
+        Assert.ThrowsException<InvalidOperationException>(() => newNode.Append("Copy"));
 
     }
 
-    [Fact]
+    [TestMethod]
     public void Clear_ManyNodes_SuccessfullyClears()
     {
         Node<string> newNode = new("Lets goo");
@@ -66,23 +69,23 @@ public class NodeTests
         newNode.Append("New Node2");
         newNode.Clear();
 
-        Assert.Same(newNode, newNode.Next);
+        Assert.IsTrue(ReferenceEquals(newNode, newNode.Next));
     }
 
-    [Theory]
-    [InlineData("best!")]
-    [InlineData("the")]
-    [InlineData("Alexa")]
+    [DataTestMethod]
+    [DataRow("best!")]
+    [DataRow("the")]
+    [DataRow("Alexa")]
     public void Exists_NodeExists_ReturnsTrue(string data)
     {
-        Assert.True(NodeList.Exists(data));
+        Assert.IsTrue(NodeList.Exists(data));
     }
 
 
-    [Fact]
+    [TestMethod]
     public void Exists_NodeDoesNotExists_ReturnsFalse()
     {
-        Assert.False(NodeList.Exists("Rahat"));
+        Assert.IsFalse(NodeList.Exists("Rahat"));
     }
 
 
