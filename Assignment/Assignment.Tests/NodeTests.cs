@@ -123,7 +123,7 @@ public class NodeTests
 
 
     [TestMethod]
-    public void ChildItems_Maximum3_ReturnsThreeElements()
+    public void ChildItems_MaximumFive_ReturnsFiveElements()
     {
         Node<int> numList = new(1);
         numList.Append(2);
