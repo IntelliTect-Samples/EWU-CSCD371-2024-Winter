@@ -18,11 +18,7 @@ public class Node<T> : IEnumerable<Node<T>> where T : notnull
 
     public T Data { get; }
         
-    public override string? ToString() 
-    {
-        return Data.ToString();
-
-    }
+    public override string? ToString() => Data.ToString();
 
     public void Append(T item)
     {
@@ -32,29 +28,25 @@ public class Node<T> : IEnumerable<Node<T>> where T : notnull
         {
                 throw new InvalidOperationException(nameof(item));
         }
-        else
+
+        Node<T> currentNode = Next;
+
+        while (currentNode.Next != this)
         {
-            Node<T> currentNode = Next;
-
-            while (currentNode.Next != this)
-            {
-                currentNode = currentNode.Next;
-            }
-   
-            Node<T> newNode = new(item)
-            {
-                Next = this
-            };
-                    
-            currentNode.Next = newNode;
+            currentNode = currentNode.Next;
         }
+   
+        Node<T> newNode = new(item)
+        {
+            Next = this
+        };
+                    
+        currentNode.Next = newNode;
+       
     }
 
-    public void Clear()
-    {
-        Next = this;
-    }
-
+    public void Clear() => Next = this;
+    
     public bool Exists(T item)
     {
         ArgumentNullException.ThrowIfNull(item, nameof(item));
@@ -63,9 +55,7 @@ public class Node<T> : IEnumerable<Node<T>> where T : notnull
     do
     {
         if (currentNode.Data.Equals(item))
-        {
             return true;
-        }
 
         currentNode = currentNode.Next;
     } while (currentNode != this);
