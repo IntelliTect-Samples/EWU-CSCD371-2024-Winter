@@ -5,51 +5,50 @@ using System.Linq;
 
 namespace Assignment;
 
-    public class Node<T> : IEnumerable<Node<T>> where T : notnull
+public class Node<T> : IEnumerable<Node<T>> where T : notnull
+{
+    public Node(T item)
     {
-        public Node(T item)
-        {
-            ArgumentNullException.ThrowIfNull(item, nameof(item)); 
-            Data = item;
-            Next = this;
-        }
+        ArgumentNullException.ThrowIfNull(item, nameof(item)); 
+        Data = item;
+        Next = this;
+    }
 
-        public Node<T> Next { get; private set; }
-        // We made Data non nullable so precautions have been taken to ensure it can't get set
-        // to null
-        public T Data { get; }
+    public Node<T> Next { get; private set; }
+
+    public T Data { get; }
         
-        public override string? ToString() 
-        {
-            return Data.ToString();
+    public override string? ToString() 
+    {
+        return Data.ToString();
 
+    }
+
+    public void Append(T item)
+    {
+        ArgumentNullException.ThrowIfNull(item,nameof(item));
+
+        if (Exists(item))
+        {
+                throw new InvalidOperationException(nameof(item));
         }
-
-        public void Append(T item)
+        else
         {
-            ArgumentNullException.ThrowIfNull(item,nameof(item));
+            Node<T> currentNode = Next;
 
-            if (Exists(item))
+            while (currentNode.Next != this)
             {
-                    throw new InvalidOperationException(nameof(item));
-             }
-            else
-            {
-                Node<T> currentNode = Next;
-
-                while (currentNode.Next != this)
-                {
-                    currentNode = currentNode.Next;
-                }
-   
-                Node<T> newNode = new(item)
-                {
-                    Next = this
-                };
-                    
-                currentNode.Next = newNode;
+                currentNode = currentNode.Next;
             }
+   
+            Node<T> newNode = new(item)
+            {
+                Next = this
+            };
+                    
+            currentNode.Next = newNode;
         }
+    }
 
     public void Clear()
     {
@@ -59,7 +58,6 @@ namespace Assignment;
     public bool Exists(T item)
     {
         ArgumentNullException.ThrowIfNull(item, nameof(item));
-
         Node<T> currentNode = this;
 
     do
@@ -84,14 +82,9 @@ namespace Assignment;
         }
     }
 
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-       return GetEnumerator();
-    }
-
-    public IEnumerable<Node<T>> ChildItems(int maximum)
-    =>
-        this.Skip(1).Take(maximum);
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    
+    public IEnumerable<Node<T>> ChildItems(int maximum) => this.Skip(1).Take(maximum);
     
 }
 
