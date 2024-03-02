@@ -13,13 +13,11 @@ public class SampleDataTests
     //Properties are set in SetUp method so they will not be null
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     public SampleData SampleData { get; set; }
-    public string PeopleCSVPath { get; private set; }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
     [TestInitialize]
     public void SetUp()
     {
-        PeopleCSVPath = "people.csv";
         SampleData = new SampleData();
     }
 
@@ -27,7 +25,7 @@ public class SampleDataTests
     [TestMethod]
     public void CsvRows_PeopleCsv_ReturnsStringIEnumerable()
     {
-        Assert.IsTrue(File.ReadLines(PeopleCSVPath).Skip(1).SequenceEqual(SampleData.CsvRows.ToArray()));
+        Assert.IsTrue(File.ReadLines("people.csv").Skip(1).SequenceEqual(SampleData.CsvRows.ToArray()));
     }
 
     [TestMethod]
@@ -43,7 +41,7 @@ public class SampleDataTests
     [TestMethod]
     public void GetUniqueSortedListOfStatesGivenCsvRows_UsingLINQ_ReturnsDistinctSortedStateList()
     {
-        Assert.IsTrue(SampleData.CsvRows.Select(row => row.Split(',')[6]).Distinct().OrderBy(state => state).SequenceEqual(SampleData.GetUniqueSortedListOfStatesGivenCsvRows()));
+        Assert.IsTrue(new HashSet<string>(SampleData.CsvRows.Select(row => row.Split(',')[6]).OrderBy(state => state)).SequenceEqual(SampleData.GetUniqueSortedListOfStatesGivenCsvRows()));
     }
 
     [TestMethod]
