@@ -74,15 +74,18 @@ namespace Assignment;
         return false;
     }
 
-
-    IEnumerator<Node<T>> IEnumerable<Node<T>>.GetEnumerator()
+    public IEnumerator<Node<T>> GetEnumerator()
     {
-        throw new NotImplementedException();
+        yield return this;
+        for(Node<T> cur = Next; cur != this; cur = cur.Next)
+        {
+            yield return cur;
+        }
     }
 
-    public IEnumerator GetEnumerator()
+    IEnumerator IEnumerable.GetEnumerator()
     {
-        throw new NotImplementedException();
+       return GetEnumerator();
     }
 }
 

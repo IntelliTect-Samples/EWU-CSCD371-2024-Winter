@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Assignment.Tests;
@@ -93,13 +94,14 @@ public class NodeTests
     }
 
     [TestMethod]
-    public void Node_TwoElements_ReturnsTwoCount()
+    public void Node_ThreeElements_ReturnsCorrectCount()
     {
-        Node<string> newNode = new("IEnumerable");
+        Node<string> newNode = new("Boom");
         newNode.Append("Checking");
+        newNode.Append("Again");
 
-        Assert.AreEqual(2, newNode.Count());
-
+        Assert.AreEqual(3, newNode.Count());
+        Assert.IsTrue(new List<string> { "Boom", "Checking", "Again" }.SequenceEqual(newNode.Select(Node => Node.Data)));
     }
 
 
