@@ -25,9 +25,7 @@ public class Node<T> : IEnumerable<Node<T>> where T : notnull
         ArgumentNullException.ThrowIfNull(item,nameof(item));
 
         if (Exists(item))
-        {
-                throw new InvalidOperationException(nameof(item));
-        }
+            throw new InvalidOperationException(nameof(item));
 
         Node<T> currentNode = Next;
 
@@ -36,13 +34,9 @@ public class Node<T> : IEnumerable<Node<T>> where T : notnull
             currentNode = currentNode.Next;
         }
    
-        Node<T> newNode = new(item)
-        {
-            Next = this
-        };
+        Node<T> newNode = new(item){Next = this};
                     
         currentNode.Next = newNode;
-       
     }
 
     public void Clear() => Next = this;
@@ -52,13 +46,13 @@ public class Node<T> : IEnumerable<Node<T>> where T : notnull
         ArgumentNullException.ThrowIfNull(item, nameof(item));
         Node<T> currentNode = this;
 
-    do
-    {
+    do{
         if (currentNode.Data.Equals(item))
             return true;
 
         currentNode = currentNode.Next;
     } while (currentNode != this);
+
         return false;
     }
 
