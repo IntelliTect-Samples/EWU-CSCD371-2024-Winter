@@ -1,7 +1,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace Assignment.Tests;
 
@@ -103,6 +105,22 @@ public class NodeTests
         Assert.AreEqual(3, newNode.Count());
         Assert.IsTrue(new List<string> { "Boom", "Checking", "Again" }.SequenceEqual(newNode.Select(Node => Node.Data)));
     }
+
+    // Purely to get 100% coverage :^)
+    [TestMethod]
+    public void GetEnumeratorMoveNext_FourElements_ReturnsCorrectCount()
+    {
+        IEnumerator nodeEnumerator = ((IEnumerable)NodeList).GetEnumerator();
+
+        int counter = 0;
+        while (nodeEnumerator.MoveNext())
+        {
+            counter++;
+        }
+ 
+        Assert.AreEqual(4, counter);
+    }
+
 
     [TestMethod]
     public void ChildItems_Maximum3_ReturnsThreeElements()
