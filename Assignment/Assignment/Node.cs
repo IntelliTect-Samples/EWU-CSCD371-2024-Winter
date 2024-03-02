@@ -87,6 +87,11 @@ namespace Assignment;
     {
        return GetEnumerator();
     }
+
+    public IEnumerable<Node<string>> ChildItems(int v)
+    {
+        throw new NotImplementedException();
+    }
 }
 
 

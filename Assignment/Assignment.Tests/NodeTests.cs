@@ -104,5 +104,13 @@ public class NodeTests
         Assert.IsTrue(new List<string> { "Boom", "Checking", "Again" }.SequenceEqual(newNode.Select(Node => Node.Data)));
     }
 
+    [TestMethod]
+    public void ChildItems_Maximum3_ReturnsThreeElements()
+    {
+        IEnumerable<Node<string>> nodes = NodeList.ChildItems(3);
+
+        Assert.AreEqual(3, nodes.Count());
+    }
+
 
 }
