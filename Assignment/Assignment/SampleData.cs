@@ -30,17 +30,12 @@ public class SampleData : ISampleData
         Predicate<string> filter) => People.Where(person => filter(person.EmailAddress)).Select(person => (person.FirstName, person.LastName));
 
     // 6.
-    public string GetAggregateListOfStatesGivenPeopleCollection(
-        IEnumerable<IPerson> people)
-        
-        => string.Join(", ",people
+    public string GetAggregateListOfStatesGivenPeopleCollection(IEnumerable<IPerson> people)
+    => string.Join(", ",people
         .Aggregate(new HashSet<string>(),
-            (set, person)
-            =>
+            (set, person) =>
             {
-                if (!set.Contains(person.Address.State))
-                    set.Add(person.Address.State);
-
+                set.Add(person.Address.State);
                 return set;
             }));
         
