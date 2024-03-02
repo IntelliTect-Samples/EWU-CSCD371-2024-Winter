@@ -62,8 +62,7 @@ public class Node<T> : IEnumerable<Node<T>> where T : notnull
 
     do
     {
-        // Data is ensured to be not null so null forgiviness is used.
-        if (currentNode.Data!.Equals(item))
+        if (currentNode.Data.Equals(item))
         {
             return true;
         }
@@ -75,11 +74,11 @@ public class Node<T> : IEnumerable<Node<T>> where T : notnull
 
     public IEnumerator<Node<T>> GetEnumerator()
     {
-        yield return this;
-        for(Node<T> cur = Next; cur != this; cur = cur.Next)
-        {
+        Node<T> cur = this;
+        do{
             yield return cur;
-        }
+            cur = cur.Next;
+        }while (cur != this);
     }
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

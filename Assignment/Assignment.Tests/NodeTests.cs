@@ -94,7 +94,7 @@ public class NodeTests
     }
 
     [TestMethod]
-    public void Node_ThreeElements_ReturnsCorrectCount()
+    public void GetEnumerator_ThreeElements_ReturnsSameData()
     {
         Node<string> newNode = new("Boom");
         newNode.Append("Checking");
