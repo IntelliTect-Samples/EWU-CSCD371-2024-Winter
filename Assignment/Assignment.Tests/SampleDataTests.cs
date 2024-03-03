@@ -29,7 +29,7 @@ public class SampleDataTests
     }
 
     [TestMethod]
-    public void GetUniqueSortedListOfStatesGivenCsvRows_UsingHardCodedAddresses_ReturnsDistinctSortedStateList()
+    public void GetUniqueSortedListOfStatesGivenCsvRows_UsingHardCodedAddreses_ReturnsDistinctSortedStateList()
     {
 
         List<string> distinctSortedStates = ["AL", "AZ", "CA", "DC", "FL", "GA", "IN", "KS", "LA", "MD", "MN", "MO", "MT", "NC", "NE", "NH", "NV", "NY", "OR", "PA", "SC", "TN", "TX", "UT", "VA", "WA", "WV"];
@@ -53,7 +53,7 @@ public class SampleDataTests
     }
 
     [TestMethod]
-    public void PeopleProperty_PeopleCSV_ReturnsSortedListOfPeople()
+    public void PeopleProperty_PeopleCSV_ReturnsSortedListfOfPeople()
     {
         IEnumerable<string> persons = SampleData.CsvRows
             .Select(line => line.Split(","))
@@ -73,7 +73,7 @@ public class SampleDataTests
     }
 
     [TestMethod]
-    public void FilterByEmailAddress_FilterByEducationEmail_ReturnsIEnumerablePeopleWithEduEmails()
+    public void FilterByEmailAaddress_FilterByEducationEmail_ReturnsIEnumerablePeopleWithEduEmails()
     {
 
         // Arrange, Act, and Assert 
