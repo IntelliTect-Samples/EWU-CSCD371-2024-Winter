@@ -7,52 +7,25 @@ namespace Assignment;
 
 public class SampleData : ISampleData
 {
-    public readonly string FilePath = Path.Combine(Environment.CurrentDirectory, "People.csv"); //this also needs fixing
     // 1.
-    public IEnumerable<string> CsvRows
-    {
-        get 
-        {
-            if(File.Exists(FilePath) == false) //needs fixed
-            {
-                throw new FileNotFoundException($"File not found in path: {FilePath}");
-            }
-
-            var fileReader = new StreamReader(FilePath);
-            
-            //Skips the 1st line of the file
-            fileReader.ReadLine();
-
-            while(!fileReader.EndOfStream)
-            {
-                string? data = fileReader.ReadLine();
-                
-                if (data != null)
-                {
-                    yield return data;
-                }
-            }
-
-        }
-    }
+    public IEnumerable<string> CsvRows => File.ReadLines("People.csv").Skip(1);
 
     // 2.
     public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
-    {
-        return CsvRows
-            .Select(row => row.Split(',')[6])
-            .Distinct()
-            .OrderBy(state => state).ToList(); 
-    }
+        => CsvRows
+        .Select(row => row.Split(',')[6])
+        .Distinct()
+        .OrderBy(state => state); 
 
     // 3.
-    public string GetAggregateSortedListOfStatesUsingCsvRows() 
-    {
-        return string.Join(", ", GetUniqueSortedListOfStatesGivenCsvRows().ToArray());
-    }
+    public string GetAggregateSortedListOfStatesUsingCsvRows() => string.Join(", ", GetUniqueSortedListOfStatesGivenCsvRows().ToArray());
 
     // 4.
-    public IEnumerable<IPerson> People => throw new NotImplementedException();
+    public IEnumerable<IPerson> People
+        => CsvRows
+        .Select(line => line.Split(","))
+        .OrderBy(line => (line[5], line[6], line[7]))
+        .Select(line => new Person(line[1], line[2], new Address(line[4], line[5], line[6], line[7]), line[3]));
 
     // 5.
     public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(
