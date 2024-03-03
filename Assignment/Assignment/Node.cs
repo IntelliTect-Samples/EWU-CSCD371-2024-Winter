@@ -66,8 +66,10 @@ public class Node<T> : IEnumerable<Node<T>> where T : notnull
     }
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-    
-    public IEnumerable<Node<T>> ChildItems(int maximum) => this.Skip(1).Take(maximum);
+
+    public IEnumerable<Node<T>> ChildItems(int maximum) {
+        yield return (Node<T>)this.Skip(1).Take(maximum);
+    }
     
 }
 
