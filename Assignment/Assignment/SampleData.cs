@@ -98,7 +98,7 @@ namespace Assignment
             // Select only the state names and convert to array
             var stateNamesArray = uniqueSortedStates.Select(state => state.Split(',')[6].Trim()).ToArray();
 
-            // Convert array of state names into a comma-separated string
+            // Convert array of state names into a comma separated string
             string aggregatedStates = string.Join(",", stateNamesArray);
 
             return aggregatedStates;
@@ -120,6 +120,7 @@ namespace Assignment
                 .Select(rows =>
                 {
                     string[] col = rows.Split(",");
+                    if (col.Length >= 8){
                     string firstName = col[1];
                     string lastName = col[2];
                     string email = col[3];
@@ -131,7 +132,13 @@ namespace Assignment
                     address = new(streetAdd, city, state, zip);
                     Person person = new(firstName, lastName, address, email);
                     return person;
+                    }
+                    else
+                    {
+                    return null!;
+                    }
                 })
+                .Where(person => person != null) // Filter out null entries
                 .OrderBy(person => person.Address.State)
                 .ThenBy(person => person.Address.City)
                 .ThenBy(person => person.Address.Zip);
