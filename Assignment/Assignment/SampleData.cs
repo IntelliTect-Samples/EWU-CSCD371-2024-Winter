@@ -7,17 +7,18 @@ namespace Assignment;
 
 public class SampleData : ISampleData
 {
+    public readonly string FilePath = Path.Combine(Environment.CurrentDirectory, "People.csv"); //this also needs fixing
     // 1.
     public IEnumerable<string> CsvRows
     {
         get 
         {
-            if(File.Exists("People.csv") == false) //needs fixes
+            if(File.Exists(FilePath) == false) //needs fixed
             {
-                throw new FileNotFoundException("People.csv not found");
+                throw new FileNotFoundException($"File not found in path: {FilePath}");
             }
 
-            var fileReader = new StreamReader("People.csv");
+            var fileReader = new StreamReader(FilePath);
             
             //Skips the 1st line of the file
             fileReader.ReadLine();

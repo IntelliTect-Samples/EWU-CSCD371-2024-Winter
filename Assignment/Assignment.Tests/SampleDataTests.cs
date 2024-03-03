@@ -27,4 +27,12 @@ public class SampleDataTests
         Assert.Equal("AL", uniqueSortedStates[0]);
         Assert.Equal("WV", uniqueSortedStates[49]);
     }
+
+    [Fact]
+    public void GetAggregateSortedListOfStatesUsingCsvRows_ListIsJoinedProperly_ReturnsSuccessfully()
+    {
+        string joinedList = SampleData.GetAggregateSortedListOfStatesUsingCsvRows();
+
+        Assert.Equal("A", joinedList);
+    }
 }
