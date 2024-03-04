@@ -18,27 +18,26 @@ public class SampleData : ISampleData
         .OrderBy(state => state); 
 
     // 3.
-    public string GetAggregateSortedListOfStatesUsingCsvRows() => string.Join(", ", GetUniqueSortedListOfStatesGivenCsvRows().ToArray());
+    public string GetAggregateSortedListOfStatesUsingCsvRows() => string
+        .Join(", ", GetUniqueSortedListOfStatesGivenCsvRows().ToArray());
 
     // 4.
-    public IEnumerable<IPerson> People
-        => CsvRows
+    public IEnumerable<IPerson> People => CsvRows
         .Select(line => line.Split(","))
         .OrderBy(line => (line[5], line[6], line[7]))
         .Select(line => new Person(line[1], line[2], new Address(line[4], line[5], line[6], line[7]), line[3]));
 
     // 5. 
-    public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(
-        Predicate<string> filter) => People
+    public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(Predicate<string> filter) => People
         .Where(person => filter(person.EmailAddress))
         .Select(person => (person.FirstName, person.LastName));
 
 
     // 6. 
-    public string GetAggregateListOfStatesGivenPeopleCollection(
-        IEnumerable<IPerson> people) => string.Join(", ", people
-                   .Select(person => person.Address.State)
-                   .Distinct()
-                   .OrderBy(state => state)
-                   .ToArray());
+    public string GetAggregateListOfStatesGivenPeopleCollection(IEnumerable<IPerson> people) => string
+        .Join(", ", people
+        .Select(person => person.Address.State)
+        .Distinct()
+        .OrderBy(state => state)
+        .ToArray());
 }

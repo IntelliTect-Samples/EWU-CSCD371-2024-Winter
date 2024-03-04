@@ -27,16 +27,21 @@ public class SampleDataTests
         Assert.Equal("AL", uniqueSortedStates[0]);
         Assert.Equal("WV", uniqueSortedStates[26]);
     }
-    /* needs fixing commented out for testing other tests
-        [Fact]
-        public void GetAggregateSortedListOfStatesUsingCsvRows_ListIsJoinedProperly_ReturnsSuccessfully()
-        {
-            List<string> uniqueSortedStates = ["AL", "AZ", "CA", "DC", "FL", "GA", "IN", "KS", "LA", "MD", "MN", "MO", "MT", "NC", "NE", 
-                "NH", "NV", "NY", "OR", "PA", "SC", "TN", "TX", "UT", "VA", "WA", "WV"];
-            Assert.Equal(uniqueSortedStates.Count, SampleData.GetAggregateSortedListOfStatesUsingCsvRows().Count());
-        } */
+    
+    [Fact]
+    public void GetAggregateSortedListOfStatesUsingCsvRows_SortedAndUnique_ReturnsSuccessful()
+    {
+        string uniqueSortedStates = string.Join(", ", SampleData.GetAggregateSortedListOfStatesUsingCsvRows());
+        Assert.Equal("AL, AZ, CA, DC, FL, GA, IN, KS, LA, MD, MN, MO, MT, NC, NE, NH, NV, NY, OR, PA, SC, TN, TX, UT, VA, WA, WV", uniqueSortedStates);
+    }
 
-    //Need test for people
+    [Fact]
+    public void People_CountIs50_ReturnsSuccessful()
+    {
+        var people = SampleData.People.ToList();
+
+        Assert.Equal(50, people.Count);
+    }
 
     // Filtered by .cn
     [Fact]
@@ -64,7 +69,7 @@ public class SampleDataTests
 
     // GetAggregateListOfStatesGivenPeopleCollection for Unique States
     [Fact]
-    public void GetAggregateListOfStatesGivenPeopleCollection_ReturnsSuccessful()
+    public void GetAggregateListOfStatesGivenPeopleCollection_UniqueList_ReturnsSuccessful()
     {
         List<IPerson> people = SampleData.People.ToList();
         string states = SampleData.GetAggregateListOfStatesGivenPeopleCollection(people);
