@@ -1,74 +1,99 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
 namespace Assignment;
-public class Node<T>
-{
-    // Value of the node
-    public T Value { get; set; }
-
-    // Pointer to the next node
-    public Node<T> Next { get; private set; }
-
-    // Constructor that takes a value
-    public Node(T value)
+    public class Node<T> : IEnumerable<T>
     {
-        Value = value;
-       
-        Next = this; // By default, the Next pointer refers back to itself
-     
-      
-    }
+        // Value of the node
+        public T Value { get; set; }
 
-    // Method to set the next node
-    public void SetNext(Node<T> next)
-    {
-        Next = next;
-    }
+        // Pointer to the next node
+        public Node<T>? Next { get; private set; } // Nullable reference type
 
-    public override string ToString()
-    {
-        return Value!.ToString()!;
-    }
-
-    public void Append(T value)
-    {
-        if (Exists(value))
+        // Constructor that takes a value
+        public Node(T value)
         {
-            throw new ArgumentException("Value already exists");
+            Value = value;
+            Next = this; // By default, the Next pointer refers back to itself
         }
-        else
-        {
-            Node<T> newNode = new(value)
-            {
-                Next = this.Next // New node points to the current node's next
-            };
 
-            this.Next = newNode; // Update current node's next to point to the new node
+        // Method to set the next node
+        public void SetNext(Node<T>? next) // Nullable reference type
+        {
+            Next = next;
         }
-    }
 
-    public void Clear()
-    {
-        //I don't think you need to worry about the garbage collector as it should take care of the
-        //unreachable nodes after they were cut off after headNode is reset to itself
-        //for that reason I don't think you need to reset the other nodes to themselves either, as regardless of however many are linked, they are all unreachable
-        //and will be taken care of by the garbage collector
-        Node<T> headNode = this;
-        headNode.Next = this;
-        
-
-    }
-
-    public Boolean Exists(T value)
-    {
-        Node<T> headNode = this; 
-        do
+        public override string ToString()
         {
-            if (headNode.Value!.Equals(value))
+            return Value?.ToString() ?? string.Empty; // Handling possible null reference
+        }
+
+        public void Append(T value)
+        {
+            if (Exists(value))
             {
-                return true;
+                throw new ArgumentException("Value already exists");
             }
-            headNode = headNode.Next;
-        }while (headNode != this);
-        
-        return false;
+            else
+            {
+                Node<T> newNode = new Node<T>(value)
+                {
+                    Next = this.Next // New node points to the current node's next
+                };
+
+                this.Next = newNode; // Update current node's next to point to the new node
+            }
+        }
+
+        public void Clear()
+        {
+            Node<T> headNode = this;
+            headNode.Next = this;
+        }
+
+        public bool Exists(T value)
+        {
+            Node<T> headNode = this;
+            do
+            {
+                if (headNode.Value?.Equals(value) ?? false) // Handling possible null reference
+                {
+                    return true;
+                }
+                headNode = headNode.Next!;
+            } while (headNode != this);
+
+            return false;
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            Node<T>? currentNode = this; // Nullable reference type
+            do
+            {
+                yield return currentNode!.Value; // Handling possible null reference
+                currentNode = currentNode!.Next;
+            } while (currentNode != this);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public IEnumerable<T> ChildItems(int maximum)
+        {
+            Node<T>? currentNode = this; // Nullable reference type
+            int count = 0;
+            do
+            {
+                if (count >= maximum)
+                    yield break;
+
+                yield return currentNode!.Value; // Handling possible null reference
+                currentNode = currentNode!.Next;
+                count++;
+            } while (currentNode != this);
+        }
     }
-}
