@@ -27,11 +27,18 @@ public class SampleData : ISampleData
         .OrderBy(line => (line[5], line[6], line[7]))
         .Select(line => new Person(line[1], line[2], new Address(line[4], line[5], line[6], line[7]), line[3]));
 
-    // 5.
+    // 5. 
     public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(
-        Predicate<string> filter) => throw new NotImplementedException();
+        Predicate<string> filter) => People
+        .Where(person => filter(person.EmailAddress))
+        .Select(person => (person.FirstName, person.LastName));
 
-    // 6.
+
+    // 6. 
     public string GetAggregateListOfStatesGivenPeopleCollection(
-        IEnumerable<IPerson> people) => throw new NotImplementedException();
+        IEnumerable<IPerson> people) => string.Join(", ", people
+                   .Select(person => person.Address.State)
+                   .Distinct()
+                   .OrderBy(state => state)
+                   .ToArray());
 }

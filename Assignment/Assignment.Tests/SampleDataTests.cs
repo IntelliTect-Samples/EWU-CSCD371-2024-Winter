@@ -37,4 +37,47 @@ public class SampleDataTests
         } */
 
     //Need test for people
+
+    // Filtered by .cn
+    [Fact]
+    public void FilterByEmailAddress_ContainsCn_ReturnsSuccessful()
+    {
+        List<(string FirstName, string LastName)> govEmails = SampleData.FilterByEmailAddress(email => email.Contains(".cn")).ToList();
+        Assert.Equal(2, govEmails.Count);
+    }
+
+    // Filtered by .com
+    [Fact]
+    public void FilterByEmailAddress_ContainsCom_ReturnsSuccessful()
+    {
+        List<(string FirstName, string LastName)> comEmails = SampleData.FilterByEmailAddress(email => email.Contains(".com")).ToList();
+        Assert.Equal(29, comEmails.Count);
+    }
+
+    // Filtered by .gov
+    [Fact]
+    public void FilterByEmailAddress_ContainsGov_ReturnsSuccessful()
+    {
+        List<(string FirstName, string LastName)> govEmails = SampleData.FilterByEmailAddress(email => email.Contains(".gov")).ToList();
+        Assert.Equal(5, govEmails.Count);
+    }
+
+    // GetAggregateListOfStatesGivenPeopleCollection for Unique States
+    [Fact]
+    public void GetAggregateListOfStatesGivenPeopleCollection_ReturnsSuccessful()
+    {
+        List<IPerson> people = SampleData.People.ToList();
+        string states = SampleData.GetAggregateListOfStatesGivenPeopleCollection(people);
+        Assert.Equal("AL, AZ, CA, DC, FL, GA, IN, KS, LA, MD, MN, MO, MT, NC, NE, NH, NV, NY, OR, PA, SC, TN, TX, UT, VA, WA, WV", states);
+    }
+
+    // GetAggregateListOfStatesGivenPeopleCollection with empty list
+    [Fact]
+    public void GetAggregateListOfStatesGivenPeopleCollection_EmptyList_ReturnsSuccessful()
+    {
+        List<IPerson> people = new();
+        string states = SampleData.GetAggregateListOfStatesGivenPeopleCollection(people);
+        Assert.Equal("", states);
+    }
+
 }
