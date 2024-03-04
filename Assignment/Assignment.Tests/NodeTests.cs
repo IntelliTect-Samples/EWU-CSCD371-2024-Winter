@@ -92,7 +92,7 @@ namespace Assignment.Tests;
         }
 
          [TestMethod]
-        public void ChildItems_ReturnsExpectedItems()
+        public void ChildItems_ReturnsExpectedItems_WhenMaximumIsLessThanNumberOfItems()
         {
             // Arrange
             var node1 = new Node<int>(1);
@@ -112,6 +112,39 @@ namespace Assignment.Tests;
             // Assert
             var expectedItems = new int[] { 1, 2 };
             CollectionAssert.AreEqual(expectedItems, childItemsArray);
+        }
+
+        [TestMethod]
+        public void ChildItems_ReturnsAllItems_WhenMaximumIsGreaterThanNumberOfItems()
+        {
+            // Arrange
+            var node1 = new Node<int>(1);
+            var node2 = new Node<int>(2);
+            var node3 = new Node<int>(3);
+
+            node1.SetNext(node2);
+            node2.SetNext(node3);
+            node3.SetNext(node1); // Create a circular linked list
+
+            // Act
+            var childItems = node1.ChildItems(maximum: 4); // Requesting more items than available
+
+            // Assert
+            var expectedItems = new int[] { 1, 2, 3 };
+            CollectionAssert.AreEqual(expectedItems, childItems.ToArray());
+        }
+
+        [TestMethod]
+        public void ChildItems_ReturnsNoItems_WhenMaximumIsZero()
+        {
+            // Arrange
+            var node1 = new Node<int>(1);
+
+            // Act
+            var childItems = node1.ChildItems(maximum: 0); // Requesting zero items
+
+            // Assert
+            Assert.IsFalse(childItems.Any()); // Check if the sequence is empty
         }
         
     }
