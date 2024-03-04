@@ -81,7 +81,7 @@ public class SampleDataTests
     {
         var sampleData = new SampleData();
 
-        Predicate<string> filter = email => email.EndsWith("@example.com");
+        Predicate<string> filter = email => email.EndsWith("@example.com", StringComparison.OrdinalIgnoreCase);
 
         var result = sampleData.FilterByEmailAddress(filter).ToList();
 

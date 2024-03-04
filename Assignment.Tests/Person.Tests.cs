@@ -20,63 +20,66 @@ public class PersonTests
         var person = new Person(firstName, lastName, address, emailAddress);
 
         // Assert
-        Assert.Equals(firstName, person.FirstName);
-        Assert.Equals(lastName, person.LastName);
-        Assert.Equals(address, person.Address);
-        Assert.Equals(emailAddress, person.EmailAddress);
+        Assert.AreEqual(firstName, person.FirstName);
+        Assert.AreEqual(lastName, person.LastName);
+        Assert.AreEqual(address, person.Address);
+        Assert.AreEqual(emailAddress, person.EmailAddress);
     }
 
     [TestMethod]
     public void FirstName_CanBeSetAndRetrieved()
     {
         // Arrange
-        var person = new Person("John", "Doe", new Address("123 Main St", "Anytown", "CA", "12345"), "john@example.com");
-
-        // Act
-        person.FirstName = "Jane";
+        Person person = new("John", "Doe", new Address("123 Main St", "Anytown", "CA", "12345"), "john@example.com")
+        {
+            // Act
+            FirstName = "Jane"
+        };
 
         // Assert
-        Assert.Equals("Jane", person.FirstName);
+        Assert.AreEqual("Jane", person.FirstName);
     }
 
     [TestMethod]
     public void LastName_CanBeSetAndRetrieved()
     {
         // Arrange
-        var person = new Person("John", "Doe", new Address("123 Main St", "Anytown", "CA", "12345"), "john@example.com")
+        Person person = new("John", "Doe", new Address("123 Main St", "Anytown", "CA", "12345"), "john@example.com")
         {
             // Act
             LastName = "Smith"
         };
 
         // Assert
-        Assert.Equals("Smith", person.LastName);
+        Assert.AreEqual("Smith", person.LastName);
     }
 
     [TestMethod]
     public void Address_CanBeSetAndRetrieved()
     {
         // Arrange
-        var address = new Address("456 Elm St", "Other City", "NY", "67890");
-        var person = new Person("John", "Doe", address, "john@example.com");
-
-        // Act
-        person.Address = address;
+        Address address = new("456 Elm St", "Other City", "NY", "67890");
+        Person person = new("John", "Doe", address, "john@example.com")
+        {
+            // Act
+            Address = address
+        };
 
         // Assert
-        Assert.Equals(address, person.Address);
+        Assert.AreEqual(address, person.Address);
     }
 
     [TestMethod]
     public void EmailAddress_CanBeSetAndRetrieved()
     {
         // Arrange
-        var person = new Person("John", "Doe", new Address("123 Main St", "Anytown", "CA", "12345"), "john@example.com");
-
-        // Act
-        person.EmailAddress = "jane@example.com";
+        Person person = new("John", "Doe", new Address("123 Main St", "Anytown", "CA", "12345"), "john@example.com")
+        {
+            // Act
+            EmailAddress = "jane@example.com"
+        };
 
         // Assert
-        Assert.Equals("jane@example.com", person.EmailAddress);
+        Assert.AreEqual("jane@example.com", person.EmailAddress);
     }
 }
