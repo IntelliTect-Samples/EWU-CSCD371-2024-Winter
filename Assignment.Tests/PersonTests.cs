@@ -17,7 +17,7 @@ public class PersonTests
     {
         string badRow = "one,two,three,four,five,six,seven,eight,nine";
         string goodRow = "one,two,three,four,five,six,seven,eight";
-        Assert.ThrowsException<Exception>(() => Person.FromCsvRow(badRow));
+        Assert.ThrowsException<ArgumentException>(() => Person.FromCsvRow(badRow));
         Assert.IsNotNull(Person.FromCsvRow(goodRow));
     }
 
