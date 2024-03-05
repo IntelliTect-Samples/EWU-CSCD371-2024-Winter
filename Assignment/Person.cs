@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
+using Assignment.Interfaces;
 
-namespace Assignment
-{
+namespace Assignment;
     public class Person : IPerson
     {
         public Person(string firstName, string lastName, IAddress address, string emailAddress)
@@ -18,4 +18,3 @@ namespace Assignment
         public IAddress Address { get;set; }
         public string EmailAddress { get; set; }
     }
-}

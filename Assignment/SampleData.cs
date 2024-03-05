@@ -7,9 +7,9 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Intrinsics.X86;
 using System.Xml;
+using Assignment.Interfaces;
 
-namespace Assignment
-{
+namespace Assignment;
     public class SampleData : ISampleData
     {
         // 1.
@@ -170,4 +170,3 @@ namespace Assignment
             return statesList;
         }           
     }
-}

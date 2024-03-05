@@ -1,5 +1,6 @@
-﻿namespace Assignment
-{
+﻿using Assignment.Interfaces;
+
+namespace Assignment;
     public class Address : IAddress
     {
         public Address(string streetAddress, string city, string state, string zip)
@@ -14,4 +15,3 @@
         public string State { get; set; }
         public string Zip { get; set; }
     }
-}
