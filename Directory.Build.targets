@@ -1,10 +1,9 @@
 <Project>
-  <Target Name="AfterBuild">
+  <Target Name="BeforeBuild">
     <Copy SourceFiles="$(SolutionDir)People.csv" 
-          DestinationFolder="$(SolutionDir)Assignment.Tests\$(OutputPath)"
-          Condition="!Exists('$(SolutionDir)Assignment.Tests\$(OutputPath)People.csv') 
-                     Or 
-                     '$(SolutionDir)People.csv' > '$(SolutionDir)Assignment.Tests\$(OutputPath)People.csv'">
+          DestinationFolder="$(SolutionDir)Assignment.Tests\$(OutputPath)">
     </Copy>
+    <Message Text="People.csv file copied to $(SolutionDir)Assignment.Tests\$(OutputPath)" Condition="'$(SolutionDir)Assignment\People.csv' > '$(SolutionDir)Assignment.Tests\$(OutputPath)People.csv'" />
+
   </Target>
 </Project>
