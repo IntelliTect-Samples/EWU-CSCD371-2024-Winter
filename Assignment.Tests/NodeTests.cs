@@ -1,7 +1,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+
 
 namespace Assignment.Test;
+
+#pragma warning disable CS8618
 
 [TestClass]
 public class NodeTests
@@ -105,5 +107,29 @@ public class NodeTests
     {
         Node<string> node = new("Hello there");
         Assert.AreEqual("Hello there", node.ToString());
+    }
+
+    [TestMethod]
+    public void GetEnumerator_AddElements_ReturnsSuccessful()
+    {
+        Node<string> node = new("Hello there");
+        node.Append("General Kenobi");
+        node.Append("You are a bold one");
+
+        Assert.AreEqual(3, node.Count());
+        Assert.IsTrue(new List<string> { "Hello there", "General Kenobi", "You are a bold one"}.SequenceEqual(node.Select(Node => Node.Data)));
+    }
+
+    [TestMethod]
+    public void ChildItems_SetsMaxTo3ButAppends4_Returns3Items()
+    {
+        Node<int> node = new(1);
+        node.Append(2);
+        node.Append(3);
+        node.Append(4);
+
+        IEnumerator<Node<int>> result = node.ChildItems(3);
+
+        Assert.IsTrue(new List<int>{2, 3, 4}.SequenceEqual(result.Select(Node => Node.data)));
     }
 }
