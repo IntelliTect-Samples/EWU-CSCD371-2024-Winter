@@ -1,7 +1,10 @@
 <Project>
-  <Target Name="BeforeBuild">
+  <Target Name="AfterBuild">
     <Copy SourceFiles="$(SolutionDir)People.csv" 
-          DestinationFolder="$(SolutionDir)Assignment.Tests\">
+          DestinationFolder="$(SolutionDir)Assignment.Tests\$(OutputPath)"
+          Condition="!Exists('$(SolutionDir)Assignment.Tests\$(OutputPath)People.csv') 
+                     Or 
+                     '$(SolutionDir)People.csv' > '$(SolutionDir)Assignment.Tests\$(OutputPath)People.csv'">
     </Copy>
   </Target>
 </Project>
