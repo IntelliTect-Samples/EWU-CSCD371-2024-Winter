@@ -1,12 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-		<Target Name="AfterBuild">
-			<Copy SourceFiles="$(SolutionDir)Assignment\person.csv"
-				  DestinationFolder="..\Assignment.tests\$(OutputPath)">
-			</Copy>
-		</Target>
-
-	<PropertyGroup>
+    <PropertyGroup>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
@@ -21,7 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Assignment\Assignment.csproj" />
   </ItemGroup>
-	
+
 	<ItemGroup>
 		<None Update="People.csv">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
