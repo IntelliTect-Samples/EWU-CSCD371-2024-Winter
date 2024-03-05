@@ -12,15 +12,27 @@ public class SampleData : ISampleData
 
     // 1.
     public IEnumerable<string> CsvRows
-        => File.ReadLines(CsvFilePath).Skip(1);// This should return the entire list, Line by Line, as a string
+    {
+        get 
+        {
+            if (!File.Exists(CsvFilePath))
+            {
+                throw new FileNotFoundException(nameof(CsvFilePath));
+            }
+            return File.ReadLines(CsvFilePath).Skip(1);// This should return the entire list, Line by Line, as a string
+        }
+    }
 
     // 2.
     public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
         => CsvRows
-            .Select(row => row.Split(',')[4])
+            .Select(row => row.Split(','))
+            .Where(fields => fields.Length > 4)
+            .Select(fields => fields[4].Trim())
+            .Where(state => !string.IsNullOrEmpty(state))
             .Distinct()
             .OrderBy(state => state);//This will use CsvRows, calling in one large string,
-                                     //splitting it at the 6th comma, and ordering by state
+                                     //splitting it at the 5th comma, and ordering by state
 
     // 3.
     public string GetAggregateSortedListOfStatesUsingCsvRows()
@@ -29,18 +41,19 @@ public class SampleData : ISampleData
             .ToArray();
 
         return string.Join(",", sortedUniqueStates);
-    }//This should combine them,
-                                                                       //though selecting only states I am unsure how to do 
+    }
 
     // 4.
     public IEnumerable<IPerson> People
     {
         get
         {
-            return CsvRows.Select(row =>
+            return CsvRows.Select(row => row.Split(','))
+                .Where(fields => fields.Length >= 7)
+                .Select(fields =>
             {
-                var fields = row.Split(',');
-                return new Person //There was an error with how the person was calling the constructor so I fixed that -R
+                
+                return new Person 
         (
             firstName: fields[0],
             lastName: fields[1],
@@ -64,8 +77,12 @@ public class SampleData : ISampleData
     // 5.
     public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(
         Predicate<string> filter)
-        => People.Where(p => filter(p.EmailAddress))
-        .Select(p => (p.FirstName, p.LastName)); //This one may be right, but again a first go.
+    {
+        return filter == null
+            ? throw new ArgumentNullException(nameof(filter))
+            : People.Where(p => p.EmailAddress != null && filter(p.EmailAddress))
+            .Select(p => (p.FirstName, p.LastName));
+    } 
 
     // 6.
     public string GetAggregateListOfStatesGivenPeopleCollection(
@@ -80,6 +97,6 @@ public class SampleData : ISampleData
             .Aggregate(new StringBuilder(), (sb, state) => sb.Append(sb.Length == 0 ? "" : ",").Append(state))
             .ToString();
 
-        return res;//This one may need to be adjusted, as I sort of guessed on the Length check.
+        return res;
     }
 }

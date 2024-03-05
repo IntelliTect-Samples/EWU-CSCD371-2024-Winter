@@ -31,9 +31,9 @@ public class SampleDataTests
     }
 
     [TestMethod]
-    public void CsvRows_ReturnsAllRowsFromFile()
+    public void CsvRows_SkipsFirstRow_ReturnsAllRowsFromFile()
     {
-        var sampleData = new SampleData();
+        SampleData sampleData = new();
 
         var result = sampleData.CsvRows.ToList();
 
@@ -45,7 +45,7 @@ public class SampleDataTests
     [TestMethod]
     public void GetUniqueSortedListOfStatesGivenCsvRows_ReturnsUniqueSortedEmails()
     {
-        var sampleData = new SampleData();
+        SampleData sampleData = new();
 
         var result = sampleData.GetUniqueSortedListOfStatesGivenCsvRows().ToList();
 
@@ -57,7 +57,7 @@ public class SampleDataTests
     [TestMethod]
     public void GetAggregateSortedListOfStatesUsingCsvRows_ReturnsAggregateSortedStates()
     {
-        var sampleData = new SampleData();
+        SampleData sampleData = new();
 
         var result = sampleData.GetAggregateSortedListOfStatesUsingCsvRows();
 
@@ -67,7 +67,7 @@ public class SampleDataTests
     [TestMethod]
     public void People_ReturnsListOfPeople()
     {
-        var sampleData = new SampleData();
+        SampleData sampleData = new();
 
         var result = sampleData.People.ToList();
 
@@ -79,9 +79,9 @@ public class SampleDataTests
     [TestMethod]
     public void FilterByEmailAddress_ReturnsFilteredPeople()
     {
-        var sampleData = new SampleData();
+        SampleData sampleData = new();
 
-        Predicate<string> filter = email => email.EndsWith("@example.com", StringComparison.OrdinalIgnoreCase);
+        static bool filter(string email) => email.EndsWith("@example.com", StringComparison.OrdinalIgnoreCase);
 
         var result = sampleData.FilterByEmailAddress(filter).ToList();
 
@@ -93,12 +93,12 @@ public class SampleDataTests
     [TestMethod]
     public void GetAggregateListOfStatesGivenPeopleCollection_ReturnsAggregateListOfStates()
     {
-        var sampleData = new SampleData();
-        var people = new List<IPerson>
-            {
+        SampleData sampleData = new();
+        List<IPerson> people =
+            [
                 new Person("John", "Doe", new Address("123 Main St", "Anytown", "CA", "12345"), "john@example.com"),
                 new Person("Jane", "Smith", new Address("456 Elm St", "Other City", "NY", "67890"), "jane@example.com")
-            };
+            ];
 
         var result = sampleData.GetAggregateListOfStatesGivenPeopleCollection(people);
 
