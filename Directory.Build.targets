@@ -1,7 +1,7 @@
 <Project>
   <Target Name="BeforeBuild">
     <Copy SourceFiles="$(SolutionDir)People.csv" 
-          DestinationFolder="$(SolutionDir)Assignment.Tests\$(OutputPath)">
+          DestinationFolder="$(SolutionDir)Assignment.Tests\">
     </Copy>
   </Target>
 </Project>
