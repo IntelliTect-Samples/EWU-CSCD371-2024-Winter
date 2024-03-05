@@ -1,9 +1,9 @@
 <Project>
-  <Target Name="BeforeBuild">
-    <Copy SourceFiles="$(SolutionDir)People.csv" 
-          DestinationFolder="$(SolutionDir)Assignment.Tests\$(OutputPath)">
-    </Copy>
-    <Message Text="People.csv file copied to $(SolutionDir)Assignment.Tests\$(OutputPath)" Condition="'$(SolutionDir)Assignment\People.csv' > '$(SolutionDir)Assignment.Tests\$(OutputPath)People.csv'" />
+	<Target Name="BeforeBuild">
+		<Message Text="Copying People.csv file to $(SolutionDir)Assignment.Tests\" />
 
-  </Target>
+		<Copy SourceFiles="$(SolutionDir)Assignment\People.csv"
+			  DestinationFolder="$(SolutionDir)Assignment.Tests">
+		</Copy>
+	</Target>
 </Project>
