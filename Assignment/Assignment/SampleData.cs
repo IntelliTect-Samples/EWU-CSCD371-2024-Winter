@@ -17,7 +17,7 @@ namespace Assignment
                 {
                     streamReader.ReadLine();
 
-                    while(streamReader.EndOfStream)
+                    while (streamReader.EndOfStream)
                     {
                         yield return streamReader.ReadLine()!;
                     }
