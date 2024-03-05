@@ -29,7 +29,7 @@ public class SampleDataTests
     [TestMethod]
     public void FromCsvString_ThrowsExceptionIfInconsistentColumns()
     {
-        Assert.ThrowsException<Exception>(() =>
+        Assert.ThrowsException<ArgumentException>(() =>
             SampleData.FromCsvString(TestingCsvData.InconsistentColumnData));
     }
 
