@@ -6,12 +6,12 @@ namespace Assignment.Tests;
 public class NodeTests
 {
     [Fact]
-    public void Next_NodeLoopsOnItself_Equal()
+    public void Next_NodeLoopsOnItself_Equal()//
     {
         Node<int> node = new(3);
         Assert.Equal(node.Data, node.Next.Data);
     }
-
+    
     [Fact]
     public void Append_Node_Equal()
     {
@@ -46,7 +46,7 @@ public void Exists_ValueInList_ReturnsTrue()
 }
 
 [Fact]
-public void Exists_ValueInList_ReturnsFalse()
+public void Exists_ValueInList_ReturnsFalse()//
 {
     Node<string> node = new("apple");
     node.Append("pear");
@@ -55,7 +55,7 @@ public void Exists_ValueInList_ReturnsFalse()
 }
 
 [Fact]
-public void Append_AppendsDuplicate_ThrowsException()
+public void Append_AppendsDuplicate_ThrowsException()//
 {
     Node<int> node = new(3);
     node.Append(5);
@@ -73,7 +73,7 @@ public void Append_NullValue_ThrowsException()
 }
 
 [Fact]
-public void Clear_ClearsNewList_HeadRemains()
+public void Clear_ClearsNewList_HeadRemains()//
 {
     Node<string> node = new("apple");
     node.Append("pear");

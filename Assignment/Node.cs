@@ -41,7 +41,6 @@ public class Node<T> : IEnumerable<Node<T>> where T : notnull //Circular LinkedL
     public bool Exists(T value)
     {
         ArgumentNullException.ThrowIfNull(value, nameof(value));
-
         Node<T> cur = this;
 
         do
