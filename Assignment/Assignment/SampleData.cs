@@ -81,7 +81,7 @@ namespace Assignment
                 .Select(person => person.Address.State)
                 .Distinct()
                 .OrderBy(state => state, StringComparer.OrdinalIgnoreCase);
-            string result = uniqueSortedList.Aggregate((concat, str) => $"{concat},{str}");
+            string result = uniqueSortedList.Aggregate((concat, str) => $"{concat}, {str}");
             return result;
         }
     }

@@ -131,10 +131,15 @@ public class SampleDataTests
     }
 
     [TestMethod]
-    public void GetAggregateListOfStatesGivenPeopleCollection_test()//This is not an actual list, this was just to check result
+    public void GetAggregateListOfStatesGivenPeopleCollection_GenerateList_MatchesGetUniqueSortedListOfStatesGivenCsvRows()
     {
-        var people = SampleData.People;
-        string result = SampleData.GetAggregateListOfStatesGivenPeopleCollection(people);
-        Assert.AreEqual("AL,AZ,CA,DC,FL,GA,IN,KS,LA,MD,MN,MO,MT,NC,NE,NH,NV,NY,OR,PA,SC,TN,TX,UT,VA,WA,WV", result);
+        //Use GetUniqueSortedListOfStatesGivenCsvRows to form the list we need.
+        //Use the Join function o string to turn that list into a string.
+        string expected = string.Join(", ", SampleData.GetUniqueSortedListOfStatesGivenCsvRows());
+
+        //The string returned should match the one that used method above.
+        string result = SampleData.GetAggregateListOfStatesGivenPeopleCollection(SampleData.People);
+
+        Assert.AreEqual(expected, result);
     }
 }
