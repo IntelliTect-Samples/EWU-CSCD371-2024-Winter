@@ -28,7 +28,7 @@ namespace Assignment.Tests;
         }
 
         // Helper method to create a CSV file with specified rows
-        private void CreateCsvFile(string filePath, IEnumerable<string> rows)
+        private static void CreateCsvFile(string filePath, IEnumerable<string> rows)
         {
             using (StreamWriter writer = new StreamWriter(filePath))
             {
