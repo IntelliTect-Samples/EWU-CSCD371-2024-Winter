@@ -2,6 +2,7 @@
 using Microsoft.Win32.SafeHandles;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,29 +12,41 @@ namespace Assignment.Tests;
 [TestClass]
 public class SampleDataTests
 {
+    //Will not be null because property is setup in SetupSampleData
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    public SampleData SampleData {  get; set; }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
+    [TestInitialize]
+    public void SetupSampleData()
+    {
+        SampleData = new SampleData();
+    }
+
     [TestMethod]
-    //This is just here for now cuz idk how to write a good test for it yet..
     public void CsvRows_GetFirstRow_Success()
     {
-        SampleData data = new();
-        string firstLine = data.CsvRows.First();
+        string firstLine = SampleData.CsvRows.First();
         Assert.AreEqual<string>
             ("1,Priscilla,Jenyns,pjenyns0@state.gov,7884 Corry Way,Helena,MT,70577", firstLine);
     }
 
+    [TestMethod]
+    public void CsvRows_CountMatches_Success()
+    {
+        Assert.AreEqual<int>(50, SampleData.CsvRows.Count());
+    }
 
     [TestMethod]
     public void GetUniqueSortedListOfStatesGivenCsvRows_HardCodedStates_Success()
     {
-      // Create SampleData Object
-      SampleData sampleData = new();
       // Create list of States that are in the Csv file (used excel to generate this)
-      List<string> addresses = new List<string> {"AL", "AZ", "CA", "DC", "FL", "GA", "IN", 
+      List<string> addresses = ["AL", "AZ", "CA", "DC", "FL", "GA", "IN", 
         "KS", "LA", "MD", "MN", "MO", "MT", "NC", "NE", "NH", "NV", "NY", "OR", "PA", "SC", 
-        "TN", "TX", "UT", "VA", "WA", "WV"};
+        "TN", "TX", "UT", "VA", "WA", "WV"];
 
       // Create a result of when method executes
-      var results = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
+      var results = SampleData.GetUniqueSortedListOfStatesGivenCsvRows();
 
       // Take those addresses and use LINQ to make sure they are 
       // orderd correct (they already are since I used excel to get them)
@@ -47,15 +60,14 @@ public class SampleDataTests
     public void GetAggregateSortedListOfStatesUsingCsvRows_InvokeMethod_Success()
     {
       // Grab list of addresses from before
-      List<string> addresses = new List<string> {"AL", "AZ", "CA", "DC", "FL", "GA", "IN", 
+      List<string> addresses = ["AL", "AZ", "CA", "DC", "FL", "GA", "IN", 
         "KS", "LA", "MD", "MN", "MO", "MT", "NC", "NE", "NH", "NV", "NY", "OR", "PA", "SC", 
-        "TN", "TX", "UT", "VA", "WA", "WV"};
+        "TN", "TX", "UT", "VA", "WA", "WV"];
       // Join them all into a single string
       string hardList = string.Join(", ", addresses);
 
-      SampleData sampleData = new();
       // Get single string of states from method
-      string stateList = sampleData.GetAggregateSortedListOfStatesUsingCsvRows();
+      string stateList = SampleData.GetAggregateSortedListOfStatesUsingCsvRows();
       // make sure string is populated
       Assert.IsNotNull(stateList);
       // make sure it is equal to hard coded string of states. 
@@ -65,9 +77,7 @@ public class SampleDataTests
     [TestMethod]
     public void Persons_Creation_MatchesHardCodedPerson()
     {
-      SampleData sampleData = new();
-
-      var people = sampleData.People.ToList();
+      var people = SampleData.People.ToList();
 
       Assert.AreEqual(50, people.Count);
 
@@ -85,13 +95,11 @@ public class SampleDataTests
     [TestMethod]
     public void FilterByEmailAddress_FilterUsesEquals_Success()
     {
-        SampleData sampleData = new();
-        
         //An example of what the filter could be
         Predicate<string> filter = s => s.Equals("ibester6@psu.edu");
 
         //The tuple list of names to be returned
-        var names = sampleData.FilterByEmailAddress(filter);
+        var names = SampleData.FilterByEmailAddress(filter);
 
         //Since emails are unique in this list, should be only one result
         Assert.AreEqual(1, names.Count());
@@ -102,13 +110,11 @@ public class SampleDataTests
     [TestMethod]
     public void FilterByEmailAddress_FilterUsesContains_Success()
     {
-        SampleData sampleData = new();
-
         //An example of what the filter could be
         Predicate<string> filter = s => s.Contains(".gov");
 
         //The tuple list of names to be returned
-        var names = sampleData.FilterByEmailAddress(filter);
+        var names = SampleData.FilterByEmailAddress(filter);
 
         //Since emails are unique in this list, should be only one result
         Assert.AreEqual(5, names.Count());
@@ -127,10 +133,8 @@ public class SampleDataTests
     [TestMethod]
     public void GetAggregateListOfStatesGivenPeopleCollection_test()//This is not an actual list, this was just to check result
     {
-        SampleData sampleData = new();
-
-        var people = sampleData.People;
-        string result = sampleData.GetAggregateListOfStatesGivenPeopleCollection(people);
+        var people = SampleData.People;
+        string result = SampleData.GetAggregateListOfStatesGivenPeopleCollection(people);
         Assert.AreEqual("AL,AZ,CA,DC,FL,GA,IN,KS,LA,MD,MN,MO,MT,NC,NE,NH,NV,NY,OR,PA,SC,TN,TX,UT,VA,WA,WV", result);
     }
 }
