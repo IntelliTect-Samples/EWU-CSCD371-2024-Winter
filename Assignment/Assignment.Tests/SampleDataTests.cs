@@ -103,6 +103,7 @@ namespace Assignment.Tests;
 
             Assert.IsTrue(isUnique, "The list of states contains duplicates.");
             Assert.IsTrue(isSorted, "The list of states is not sorted correctly.");
+            // error messages only appear when tests fail
         }
 
         //

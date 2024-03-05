@@ -1,7 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-#pragma warning disable CS8602 // Disable CS8602 warnings for the entire file
-
+#pragma warning disable CS8602 
 
 namespace Assignment.Tests;
     [TestClass]
