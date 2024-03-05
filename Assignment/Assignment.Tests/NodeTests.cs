@@ -1,15 +1,59 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Assignment.Tests;
 
 [TestClass]
 public class NodeTests
 {
+
+
+    [TestMethod]
+    public void GetEnumerator_ListOfFive_Successful() //IDK how else to test this 
+    {
+        Node<string> pets = new("dog");
+        pets.Append("cat");
+        pets.Append("fish");
+        pets.Append("bird");
+        pets.Append("snake");
+
+        //List<string> expected = ["dog", "cat", "fish", "bird", "snake"];
+
+        var result = pets.GetEnumerator();
+
+        int count = 0;
+
+        while (result.MoveNext()) count++;
+
+        Assert.AreEqual(5, count);
+    }
+
+    [TestMethod]
+    public void ChildItems_ReturnMaximumOfThree_Success()
+    {
+        Node<string> pets = new("dog");
+        pets.Append("cat");
+        pets.Append("fish");
+        pets.Append("bird");
+        pets.Append("snake");
+
+        List<string> expected = ["cat", "fish", "bird"];
+
+        var result = pets.ChildItems(3);
+
+        Assert.IsTrue(expected.SequenceEqual<string>(result.Select(node => node.Data)));
+    }
+
+
+    // Below are just tests from Assignment 5
+
     [TestMethod]
     public void Next_NodeLoopsOnItself_Equal()
     {

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -64,11 +66,31 @@ public class Node<T> : IEnumerable<Node<T>> where T : notnull
 
     public IEnumerator<Node<T>> GetEnumerator()
     {
-        throw new NotImplementedException();
+        Node<T> cur = this;
+
+        do //return all the items in the "circle" of items
+        {
+            yield return cur;
+            cur = cur.Next;
+
+        } while (cur != this);
     }
 
-    IEnumerator IEnumerable.GetEnumerator()
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+    public IEnumerable<Node<T>> ChildItems(int maximum)
     {
-        throw new NotImplementedException();
+        //We want the remaining items, so exclude the start node
+        Node<T> cur = Next;
+        int count = 0;
+
+        while (cur.Next != this && count < maximum)
+        {
+            yield return cur;
+            cur = cur.Next;
+            count++;
+        }
     }
+
+
 }
