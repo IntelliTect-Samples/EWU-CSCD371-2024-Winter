@@ -7,9 +7,6 @@
 
   <ItemGroup>
     <!-- Include People.csv file using relative path -->
-    <Content Include="../Assignment/People.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
 
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.4.0" />
