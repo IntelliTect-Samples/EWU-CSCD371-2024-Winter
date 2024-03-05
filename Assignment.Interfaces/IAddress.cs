@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
+namespace Assignment.Interfaces;
 public interface IAddress
 {
     string StreetAddress { get; }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
+namespace Assignment.Interfaces;
 public interface ISampleData
 {
     // 1.
