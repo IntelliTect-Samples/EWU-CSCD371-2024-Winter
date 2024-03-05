@@ -18,6 +18,7 @@ public class SampleDataTests
     [TestInitialize]
     public void SetUp()
     {
+        
         SampleData = new SampleData();
     }
 

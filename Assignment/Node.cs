@@ -69,8 +69,15 @@ public class Node<T> : IEnumerable<Node<T>> where T : notnull
 
     public IEnumerable<Node<T>> ChildItems(int maximum)
     {
-        foreach (var item in this.Skip(1).Take(maximum))
+        // immediate calculation version:
+        // return this.Skip(1).Take(maximum);
+        int count = 0;
+        foreach (var item in this.Skip(1))
         {
+            if (count++ == maximum)
+            {
+                break;
+            }
             yield return item;
         }
     }
