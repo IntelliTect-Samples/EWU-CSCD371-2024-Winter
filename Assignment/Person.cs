@@ -11,7 +11,7 @@ public class Person(string firstName, string lastName, IAddress address, string 
         string[] columns = row.Split(',');
         if(columns.Length != 8)
         {
-            throw new Exception($"Row requires 8 columns, got {columns.Length} columns");
+            throw new ArgumentException($"Row requires 8 columns, got {columns.Length} columns");
         }
         return new(columns[1], columns[2],
             new Address(columns[4], columns[5], columns[6], columns[7]),
