@@ -6,8 +6,9 @@ namespace Assignment.Tests;
 
 public class SampleDataTests
 {
+#pragma warning disable CS8618
     public SampleData SampleData { get; set; }
-
+#pragma warning restore CS8618
     public SampleDataTests() 
     {
         SampleData = new();
@@ -80,7 +81,7 @@ public class SampleDataTests
     [Fact]
     public void GetAggregateListOfStatesGivenPeopleCollection_EmptyList_ReturnsSuccessful()
     {
-        List<IPerson> people = new();
+        List<IPerson> people = [];
         string states = SampleData.GetAggregateListOfStatesGivenPeopleCollection(people);
         Assert.Equal("", states);
     }
