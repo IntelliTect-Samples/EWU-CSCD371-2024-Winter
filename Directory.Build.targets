@@ -1,5 +1,5 @@
 <Project>
-  <Target Name="AfterBuild">
+  <Target Name="BeforeBuild">
     <Copy SourceFiles="$(SolutionDir)Assignment\People.csv" 
           DestinationFolder="..\Assignment.tests\">
     </Copy>
