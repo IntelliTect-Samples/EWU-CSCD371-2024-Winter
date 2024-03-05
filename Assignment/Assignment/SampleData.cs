@@ -17,14 +17,19 @@ public class SampleData : ISampleData
     // 2.
     public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
         => CsvRows
-            .Select(row => row.Split(',')[6])
+            .Select(row => row.Split(',')[4])
             .Distinct()
             .OrderBy(state => state);//This will use CsvRows, calling in one large string,
                                      //splitting it at the 6th comma, and ordering by state
 
     // 3.
     public string GetAggregateSortedListOfStatesUsingCsvRows()
-        => string.Join(",", GetUniqueSortedListOfStatesGivenCsvRows());//This should combine them,
+    {
+        var sortedUniqueStates = GetUniqueSortedListOfStatesGivenCsvRows()
+            .ToArray();
+
+        return string.Join(",", sortedUniqueStates);
+    }//This should combine them,
                                                                        //though selecting only states I am unsure how to do 
 
     // 4.

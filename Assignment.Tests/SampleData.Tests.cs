@@ -43,25 +43,25 @@ public class SampleDataTests
     }
 
     [TestMethod]
-    public void GetUniqueSortedListOfEmailsGivenCsvRows_ReturnsUniqueSortedEmails()
+    public void GetUniqueSortedListOfStatesGivenCsvRows_ReturnsUniqueSortedEmails()
     {
         var sampleData = new SampleData();
 
         var result = sampleData.GetUniqueSortedListOfStatesGivenCsvRows().ToList();
 
         Assert.AreEqual(2, result.Count);
-        Assert.AreEqual("jane@example.com", result[0]);
-        Assert.AreEqual("john@example.com", result[1]);
+        Assert.AreEqual("CA", result[0]);
+        Assert.AreEqual("NY", result[1]);
     }
 
     [TestMethod]
-    public void GetAggregateSortedListOfEmailsUsingCsvRows_ReturnsAggregateSortedEmails()
+    public void GetAggregateSortedListOfStatesUsingCsvRows_ReturnsAggregateSortedStates()
     {
         var sampleData = new SampleData();
 
         var result = sampleData.GetAggregateSortedListOfStatesUsingCsvRows();
 
-        Assert.AreEqual("jane@example.com,john@example.com", result);
+        Assert.AreEqual("CA,NY", result);
     }
 
     [TestMethod]
