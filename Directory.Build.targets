@@ -1,6 +1,7 @@
 <Project>
-  <!-- See https://aka.ms/dotnet/msbuild/customize for more details on customizing your build -->
-  <Target Name="CustomAfterBuildTarget" AfterTargets="Build">
-      <Message Text="Hello from CustomAfterBuildTarget" Importance="high" />
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="$(SolutionDir)Assignment\People.csv" 
+          DestinationFolder="..\Assignment.tests\$(OutputPath)">
+    </Copy>
   </Target>
 </Project>

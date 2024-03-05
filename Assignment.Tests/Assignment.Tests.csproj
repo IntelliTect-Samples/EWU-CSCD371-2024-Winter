@@ -1,6 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
+		<Target Name="AfterBuild">
+			<Copy SourceFiles="$(SolutionDir)Assignment\person.csv"
+				  DestinationFolder="..\Assignment.tests\$(OutputPath)">
+			</Copy>
+		</Target>
+
+	<PropertyGroup>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
