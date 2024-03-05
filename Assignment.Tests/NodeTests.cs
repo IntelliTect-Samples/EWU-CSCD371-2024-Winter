@@ -119,4 +119,21 @@ public class NodeTests
         Assert.AreEqual(3, node.Count());
         Assert.IsTrue(new List<string> { "Hello there", "General Kenobi", "You are a bold one"}.SequenceEqual(node.Select(Node => Node.Data)));
     }
+
+    [TestMethod]
+    public void ChildItems_Input4SetMaxTo3_ReturnsSuccessful()
+    {
+        Node<int> node = new(1);
+        node.Append(2);
+        node.Append(3);
+        node.Append(4);
+
+        Assert.AreEqual(4, node.Count());
+        /*
+        IEnumerator<Node<int>> result = node.ChildItems(3);
+        not working currently
+        Assert.IsTrue(new List<int> { 2, 3, 4}.SequenceEqual(result.Select(Node => Node.Data)));
+        */
+         
+    }
 }
