@@ -33,7 +33,7 @@ public class Person(string firstName, string lastName, IAddress address, string 
             Address.State, Address.Zip];
         for(int i = 0; i < preJoin.Length; i++)
         {
-            if (preJoin[i].Contains(","))
+            if (preJoin[i].Contains(','))
             {
                 preJoin[i] = $"\"{preJoin[i]}\"";
             }

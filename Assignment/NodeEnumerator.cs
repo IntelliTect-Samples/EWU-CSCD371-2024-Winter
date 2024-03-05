@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Assignment;
 
-internal class NodeEnumerator<T> : IEnumerator<Node<T>> where T : IEquatable<T>
+internal sealed class NodeEnumerator<T> : IEnumerator<Node<T>> where T : IEquatable<T>
 {
     private Node<T> Head { get; set; }
     private Node<T> _Current;

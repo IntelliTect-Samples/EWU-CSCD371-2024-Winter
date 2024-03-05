@@ -11,7 +11,7 @@ public class SampleData : ISampleData
     // 1.
     public IEnumerable<string> CsvRows => _CsvRows;
 
-    public int Columns { get; init; } = 0;
+    public int Columns { get; init; }
 
     /// <summary>
     /// FromCsvString validates CSV-formated data and returns a container object
@@ -33,7 +33,7 @@ public class SampleData : ISampleData
             int lineColumns = line.Split(",").Length;
             if (lineColumns != columns)
             {
-                throw new Exception($"Unable to parse csv, inconsistent number of columns ({lineColumns} != {columns} on line {l})");
+                throw new ArgumentException($"Unable to parse csv, inconsistent number of columns ({lineColumns} != {columns} on line {l})");
             }
             l++;
         }
