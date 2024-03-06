@@ -105,7 +105,6 @@ public class NodeTests
         Assert.IsTrue(new List<string> { "Boom", "Checking", "Again" }.SequenceEqual(newNode.Select(Node => Node.Data)));
     }
 
-    // Purely to get 100% coverage :^)
     [TestMethod]
     public void GetEnumeratorMoveNext_FourElements_ReturnsCorrectCount()
     {
@@ -135,6 +134,5 @@ public class NodeTests
 
         Assert.IsTrue(new List<int>{2,3,4,5,6}.SequenceEqual(nodes.Select(Node => Node.Data)));
     }
-
 
 }

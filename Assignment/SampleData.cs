@@ -38,6 +38,5 @@ public class SampleData(string SourceFile) : ISampleData
                 set.Add(person.Address.State);
                 return set;
             }));
-        
 }
 

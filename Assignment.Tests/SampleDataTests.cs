@@ -21,7 +21,6 @@ public class SampleDataTests
         SampleData = new SampleData("People.csv");
     }
 
-
     [TestMethod]
     public void Source_NullValue_ThrowsArgumentNullException()
     {
@@ -39,8 +38,6 @@ public class SampleDataTests
     {
         Assert.ThrowsException<ArgumentException>(() => new SampleData("Cars.csv"));
     }
-
-
 
     [TestMethod]
     public void CsvRows_PeopleCsv_ReturnsStringIEnumerable()
@@ -77,9 +74,7 @@ public class SampleDataTests
     {
         IEnumerable<string> persons = SampleData.CsvRows
             .Select(line => line.Split(","))
-            .OrderBy(line => line[5])
-            .ThenBy(line => line[6])
-            .ThenBy(line => line[7])
+            .OrderBy(line => (line[5], line[6], line[7]))
             .Select(line => line[1..])
             .Select(line => string.Join(",", line));
 
@@ -104,8 +99,8 @@ public class SampleDataTests
     [TestMethod]
     public void GetAggregateListOfStatesGivenPeopleCollection_ValidPersonCollection_ReturnsUniqueStatesList()
     {
-
-        Assert.AreEqual(SampleData.GetAggregateSortedListOfStatesUsingCsvRows(), string.Join(", ", SampleData.GetAggregateListOfStatesGivenPeopleCollection(SampleData.People).Split(", ").OrderBy(state => state).ToList()));
+        
+        Assert.IsTrue(new HashSet<string>(SampleData.GetUniqueSortedListOfStatesGivenCsvRows()).SetEquals(SampleData.GetAggregateListOfStatesGivenPeopleCollection(SampleData.People).Split(", ")));
     }
 }
 
