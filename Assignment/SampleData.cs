@@ -7,6 +7,8 @@ namespace Assignment;
 
 public class SampleData(string Source) : ISampleData
 {
+    public string Source { get; } = Source ?? throw new ArgumentNullException(nameof(Source));
+
     // 1.
     public IEnumerable<string> CsvRows => File.ReadLines("People.csv").Skip(1);
 
@@ -22,8 +24,6 @@ public class SampleData(string Source) : ISampleData
     public IEnumerable<IPerson> People => CsvRows.Select(line => line.Split(","))
         .OrderBy(line => (line[5], line[6], line[7]))
         .Select(line => new Person(line[1], line[2], new Address(line[4], line[5], line[6], line[7]), line[3]));
-
-    public string Source { get; set; } = Source;
 
     // 5.
     public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(
