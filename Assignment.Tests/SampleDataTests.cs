@@ -115,7 +115,7 @@ public class SampleDataTests
     public void FilterByEmailAddress_FilterUsesEquals_Success()
     {
         //An example of what the filter could be
-        Predicate<string> filter = s => s.Equals("ibester6@psu.edu");
+        Predicate<string> filter = s => s.Equals("ibester6@psu.edu", StringComparison.Ordinal);
 
         //The tuple list of names to be returned
         var names = SampleData.FilterByEmailAddress(filter);
