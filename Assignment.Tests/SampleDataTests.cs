@@ -34,6 +34,12 @@ public class SampleDataTests
         Assert.ThrowsException<ArgumentException>(() => new SampleData(""));
     }
 
+    [TestMethod]
+    public void Source_NonExistentFile_ThrowsArgumentException()
+    {
+        Assert.ThrowsException<ArgumentException>(() => new SampleData("Cars.csv"));
+    }
+
 
 
     [TestMethod]
