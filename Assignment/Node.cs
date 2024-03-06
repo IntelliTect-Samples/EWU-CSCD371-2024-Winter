@@ -65,7 +65,7 @@ public class Node<T> : IEnumerable<Node<T>> where T : notnull //Circular LinkedL
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-    public IEnumerator<Node<T>> ChildItems(int maximum)
+    public IEnumerable<Node<T>> ChildItems(int maximum)
     {
         int count = 0;
         foreach(var value in this.Skip(1))

@@ -129,11 +129,11 @@ public class NodeTests
         node.Append(4);
 
         Assert.AreEqual(4, node.Count());
-        /*
-        IEnumerator<Node<int>> result = node.ChildItems(3);
-        not working currently
+        
+        IEnumerable<Node<int>> result = node.ChildItems(3);
+        
         Assert.IsTrue(new List<int> { 2, 3, 4}.SequenceEqual(result.Select(Node => Node.Data)));
-        */
+        
          
     }
 }
