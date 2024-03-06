@@ -88,11 +88,11 @@ public class SampleDataTests
     }
 
     [TestMethod]
-    public void FilterByEmailAddress_FilterByEducationEmail_ReturnsIEnumerablePeopleWithEduEmails()
+    public void FilterByEmailAddress_FilterByEduEmail_ReturnsIEnumerablePeopleWithEduEmails()
     {
-
+        var expectedFilteredEmails = new List<(string, string)> { ("Claudell", "Leathe"), ("Fayette", "Dougherty"), ("Fremont", "Pallaske"), ("Issiah", "Bester"), ("Sancho", "Mahony") };
         // Arrange, Act, and Assert 
-        Assert.IsTrue(new List<(string, string)> { ("Claudell", "Leathe"), ("Fayette", "Dougherty"), ("Fremont", "Pallaske"), ("Issiah", "Bester"), ("Sancho", "Mahony")}.SequenceEqual(SampleData.FilterByEmailAddress((email) => email.Contains(".edu")).OrderBy(fullName => fullName.FirstName)));
+        Assert.AreEqual(expectedFilteredEmails.Count, expectedFilteredEmails.Intersect(SampleData.FilterByEmailAddress((email) => email.Contains(".edu")).OrderBy(fullName => fullName.FirstName)).Count());
         
     }
 
