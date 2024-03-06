@@ -18,8 +18,14 @@ public class SampleDataTests
     [TestInitialize]
     public void SetUp()
     {
-        
-        SampleData = new SampleData();
+        SampleData = new SampleData("people.csv");
+    }
+
+
+    [TestMethod]
+    public void Source_NullValue_ThrowsArgumentNullException()
+    {
+        Assert.ThrowsException<ArgumentNullException>(() => new SampleData(null!));
     }
 
 
