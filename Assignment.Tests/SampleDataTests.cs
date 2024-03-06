@@ -18,7 +18,7 @@ public class SampleDataTests
     [TestInitialize]
     public void SetUp()
     {
-        SampleData = new SampleData("people.csv");
+        SampleData = new SampleData("People.csv");
     }
 
 
