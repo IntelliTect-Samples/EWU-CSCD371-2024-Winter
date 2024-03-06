@@ -92,7 +92,7 @@ public class SampleDataTests
     {
         var expectedFilteredEmails = new List<(string, string)> { ("Claudell", "Leathe"), ("Fayette", "Dougherty"), ("Fremont", "Pallaske"), ("Issiah", "Bester"), ("Sancho", "Mahony") };
         // Arrange, Act, and Assert 
-        Assert.AreEqual(expectedFilteredEmails.Count, expectedFilteredEmails.Intersect(SampleData.FilterByEmailAddress((email) => email.Contains(".edu")).OrderBy(fullName => fullName.FirstName)).Count());
+        Assert.AreEqual(expectedFilteredEmails.Count, expectedFilteredEmails.Intersect(SampleData.FilterByEmailAddress((email) => email.Contains(".edu"))).Count());
         
     }
 
