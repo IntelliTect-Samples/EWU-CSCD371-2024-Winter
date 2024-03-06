@@ -7,7 +7,7 @@ namespace Assignment;
 
 public class SampleData(string SourceFile) : ISampleData
 {
-    public string SourceFile { get; } = SourceFile is null ? throw new ArgumentNullException(nameof(SourceFile)) : File.Exists(SourceFile) && !SourceFile.Equals(string.Empty) ? SourceFile : throw new ArgumentException(nameof(SourceFile));
+    public string SourceFile { get; } = SourceFile is null ? throw new ArgumentNullException(nameof(SourceFile)) : File.Exists(SourceFile) ? SourceFile : throw new ArgumentException(nameof(SourceFile));
 
     // 1.
     public IEnumerable<string> CsvRows => File.ReadLines(SourceFile).Skip(1);
