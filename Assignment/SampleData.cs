@@ -5,12 +5,12 @@ using System.Linq;
 
 namespace Assignment;
 
-public class SampleData(string Source) : ISampleData
+public class SampleData(string SourceFile) : ISampleData
 {
-    public string Source { get; } = Source is null ? throw new ArgumentNullException(nameof(Source)) : Source.Equals(string.Empty) ? throw new ArgumentException(nameof(Source)) : Source;
+    public string SourceFile { get; } = SourceFile is null ? throw new ArgumentNullException(nameof(SourceFile)) : File.Exists(SourceFile) && !SourceFile.Equals(string.Empty) ? SourceFile : throw new ArgumentException(nameof(SourceFile));
 
     // 1.
-    public IEnumerable<string> CsvRows => File.ReadLines(Source).Skip(1);
+    public IEnumerable<string> CsvRows => File.ReadLines(SourceFile).Skip(1);
 
     // 2.
     public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
