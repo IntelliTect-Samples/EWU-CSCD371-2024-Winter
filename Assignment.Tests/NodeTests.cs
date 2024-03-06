@@ -44,8 +44,8 @@ public class NodeTests
     [TestMethod]
     public void ToString_ValidData_ReturnsStringSuccessfully()
     {
-        Assert.AreEqual("Alexa", NodeList.ToString());
-        Assert.AreEqual("is", NodeList.Next.ToString());
+        Assert.AreEqual<string>("Alexa", NodeList.ToString()!);
+        Assert.AreEqual<string>("is", NodeList.Next.ToString()!);
     }
 
     [TestMethod]
@@ -55,8 +55,8 @@ public class NodeTests
         newNode.Append("You rock");
         newNode.Append("!");
 
-        Assert.AreEqual("You rock", newNode.Next.Data);
-        Assert.AreEqual("!", newNode.Next.Next.Data);
+        Assert.AreEqual<string>("You rock", newNode.Next.Data);
+        Assert.AreEqual<string>("!", newNode.Next.Next.Data);
 
     }
     [TestMethod]
@@ -101,7 +101,7 @@ public class NodeTests
         newNode.Append("Checking");
         newNode.Append("Again");
 
-        Assert.AreEqual(3, newNode.Count());
+        Assert.AreEqual<int>(3, newNode.Count());
         Assert.IsTrue(new List<string> { "Boom", "Checking", "Again" }.SequenceEqual(newNode.Select(Node => Node.Data)));
     }
 
@@ -116,7 +116,7 @@ public class NodeTests
             counter++;
         }
  
-        Assert.AreEqual(4, counter);
+        Assert.AreEqual<int>(4, counter);
     }
 
 

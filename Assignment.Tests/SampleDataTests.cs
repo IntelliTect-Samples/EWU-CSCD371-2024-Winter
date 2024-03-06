@@ -51,7 +51,7 @@ public class SampleDataTests
 
         List<string> distinctSortedStates = ["AL", "AZ", "CA", "DC", "FL", "GA", "IN", "KS", "LA", "MD", "MN", "MO", "MT", "NC", "NE", "NH", "NV", "NY", "OR", "PA", "SC", "TN", "TX", "UT", "VA", "WA", "WV"];
 
-        Assert.AreEqual(distinctSortedStates.Count, SampleData.GetUniqueSortedListOfStatesGivenCsvRows().Zip(distinctSortedStates, (csvRow, hardCodeState) => csvRow == hardCodeState).Where(match => match == true).Count());
+        Assert.AreEqual<int>(distinctSortedStates.Count, SampleData.GetUniqueSortedListOfStatesGivenCsvRows().Zip(distinctSortedStates, (csvRow, hardCodeState) => csvRow == hardCodeState).Where(match => match == true).Count());
 
     }
 
@@ -92,7 +92,7 @@ public class SampleDataTests
     {
         var expectedFilteredEmails = new List<(string, string)> { ("Claudell", "Leathe"), ("Fayette", "Dougherty"), ("Fremont", "Pallaske"), ("Issiah", "Bester"), ("Sancho", "Mahony") };
         // Arrange, Act, and Assert 
-        Assert.AreEqual(expectedFilteredEmails.Count, expectedFilteredEmails.Intersect(SampleData.FilterByEmailAddress((email) => email.Contains(".edu"))).Count());
+        Assert.AreEqual<int>(expectedFilteredEmails.Count, expectedFilteredEmails.Intersect(SampleData.FilterByEmailAddress((email) => email.Contains(".edu"))).Count());
         
     }
 
