@@ -10,7 +10,7 @@ public class SampleData(string Source) : ISampleData
     public string Source { get; } = Source is null ? throw new ArgumentNullException(nameof(Source)) : Source.Equals(string.Empty) ? throw new ArgumentException(nameof(Source)) : Source;
 
     // 1.
-    public IEnumerable<string> CsvRows => File.ReadLines("People.csv").Skip(1);
+    public IEnumerable<string> CsvRows => File.ReadLines(Source).Skip(1);
 
     // 2.
     public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
