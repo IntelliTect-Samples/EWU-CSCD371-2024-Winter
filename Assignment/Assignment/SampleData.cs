@@ -55,11 +55,6 @@ namespace Assignment
                       ),
                     column[3].Trim() // email 
               ));
-            /*
-              .OrderBy(person => person.Address.State, StringComparer.OrdinalIgnoreCase)
-              .ThenBy(person => person.Address.City, StringComparer.OrdinalIgnoreCase)
-              .ThenBy(person => person.Address.Zip);
-            */
             return peopleList;
           }
         }

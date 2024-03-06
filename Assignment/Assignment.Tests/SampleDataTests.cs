@@ -55,6 +55,25 @@ public class SampleDataTests
           .Distinct()
           .OrderBy(addr => addr, StringComparer.OrdinalIgnoreCase).ToList(), results.ToList());
     }
+    
+    [TestMethod]
+    public void GetUniqueSortedListOfStatesGivenCsvRows_LinqTest_Success()
+    {
+      //Arrange
+      var sampleData = new SampleData();
+      var expectedSortedStates = sampleData.CsvRows
+          .Select(row => row.Split(',')[6].Trim())
+          .Distinct()
+          .OrderBy(state => state, StringComparer.OrdinalIgnoreCase)
+          .ToList();
+
+      //Act
+      var actualSortedStates = sampleData.GetUniqueSortedListOfStatesGivenCsvRows().ToList();
+
+      //Assert
+      CollectionAssert.AreEqual(expectedSortedStates, actualSortedStates);
+    }
+
 
     [TestMethod]
     public void GetAggregateSortedListOfStatesUsingCsvRows_InvokeMethod_Success()
