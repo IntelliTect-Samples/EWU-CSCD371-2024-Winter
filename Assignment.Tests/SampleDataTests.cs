@@ -25,8 +25,15 @@ public class SampleDataTests
     [TestMethod]
     public void Source_NullValue_ThrowsArgumentNullException()
     {
-        Assert.ThrowsException<ArgumentNullException>(() => new SampleData(null!));
+        Assert.ThrowsException<ArgumentException>(() => new SampleData(null!));
     }
+
+    [TestMethod]
+    public void Source_EmptyString_ThrowsArgumentException()
+    {
+        Assert.ThrowsException<ArgumentException>(() => new SampleData(""));
+    }
+
 
 
     [TestMethod]
