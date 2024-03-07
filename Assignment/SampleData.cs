@@ -47,20 +47,19 @@ public class SampleData : ISampleData
     }
 
     // 4.
-    public IEnumerable<IPerson> People => CsvRows
-    .Select(line => line.Split(","))
-    .Select(columns => new
-    {
-        Line = columns,
-        Address = new Address(columns[4], columns[5], columns[6], columns[7]),
-        Person = new Person(columns[1], columns[2], null!, columns[3]) // Address will be set below
-    })
-    .OrderBy(item => (item.Line[5], item.Line[6], item.Line[7]))
-    .Select(item =>
-    {
-        item.Person.Address = item.Address;
-        return item.Person;
-    });
+    public IEnumerable<IPerson> People
+        {
+            get
+            {
+                var people = from line in CsvRows
+                             let elements = line.Split(',')
+                             let address = new Address(elements[4], elements[5], elements[6], elements[7])
+                             select new Person(elements[1], elements[2], address, elements[3]);
+
+                return people.OrderBy(person => (person.Address.City, person.Address.State, person.Address.Zip));
+            }
+        }
+
 
     // 5.
     public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(Predicate<string> filter) {
