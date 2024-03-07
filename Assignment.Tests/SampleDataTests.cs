@@ -151,4 +151,13 @@ public class SampleDataTests
         string aggregateUsingCsvRows = sampleData.GetAggregateSortedListOfStatesUsingCsvRows();
         Assert.AreEqual(aggregateWithPeople, aggregateUsingCsvRows);
     }
+
+    [TestMethod]
+    public void GetAggregateListOfStatesGivenPeopleCollection_PassNull_ThrowArgumentNullException()
+    {
+        SampleData sampleData = SampleData.FromCsvString(TestingCsvData.Data);
+        Assert.ThrowsException<ArgumentNullException>(
+            () => sampleData.GetAggregateListOfStatesGivenPeopleCollection(null!)
+        );
+    }
 }
