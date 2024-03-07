@@ -11,6 +11,7 @@ public class SampleDataTests
 {
     //I tried my best with these but only 1 is currently passing haha
     private const string TestCsvFilePath = "People.csv"; // Makes a testing file with sample data
+    SampleData sampleData = new();
 
     [TestInitialize]
     public void Initialize()
@@ -20,6 +21,7 @@ public class SampleDataTests
                              "John,Doe,123 Main St,Anytown,CA,12345,john@example.com\n" +
                              "Jane,Smith,456 Elm St,Other City,NY,67890,jane@example.com";
         File.WriteAllText(TestCsvFilePath, testCsvContent);
+        
     }
 
     [TestCleanup]
@@ -33,7 +35,6 @@ public class SampleDataTests
     [TestMethod]
     public void CsvRows_SkipsFirstRow_ReturnsAllRowsFromFile()
     {
-        SampleData sampleData = new();
 
         var result = sampleData.CsvRows.ToList();
 
@@ -45,7 +46,6 @@ public class SampleDataTests
     [TestMethod]
     public void GetUniqueSortedListOfStatesGivenCsvRows_ReturnsUniqueSortedEmails()
     {
-        SampleData sampleData = new();
 
         var result = sampleData.GetUniqueSortedListOfStatesGivenCsvRows().ToList();
 
@@ -57,7 +57,7 @@ public class SampleDataTests
     [TestMethod]
     public void GetAggregateSortedListOfStatesUsingCsvRows_ReturnsAggregateSortedStates()
     {
-        SampleData sampleData = new();
+
 
         var result = sampleData.GetAggregateSortedListOfStatesUsingCsvRows();
 
@@ -67,7 +67,7 @@ public class SampleDataTests
     [TestMethod]
     public void People_ReturnsListOfPeople()
     {
-        SampleData sampleData = new();
+
 
         var result = sampleData.People.ToList();
 
@@ -79,7 +79,7 @@ public class SampleDataTests
     [TestMethod]
     public void FilterByEmailAddress_ReturnsFilteredPeople()
     {
-        SampleData sampleData = new();
+
 
         static bool filter(string email) => email.EndsWith("@example.com", StringComparison.OrdinalIgnoreCase);
 
@@ -93,7 +93,7 @@ public class SampleDataTests
     [TestMethod]
     public void GetAggregateListOfStatesGivenPeopleCollection_ReturnsAggregateListOfStates()
     {
-        SampleData sampleData = new();
+
         List<IPerson> people =
             [
                 new Person("John", "Doe", new Address("123 Main St", "Anytown", "CA", "12345"), "john@example.com"),
