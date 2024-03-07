@@ -25,8 +25,11 @@ public class SampleData : ISampleData
 
     // 2.
     public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
-        => return CsvRows
-            .Select(row => row.Split(',')[6])
+       => CsvRows
+            .Select(row => row.Split(','))
+            .Where(fields => fields.Length > 4)
+            .Select(fields => fields[4].Trim())
+            .Where(state => !string.IsNullOrEmpty(state))
             .Distinct()
             .OrderBy(state => state);
 
