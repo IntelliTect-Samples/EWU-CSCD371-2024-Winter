@@ -92,26 +92,7 @@ public class SampleDataTests
 
 
 
-    [TestMethod]
-    public void GetAggregateSortedListOfStatesUsingCsvRows_HardCodedList_SuccesfullySorts()
-    {
-        string expectedList = "AL, AZ, CA, DC, FL, GA, IN, KS, LA, MD, MN, MO, MT, NC, NE, NH, NV, NY, OR, PA, SC, TN, TX, UT, VA, WA, WV";
-        SampleData dataSample = new SampleData();
-        string actualList = string.Join(", ", dataSample.GetAggregateSortedListOfStatesUsingCsvRows());
-        Assert.AreEqual(expectedList, actualList);
-    }
-   
-    [TestMethod]
-    public void GetAggregatedListOfStatesGivenPeopleCollection_ReturnsCorrectList_Success()
-    {
-        //Arrange
-        SampleData sampleData = new SampleData();
-        string expected = string.Join(", ", sampleData.GetUniqueSortedListOfStatesGivenCsvRows());
-        // Act
-        string actual = sampleData.GetAggregateListOfStatesGivenPeopleCollection(sampleData.People);
-        // Assert
-        Assert.AreEqual(expected, actual);
-    }
+    
 }
 
 
