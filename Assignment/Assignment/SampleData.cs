@@ -49,10 +49,8 @@ public class SampleData : ISampleData
         get
         {
             return CsvRows.Select(row => row.Split(','))
-                .Where(fields => fields.Length >= 7)
                 .Select(fields =>
             {
-                
                 return new Person 
         (
             firstName: fields[0],
