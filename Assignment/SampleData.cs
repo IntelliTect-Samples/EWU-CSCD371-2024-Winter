@@ -33,30 +33,16 @@ public class SampleData : ISampleData
     // 2.
         public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
         {
-            // Read CSV rows from CsvRows property
-            var csvRows = CsvRows;
-
-            // Extract states and remove duplicates
-            var stateSet = new HashSet<string>();
-            foreach (var row in csvRows)
-            {
-                var columns = row.Split(',');
-                if (columns.Length >= 7) // Assuming state is at index 6
-                {
-                    stateSet.Add(columns[6].Trim()); // Trim to remove any extra spaces
-                }
-            }
-
-            // Convert to a list and sort alphabetically
-            var sortedStates = new List<string>(stateSet);
-            sortedStates.Sort(StringComparer.OrdinalIgnoreCase); // Case-insensitive sorting
-
-            return sortedStates;
+            
+            return CsvRows.Select(item => item.Split(',')[6])
+               .OrderBy(state => state)
+               .Distinct();
+            
         }
     // 3.
     public string GetAggregateSortedListOfStatesUsingCsvRows()
     {
-        var uniqueStates = GetUniqueSortedListOfStatesGivenCsvRows();
+        var uniqueStates = GetUniqueSortedListOfStatesGivenCsvRows().ToArray();
         return string.Join(", ", uniqueStates);
     }
 
