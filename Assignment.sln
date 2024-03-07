@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E316FCD7-C0C8-4F2F-87FB-F92921756F02}"
 	ProjectSection(SolutionItems) = preProject
 		Assignment\Directory.Build.props = Assignment\Directory.Build.props
+		Assignment\Assignment\Directory.Build.targets = Assignment\Assignment\Directory.Build.targets
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment", "Assignment\Assignment\Assignment.csproj", "{37D58344-7EB1-4938-96F4-1001C328C611}"
