@@ -103,10 +103,16 @@ public class SampleDataTests
     }
 
     [TestMethod]
-    public void GetAggregateListOfStatesGivenPeopleCollection_ValidPersonCollection_ReturnsUniqueStatesList()
+    public void GetAggregateListOfStatesGivenPeopleCollection_NonNullPeople_ReturnsUniqueStatesList()
     {
         
         Assert.IsTrue(new HashSet<string>(SampleData.GetUniqueSortedListOfStatesGivenCsvRows()).SetEquals(SampleData.GetAggregateListOfStatesGivenPeopleCollection(SampleData.People).Split(", ")));
+    }
+
+    [TestMethod]
+    public void GetAggregateListOfStatesGivenPeopleCollection_NullPeople_ThrowsArgumentNullException()
+    {
+        Assert.ThrowsException<ArgumentNullException>(() => SampleData.GetAggregateListOfStatesGivenPeopleCollection(null!));
     }
 }
 
