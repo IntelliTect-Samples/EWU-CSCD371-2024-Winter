@@ -90,14 +90,31 @@ public class SampleDataTests
 
     }
 
+    [TestMethod]
+    public void GetAggregateSortedListOfStatesUsingCsvRows_GivenOrderedList_Equal()
+    {
+        string expectedList = "AL, AZ, CA, DC, FL, GA, IN, KS, LA, MD, MN, MO, MT, NC, NE, NH, NV, NY, OR, PA, SC, TN, TX, UT, VA, WA, WV";
+        string actualList = string.Join(" ", SampleData.GetAggregateSortedListOfStatesUsingCsvRows());
+        Assert.IsTrue(expectedList == actualList);
+    }
 
 
-    
+    [TestMethod]
+    public void GetAggregatedListOfStatesGivenPeopleCollection__Success()
+    {
+        string states = string.Join(", ", SampleData.GetUniqueSortedListOfStatesGivenCsvRows());
+        string givenPeople = SampleData.GetAggregateListOfStatesGivenPeopleCollection(SampleData.People);
+        Assert.IsTrue(states == givenPeople);
+    }
+
+
+
+
 }
 
 
-    
 
 
 
-    
+
+

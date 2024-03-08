@@ -146,5 +146,28 @@ namespace Assignment.Tests;
             // Assert
             Assert.IsFalse(childItems.Any()); // Check if the sequence is empty
         }
-        
+
+    [TestMethod]
+    public void GetEnumerator_CircularLinkedList_EnumeratesItemsInOrder()
+    {
+        // Arrange
+        var node1 = new Node<int>(1);
+        var node2 = new Node<int>(2);
+        var node3 = new Node<int>(3);
+
+        node1.SetNext(node2);
+        node2.SetNext(node3);
+        node3.SetNext(node1);
+
+        IEnumerator<int> enumerator = node1.GetEnumerator();
+        List<int> actualItems = new List<int>();
+
+        while (enumerator.MoveNext())
+        {
+            actualItems.Add(enumerator.Current);
+        }
+
+        CollectionAssert.AreEqual(new int[] { 1, 2, 3 }, actualItems);
     }
+
+}
