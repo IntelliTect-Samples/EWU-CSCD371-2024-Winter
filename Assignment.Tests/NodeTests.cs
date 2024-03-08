@@ -24,15 +24,21 @@ public class NodeTests
         pets.Append("bird");
         pets.Append("snake");
 
-        //List<string> expected = ["dog", "cat", "fish", "bird", "snake"];
+        List<string> expected = ["dog", "cat", "fish", "bird", "snake"];
+        List<string> actual = new List<string>(); // 2)
+        foreach(Node<string> node in pets)
+        {
+            actual.Add(node.Data);
+        }
 
-        var result = pets.GetEnumerator();
+        CollectionAssert.AreEqual(expected, actual); // 2)
+        
+        //var result = pets.GetEnumerator();
+        //int count = 0;
+        //while (result.MoveNext()) count++;
 
-        int count = 0;
-
-        while (result.MoveNext()) count++;
-
-        Assert.AreEqual(5, count);
+        Assert.AreEqual(5, pets.Count()); // 1)
+        
     }
 
     [TestMethod]
