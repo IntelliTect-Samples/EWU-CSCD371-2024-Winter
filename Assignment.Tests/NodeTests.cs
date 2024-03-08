@@ -167,7 +167,8 @@ namespace Assignment.Tests;
             actualItems.Add(enumerator.Current);
         }
 
-        CollectionAssert.AreEqual(new int[] { 1, 2, 3 }, actualItems);
+        int[] check = new int[] { 1, 2, 3 };
+        CollectionAssert.AreEqual(check, actualItems);
     }
 
 }
