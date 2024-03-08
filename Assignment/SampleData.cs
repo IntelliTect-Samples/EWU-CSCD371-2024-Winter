@@ -13,14 +13,9 @@ public class SampleData : ISampleData
     {
         get
         {
-            using (StreamReader streamReader = new StreamReader(FILEPATH))
+            foreach(string lineInFile in File.ReadLines(FILEPATH).Skip(1))
             {
-                streamReader.ReadLine();
-
-                while (streamReader.EndOfStream)
-                {
-                    yield return streamReader.ReadLine()!;
-                }
+                yield return lineInFile;
             }
         }
     }
@@ -31,7 +26,7 @@ public class SampleData : ISampleData
         var states = CsvRows.Select(row =>
         {
             // Parse state from each row
-            var state = row.Split(',')[2]; // Assuming state is at index 2
+            var state = row.Split(',')[6];
             return state.Trim(); // Trim any leading/trailing spaces
         }).Distinct(); // Ensure uniqueness
 
@@ -42,7 +37,7 @@ public class SampleData : ISampleData
     public string GetAggregateSortedListOfStatesUsingCsvRows()
     {
         var statesArray = GetUniqueSortedListOfStatesGivenCsvRows().ToArray();
-        return string.Join(",", statesArray);
+        return string.Join(", ", statesArray);
     }
 
     // 4.
@@ -50,18 +45,25 @@ public class SampleData : ISampleData
     {
         get
         {
-            // Parse each CSV row into Person objects
-            var people = CsvRows.Skip(1).Select(row =>
-            {
-                var columns = row.Split(',');
-                var address = new Address(columns[0], columns[1], columns[2], columns[3]);
-                return new Person(columns[4], columns[5], address, columns[6]);
-            });
+            IEnumerable<IPerson> people = CsvRows
+                //.Skip(1) // Skip the header row
+                .Select(row => row.Split(','))
+                .Select(columns => new Person(
+                    columns[1], // FirstName
+                    columns[2], // LastName
+                    new Address(
+                        columns[4], // StreetAddress
+                        columns[5], // City
+                        columns[6], // State
+                        columns[7]  // Zip
+                    ),
+                    columns[3]  // EmailAddress
+                ))
+                .OrderBy(person => person.Address.State)
+                .ThenBy(person => person.Address.City)
+                .ThenBy(person => person.Address.Zip);
 
-            // Sort by State, City, and Zip
-            return people.OrderBy(person => person.Address.State)
-                         .ThenBy(person => person.Address.City)
-                         .ThenBy(person => person.Address.Zip);
+            return people;
         }
     }
 
@@ -77,7 +79,7 @@ public class SampleData : ISampleData
     {
         var states = people.Select(person => person.Address.State)
             .Distinct()
-            .OrderBy(state => state);
+            .Aggregate((first, second) => $"{first}, {second}");
         return string.Join(",", states);
     }
 }
