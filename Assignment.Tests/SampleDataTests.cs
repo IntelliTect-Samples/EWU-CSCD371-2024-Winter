@@ -97,6 +97,12 @@ public class SampleDataTests
     }
 
     [TestMethod]
+    public void FilterByEmailAddress_NullFilter_ThrowsArgumentNullException()
+    {
+        Assert.ThrowsException<ArgumentNullException>(() => SampleData.FilterByEmailAddress(null!));
+    }
+
+    [TestMethod]
     public void GetAggregateListOfStatesGivenPeopleCollection_ValidPersonCollection_ReturnsUniqueStatesList()
     {
         
