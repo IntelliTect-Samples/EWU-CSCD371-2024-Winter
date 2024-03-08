@@ -31,6 +31,15 @@ public class SampleDataTests
     }
 
     [TestMethod]
+    public void GetUniqueSortedListOfStatesGivenCsvRows_HardcodedList_ReturnsSuccessful()
+    {
+        string testList = "AL AZ CA DC FL GA IN KS LA MD MN MO MT NC NE NH NV NY OR PA SC TN TX UT VA WA WV";
+        string correctList = string.Join(" ", SampleData.GetUniqueSortedListOfStatesGivenCsvRows());
+        Assert.AreEqual(testList, correctList);
+
+    }
+
+    [TestMethod]
     public void GetAggregateSortedListOfStatesUsingCsvRows_SortedAndUnique_ReturnsSuccessful()
     {
         string uniqueSortedStates = string.Join(", ", SampleData.GetAggregateSortedListOfStatesUsingCsvRows());
