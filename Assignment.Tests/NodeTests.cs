@@ -16,7 +16,7 @@ public class NodeTests
 
 
     [TestMethod]
-    public void GetEnumerator_ListOfFive_Successful() //IDK how else to test this 
+    public void Node_IEnumerableListOfFive_Successful()
     {
         Node<string> pets = new("dog");
         pets.Append("cat");
@@ -25,21 +25,33 @@ public class NodeTests
         pets.Append("snake");
 
         List<string> expected = ["dog", "cat", "fish", "bird", "snake"];
-        List<string> actual = new List<string>(); // 2)
+        List<string> actual = [];
+
         foreach(Node<string> node in pets)
         {
             actual.Add(node.Data);
         }
-
-        CollectionAssert.AreEqual(expected, actual); // 2)
         
-        //var result = pets.GetEnumerator();
-        //int count = 0;
-        //while (result.MoveNext()) count++;
-
-        Assert.AreEqual(5, pets.Count()); // 1)
+        CollectionAssert.AreEqual(expected, actual);
         
+        Assert.AreEqual(5, pets.Count());
     }
+
+    [TestMethod]
+    public void Node_LinqQueryWhereTest_Success()
+    {
+        Node<string> pets = new("dog");
+        pets.Append("cat");
+        pets.Append("fish");
+        pets.Append("bird");
+        pets.Append("snake");
+
+        var result = pets.Select(node => node.Data).Where(data => data.Contains('i'));
+        List<string> expected = ["fish", "bird"];
+
+        Assert.IsTrue(expected.SequenceEqual(result));
+    }
+
 
     [TestMethod]
     public void ChildItems_ReturnMaximumOfThree_Success()
