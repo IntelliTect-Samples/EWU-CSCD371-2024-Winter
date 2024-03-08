@@ -135,4 +135,16 @@ public class NodeTests
         Assert.IsTrue(new List<int>{2,3,4,5,6}.SequenceEqual(nodes.Select(Node => Node.Data)));
     }
 
+    [TestMethod]
+    public void ChildItems_Negative_ReturnsEmptyIEnumerable()
+    {
+        Assert.AreEqual<int>(0, new Node<int>(7).ChildItems(-4).Count());
+    }
+
+    [TestMethod]
+    public void ChildItems_OneElementMax3_ReturnsEmptyIEnumerable()
+    {
+        Assert.AreEqual<int>(0, new Node<string>("one").ChildItems(3).Count());
+    }
+
 }
