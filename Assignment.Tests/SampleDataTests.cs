@@ -57,7 +57,7 @@ public class SampleDataTests
 
     // Test for verifying the correctness of the first person returned by the People property
     [Fact]
-    public void People_FirstPersonIsCorrect()
+    public void PeopleFirstPersonIsCorrect()
     {
         IEnumerable<IPerson> peopleList = new SampleData().People;
         Assert.Equal("Arthur", peopleList.ElementAt(0).FirstName);
@@ -65,7 +65,7 @@ public class SampleDataTests
 
     // Test for verifying filtering of people by email address
     [Fact]
-    public void People_FilterByEmailReturnsCorrectFirstPerson()
+    public void PeopleFilterByEmailReturnsCorrectFirstPerson()
     {
         IEnumerable<(string firstname, string lastname)> filteredPeople = new SampleData()
             .FilterByEmailAddress(email => email.Contains(".edu"));
