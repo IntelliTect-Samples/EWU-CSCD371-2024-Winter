@@ -27,7 +27,7 @@ public class SampleData(string SourceFile) : ISampleData
 
     // 5.
     public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(
-        Predicate<string> filter) => People.Where(person => filter(person.EmailAddress)).Select(person => (person.FirstName, person.LastName));
+        Predicate<string> filter) => filter is null ? throw new ArgumentNullException(nameof(filter)) : People.Where(person => filter(person.EmailAddress)).Select(person => (person.FirstName, person.LastName));
 
     // 6.
     public string GetAggregateListOfStatesGivenPeopleCollection(IEnumerable<IPerson> people)
