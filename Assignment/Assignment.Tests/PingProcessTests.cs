@@ -73,23 +73,35 @@ public class PingProcessTests
     [TestMethod]
     public void RunAsync_UsingTaskReturn_Success()
     {
-        // Do NOT use async/await in this test.
-        PingResult result = default;
-        // Test Sut.RunAsync("localhost");
-        AssertValidPingOutput(result);
+        // Arrange
+        var pingProcess = new PingProcess();
+        var hostNameOrAddress = "localhost";
+
+        // Act
+        var pingTask = pingProcess.RunAsync(hostNameOrAddress);
+
+        // Assert
+        var result = pingTask.Result;
+        Assert.IsNull(result.StdOutput);
+        Assert.IsTrue(result.ExitCode == 0);
     }
 
     [TestMethod]
-#pragma warning disable CS1998 // Remove this
+
     async public Task RunAsync_UsingTpl_Success()
     {
-        // DO use async/await in this test.
-        PingResult result = default;
+        // Arrange
+        var pingProcess = new PingProcess();
+        var hostNameOrAddress = "localhost";
 
-        // Test Sut.RunAsync("localhost");
-        AssertValidPingOutput(result);
+        // Act
+        var result = await pingProcess.RunAsync(hostNameOrAddress);
+
+        // Assert
+        Assert.IsNull(result.StdOutput);
+        Assert.IsTrue(result.ExitCode == 0);
     }
-#pragma warning restore CS1998 // Remove this
+
 
 
     [TestMethod]
