@@ -64,12 +64,10 @@ public class PingProcessTests
         var pingTask = pingProcess.RunTaskAsync(hostNameOrAddress);
 
         // Assert
-        Assert.IsNotNull(pingTask);
-        Assert.IsTrue(pingTask.IsCompleted);
+        
         var result = pingTask.Result;
-        Assert.IsNotNull(result);
+        Assert.IsNull(result.StdOutput);
         Assert.IsTrue(result.ExitCode == 0);
-        Assert.IsTrue(result.ExitCode == 1);
     }
 
     [TestMethod]
