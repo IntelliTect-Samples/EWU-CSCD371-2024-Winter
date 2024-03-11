@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -27,8 +28,23 @@ public class PingProcess
 
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
     {
-        throw new NotImplementedException();
+        return Task.Run(() =>
+        {
+            try
+            {
+                using (var ping = new Ping())
+                {
+                    var reply = ping.Send(hostNameOrAddress);
+                    return new PingResult(0, null);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new PingResult(1, ex.ToString());
+            }
+        });
     }
+
 
     async public Task<PingResult> RunAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
