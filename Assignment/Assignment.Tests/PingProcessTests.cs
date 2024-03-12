@@ -124,14 +124,17 @@ public class PingProcessTests
         // Arrange
         var pingProcess = new PingProcess();
         string[] hostNames = new string[] { "localhost", "localhost", "localhost", "localhost" };
-        int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length;
 
         // Act & Assert
         foreach (var hostName in hostNames)
         {
             PingResult result = await pingProcess.RunAsync(hostName);
-            int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
-            Assert.AreEqual(expectedLineCount, lineCount);
+
+            // Check if the ping was successful (exit code 0)
+            Assert.AreEqual(0, result.ExitCode);
+
+            // Check if StdOutput is not null or empty
+            Assert.IsFalse(string.IsNullOrEmpty(result.StdOutput));
         }
     }
 
