@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment", "Assignment\Assignment.csproj", "{F71D0FF8-246D-4D7E-9C1B-B6C15FE85EF8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment.Interfaces", "Assignment.Interfaces\Assignment.Interfaces.csproj", "{6C4185C8-3398-49F8-B147-3B4418E2F922}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E316FCD7-C0C8-4F2F-87FB-F92921756F02}"
 	ProjectSection(SolutionItems) = preProject
 		Directory.Build.props = Directory.Build.props
