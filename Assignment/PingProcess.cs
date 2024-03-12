@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,11 +13,15 @@ public record struct PingResult(int ExitCode, string? StdOutput);
 
 public class PingProcess
 {
+    public static bool IsWindows => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+
     private ProcessStartInfo StartInfo { get; } = new("ping");
 
     public PingResult Run(string hostNameOrAddress)
     {
-        StartInfo.Arguments = hostNameOrAddress;
+        ArgumentException.ThrowIfNullOrEmpty(hostNameOrAddress);
+        string unixPingCountArg = IsWindows?"":"-c 4 ";
+        StartInfo.Arguments = $"{unixPingCountArg}{hostNameOrAddress}";
         StringBuilder? stringBuilder = null;
         void updateStdOutput(string? line) =>
             (stringBuilder??=new StringBuilder()).AppendLine(line);
@@ -27,7 +31,9 @@ public class PingProcess
 
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
     {
-        StartInfo.Arguments = hostNameOrAddress;
+        ArgumentException.ThrowIfNullOrEmpty(hostNameOrAddress);
+        string unixPingCountArg = IsWindows?"":"-c 4 ";
+        StartInfo.Arguments = $"{unixPingCountArg}{hostNameOrAddress}";
         StringBuilder? stringBuilder = null;
         void updateStdOutput(string? line) =>
             (stringBuilder ??= new StringBuilder()).AppendLine(line);
@@ -70,6 +76,7 @@ public class PingProcess
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
         Task task = null!;
+        string unixPingCountArg = IsWindows?"-n 64 ":"-c 64 ";
         await task;
         throw new NotImplementedException();
     }
