@@ -87,7 +87,12 @@ public class PingProcessTests
     {
         // Do NOT use async/await in this test.
         PingResult result = default;
+
         // Test Sut.RunAsync("localhost");
+        Task<PingResult> task = Sut.RunAsync("::1");
+        task.Wait();
+        result = task.Result;
+
         AssertValidPingOutput(result);
     }
 
