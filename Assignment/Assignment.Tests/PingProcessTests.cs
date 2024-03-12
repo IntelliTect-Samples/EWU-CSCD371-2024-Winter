@@ -55,14 +55,14 @@ public class PingProcessTests
     }
 
     [TestMethod]
-    public void RunTaskAsync_Success()
+    public void RunTaskAsync_Success()// 1.)
     {
         // Do NOT use async/await in this test.
         // Test Sut.RunTaskAsync("localhost");
     }
 
     [TestMethod]
-    public void RunAsync_UsingTaskReturn_Success()
+    public void RunAsync_UsingTaskReturn_Success()// 2.)
     {
         // Do NOT use async/await in this test.
         PingResult result = default;
@@ -72,7 +72,7 @@ public class PingProcessTests
 
     [TestMethod]
 #pragma warning disable CS1998 // Remove this
-    async public Task RunAsync_UsingTpl_Success()
+    async public Task RunAsync_UsingTpl_Success()// 2.)
     {
         // DO use async/await in this test.
         PingResult result = default;
@@ -85,20 +85,20 @@ public class PingProcessTests
 
     [TestMethod]
     [ExpectedException(typeof(AggregateException))]
-    public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
+    public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()// 3.)
     {
         
     }
 
     [TestMethod]
     [ExpectedException(typeof(TaskCanceledException))]
-    public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
+    public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()// 3.)
     {
         // Use exception.Flatten()
     }
 
     [TestMethod]
-    async public Task RunAsync_MultipleHostAddresses_True()
+    async public Task RunAsync_MultipleHostAddresses_True()// 4.)
     {
         // Pseudo Code - don't trust it!!!
         string[] hostNames = new string[] { "localhost", "localhost", "localhost", "localhost" };
@@ -110,7 +110,7 @@ public class PingProcessTests
 
     [TestMethod]
 #pragma warning disable CS1998 // Remove this
-    async public Task RunLongRunningAsync_UsingTpl_Success()
+    async public Task RunLongRunningAsync_UsingTpl_Success()// 5.)
     {
         PingResult result = default;
         // Test Sut.RunLongRunningAsync("localhost");

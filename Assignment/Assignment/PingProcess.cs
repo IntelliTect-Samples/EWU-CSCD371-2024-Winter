@@ -25,19 +25,22 @@ public class PingProcess
         return new PingResult( process.ExitCode, stringBuilder?.ToString());
     }
 
+    // 1.)
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
     {
         throw new NotImplementedException();
     }
 
-    async public Task<PingResult> RunAsync(
-        string hostNameOrAddress, CancellationToken cancellationToken = default)
+    // 2.)
+    async public Task<PingResult> RunAsync(string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
         Task task = null!;
         await task;
-        throw new NotImplementedException();
+
+        throw new NotImplementedException();// ...
     }
 
+    // 4.) and 3???
     async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
     {
         StringBuilder? stringBuilder = null;
@@ -55,12 +58,13 @@ public class PingProcess
         return new PingResult(total, stringBuilder?.ToString());
     }
 
-    async public Task<PingResult> RunLongRunningAsync(
-        string hostNameOrAddress, CancellationToken cancellationToken = default)
+    // 5.)
+    async public Task<PingResult> RunLongRunningAsync(string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
         Task task = null!;
         await task;
-        throw new NotImplementedException();
+
+        throw new NotImplementedException();// ...
     }
 
     private Process RunProcessInternal(
