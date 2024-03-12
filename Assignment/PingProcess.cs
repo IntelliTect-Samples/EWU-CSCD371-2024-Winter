@@ -18,6 +18,7 @@ public class PingProcess
     private ProcessStartInfo StartInfo { get; } = new("ping");
 
     private const int DefaultPingCount = 4;
+    private const int DefaultLongRunningPingCount = 8;
 
     public static string CrossPlatformNumPingFlags(int pings) =>
         IsWindows?$"-n {pings}":$"-c {pings}";
@@ -34,10 +35,11 @@ public class PingProcess
         return new PingResult( process.ExitCode, stringBuilder?.ToString());
     }
 
-    private Task<PingResult> BuildPingTask(string hostNameOrAddress, CancellationToken cancellationToken = default)
+    private Task<PingResult> BuildPingTask(string hostNameOrAddress, int pingCount = DefaultPingCount,
+        CancellationToken cancellationToken = default)
     {
         ArgumentException.ThrowIfNullOrEmpty(hostNameOrAddress);
-        string pingCountArg = CrossPlatformNumPingFlags(DefaultPingCount);
+        string pingCountArg = CrossPlatformNumPingFlags(pingCount);
         StartInfo.Arguments = $"{pingCountArg} {hostNameOrAddress}";
         StringBuilder? stringBuilder = null;
         void updateStdOutput(string? line) =>
@@ -60,7 +62,7 @@ public class PingProcess
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
         ArgumentException.ThrowIfNullOrEmpty(hostNameOrAddress);
-        Task<PingResult> task = BuildPingTask(hostNameOrAddress, cancellationToken);
+        Task<PingResult> task = BuildPingTask(hostNameOrAddress, DefaultPingCount, cancellationToken);
         return await task;
     }
 
@@ -69,8 +71,7 @@ public class PingProcess
         StringBuilder? stringBuilder = null;
         ParallelQuery<Task<int>>? all = hostNameOrAddresses.AsParallel().Select(async item =>
         {
-            Task<PingResult> task = null!;
-            // ...
+            Task<PingResult> task = BuildPingTask(item, DefaultPingCount, default);
 
             await task.WaitAsync(default(CancellationToken));
             return task.Result.ExitCode;
@@ -84,10 +85,8 @@ public class PingProcess
     async public Task<PingResult> RunLongRunningAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
-        Task task = null!;
-        string pingCountArg = CrossPlatformNumPingFlags(64);
-        await task;
-        throw new NotImplementedException();
+        Task<PingResult> task = BuildPingTask(hostNameOrAddress, DefaultLongRunningPingCount, cancellationToken);
+        return await task;
     }
 
     private Process RunProcessInternal(
@@ -96,7 +95,7 @@ public class PingProcess
         Action<string?>? progressError,
         CancellationToken token)
     {
-        var process = new Process
+        Process? process = new()
         {
             StartInfo = UpdateProcessStartInfo(startInfo)
         };
