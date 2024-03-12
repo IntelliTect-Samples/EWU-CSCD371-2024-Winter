@@ -34,7 +34,7 @@ public class PingProcess
         return new PingResult( process.ExitCode, stringBuilder?.ToString());
     }
 
-    public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
+    private Task<PingResult> BuildPingTask(string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
         ArgumentException.ThrowIfNullOrEmpty(hostNameOrAddress);
         string pingCountArg = CrossPlatformNumPingFlags(DefaultPingCount);
@@ -43,20 +43,25 @@ public class PingProcess
         void updateStdOutput(string? line) =>
             (stringBuilder ??= new StringBuilder()).AppendLine(line);
 
-        Task<PingResult> task = Task.Run(() => RunProcessInternal(StartInfo, updateStdOutput, default, default))
+        Task<PingResult> task = Task.Run(() => RunProcessInternal(StartInfo, updateStdOutput, default, cancellationToken))
             .ContinueWith(t => new PingResult(t.Result.ExitCode, stringBuilder?.ToString()));
 
-        task.Wait();
+        return task;
+    }
 
+    public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
+    {
+        Task<PingResult> task = BuildPingTask(hostNameOrAddress);
+        task.Wait();
         return task;
     }
 
     async public Task<PingResult> RunAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
-        Task task = null!;
-        await task;
-        throw new NotImplementedException();
+        ArgumentException.ThrowIfNullOrEmpty(hostNameOrAddress);
+        Task<PingResult> task = BuildPingTask(hostNameOrAddress, cancellationToken);
+        return await task;
     }
 
     async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
