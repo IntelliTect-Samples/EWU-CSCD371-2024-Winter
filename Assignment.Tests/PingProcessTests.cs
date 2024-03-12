@@ -19,9 +19,28 @@ public class PingProcessTests
     }
 
     [TestMethod]
+    [DataRow(1)]
+    [DataRow(4)]
+    [DataRow(5)]
+    [DataRow(64)]
+    public void CrossPlatformNumPingFlags_ReturnsProperValue(int numPings)
+    {
+        string args = PingProcess.CrossPlatformNumPingFlags(numPings);
+        if(PingProcess.IsWindows)
+        {
+            Assert.AreEqual($"-n {numPings}", args);
+        }
+        else
+        {
+            Assert.AreEqual($"-c {numPings}", args);
+        }
+    }
+
+    [TestMethod]
     public void Start_PingProcess_Success()
     {
-        Process process = Process.Start("ping", "-c 4 localhost");
+        string pingCountArg = PingProcess.CrossPlatformNumPingFlags(4);
+        Process process = Process.Start("ping", $"{pingCountArg} localhost");
         process.WaitForExit();
         Assert.AreEqual<int>(0, process.ExitCode);
     }

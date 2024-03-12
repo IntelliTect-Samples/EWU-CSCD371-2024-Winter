@@ -17,11 +17,16 @@ public class PingProcess
 
     private ProcessStartInfo StartInfo { get; } = new("ping");
 
+    private const int DefaultPingCount = 4;
+
+    public static string CrossPlatformNumPingFlags(int pings) =>
+        IsWindows?$"-n {pings}":$"-c {pings}";
+
     public PingResult Run(string hostNameOrAddress)
     {
         ArgumentException.ThrowIfNullOrEmpty(hostNameOrAddress);
-        string unixPingCountArg = IsWindows?"":"-c 4 ";
-        StartInfo.Arguments = $"{unixPingCountArg}{hostNameOrAddress}";
+        string pingCountArg = CrossPlatformNumPingFlags(DefaultPingCount);
+        StartInfo.Arguments = $"{pingCountArg} {hostNameOrAddress}";
         StringBuilder? stringBuilder = null;
         void updateStdOutput(string? line) =>
             (stringBuilder??=new StringBuilder()).AppendLine(line);
@@ -32,8 +37,8 @@ public class PingProcess
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
     {
         ArgumentException.ThrowIfNullOrEmpty(hostNameOrAddress);
-        string unixPingCountArg = IsWindows?"":"-c 4 ";
-        StartInfo.Arguments = $"{unixPingCountArg}{hostNameOrAddress}";
+        string pingCountArg = CrossPlatformNumPingFlags(DefaultPingCount);
+        StartInfo.Arguments = $"{pingCountArg} {hostNameOrAddress}";
         StringBuilder? stringBuilder = null;
         void updateStdOutput(string? line) =>
             (stringBuilder ??= new StringBuilder()).AppendLine(line);
@@ -44,7 +49,6 @@ public class PingProcess
         task.Wait();
 
         return task;
-
     }
 
     async public Task<PingResult> RunAsync(
@@ -76,7 +80,7 @@ public class PingProcess
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
         Task task = null!;
-        string unixPingCountArg = IsWindows?"-n 64 ":"-c 64 ";
+        string pingCountArg = CrossPlatformNumPingFlags(64);
         await task;
         throw new NotImplementedException();
     }
