@@ -59,22 +59,21 @@ public class PingProcess
                 PingReply? reply = null;
                 var pingTask = Task.Run(() => reply = ping.Send(hostNameOrAddress), cancellationToken);
 
-                // Wait for either ping to complete or cancellation requested
+         
                 await Task.WhenAny(pingTask, Task.Delay(Timeout.Infinite, cancellationToken));
 
-                // Check if ping completed or cancellation requested
+
                 if (!pingTask.IsCompleted)
                 {
-                    // Ping operation was canceled
+
                     throw new OperationCanceledException("The operation was canceled.", cancellationToken);
                 }
                 if (reply == null)
                 {
-                    // Ping operation failed
+
                     throw new PingException("Ping operation failed.");
                 }
 
-                // Ping completed successfully, return the result
                 return new PingResult(0, null);
             }
 
@@ -84,18 +83,18 @@ public class PingProcess
         {
             if (cancellationToken.IsCancellationRequested)
             {
-                // Handle cancellation by throwing TaskCanceledException
+
                 throw new TaskCanceledException("The operation was canceled.", ex);
             }
             else
             {
-                // Cancellation token was not responsible for cancellation, re-throw the exception
+
                 throw;
             }
         }
         catch (Exception ex)
         {
-            // Handle other exceptions
+
             return new PingResult(1, ex.ToString());
         }
     }
