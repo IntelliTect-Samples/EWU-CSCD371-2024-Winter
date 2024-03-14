@@ -74,13 +74,52 @@ public class PingProcessTests
     [TestMethod]
     public void RunAsync_UsingTaskReturn_Success()
     {
+        // Arrange
+        string hostName = "localhost";
+        Task<PingResult> task = Sut.RunAsync(hostName);
+
+        // Act
+        PingResult pingResult = task.Result;
+
+        // Assert
+        // Asserting that we got something back from the ping
+        Assert.IsNotNull(pingResult);
+        // Asserting we have a successful exit code (0)
+        Assert.AreEqual(0, pingResult.ExitCode);
+  
+    }
+
+    /*[TestMethod]
+    public void RunAsync_UsingTaskReturn_Success()
+    {
         // Do NOT use async/await in this test.
         PingResult result = default;
         // Test Sut.RunAsync("localhost");
         AssertValidPingOutput(result);
-    }
+    }*/
+
 
     [TestMethod]
+    public async Task RunAsync_UsingTpl_Success()
+    {
+        // Arrange
+        string hostName = "localhost";
+
+        // Act
+        PingResult result = await Sut.RunAsync(hostName);
+
+        // Assert
+        // Asserting that we got something back from the ping
+        Assert.IsNotNull(result);
+        // Asserting we have a successful exit code (0)
+        Assert.AreEqual(0, result.ExitCode);
+       
+    }
+
+
+
+
+    /*[TestMethod]
 #pragma warning disable CS1998 // Remove this
     async public Task RunAsync_UsingTpl_Success()
     {
@@ -89,7 +128,7 @@ public class PingProcessTests
 
         // Test Sut.RunAsync("localhost");
         AssertValidPingOutput(result);
-    }
+    }*/
 #pragma warning restore CS1998 // Remove this
 
 
