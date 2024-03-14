@@ -33,11 +33,9 @@ public class PingProcess
         {
             try
             {
-                using (var ping = new Ping())
-                {
-                    var reply = ping.Send(hostNameOrAddress);
-                    return new PingResult(0, null);
-                }
+                using var ping = new Ping();
+                var reply = ping.Send(hostNameOrAddress);
+                return new PingResult(0, null);
             }
             catch (Exception ex)
             {
