@@ -27,19 +27,20 @@ public class PingProcess
         return new PingResult( process.ExitCode, stringBuilder?.ToString());
     }
 
-    public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
+    public static Task<PingResult> RunTaskAsync(string hostNameOrAddress)
     {
         return Task.Run(() =>
         {
             try
             {
-                using var ping = new Ping();
+                using Ping ping = new();
                 var reply = ping.Send(hostNameOrAddress);
-                return new PingResult(0, null);
+                var success = reply.Status == IPStatus.Success;
+                return new PingResult(success ? 0 : 1, reply.Status.ToString());
             }
             catch (Exception ex)
             {
-                return new PingResult(1, ex.ToString());
+                return new PingResult(1, ex.Message);
             }
         });
     }
@@ -52,48 +53,14 @@ public class PingProcess
 
         try
         {
-            using (var ping = new Ping())
-            {
-                PingReply? reply = null;
-                var pingTask = Task.Run(() => reply = ping.Send(hostNameOrAddress), cancellationToken);
-
-         
-                await Task.WhenAny(pingTask, Task.Delay(Timeout.Infinite, cancellationToken));
-
-
-                if (!pingTask.IsCompleted)
-                {
-
-                    throw new OperationCanceledException("The operation was canceled.", cancellationToken);
-                }
-                if (reply == null)
-                {
-
-                    throw new PingException("Ping operation failed.");
-                }
-
-                return new PingResult(0, null);
-            }
-
-           
+            using Ping ping = new();
+            var reply = await ping.SendPingAsync(hostNameOrAddress, cancellationToken);
+            var success = reply.Status == IPStatus.Success;
+            return new PingResult(success ? 0 : 1, reply.Status.ToString());
         }
-        catch (OperationCanceledException ex)
+        catch (OperationCanceledException)
         {
-            if (cancellationToken.IsCancellationRequested)
-            {
-
-                throw new TaskCanceledException("The operation was canceled.", ex);
-            }
-            else
-            {
-
-                throw;
-            }
-        }
-        catch (Exception ex)
-        {
-
-            return new PingResult(1, ex.ToString());
+            throw;
         }
     }
 

@@ -62,7 +62,7 @@ public class PingProcessTests
         var hostNameOrAddress = "localhost";
 
 
-        var pingTask = pingProcess.RunTaskAsync(hostNameOrAddress);
+        var pingTask = PingProcess.RunTaskAsync(hostNameOrAddress);
 
 
 
