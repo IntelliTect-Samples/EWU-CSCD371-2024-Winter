@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading;
@@ -49,21 +50,57 @@ public class PingProcess
     async public Task<PingResult> RunAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        try
         {
-            try
+            using (var ping = new Ping())
             {
-                using (var ping = new Ping())
+                PingReply? reply = null;
+                var pingTask = Task.Run(() => reply = ping.Send(hostNameOrAddress), cancellationToken);
+
+                // Wait for either ping to complete or cancellation requested
+                await Task.WhenAny(pingTask, Task.Delay(Timeout.Infinite, cancellationToken));
+
+                // Check if ping completed or cancellation requested
+                if (!pingTask.IsCompleted)
                 {
-                    var reply = await ping.SendPingAsync(hostNameOrAddress);
-                    return new PingResult(0, null);
+                    // Ping operation was canceled
+                    throw new OperationCanceledException("The operation was canceled.", cancellationToken);
                 }
+                if (reply == null)
+                {
+                    // Ping operation failed
+                    throw new PingException("Ping operation failed.");
+                }
+
+                // Ping completed successfully, return the result
+                return new PingResult(0, null);
             }
-            catch (Exception ex)
+
+           
+        }
+        catch (OperationCanceledException ex)
+        {
+            if (cancellationToken.IsCancellationRequested)
             {
-                return new PingResult(1, ex.ToString());
+                // Handle cancellation by throwing TaskCanceledException
+                throw new TaskCanceledException("The operation was canceled.", ex);
+            }
+            else
+            {
+                // Cancellation token was not responsible for cancellation, re-throw the exception
+                throw;
             }
         }
+        catch (Exception ex)
+        {
+            // Handle other exceptions
+            return new PingResult(1, ex.ToString());
+        }
     }
+
+
 
     public async Task<PingResult> RunAsync(string hostNameOrAddress)
     {

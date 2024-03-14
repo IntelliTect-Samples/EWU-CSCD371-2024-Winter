@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Assignment.Tests;
@@ -60,11 +61,11 @@ public class PingProcessTests
         var pingProcess = new PingProcess();
         var hostNameOrAddress = "localhost";
 
-        // Act
+
         var pingTask = pingProcess.RunTaskAsync(hostNameOrAddress);
 
-        // Assert
-        
+
+
         var result = pingTask.Result;
         Assert.IsNull(result.StdOutput);
         Assert.IsTrue(result.ExitCode == 0);
@@ -73,14 +74,14 @@ public class PingProcessTests
     [TestMethod]
     public void RunAsync_UsingTaskReturn_Success()
     {
-        // Arrange
+
         var pingProcess = new PingProcess();
         var hostNameOrAddress = "localhost";
 
-        // Act
+
         var pingTask = pingProcess.RunAsync(hostNameOrAddress);
 
-        // Assert
+
         var result = pingTask.Result;
         Assert.IsNull(result.StdOutput);
         Assert.IsTrue(result.ExitCode == 0);
@@ -90,14 +91,14 @@ public class PingProcessTests
 
     async public Task RunAsync_UsingTpl_Success()
     {
-        // Arrange
+
         var pingProcess = new PingProcess();
         var hostNameOrAddress = "localhost";
 
-        // Act
+
         var result = await pingProcess.RunAsync(hostNameOrAddress);
 
-        // Assert
+
         Assert.IsNull(result.StdOutput);
         Assert.IsTrue(result.ExitCode == 0);
     }
@@ -108,25 +109,32 @@ public class PingProcessTests
     [ExpectedException(typeof(AggregateException))]
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
     {
-        
+
     }
 
     [TestMethod]
     [ExpectedException(typeof(TaskCanceledException))]
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
-        // Use exception.Flatten()
+
+        var pingProcess = new PingProcess();
+        var hostNameOrAddress = "localhost";
+        CancellationTokenSource cts = new CancellationTokenSource();
+        cts.CancelAfter(100); // Cancel after 100ms
+
+
+        pingProcess.RunAsync(hostNameOrAddress, cts.Token).Wait();
     }
 
     [TestMethod]
     public async Task RunAsync_MultipleHostAddresses_True()
     {
-        // Arrange
+
         var pingProcess = new PingProcess();
         string[] hostNames = new string[] { "localhost", "localhost", "localhost", "localhost" };
 
-        // Act & Assert
-        foreach (var hostName in hostNames)
+      
+            foreach (var hostName in hostNames)
         {
             PingResult result = await pingProcess.RunAsync(hostName);
 
@@ -155,7 +163,7 @@ public class PingProcessTests
         System.Text.StringBuilder stringBuilder = new();
         numbers.AsParallel().ForAll(item => stringBuilder.AppendLine(""));
         int lineCount = stringBuilder.ToString().Split(Environment.NewLine).Length;
-        Assert.AreNotEqual(lineCount, numbers.Count()+1);
+        Assert.AreNotEqual(lineCount, numbers.Count() + 1);
     }
 
     readonly string PingOutputLikeExpression = @"
@@ -173,7 +181,7 @@ Approximate round trip times in milli-seconds:
     {
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-        Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression)??false,
+        Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression) ?? false,
             $"Output is unexpected: {stdOutput}");
         Assert.AreEqual<int>(0, exitCode);
     }
