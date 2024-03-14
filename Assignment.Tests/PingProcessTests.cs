@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Assignment.Tests;
@@ -110,7 +111,12 @@ public class PingProcessTests
     [ExpectedException(typeof(AggregateException))]
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
     {
-        
+        CancellationTokenSource cts = new();
+
+        cts.Cancel();
+        Task<PingResult> task = Sut.RunAsync("::1", cts.Token);
+        task.Wait(100);
+
     }
 
     [TestMethod]
