@@ -123,7 +123,22 @@ public class PingProcessTests
     [ExpectedException(typeof(TaskCanceledException))]
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
-        // Use exception.Flatten()
+        CancellationTokenSource cts = new();
+
+        cts.Cancel();
+        Task<PingResult> task = Sut.RunAsync("::1", cts.Token);
+        try
+        {
+            task.Wait(100);
+        }
+        catch (AggregateException ex)
+        {
+            ex = ex.Flatten();
+            if (ex.InnerException != null)
+                throw ex.InnerException;
+            throw;
+        }
+
     }
 
     [TestMethod]
