@@ -87,12 +87,33 @@ public class PingProcess
 
 
 
-    async public Task<PingResult> RunLongRunningAsync(
+    public static async Task<PingResult[]> RunLongRunningAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
-        Task task = null!;
-        await task;
-        throw new NotImplementedException();
+        var pingResults = new List<PingResult>();
+
+        using Ping ping = new();
+        bool keepRunning = true;
+
+        cancellationToken.Register(() => keepRunning = false);
+
+        while (keepRunning)
+        {
+            try
+            {
+                var reply = await ping.SendPingAsync(hostNameOrAddress);
+                pingResults.Add(new PingResult(reply.Status == IPStatus.Success ? 0 : 1, reply.Status.ToString()));
+
+                await Task.Delay(1000, cancellationToken);
+            }catch(PingException e){
+                pingResults.Add(new PingResult(1, e.Message));
+            }catch(TaskCanceledException)
+            {
+                break;
+            }
+        }
+        return pingResults.ToArray();
+
     }
 
     private Process RunProcessInternal(

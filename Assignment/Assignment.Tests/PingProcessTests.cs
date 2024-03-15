@@ -72,19 +72,18 @@ public class PingProcessTests
     }
 
     [TestMethod]
-    public void RunAsync_UsingTaskReturn_Success()
+    public async void RunAsync_UsingTaskReturn_Success()
     {
 
         var pingProcess = new PingProcess();
         var hostNameOrAddress = "localhost";
 
 
-        var pingTask = pingProcess.RunAsync(hostNameOrAddress);
+        var res = await pingProcess.RunAsync(hostNameOrAddress);
 
 
-        var result = pingTask.Result;
-        Assert.IsNull(result.StdOutput);
-        Assert.IsTrue(result.ExitCode == 0);
+        Assert.IsNull(res.StdOutput);
+        Assert.IsTrue(res.ExitCode == 0);
     }
 
     [TestMethod]
