@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Assignment.Tests;
@@ -59,6 +60,11 @@ public class PingProcessTests
     {
         // Do NOT use async/await in this test.
         // Test Sut.RunTaskAsync("localhost");
+
+        Task<PingResult> testOutput = Sut.RunTaskAsync("localhost");
+        testOutput.Start();//Need to schedule so it can complete
+        AssertValidPingOutput(testOutput.Result);
+
     }
 
     [TestMethod]
@@ -87,7 +93,7 @@ public class PingProcessTests
     [ExpectedException(typeof(AggregateException))]
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()// 3.)
     {
-        
+
     }
 
     [TestMethod]

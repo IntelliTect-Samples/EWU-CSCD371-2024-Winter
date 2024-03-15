@@ -28,10 +28,13 @@ public class PingProcess
     // 1.)
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
+
+        return new Task<PingResult>(() => Run(hostNameOrAddress));
+
     }
 
-    // 2.)
+    // 2.) and 3?
     async public Task<PingResult> RunAsync(string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
         Task task = null!;
@@ -40,7 +43,7 @@ public class PingProcess
         throw new NotImplementedException();// ...
     }
 
-    // 4.) and 3???
+    // 4.)
     async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
     {
         StringBuilder? stringBuilder = null;
