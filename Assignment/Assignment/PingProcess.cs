@@ -48,29 +48,33 @@ public class PingProcess
     }
 
 
-    async public Task<PingResult> RunAsync(
-        string hostNameOrAddress, CancellationToken cancellationToken = default)
+    public async Task<PingResult> RunAsync(string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
-        try { 
-        cancellationToken.ThrowIfCancellationRequested();
-        TaskCompletionSource<PingResult> tcs = new TaskCompletionSource<PingResult>();
-
-        await Task.Run(() =>
+        try
         {
-            PingResult result = Run(hostNameOrAddress);
-            tcs.SetResult(result);
-        });
+            cancellationToken.ThrowIfCancellationRequested();
 
-        return tcs.Task.Result;
+            TaskCompletionSource<PingResult> tcs = new TaskCompletionSource<PingResult>();
+
+            await Task.Run(() =>
+            {
+                cancellationToken.ThrowIfCancellationRequested(); 
+                PingResult result = Run(hostNameOrAddress);
+                tcs.SetResult(result);
+            }, cancellationToken);
+
+            return await tcs.Task;
+        }
+        catch (OperationCanceledException)
+        {
+            throw; 
         }
         catch (Exception e)
         {
-            throw new AggregateException("Cancelled", e);
+            throw new AggregateException("An error occurred while executing the operation.", e);
         }
-        //Task task = null!;
-        //await task;
-        //throw new NotImplementedException();
     }
+
 
     async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
     {
