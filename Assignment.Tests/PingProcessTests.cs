@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -92,6 +93,7 @@ public class PingProcessTests
 
         PingResult result = await Sut.RunAsync("localhost");
         AssertValidPingOutput(result);
+        Assert.AreEqual("",result.StdOutput);
     }
 //#pragma warning restore CS1998 // Remove this
 
@@ -136,11 +138,21 @@ public class PingProcessTests
     async public Task RunAsync_MultipleHostAddresses_True()// 4.)
     {
         // Pseudo Code - don't trust it!!!
-        string[] hostNames = new string[] { "localhost", "localhost", "localhost", "localhost" };
-        int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length*hostNames.Length;
+        string[] hostNames = ["localhost", "localhost", "localhost", "localhost"];
+        //int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length * hostNames.Length;
+        int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length * hostNames.Length;
         PingResult result = await Sut.RunAsync(hostNames);
-        int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
+        int? lineCount = result.StdOutput?.Trim().Split(Environment.NewLine).Length;
         Assert.AreEqual(expectedLineCount, lineCount);
+        //Assert.AreEqual("", result.StdOutput);
+        
+        //Heads up I think this is probably really stupid
+/*        PingResult singleResult = await Sut.RunAsync("localhost");
+        StringBuilder stringBuilder = new();
+        stringBuilder.Append(singleResult).Append(singleResult).Append(singleResult).Append(singleResult);
+        var excpectedResult = stringBuilder;
+        Assert.AreEqual(excpectedResult, result.StdOutput);*/
+        
     }
 
     [TestMethod]
