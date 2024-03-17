@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <IsPackable>false</IsPackable>
+    <Nullable>enable</Nullable>
 	 <LangVersion>12.0</LangVersion>
   </PropertyGroup>
 
