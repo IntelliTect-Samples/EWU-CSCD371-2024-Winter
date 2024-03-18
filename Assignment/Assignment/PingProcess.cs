@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading;
@@ -26,36 +27,34 @@ public class PingProcess
     public PingResult Run(string hostNameOrAddress)
     {
         StartInfo.Arguments = hostNameOrAddress;
-        StringBuilder? stringBuilder = null;
-        void updateStdOutput(string? line) =>
-            (stringBuilder??=new StringBuilder()).AppendLine(line);
-        Process process = RunProcessInternal(StartInfo, updateStdOutput, default, default);
-        return new PingResult( process.ExitCode, stringBuilder?.ToString());
+        using Process? process = Process.Start(StartInfo);
+        
+        if(process == null)
+        {
+            throw new InvalidOperationException($"Failed to start the ping process for {hostNameOrAddress}.");
+        }
+
+        var output = process.StandardOutput.ReadToEnd();
+        process.WaitForExit();
+        return new PingResult(process.ExitCode, output);
     }
 
-    public static Task<PingResult> RunTaskAsync(string hostNameOrAddress)
+    public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
     {
         return Task.Run(() =>
         {
-            try
-            {
-                using Ping ping = new();
-                var reply = ping.Send(hostNameOrAddress);
-                var success = reply.Status == IPStatus.Success;
-                return new PingResult(success ? 0 : 1, reply.Status.ToString());
-            }
-            catch (Exception ex)
-            {
-                return new PingResult(1, ex.Message);
-            }
-        });
+            using Ping ping = new();
+            var reply = ping.Send(hostNameOrAddress);
+            var success = reply.Status == IPStatus.Success;
+            return new PingResult(success ? 0 : 1, reply.Status.ToString());
+            });
     }
 
 
     public async Task<PingResult> RunAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
-        using Ping ping = new Ping();
+        using Ping ping = new();
         var reply = await ping.SendPingAsync(hostNameOrAddress);
         cancellationToken.ThrowIfCancellationRequested();
         var success = reply.Status == IPStatus.Success;
@@ -79,7 +78,7 @@ public class PingProcess
     public static async Task<PingResult[]> RunLongRunningAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
-        var pingResults = new List<PingResult>();
+        List<PingResult> pingResults = new();
 
         using Ping ping = new();
         bool keepRunning = true;
@@ -96,6 +95,7 @@ public class PingProcess
                 await Task.Delay(1000, cancellationToken);
             }catch(PingException e){
                 pingResults.Add(new PingResult(1, e.Message));
+                break;
             }catch(TaskCanceledException)
             {
                 break;
