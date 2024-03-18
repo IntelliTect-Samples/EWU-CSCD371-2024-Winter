@@ -15,7 +15,13 @@ public record struct PingResult(int ExitCode, string? StdOutput);
 
 public class PingProcess
 {
-    private ProcessStartInfo StartInfo { get; } = new("ping");
+    private ProcessStartInfo StartInfo { get; } = new ProcessStartInfo
+    {
+        FileName = "ping",
+        RedirectStandardOutput = true,
+        UseShellExecute = true,
+        CreateNoWindow = true
+    };
 
     public PingResult Run(string hostNameOrAddress)
     {
@@ -46,43 +52,26 @@ public class PingProcess
     }
 
 
-    public static async Task<PingResult> RunAsync(
+    public async Task<PingResult> RunAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
+        using Ping ping = new Ping();
+        var reply = await ping.SendPingAsync(hostNameOrAddress);
         cancellationToken.ThrowIfCancellationRequested();
-
-        try
-        {
-            using Ping ping = new();
-            var reply = await ping.SendPingAsync(hostNameOrAddress, cancellationToken);
-            var success = reply.Status == IPStatus.Success;
-            return new PingResult(success ? 0 : 1, reply.Status.ToString());
-        }
-        catch (OperationCanceledException)
-        {
-            throw;
-        }
+        var success = reply.Status == IPStatus.Success;
+        return new PingResult(success ? 0 : 1, reply.Status.ToString());
     }
 
 
 
-    public async Task<PingResult> RunAsync(string hostNameOrAddress)
+    public async Task<PingResult[]> RunAsync(IEnumerable<string> hostNameOrAddress, CancellationToken cancellationToken = default)
     {
-        var process = new Process
+        List<Task<PingResult>> tasks = new();
+        foreach (var hostName in hostNameOrAddress)
         {
-            StartInfo =
-            {
-                FileName = "ping",
-                Arguments = hostNameOrAddress,
-                RedirectStandardOutput = true
-            }
-        };
-
-        process.Start();
-        string output = await process.StandardOutput.ReadToEndAsync();
-        process.WaitForExit();
-
-        return new PingResult(process.ExitCode, output);
+            tasks.Add(RunAsync(hostName, cancellationToken));
+        }
+        return await Task.WhenAll(tasks);
     }
 
 
