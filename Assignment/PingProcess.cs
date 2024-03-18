@@ -25,17 +25,32 @@ public class PingProcess
         return new PingResult( process.ExitCode, stringBuilder?.ToString());
     }
 
+    //1
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
     {
-        throw new NotImplementedException();
+        return new Task<PingResult>(() => Run(hostNameOrAddress));
     }
 
+    //2
+    async public Task<PingResult> RunAsync(string hostNameOrAddress)
+    {
+        return await Task.Run(() => Run(hostNameOrAddress));
+    }
+
+    //3
     async public Task<PingResult> RunAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
-        Task task = null!;
-        await task;
-        throw new NotImplementedException();
+        try
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            return await Task.Run(() => Run(hostNameOrAddress));
+        } catch
+        {
+            TaskCanceledException taskException = new();
+            AggregateException aggregateException = new(innerExceptions: taskException);
+            throw aggregateException;
+        }
     }
 
     async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)

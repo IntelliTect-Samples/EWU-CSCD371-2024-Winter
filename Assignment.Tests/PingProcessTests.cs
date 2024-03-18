@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Assignment.Tests;
@@ -59,42 +60,68 @@ public class PingProcessTests
     {
         // Do NOT use async/await in this test.
         // Test Sut.RunTaskAsync("localhost");
+        Task<PingResult> task = Sut.RunTaskAsync("localhost");
+        task.Start();
+        AssertValidPingOutput(task.Result);
     }
 
+    //1
     [TestMethod]
     public void RunAsync_UsingTaskReturn_Success()
     {
         // Do NOT use async/await in this test.
-        PingResult result = default;
+       // PingResult result = default;
         // Test Sut.RunAsync("localhost");
-        AssertValidPingOutput(result);
+        Task<PingResult> task = Sut.RunAsync("localhost");
+        AssertValidPingOutput(task.Result);
     }
 
+    //2
     [TestMethod]
-#pragma warning disable CS1998 // Remove this
+//#pragma warning disable CS1998 // Remove this
     async public Task RunAsync_UsingTpl_Success()
     {
         // DO use async/await in this test.
-        PingResult result = default;
-
+        // PingResult result = default;
         // Test Sut.RunAsync("localhost");
+        PingResult result = await Sut.RunAsync("localhost");
         AssertValidPingOutput(result);
     }
-#pragma warning restore CS1998 // Remove this
+//#pragma warning restore CS1998 // Remove this
 
-
+    //3
     [TestMethod]
     [ExpectedException(typeof(AggregateException))]
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
     {
-        
+        CancellationTokenSource cancellationTokenSource = new();
+        Task<PingResult> task = Task.Run(() => Sut.RunAsync("localhost", cancellationTokenSource.Token));
+        cancellationTokenSource.Cancel();
+        task.Wait();
     }
 
+    //3
     [TestMethod]
     [ExpectedException(typeof(TaskCanceledException))]
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
         // Use exception.Flatten()
+        CancellationTokenSource cancellationTokenSource = new();
+        cancellationTokenSource.Cancel();
+        Task<PingResult> task = Sut.RunAsync("localhost", cancellationTokenSource.Token);
+        try
+        {
+            task.Wait();
+        } catch (AggregateException aggregateException)
+        {
+            aggregateException = aggregateException.Flatten();
+
+            if(aggregateException != null)
+            {
+                throw aggregateException.InnerException!;
+            }
+            throw;
+        }
     }
 
     [TestMethod]
