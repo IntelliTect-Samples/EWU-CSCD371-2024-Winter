@@ -94,8 +94,12 @@ public class PingProcess
     async public Task<PingResult> RunLongRunningAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
-        Task<PingResult> task = BuildPingTask(hostNameOrAddress, DefaultLongRunningPingCount, cancellationToken);
-        return await task;
+        //Task<PingResult> task = BuildPingTask(hostNameOrAddress, DefaultLongRunningPingCount, cancellationToken)
+        return await Task<PingResult>.Factory.StartNew( () =>
+        {
+           return BuildPingTask(hostNameOrAddress, DefaultLongRunningPingCount, cancellationToken).Result;
+        },
+        TaskCreationOptions.LongRunning);
     }
 
     private Process RunProcessInternal(
