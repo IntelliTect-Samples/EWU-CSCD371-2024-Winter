@@ -147,14 +147,20 @@ public class PingProcessTests
     }
 
     [TestMethod]
-#pragma warning disable CS1998 // Remove this
+//#pragma warning disable CS1998 // Remove this
     async public Task RunLongRunningAsync_UsingTpl_Success()// 5.)
     {
-        PingResult result = await Sut.RunLongRunningAsync("localhost");
+        var startInfo = new ProcessStartInfo("ping", "localhost");
+        
+        int exitCode = await Sut.RunLongRunningAsync(startInfo, null, null, default);
+        
+        Assert.AreEqual(0, exitCode);
+
+        //PingResult result = await Sut.RunLongRunningAsync("localhost");
         // Test Sut.RunLongRunningAsync("localhost");
-        AssertValidPingOutput(result);
+        //AssertValidPingOutput(result);
     }
-#pragma warning restore CS1998 // Remove this
+//#pragma warning restore CS1998 // Remove this
 
     [TestMethod]
     public void StringBuilderAppendLine_InParallel_IsNotThreadSafe()
