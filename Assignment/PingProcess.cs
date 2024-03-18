@@ -60,35 +60,51 @@ public class PingProcess
     async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
     {
         StringBuilder? stringBuilder = new();
+        int total = 0;
         ParallelQuery<Task<int>>? all = hostNameOrAddresses.AsParallel().Select(async item =>
         {
 
-            PingResult result = await RunAsync(item, cancellationToken);
+/*            PingResult result = await RunAsync(item, cancellationToken);
 
             lock (stringBuilder)
             {
-                stringBuilder.AppendLine(result.ToString());
+                stringBuilder.AppendLine(result.StdOutput);
             }
 
-            return result.ExitCode;
+            //This is adding outputting twice as many ping results as it should
+
+            return result.ExitCode;*/
+
+            Task<PingResult> task = RunAsync(item);
+            lock (stringBuilder)
+            {
+                stringBuilder.AppendLine(task.Result.StdOutput?.Trim());
+                ++total;
+            }
 
             //Task<PingResult> task = null!;
             // ...
-            //await task.WaitAsync(default(CancellationToken));
-            //return task.Result.ExitCode;
+            await task.WaitAsync(cancellationToken);
+            return task.Result.ExitCode;
         });
 
         await Task.WhenAll(all);
-        int total = all.Aggregate(0, (total, item) => total + item.Result);
-        return new PingResult(total, stringBuilder?.ToString());
+        //int total = all.Aggregate(0, (total, item) => total + item.Result);
+        return new PingResult(total, stringBuilder?.ToString().Trim());
     }
 
     // 5.)
+    //async public Task<int> RunLongRunningAsync(ProcessStartInfo startInfo,
+    //  Action<string?>? progressOutput, Action<string?>? progressError, CancellationToken token)
     async public Task<PingResult> RunLongRunningAsync(string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
+        //NOTE: This method does NOT use Task.Run
+
+
+
+
         Task task = null!;
         await task;
-
         throw new NotImplementedException();// ...
     }
 
