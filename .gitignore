@@ -351,3 +351,6 @@ MigrationBackup/
 
 # Live unit testing files.
 *.lutconfig
+
+# Mac specific files
+.DS_Store
