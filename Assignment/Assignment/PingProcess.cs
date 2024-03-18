@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -27,16 +27,11 @@ public class PingProcess
     public PingResult Run(string hostNameOrAddress)
     {
         StartInfo.Arguments = hostNameOrAddress;
-        using Process? process = Process.Start(StartInfo);
-        
-        if(process == null)
-        {
-            throw new InvalidOperationException($"Failed to start the ping process for {hostNameOrAddress}.");
-        }
-
-        var output = process.StandardOutput.ReadToEnd();
-        process.WaitForExit();
-        return new PingResult(process.ExitCode, output);
+        StringBuilder? stringBuilder = null;
+        void updateStdOutput(string? line) =>
+            (stringBuilder ??= new StringBuilder()).AppendLine(line);
+        Process process = RunProcessInternal(StartInfo, updateStdOutput, default, default);
+        return new PingResult(process.ExitCode, stringBuilder?.ToString());
     }
 
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
@@ -57,8 +52,12 @@ public class PingProcess
         using Ping ping = new();
         var reply = await ping.SendPingAsync(hostNameOrAddress);
         cancellationToken.ThrowIfCancellationRequested();
-        var success = reply.Status == IPStatus.Success;
-        return new PingResult(success ? 0 : 1, reply.Status.ToString());
+        if (reply.Status == IPStatus.Success)
+        {
+            reply = null;
+        }
+        return new PingResult(reply == null ? 0 : 1, reply?.Status.ToString());
+
     }
 
 
@@ -93,10 +92,12 @@ public class PingProcess
                 pingResults.Add(new PingResult(reply.Status == IPStatus.Success ? 0 : 1, reply.Status.ToString()));
 
                 await Task.Delay(1000, cancellationToken);
-            }catch(PingException e){
+            }
+            catch (PingException e)
+            {
                 pingResults.Add(new PingResult(1, e.Message));
-                break;
-            }catch(TaskCanceledException)
+            }
+            catch (TaskCanceledException)
             {
                 break;
             }
