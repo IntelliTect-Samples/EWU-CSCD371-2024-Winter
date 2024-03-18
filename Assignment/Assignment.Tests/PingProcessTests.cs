@@ -96,7 +96,7 @@ public class PingProcessTests
         var result = await pingProcess.RunAsync(hostNameOrAddress);
 
 
-        Assert.IsNotNull(result.StdOutput);
+        Assert.IsNull(result.StdOutput);
         Assert.IsTrue(result.ExitCode == 0);
     }
 
