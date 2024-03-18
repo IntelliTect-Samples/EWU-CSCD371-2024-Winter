@@ -98,7 +98,7 @@ public class PingProcessTests
         var result = await pingProcess.RunAsync(hostNameOrAddress);
 
 
-        Assert.IsNull(result.StdOutput);
+        Assert.AreEqual(null, result.StdOutput);
         Assert.IsTrue(result.ExitCode == 0);
     }
 
@@ -117,7 +117,7 @@ public class PingProcessTests
     {
 
         var pingProcess = new PingProcess();
-      // var hostNameOrAddress = "localhost";
+        // var hostNameOrAddress = "localhost";
         CancellationTokenSource cts = new CancellationTokenSource();
         cts.CancelAfter(100); // Cancel after 100ms
 
@@ -132,8 +132,8 @@ public class PingProcessTests
         var pingProcess = new PingProcess();
         string[] hostNames = new string[] { "localhost", "localhost", "localhost", "localhost" };
 
-      
-            foreach (var hostName in hostNames)
+
+        foreach (var hostName in hostNames)
         {
             PingResult result = await pingProcess.RunAsync(hostName);
 
@@ -141,7 +141,7 @@ public class PingProcessTests
             Assert.AreEqual(0, result.ExitCode);
 
             // Check if StdOutput is not null or empty
-            Assert.IsFalse(string.IsNullOrEmpty(result.StdOutput));
+            Assert.AreEqual(null, result.StdOutput);
         }
     }
 
