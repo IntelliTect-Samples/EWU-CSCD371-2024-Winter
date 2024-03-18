@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading;
@@ -33,7 +34,7 @@ public class PingProcess
         return new PingResult(process.ExitCode, stringBuilder?.ToString());
     }
 
-    public static Task<PingResult> RunTaskAsync(string hostNameOrAddress)
+    public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
     {
         return Task.Run(() =>
         {
@@ -62,7 +63,7 @@ public class PingProcess
     public async Task<PingResult> RunAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
-        using Ping ping = new Ping();
+        using Ping ping = new();
         var reply = await ping.SendPingAsync(hostNameOrAddress);
         cancellationToken.ThrowIfCancellationRequested();
         if (reply.Status == IPStatus.Success)
@@ -90,7 +91,7 @@ public class PingProcess
     public static async Task<PingResult[]> RunLongRunningAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
-        var pingResults = new List<PingResult>();
+        List<PingResult> pingResults = new();
 
         using Ping ping = new();
         bool keepRunning = true;

@@ -1,4 +1,4 @@
-﻿using IntelliTect.TestTools;
+using IntelliTect.TestTools;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -30,8 +30,8 @@ public class PingProcessTests
     [TestMethod]
     public void Run_GoogleDotCom_Success()
     {
-        int exitCode = Sut.Run("google.com").ExitCode;
-        Assert.AreEqual<int>(0, exitCode);
+        PingResult result = Sut.Run("google.com");
+        Assert.AreEqual<int>(0, result.ExitCode);
     }
 
 
@@ -58,14 +58,14 @@ public class PingProcessTests
     [TestMethod]
     public void RunTaskAsync_Success()
     {
-        var pingProcess = new PingProcess();
-        var hostNameOrAddress = "localhost";
+        PingProcess pingProcess = new();
+        string hostNameOrAddress = "localhost";
 
 
-        var pingTask = PingProcess.RunTaskAsync(hostNameOrAddress);
+        var pingTask = pingProcess.RunTaskAsync(hostNameOrAddress);
 
         var result = pingTask.Result;
-        Assert.IsNull(result.StdOutput);
+        Assert.IsNotNull(result.StdOutput);
         Assert.IsTrue(result.ExitCode == 0);
     }
 
@@ -73,14 +73,14 @@ public class PingProcessTests
     public async void RunAsync_UsingTaskReturn_Success()
     {
 
-        var pingProcess = new PingProcess();
-        var hostNameOrAddress = "localhost";
+        PingProcess pingProcess = new();
+        string hostNameOrAddress = "localhost";
 
 
         var res = await pingProcess.RunAsync(hostNameOrAddress);
 
 
-        Assert.IsNull(res.StdOutput);
+        Assert.IsNotNull(res.StdOutput);
         Assert.IsTrue(res.ExitCode == 0);
     }
 
@@ -89,14 +89,14 @@ public class PingProcessTests
     async public Task RunAsync_UsingTpl_Success()
     {
 
-        var pingProcess = new PingProcess();
-        var hostNameOrAddress = "localhost";
+        PingProcess pingProcess = new();
+        string hostNameOrAddress = "localhost";
 
 
         var result = await pingProcess.RunAsync(hostNameOrAddress);
 
 
-        Assert.AreEqual(null, result.StdOutput);
+        Assert.IsNotNull(result.StdOutput);
         Assert.IsTrue(result.ExitCode == 0);
     }
 
@@ -179,22 +179,15 @@ public class PingProcessTests
     }
 
     [TestMethod]
-    public async Task RunLongRunningAsync_UsingTpl_Success()
+    async public Task RunLongRunningAsync_UsingTpl_Success()
     {
-        // Arrange
-        var hostNameOrAddress = "localhost";
-        var cancellationToken = CancellationToken.None;
-
-        // Act
-        var task = PingProcess.RunLongRunningAsync(hostNameOrAddress, cancellationToken);
-
-        // Wait for the task to complete
-        var pingResults = await task;
-
-        // Assert
-        Assert.IsNotNull(pingResults);
-        Assert.IsTrue(pingResults.Length > 0);
-        //Assert.IsFalse(pingResults.Any(result => result == null));
+        var results = await PingProcess.RunLongRunningAsync("localhost", default);
+        Assert.IsNotNull(results);
+        Assert.IsTrue(results.Length > 0);
+        foreach (var result in results)
+        {
+            AssertValidPingOutput(result);
+        }
     }
 
 
@@ -208,17 +201,7 @@ public class PingProcessTests
         Assert.AreNotEqual(lineCount, numbers.Count() + 1);
     }
 
-    readonly string PingOutputLikeExpression = @"
-Pinging * with 32 bytes of data:
-Reply from ::1: time<*
-Reply from ::1: time<*
-Reply from ::1: time<*
-Reply from ::1: time<*
-
-Ping statistics for ::1:
-    Packets: Sent = *, Received = *, Lost = 0 (0% loss),
-Approximate round trip times in milli-seconds:
-    Minimum = *, Maximum = *, Average = *".Trim();
+    
     private void AssertValidPingOutput(int exitCode, string? stdOutput)
     {
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
@@ -229,4 +212,16 @@ Approximate round trip times in milli-seconds:
     }
     private void AssertValidPingOutput(PingResult result) =>
         AssertValidPingOutput(result.ExitCode, result.StdOutput);
+
+    private readonly string PingOutputLikeExpression = @"
+Pinging * with 32 bytes of data:
+Reply from ::1: time<*
+Reply from ::1: time<*
+Reply from ::1: time<*
+Reply from ::1: time<*
+
+Ping statistics for ::1:
+    Packets: Sent = *, Received = *, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = *, Maximum = *, Average = *".Trim();
 }
