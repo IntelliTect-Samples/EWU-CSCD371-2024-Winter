@@ -42,7 +42,14 @@ public class PingProcess
                 using Ping ping = new();
                 var reply = ping.Send(hostNameOrAddress);
                 var success = reply.Status == IPStatus.Success;
-                return new PingResult(success ? 0 : 1, reply.Status.ToString());
+
+               
+                if (success)
+                {
+                    reply = null;
+                }
+
+                return new PingResult(success ? 0 : 1, reply?.Status.ToString());
             }
             catch (Exception ex)
             {

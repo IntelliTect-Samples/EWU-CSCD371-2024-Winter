@@ -64,8 +64,6 @@ public class PingProcessTests
 
         var pingTask = PingProcess.RunTaskAsync(hostNameOrAddress);
 
-
-
         var result = pingTask.Result;
         Assert.IsNull(result.StdOutput);
         Assert.IsTrue(result.ExitCode == 0);
@@ -115,21 +113,18 @@ public class PingProcessTests
 
         try
         {
-            // Act
+           
             var task = pingProcess.RunAsync(hostNameOrAddress, cancellationToken);
 
-            // Cancel the task immediately
             cancellationTokenSource.Cancel();
 
-            // Await the completion of the task
+
             await task;
 
-            // If the task completes successfully, fail the test
             Assert.Fail("Task should have been cancelled, but it completed successfully.");
         }
         catch (AggregateException ex)
         {
-            // Assert that the AggregateException contains a TaskCanceledException
             Assert.IsTrue(ex.InnerException is TaskCanceledException);
         }
     }
@@ -139,7 +134,6 @@ public class PingProcessTests
     public async void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
 
-        // Arrange
         var pingProcess = new PingProcess();
         var hostNameOrAddress = "localhost";
         var cancellationTokenSource = new CancellationTokenSource();
@@ -147,21 +141,19 @@ public class PingProcessTests
 
         try
         {
-            // Act
+         
             var task = pingProcess.RunAsync(hostNameOrAddress, cancellationToken);
 
-            // Cancel the task immediately
             cancellationTokenSource.Cancel();
 
-            // Await the completion of the task
             await task;
 
-            // If the task completes successfully, fail the test
+
             Assert.Fail("Task should have been cancelled, but it completed successfully.");
         }
         catch (AggregateException ex)
         {
-            // Assert that the AggregateException contains only a TaskCanceledException
+
             Assert.AreEqual(1, ex.InnerExceptions.Count);
             Assert.IsTrue(ex.InnerException is TaskCanceledException);
 
@@ -187,14 +179,24 @@ public class PingProcessTests
     }
 
     [TestMethod]
-#pragma warning disable CS1998 // Remove this
-    async public Task RunLongRunningAsync_UsingTpl_Success()
+    public async Task RunLongRunningAsync_UsingTpl_Success()
     {
-        PingResult result = default;
-        // Test Sut.RunLongRunningAsync("localhost");
-        AssertValidPingOutput(result);
+        // Arrange
+        var hostNameOrAddress = "localhost";
+        var cancellationToken = CancellationToken.None;
+
+        // Act
+        var task = PingProcess.RunLongRunningAsync(hostNameOrAddress, cancellationToken);
+
+        // Wait for the task to complete
+        var pingResults = await task;
+
+        // Assert
+        Assert.IsNotNull(pingResults);
+        Assert.IsTrue(pingResults.Length > 0);
+        //Assert.IsFalse(pingResults.Any(result => result == null));
     }
-#pragma warning restore CS1998 // Remove this
+
 
     [TestMethod]
     public void StringBuilderAppendLine_InParallel_IsNotThreadSafe()
