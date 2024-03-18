@@ -69,7 +69,7 @@ public class PingProcess
 
 
 
-    public static async Task<PingResult[]> RunLongRunningAsync(
+    public static async Task<PingResult[]> RunLongRunningAsync( 
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
         List<PingResult> pingResults = new();
