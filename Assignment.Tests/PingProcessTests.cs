@@ -90,9 +90,6 @@ public class PingProcessTests
         PingResult result = Sut.RunAsync("::1").Result;
 
         // Test Sut.RunAsync("localhost");
-        //Task<PingResult> task = Sut.RunAsync("::1");
-        //task.Wait();
-        //result = task.Result;
 
         AssertValidPingOutput(result);
     }
