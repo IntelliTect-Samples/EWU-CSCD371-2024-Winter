@@ -70,7 +70,7 @@ public class PingProcessTests
     }
 
     [TestMethod]
-    public async void RunAsync_UsingTaskReturn_Success()
+    async public void RunAsync_UsingTaskReturn_Success()
     {
 
         PingProcess pingProcess = new();
@@ -104,7 +104,7 @@ public class PingProcessTests
 
     [TestMethod]
     [ExpectedException(typeof(AggregateException))]
-    public async void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
+    async public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
     {
         var pingProcess = new PingProcess();
         var hostNameOrAddress = "localhost";
@@ -131,37 +131,22 @@ public class PingProcessTests
 
     [TestMethod]
     [ExpectedException(typeof(TaskCanceledException))]
-    public async void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
+    async public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
 
-        var pingProcess = new PingProcess();
-        var hostNameOrAddress = "localhost";
-        var cancellationTokenSource = new CancellationTokenSource();
-        var cancellationToken = cancellationTokenSource.Token;
+        PingProcess pingProcess = new();
+        string hostNameOrAddress = "localhost";
+        using CancellationTokenSource cancellationTokenSource = new();
 
-        try
-        {
-         
-            var task = pingProcess.RunAsync(hostNameOrAddress, cancellationToken);
+        var task = pingProcess.RunAsync(hostNameOrAddress, cancellationTokenSource.Token);
 
-            cancellationTokenSource.Cancel();
+        cancellationTokenSource.Cancel();
 
-            await task;
-
-
-            Assert.Fail("Task should have been cancelled, but it completed successfully.");
-        }
-        catch (AggregateException ex)
-        {
-
-            Assert.AreEqual(1, ex.InnerExceptions.Count);
-            Assert.IsTrue(ex.InnerException is TaskCanceledException);
-
-        }
+        await Assert.ThrowsExceptionAsync<TaskCanceledException>(async () => await task);
     }
 
     [TestMethod]
-    public async Task RunAsync_MultipleHostAddresses_True()
+    async public Task RunAsync_MultipleHostAddresses_True()
     {
 
         var pingProcess = new PingProcess();
@@ -174,12 +159,12 @@ public class PingProcessTests
 
             Assert.AreEqual(0, result.ExitCode);
 
-            Assert.AreEqual(null, result.StdOutput);
+            Assert.AreEqual("Success", result.StdOutput);
         }
     }
 
     [TestMethod]
-    async public Task RunLongRunningAsync_UsingTpl_Success()
+    public async Task RunLongRunningAsync_UsingTpl_Success()
     {
         var results = await PingProcess.RunLongRunningAsync("localhost", default);
         Assert.IsNotNull(results);

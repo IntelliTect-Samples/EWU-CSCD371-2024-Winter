@@ -20,42 +20,27 @@ public class PingProcess
     {
         FileName = "ping",
         RedirectStandardOutput = true,
-        UseShellExecute = true,
+        UseShellExecute = false,
         CreateNoWindow = true
     };
 
     public PingResult Run(string hostNameOrAddress)
     {
         StartInfo.Arguments = hostNameOrAddress;
-        StringBuilder? stringBuilder = null;
-        void updateStdOutput(string? line) =>
-            (stringBuilder ??= new StringBuilder()).AppendLine(line);
-        Process process = RunProcessInternal(StartInfo, updateStdOutput, default, default);
-        return new PingResult(process.ExitCode, stringBuilder?.ToString());
+        var process = Process.Start(StartInfo);
+        var output = process?.StandardOutput.ReadToEnd();
+        process?.WaitForExit();
+        return new PingResult(process?.ExitCode ?? 1, output);
     }
 
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
     {
         return Task.Run(() =>
         {
-            try
-            {
-                using Ping ping = new();
-                var reply = ping.Send(hostNameOrAddress);
-                var success = reply.Status == IPStatus.Success;
-
-               
-                if (success)
-                {
-                    reply = null;
-                }
-
-                return new PingResult(success ? 0 : 1, reply?.Status.ToString());
-            }
-            catch (Exception ex)
-            {
-                return new PingResult(1, ex.Message);
-            }
+            using Ping ping = new();
+            var reply = ping.Send(hostNameOrAddress);
+            var success = reply.Status == IPStatus.Success;
+            return new PingResult(success ? 0 : 1, reply.Status.ToString());
         });
     }
 
@@ -66,11 +51,7 @@ public class PingProcess
         using Ping ping = new();
         var reply = await ping.SendPingAsync(hostNameOrAddress);
         cancellationToken.ThrowIfCancellationRequested();
-        if (reply.Status == IPStatus.Success)
-        {
-            reply = null;
-        }
-        return new PingResult(reply == null ? 0 : 1, reply?.Status.ToString());
+        return new PingResult(reply.Status == IPStatus.Success ? 0 : 1, reply.Status.ToString());
 
     }
 
@@ -100,48 +81,34 @@ public class PingProcess
 
         while (keepRunning)
         {
-            try
-            {
-                var reply = await ping.SendPingAsync(hostNameOrAddress);
-                pingResults.Add(new PingResult(reply.Status == IPStatus.Success ? 0 : 1, reply.Status.ToString()));
+            var reply = await ping.SendPingAsync(hostNameOrAddress);
+            pingResults.Add(new PingResult(reply.Status == IPStatus.Success ? 0 : 1, reply.Status.ToString()));
 
-                await Task.Delay(1000, cancellationToken);
+            await Task.Delay(1000, cancellationToken);
             }
-            catch (PingException e)
-            {
-                pingResults.Add(new PingResult(1, e.Message));
-            }
-            catch (TaskCanceledException)
-            {
-                break;
-            }
-        }
         return pingResults.ToArray();
 
     }
 
-    private Process RunProcessInternal(
+    private static Process RunProcessInternal(
         ProcessStartInfo startInfo,
         Action<string?>? progressOutput,
         Action<string?>? progressError,
         CancellationToken token)
     {
-        var process = new Process
-        {
-            StartInfo = UpdateProcessStartInfo(startInfo)
-        };
+        Process process = new Process { StartInfo = UpdateProcessStartInfo(startInfo) };
         return RunProcessInternal(process, progressOutput, progressError, token);
     }
 
-    private Process RunProcessInternal(
+    private static Process RunProcessInternal(
         Process process,
         Action<string?>? progressOutput,
         Action<string?>? progressError,
         CancellationToken token)
     {
         process.EnableRaisingEvents = true;
-        process.OutputDataReceived += OutputHandler;
-        process.ErrorDataReceived += ErrorHandler;
+        process.OutputDataReceived += (sender, e) => progressOutput?.Invoke(e.Data);
+        process.ErrorDataReceived += (sender, e) => progressError?.Invoke(e.Data);
 
         try
         {
@@ -150,20 +117,13 @@ public class PingProcess
                 return process;
             }
 
-            token.Register(obj =>
+            token.Register(() =>
             {
-                if (obj is Process p && !p.HasExited)
+                if(!process.HasExited)
                 {
-                    try
-                    {
-                        p.Kill();
-                    }
-                    catch (Win32Exception ex)
-                    {
-                        throw new InvalidOperationException($"Error cancelling process{Environment.NewLine}{ex}");
-                    }
+                    process.Kill();
                 }
-            }, process);
+            });
 
 
             if (process.StartInfo.RedirectStandardOutput)
@@ -175,6 +135,8 @@ public class PingProcess
                 process.BeginErrorReadLine();
             }
 
+
+
             if (process.HasExited)
             {
                 return process;
@@ -185,46 +147,15 @@ public class PingProcess
         {
             throw new InvalidOperationException($"Error running '{process.StartInfo.FileName} {process.StartInfo.Arguments}'{Environment.NewLine}{e}");
         }
-        finally
-        {
-            if (process.StartInfo.RedirectStandardError)
-            {
-                process.CancelErrorRead();
-            }
-            if (process.StartInfo.RedirectStandardOutput)
-            {
-                process.CancelOutputRead();
-            }
-            process.OutputDataReceived -= OutputHandler;
-            process.ErrorDataReceived -= ErrorHandler;
-
-            if (!process.HasExited)
-            {
-                process.Kill();
-            }
-
-        }
         return process;
-
-        void OutputHandler(object s, DataReceivedEventArgs e)
-        {
-            progressOutput?.Invoke(e.Data);
-        }
-
-        void ErrorHandler(object s, DataReceivedEventArgs e)
-        {
-            progressError?.Invoke(e.Data);
-        }
     }
 
     private static ProcessStartInfo UpdateProcessStartInfo(ProcessStartInfo startInfo)
     {
-        startInfo.CreateNoWindow = true;
+        startInfo.UseShellExecute = false;
         startInfo.RedirectStandardError = true;
         startInfo.RedirectStandardOutput = true;
-        startInfo.UseShellExecute = false;
-        startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-
+        startInfo.CreateNoWindow = true;
         return startInfo;
     }
 }
