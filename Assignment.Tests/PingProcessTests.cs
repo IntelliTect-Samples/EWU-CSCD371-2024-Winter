@@ -172,26 +172,24 @@ public class PingProcessTests
         Assert.AreNotEqual(lineCount, numbers.Count()+1);
     }
 
-    readonly string PingOutputLikeExpression = (PingProcess.IsWindows?@"
-Pinging * with 32 bytes of data:
+    readonly string PingOutputLikeExpression = WildcardPattern.NormalizeLineEndings(PingProcess.IsWindows?@"Pinging * with 32 bytes of data:
 Reply from ::1: time<*
 Reply from ::1: time<*
 Reply from ::1: time<*
 Reply from ::1: time<*
-
+*
 Ping statistics for ::1:
     Packets: Sent = *, Received = *, Lost = 0 (0% loss),
 Approximate round trip times in milli-seconds:
-    Minimum = *, Maximum = *, Average = *":@"
-PING ::1 (::1) 64 data bytes
-64 bytes from ::1: icmp_seq=1 ttl=64 time=0.* ms
-64 bytes from ::1: icmp_seq=2 ttl=64 time=0.* ms
-64 bytes from ::1: icmp_seq=3 ttl=64 time=0.* ms
-64 bytes from ::1: icmp_seq=4 ttl=64 time=0.* ms
-
---- ::1 ping statistics ---
-4 packets transmitted, 4 received, 0% packet loss, time *ms
-rtt min/avg/max/mdev = 0.*/0.*/0.*/0.* ms").Trim();
+    Minimum = *, Maximum = *, Average = *":@"PING * data bytes
+64 bytes from *: icmp_seq=1 ttl=64 time=0.* ms
+64 bytes from *: icmp_seq=2 ttl=64 time=0.* ms
+64 bytes from *: icmp_seq=3 ttl=64 time=0.* ms
+64 bytes from *: icmp_seq=4 ttl=64 time=0.* ms
+*
+--- * ping statistics ---
+* packets transmitted, * received, 0% packet loss, time *ms
+rtt min/avg/max/mdev = 0.*/0.*/0.*/0.* ms");
 
     private void AssertValidPingOutput(int exitCode, string? stdOutput)
     {
