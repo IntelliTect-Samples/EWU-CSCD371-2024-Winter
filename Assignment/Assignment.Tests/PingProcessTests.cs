@@ -106,23 +106,66 @@ public class PingProcessTests
 
     [TestMethod]
     [ExpectedException(typeof(AggregateException))]
-    public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
+    public async void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
     {
+        var pingProcess = new PingProcess();
+        var hostNameOrAddress = "localhost";
+        var cancellationTokenSource = new CancellationTokenSource();
+        var cancellationToken = cancellationTokenSource.Token;
 
+        try
+        {
+            // Act
+            var task = pingProcess.RunAsync(hostNameOrAddress, cancellationToken);
+
+            // Cancel the task immediately
+            cancellationTokenSource.Cancel();
+
+            // Await the completion of the task
+            await task;
+
+            // If the task completes successfully, fail the test
+            Assert.Fail("Task should have been cancelled, but it completed successfully.");
+        }
+        catch (AggregateException ex)
+        {
+            // Assert that the AggregateException contains a TaskCanceledException
+            Assert.IsTrue(ex.InnerException is TaskCanceledException);
+        }
     }
 
     [TestMethod]
     [ExpectedException(typeof(TaskCanceledException))]
-    public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
+    public async void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
 
+        // Arrange
         var pingProcess = new PingProcess();
-        // var hostNameOrAddress = "localhost";
-        CancellationTokenSource cts = new CancellationTokenSource();
-        cts.CancelAfter(100); // Cancel after 100ms
+        var hostNameOrAddress = "localhost";
+        var cancellationTokenSource = new CancellationTokenSource();
+        var cancellationToken = cancellationTokenSource.Token;
 
+        try
+        {
+            // Act
+            var task = pingProcess.RunAsync(hostNameOrAddress, cancellationToken);
 
-        //pingProcess.RunAsync(hostNameOrAddress, cts.Token).Wait();
+            // Cancel the task immediately
+            cancellationTokenSource.Cancel();
+
+            // Await the completion of the task
+            await task;
+
+            // If the task completes successfully, fail the test
+            Assert.Fail("Task should have been cancelled, but it completed successfully.");
+        }
+        catch (AggregateException ex)
+        {
+            // Assert that the AggregateException contains only a TaskCanceledException
+            Assert.AreEqual(1, ex.InnerExceptions.Count);
+            Assert.IsTrue(ex.InnerException is TaskCanceledException);
+
+        }
     }
 
     [TestMethod]
@@ -137,10 +180,8 @@ public class PingProcessTests
         {
             PingResult result = await pingProcess.RunAsync(hostName);
 
-            // Check if the ping was successful (exit code 0)
             Assert.AreEqual(0, result.ExitCode);
 
-            // Check if StdOutput is not null or empty
             Assert.AreEqual(null, result.StdOutput);
         }
     }
