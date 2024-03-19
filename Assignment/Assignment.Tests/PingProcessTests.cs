@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Text;
 
 namespace Assignment.Tests;
 
@@ -160,6 +161,38 @@ public class PingProcessTests
 
             Assert.AreEqual("Success", result.StdOutput);
         }
+    }
+
+    [TestMethod]
+    public void RunLongRunningAsync_Success()
+    {
+        var startInfo = new ProcessStartInfo
+        {
+            FileName = "ping",
+            Arguments = "localhost -n 5",
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            UseShellExecute = false,
+            CreateNoWindow = true
+        };
+
+        StringBuilder outputBuilder = new();
+        StringBuilder errorBuilder = new();
+
+        Action<string?> outputHandler = (output) => outputBuilder.AppendLine(output);
+        Action<string?> errorHandler = (error) => errorBuilder.AppendLine(error);
+
+        PingProcess ping = new();
+        CancellationTokenSource tokenSource = new();
+
+        var task = ping.RunLongRunningAsync(startInfo, outputHandler, errorHandler, tokenSource.Token);
+
+        var exitCode = task.Result;
+
+        Assert.AreEqual(0, exitCode);
+        Assert.IsFalse(string.IsNullOrEmpty(outputBuilder.ToString()));
+
+
     }
 
 

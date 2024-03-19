@@ -79,84 +79,33 @@ public class PingProcess
 
 
 
-    public static async Task<PingResult[]> RunLongRunningAsync( 
-        string hostNameOrAddress, CancellationToken cancellationToken = default)
+    public Task<int> RunLongRunningAsync(ProcessStartInfo startInfo, Action<string?>? progressOutput, Action<string?>? progressError, CancellationToken token)
     {
-        List<PingResult> pingResults = [];
-
-        using Ping ping = new();
-        bool keepRunning = true;
-
-        cancellationToken.Register(() => keepRunning = false);
-
-        while (keepRunning)
+        return Task.Factory.StartNew(() =>
         {
-            var reply = await ping.SendPingAsync(hostNameOrAddress);
-            pingResults.Add(new PingResult(reply.Status == IPStatus.Success ? 0 : 1, reply.Status.ToString()));
-
-            await Task.Delay(1000, cancellationToken);
-            }
-        return [.. pingResults];
-
+            var process = RunProcessInternal(startInfo, progressOutput, progressError, token);
+            process.WaitForExit();
+            return process.ExitCode;
+        }, token, TaskCreationOptions.LongRunning, TaskScheduler.Current);
     }
 
-    public static Process RunProcessInternal(
-        ProcessStartInfo startInfo,
-        Action<string?>? progressOutput,
-        Action<string?>? progressError,
-        CancellationToken token)
-    {
-        Process process = new Process { StartInfo = UpdateProcessStartInfo(startInfo) };
-        return RunProcessInternal(process, progressOutput, progressError, token);
-    }
+    private static Process RunProcessInternal(ProcessStartInfo startInfo, Action<string?>? progressOutput, Action<string?>? progressError, CancellationToken token) {
+        var process = new Process { StartInfo = startInfo };
+        process.Start();
 
-    private static Process RunProcessInternal(
-        Process process,
-        Action<string?>? progressOutput,
-        Action<string?>? progressError,
-        CancellationToken token)
-    {
-        process.EnableRaisingEvents = true;
+        process.BeginOutputReadLine();
+        process.BeginErrorReadLine();
+
         process.OutputDataReceived += (sender, e) => progressOutput?.Invoke(e.Data);
         process.ErrorDataReceived += (sender, e) => progressError?.Invoke(e.Data);
 
-        try
+        token.Register(() =>
         {
-            if (!process.Start())
+            if (!process.HasExited)
             {
-                return process;
+                process.Kill();
             }
-
-            token.Register(() =>
-            {
-                if(!process.HasExited)
-                {
-                    process.Kill();
-                }
-            });
-
-
-            if (process.StartInfo.RedirectStandardOutput)
-            {
-                process.BeginOutputReadLine();
-            }
-            if (process.StartInfo.RedirectStandardError)
-            {
-                process.BeginErrorReadLine();
-            }
-
-
-
-            if (process.HasExited)
-            {
-                return process;
-            }
-            process.WaitForExit();
-        }
-        catch (Exception e)
-        {
-            throw new InvalidOperationException($"Error running '{process.StartInfo.FileName} {process.StartInfo.Arguments}'{Environment.NewLine}{e}");
-        }
+        });
         return process;
     }
 
