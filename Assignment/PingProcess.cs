@@ -53,6 +53,7 @@ public class PingProcess
         }
     }
 
+
     async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
     {
         StringBuilder? stringBuilder = null;
@@ -70,13 +71,79 @@ public class PingProcess
         return new PingResult(total, stringBuilder?.ToString());
     }
 
-    async public Task<PingResult> RunLongRunningAsync(
-        string hostNameOrAddress, CancellationToken cancellationToken = default)
+    //4
+    async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
     {
-        Task task = null!;
-        await task;
-        throw new NotImplementedException();
+        int total = 0;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        // Semaphore to synchronize access to stringBuilder
+        var semaphore = new SemaphoreSlim(1);
+
+        var tasks = hostNameOrAddresses.Select(async item =>
+        {
+            try
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                PingResult result = await RunAsync(item, cancellationToken);
+
+                if (result.StdOutput != null)
+                {
+                    // Enter critical section
+                    await semaphore.WaitAsync(cancellationToken);
+                    try
+                    {
+                        total += result.ExitCode;
+                        stringBuilder.AppendLine(result.StdOutput.Trim());
+                    }
+                    finally
+                    {
+                        semaphore.Release(); // Exit critical section
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions from individual ping operations
+                await semaphore.WaitAsync(cancellationToken);
+                try
+                {
+                    stringBuilder.AppendLine($"Error pinging {item}: {ex.Message}");
+                }
+                finally
+                {
+                    semaphore.Release();
+                }
+            }
+        });
+
+        await Task.WhenAll(tasks);
+        return new PingResult(total, stringBuilder.ToString().Trim());
     }
+
+
+    //5
+    public Task<int> RunLongRunningAsync(
+    ProcessStartInfo startInfo,
+    Action<string?>? progressOutput,
+    Action<string?>? progressError,
+    CancellationToken token)
+    {
+        return Task.Factory.StartNew(() =>
+        {
+            var process = new Process
+            {
+                StartInfo = UpdateProcessStartInfo(startInfo)
+            };
+
+            RunProcessInternal(process, progressOutput, progressError, token);
+
+            return process.ExitCode;
+        }, token, TaskCreationOptions.LongRunning, TaskScheduler.Current);
+    }
+
+
+
 
     private Process RunProcessInternal(
         ProcessStartInfo startInfo,

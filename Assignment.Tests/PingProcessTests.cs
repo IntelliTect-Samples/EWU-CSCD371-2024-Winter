@@ -155,6 +155,47 @@ public class PingProcessTests
         Assert.AreNotEqual(lineCount, numbers.Count()+1);
     }
 
+    // Create a test for RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
+    [TestMethod]
+    public void RunAsync_MultipleHostAddressesWithCancellation_True()
+    {
+        CancellationTokenSource cancellationTokenSource = new();
+        string[] hostNames = new string[] { "localhost", "localhost", "localhost", "localhost" };
+        int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length * hostNames.Length;
+        PingResult result = Sut.RunAsync(hostNames, cancellationTokenSource.Token).Result;
+        int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
+        Assert.AreEqual(expectedLineCount, lineCount);
+    }
+
+    // Create a test for public Task<int> RunLongRunningAsync(ProcessStartInfo startInfo, Action<string?>? progressOutput, Action<string?>? progressError, CancellationToken token)
+    [TestMethod]
+    public void RunLongRunningAsync_ProcessStartInfo_Success()
+    {
+        ProcessStartInfo startInfo = new("ping", "localhost");
+        startInfo.RedirectStandardOutput = true;
+        startInfo.RedirectStandardError = true;
+        startInfo.UseShellExecute = false;
+        startInfo.CreateNoWindow = true;
+        startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+        startInfo.ErrorDialog = false;
+        startInfo.StandardOutputEncoding = System.Text.Encoding.UTF8;
+        startInfo.StandardErrorEncoding = System.Text.Encoding.UTF8;
+        startInfo.WorkingDirectory = Environment.CurrentDirectory;
+        startInfo.ErrorDialogParentHandle = IntPtr.Zero;
+        startInfo.Verb = "runas";
+        startInfo.UserName = Environment.UserName;
+        startInfo.FileName = "ping";
+        startInfo.Arguments = "localhost";
+        startInfo.Verb = "runas";
+        startInfo.UserName = Environment.UserName;
+        startInfo.FileName = "ping";
+        startInfo.Arguments = "localhost";
+        startInfo.Verb = "runas";
+    }
+
+    
+
+
     readonly string PingOutputLikeExpression = @"
 Pinging * with 32 bytes of data:
 Reply from ::1: time<*
