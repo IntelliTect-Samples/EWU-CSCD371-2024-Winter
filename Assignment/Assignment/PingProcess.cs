@@ -82,7 +82,7 @@ public class PingProcess
     public static async Task<PingResult[]> RunLongRunningAsync( 
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
-        List<PingResult> pingResults = new();
+        List<PingResult> pingResults = [];
 
         using Ping ping = new();
         bool keepRunning = true;
@@ -96,11 +96,11 @@ public class PingProcess
 
             await Task.Delay(1000, cancellationToken);
             }
-        return pingResults.ToArray();
+        return [.. pingResults];
 
     }
 
-    private static Process RunProcessInternal(
+    public static Process RunProcessInternal(
         ProcessStartInfo startInfo,
         Action<string?>? progressOutput,
         Action<string?>? progressError,

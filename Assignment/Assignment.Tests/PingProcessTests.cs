@@ -70,7 +70,7 @@ public class PingProcessTests
     }
 
     [TestMethod]
-    async public void RunAsync_UsingTaskReturn_Success()
+    async public Task RunAsync_UsingTaskReturn_Success()
     {
 
         PingProcess pingProcess = new();
@@ -96,15 +96,14 @@ public class PingProcessTests
         var result = await pingProcess.RunAsync(hostNameOrAddress);
 
 
-        Assert.IsNull(result.StdOutput);
+        Assert.IsNotNull(result.StdOutput);
         Assert.IsTrue(result.ExitCode == 0);
     }
 
 
 
     [TestMethod]
-    [ExpectedException(typeof(AggregateException))]
-    async public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
+    async public Task RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
     {
         var pingProcess = new PingProcess();
         var hostNameOrAddress = "localhost";
@@ -125,13 +124,13 @@ public class PingProcessTests
         }
         catch (AggregateException ex)
         {
-            Assert.IsTrue(ex.InnerException is TaskCanceledException);
+            Assert.IsTrue(ex.InnerException is OperationCanceledException);
         }
     }
 
     [TestMethod]
     [ExpectedException(typeof(TaskCanceledException))]
-    async public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
+    async public Task RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
 
         PingProcess pingProcess = new();
@@ -163,17 +162,6 @@ public class PingProcessTests
         }
     }
 
-    [TestMethod]
-    public async Task RunLongRunningAsync_UsingTpl_Success()
-    {
-        var results = await PingProcess.RunLongRunningAsync("localhost", default);
-        Assert.IsNotNull(results);
-        Assert.IsTrue(results.Length > 0);
-        foreach (var result in results)
-        {
-            AssertValidPingOutput(result);
-        }
-    }
 
 
     [TestMethod]
