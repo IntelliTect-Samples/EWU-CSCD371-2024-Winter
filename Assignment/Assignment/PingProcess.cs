@@ -33,18 +33,14 @@ public class PingProcess
     }
 
     // bullet 2
-    public Task<PingResult> RunAsync(string hostNameOrAddress)
+    async public Task<PingResult> RunAsync(string hostNameOrAddress)
     {       
         TaskCompletionSource<PingResult> tcs = new TaskCompletionSource<PingResult>();
 
-        Task.Run(() =>
+       return await Task.Run(() =>
         {
-
-            PingResult result = Run(hostNameOrAddress);
-            tcs.SetResult(result);
+            return Run(hostNameOrAddress);
         });
-
-        return tcs.Task;
     }
 
 
@@ -67,10 +63,10 @@ public class PingProcess
 
     }
 
-    async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
-    {
+    //async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
+    //{
 
-    }
+    //}
 
     async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
     {
@@ -90,16 +86,30 @@ public class PingProcess
     }
 
     
-    async public Task<PingResult> RunLongRunningAsync(
-        string hostNameOrAddress, CancellationToken cancellationToken = default)
+    //async public Task<PingResult> RunLongRunningAsync(
+    //    string hostNameOrAddress, CancellationToken cancellationToken = default)
+    //{
+    //    Task task = null!;
+    //    await task;
+    //    throw new NotImplementedException();
+    //}
+
+    public Task<int> RunLongRunningAsync(ProcessStartInfo startInfo, Action<string?>? progressOutput, Action<string?>? progressError, CancellationToken token)
     {
-        Task task = null!;
-        await task;
-        throw new NotImplementedException();
+        //using updateprocessstartinfo
+        ProcessStartInfo processStartInfo = UpdateProcessStartInfo(startInfo);
+        //returning the exit code of the function
+        return Task.Factory.StartNew(() =>
+        {
+            Process running =
+                RunProcessInternal(processStartInfo, progressOutput, progressError, token);
+            running.WaitForExit();
+            return running.ExitCode;
+        }, token, TaskCreationOptions.LongRunning, TaskScheduler.Current);
+
     }
 
-    
-    private Process RunProcessInternal(
+        private Process RunProcessInternal(
         ProcessStartInfo startInfo,
         Action<string?>? progressOutput,
         Action<string?>? progressError,

@@ -118,6 +118,13 @@ public class PingProcessTests
     }
 
 
+    [TestMethod]
+    public void RunLongRunningAsync_Ping_Succcess()
+    {
+        //Pinresult result = await Sut.RunLongRunningAsync("localhost");
+        //AssertValidPingOutput(result);
+    }
+
 
 
     /*[TestMethod]
@@ -181,21 +188,19 @@ public class PingProcessTests
 
 
 
-
-
-
-
-
     [TestMethod]
     async public Task RunAsync_MultipleHostAddresses_True()
     {
         // Pseudo Code - don't trust it!!!
         string[] hostNames = new string[] { "localhost", "localhost", "localhost", "localhost" };
-        int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length*hostNames.Length;
+        int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length * hostNames.Length;
         PingResult result = await Sut.RunAsync(hostNames);
         int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
         Assert.AreEqual(expectedLineCount, lineCount);
     }
+
+
+
 
     [TestMethod]
 #pragma warning disable CS1998 // Remove this
