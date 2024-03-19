@@ -143,15 +143,45 @@ public class PingProcessTests
         await Sut.RunAsync(hostName, token.Token);
     }
 
-    /*[TestMethod]
-    [ExpectedException(typeof(TaskCanceledException))]
+    [TestMethod]
     public async Task RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
-        
-        // TODO
-    }*/
+        // Arrange
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        cancellationTokenSource.Cancel();
 
-    
+        // Act & Assert
+        try
+        {
+            await Sut.RunAsync("::1", cancellationTokenSource.Token);
+        }
+        catch (AggregateException ex)
+        {
+            ex = ex.Flatten();
+            if (ex.InnerExceptions != null)
+            {
+                foreach (var innerEx in ex.InnerExceptions)
+                {
+                    if (innerEx is TaskCanceledException)
+                    {
+                        // Expected exception found, test passes
+                        return;
+                    }
+                }
+            }
+
+            // If no TaskCanceledException found, rethrow the exception
+            throw;
+        }
+
+        // If no exception thrown, fail the test
+        Assert.Fail("Expected TaskCanceledException was not thrown.");
+    }
+
+
+
+
+
 
 
 
