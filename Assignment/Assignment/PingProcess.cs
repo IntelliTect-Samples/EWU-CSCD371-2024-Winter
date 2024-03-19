@@ -35,13 +35,27 @@ public class PingProcess
 
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
     {
-        return Task.Run(() =>
+        var tcs = new TaskCompletionSource<PingResult>();
+        Ping pingSender = new();
+
+        pingSender.PingCompleted += (obj, eventArgs) =>
         {
-            using Ping ping = new();
-            var reply = ping.Send(hostNameOrAddress);
-            var success = reply.Status == IPStatus.Success;
-            return new PingResult(success ? 0 : 1, reply.Status.ToString());
-        });
+            if (eventArgs.Error != null)
+            {
+                tcs.SetException(eventArgs.Error);
+            }
+            else if (eventArgs.Cancelled)
+            {
+                tcs.SetCanceled();
+            }
+            else if(eventArgs.Reply != null)
+            {
+                tcs.SetResult(new PingResult(0, eventArgs.Reply.ToString()));
+            }
+        };
+
+        pingSender.SendAsync(hostNameOrAddress, new object());
+        return tcs.Task;
     }
 
 
@@ -59,11 +73,7 @@ public class PingProcess
 
     public async Task<PingResult[]> RunAsync(IEnumerable<string> hostNameOrAddress, CancellationToken cancellationToken = default)
     {
-        List<Task<PingResult>> tasks = new();
-        foreach (var hostName in hostNameOrAddress)
-        {
-            tasks.Add(RunAsync(hostName, cancellationToken));
-        }
+        var tasks = hostNameOrAddress.Select(hostName => RunAsync(hostName, cancellationToken));
         return await Task.WhenAll(tasks);
     }
 
