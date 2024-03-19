@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -63,10 +64,28 @@ public class PingProcess
 
     }
 
-    //async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
-    //{
+    async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
+    {
+        List<Task<PingResult>> tasks = new List<Task<PingResult>>();
+        int total = 0;
+        StringBuilder builder = new StringBuilder();
+        foreach(var host in hostNameOrAddresses)
+        {
+            tasks.Add(Task.Run(async () =>
+            {
+                PingResult res = await RunAsync(host, cancellationToken);
+                builder.AppendLine(res.StdOutput?.Trim());
+                total += res.ExitCode;
+                return res;
+            }));
+        }
 
-    //}
+        await Task.WhenAll(tasks);
+
+        //int total = tasks.Sum(task => task.Result.ExitCode);
+
+        return new PingResult(total, builder.ToString().Trim());
+    }
 
     async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
     {
@@ -85,15 +104,7 @@ public class PingProcess
         return new PingResult(total, stringBuilder?.ToString());
     }
 
-    
-    //async public Task<PingResult> RunLongRunningAsync(
-    //    string hostNameOrAddress, CancellationToken cancellationToken = default)
-    //{
-    //    Task task = null!;
-    //    await task;
-    //    throw new NotImplementedException();
-    //}
-
+   
     public Task<int> RunLongRunningAsync(ProcessStartInfo startInfo, Action<string?>? progressOutput, Action<string?>? progressError, CancellationToken token)
     {
         //using updateprocessstartinfo
