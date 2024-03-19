@@ -9,7 +9,7 @@ using System.Text;
 using Assignment;
 
 
-namespace AssignmentTests;
+namespace Assignment.Tests;
 
 [TestClass]
 public class PingProcessTests
