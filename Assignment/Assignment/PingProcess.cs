@@ -59,7 +59,7 @@ public class PingProcess
     }
 
 
-    public async Task<PingResult> RunAsync(
+    async public Task<PingResult> RunAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
         using Ping ping = new();

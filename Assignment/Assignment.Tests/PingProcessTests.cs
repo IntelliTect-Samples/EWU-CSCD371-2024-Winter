@@ -104,45 +104,38 @@ public class PingProcessTests
 
 
     [TestMethod]
-    async public Task RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
+    public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
     {
-        var pingProcess = new PingProcess();
-        var hostNameOrAddress = "localhost";
-        var cancellationTokenSource = new CancellationTokenSource();
-        var cancellationToken = cancellationTokenSource.Token;
+        PingProcess pingProcess = new();
+        string hostNameOrAddress = "localhost";
+        CancellationTokenSource cancellationTokenSource = new();
+
+        var task = pingProcess.RunAsync(hostNameOrAddress, cancellationTokenSource.Token);
+        cancellationTokenSource.Cancel();
 
         try
         {
-           
-            var task = pingProcess.RunAsync(hostNameOrAddress, cancellationToken);
-
-            cancellationTokenSource.Cancel();
-
-
-            await task;
-
-            Assert.Fail("Task should have been cancelled, but it completed successfully.");
+            task.Wait();
+            Assert.Fail("Expected an AggregateException to be thrown.");
         }
         catch (AggregateException ex)
         {
-            Assert.IsTrue(ex.InnerException is OperationCanceledException);
+            Assert.IsTrue(ex.InnerExceptions.Any(innerEx => innerEx is TaskCanceledException));
         }
     }
 
     [TestMethod]
-    [ExpectedException(typeof(TaskCanceledException))]
-    async public Task RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
+    public async Task RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
 
         PingProcess pingProcess = new();
         string hostNameOrAddress = "localhost";
         using CancellationTokenSource cancellationTokenSource = new();
 
-        var task = pingProcess.RunAsync(hostNameOrAddress, cancellationTokenSource.Token);
-
+        Task<PingResult> task = pingProcess.RunAsync(hostNameOrAddress, cancellationTokenSource.Token);
         cancellationTokenSource.Cancel();
 
-        await Assert.ThrowsExceptionAsync<TaskCanceledException>(async () => await task);
+        await Assert.ThrowsExceptionAsync<OperationCanceledException>(() => task);
     }
 
     [TestMethod]
