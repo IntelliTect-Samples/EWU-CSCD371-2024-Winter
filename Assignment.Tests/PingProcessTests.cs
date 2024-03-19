@@ -141,7 +141,6 @@ public class PingProcessTests
         CancellationTokenSource token = new CancellationTokenSource();
         token.Cancel();
         await Sut.RunAsync(hostName, token.Token);
-        //await task;
     }
 
     /*[TestMethod]

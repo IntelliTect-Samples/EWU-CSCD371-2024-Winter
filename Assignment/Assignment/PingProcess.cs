@@ -67,6 +67,10 @@ public class PingProcess
 
     }
 
+    async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
+    {
+
+    }
 
     async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
     {
