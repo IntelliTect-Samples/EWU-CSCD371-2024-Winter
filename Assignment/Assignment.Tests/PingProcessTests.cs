@@ -68,16 +68,16 @@ public class PingProcessTests
         Assert.IsNotNull(result.StdOutput);
         Assert.IsTrue(result.ExitCode == 0);
     }
-
     [TestMethod]
-    async public Task RunAsync_UsingTaskReturn_Success()
+    public void RunAsync_UsingTaskReturn_Success()
     {
 
         PingProcess pingProcess = new();
         string hostNameOrAddress = "localhost";
 
 
-        var res = await pingProcess.RunAsync(hostNameOrAddress);
+        var task = pingProcess.RunTaskAsync(hostNameOrAddress);
+        var res = task.Result;
 
 
         Assert.IsNotNull(res.StdOutput);
