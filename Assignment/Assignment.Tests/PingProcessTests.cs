@@ -6,8 +6,10 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Text;
+using Assignment;
 
-namespace Assignment.Tests;
+
+namespace AssignmentTests;
 
 [TestClass]
 public class PingProcessTests
