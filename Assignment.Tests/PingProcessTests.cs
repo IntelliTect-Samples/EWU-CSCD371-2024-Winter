@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Assignment.Tests;
@@ -87,7 +88,10 @@ public class PingProcessTests
     [ExpectedException(typeof(AggregateException))]
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
     {
-        
+        CancellationTokenSource cancelSource = new();
+        cancelSource.Cancel();
+        Task<PingResult> task = Sut.RunAsync("localhost", cancelSource.Token);
+        task.Wait();
     }
 
     [TestMethod]
@@ -95,6 +99,24 @@ public class PingProcessTests
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
         // Use exception.Flatten()
+        CancellationTokenSource cancelSource = new();
+        cancelSource.Cancel();
+        Task<PingResult> task = Sut.RunAsync("localhost", cancelSource.Token);
+        try
+        {
+            task.Wait();
+        }
+        catch (AggregateException a)
+        {
+            if (a.Flatten().InnerException != null)
+            {
+                throw a.Flatten().InnerException!;
+            }
+            else
+            {
+                Console.WriteLine("No inner exception");
+            }
+        }
     }
 
     [TestMethod]
@@ -114,14 +136,15 @@ public class PingProcessTests
     }
 
     [TestMethod]
-#pragma warning disable CS1998 // Remove this
+//#pragma warning disable CS1998 // Remove this
     async public Task RunLongRunningAsync_UsingTpl_Success()
     {
-        PingResult result = default;
+        // PingResult result = default;
+        PingResult result = await Sut.RunLongRunningAsync("localhost");
         // Test Sut.RunLongRunningAsync("localhost");
         AssertValidPingOutput(result);
     }
-#pragma warning restore CS1998 // Remove this
+//#pragma warning restore CS1998 // Remove this
 
     [TestMethod]
     public void StringBuilderAppendLine_InParallel_IsNotThreadSafe()
