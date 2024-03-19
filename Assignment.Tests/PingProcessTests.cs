@@ -23,7 +23,7 @@ public class PingProcessTests
     [TestMethod]
     public void Start_PingProcess_Success()
     {
-        Process process = Process.Start("ping", "localhost");
+        Process process = Process.Start("ping", "-c 4 localhost");
         process.WaitForExit();
         Assert.AreEqual<int>(0, process.ExitCode);
     }
@@ -52,17 +52,14 @@ public class PingProcessTests
     [TestMethod]
     public void Run_CaptureStdOutput_Success()
     {
-        PingResult result = Sut.Run("localhost");
+        PingResult result = Sut.Run("-c 4 localhost");
         AssertValidPingOutput(result);
     }
 
     [TestMethod]
     public void RunTaskAsync_Success()// 1.)
     {
-        // Do NOT use async/await in this test.
-        // Test Sut.RunTaskAsync("localhost");
-
-        Task<PingResult> testOutput = Sut.RunTaskAsync("localhost");
+        Task<PingResult> testOutput = Sut.RunTaskAsync("-c 4 localhost");
         testOutput.Start();//Need to schedule so it can complete
         AssertValidPingOutput(testOutput.Result);
 
@@ -71,31 +68,17 @@ public class PingProcessTests
     [TestMethod]
     public void RunAsync_UsingTaskReturn_Success()// 2.)
     {
-        // Do NOT use async/await in this test.
-        //PingResult result = default;
-        // Test Sut.RunAsync("localhost");
-        //AssertValidPingOutput(result);
-
         Task<PingResult> testOutput = Sut.RunAsync("localhost");
         PingResult result = testOutput.Result;
         AssertValidPingOutput(result);
     }
 
     [TestMethod]
-//#pragma warning disable CS1998 // Remove this
     async public Task RunAsync_UsingTpl_Success()// 2.)
     {
-        // DO use async/await in this test.
-        //PingResult result = default;
-
-        // Test Sut.RunAsync("localhost");
-        //AssertValidPingOutput(result);
-
         PingResult result = await Sut.RunAsync("localhost");
         AssertValidPingOutput(result);
-        //Assert.AreEqual("",result.StdOutput);
     }
-//#pragma warning restore CS1998 // Remove this
 
 
     [TestMethod]
@@ -131,7 +114,6 @@ public class PingProcessTests
 
         throw flattenedException!;
       }
-        // Use exception.Flatten()
     }
 
     [TestMethod]
@@ -147,7 +129,6 @@ public class PingProcessTests
     }
 
     [TestMethod]
-//#pragma warning disable CS1998 // Remove this
     async public Task RunLongRunningAsync_UsingTpl_Success()// 5.)
     {
         var startInfo = new ProcessStartInfo("ping", "localhost");
@@ -155,12 +136,7 @@ public class PingProcessTests
         int exitCode = await Sut.RunLongRunningAsync(startInfo, null, null, default);
         
         Assert.AreEqual(0, exitCode);
-
-        //PingResult result = await Sut.RunLongRunningAsync("localhost");
-        // Test Sut.RunLongRunningAsync("localhost");
-        //AssertValidPingOutput(result);
     }
-//#pragma warning restore CS1998 // Remove this
 
     [TestMethod]
     public void StringBuilderAppendLine_InParallel_IsNotThreadSafe()

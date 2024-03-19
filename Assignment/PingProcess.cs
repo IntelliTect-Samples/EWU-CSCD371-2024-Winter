@@ -28,10 +28,7 @@ public class PingProcess
     // 1.)
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
     {
-        //throw new NotImplementedException();
-
         return new Task<PingResult>(() => Run(hostNameOrAddress));
-
     }
 
     // 2.) and 3?
@@ -56,7 +53,6 @@ public class PingProcess
     }
 
     // 4.)
-    //async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses, CancellationToken cancellationToken = default)
     async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
     {
         StringBuilder? stringBuilder = new();
