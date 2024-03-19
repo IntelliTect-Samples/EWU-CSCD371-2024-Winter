@@ -52,27 +52,19 @@ public class PingProcess
     {
         try
         {
+
             cancellationToken.ThrowIfCancellationRequested();
-
-            TaskCompletionSource<PingResult> tcs = new TaskCompletionSource<PingResult>();
-
-            await Task.Run(() =>
-            {
-                cancellationToken.ThrowIfCancellationRequested(); 
-                PingResult result = Run(hostNameOrAddress);
-                tcs.SetResult(result);
-            }, cancellationToken);
-
-            return await tcs.Task;
+            PingResult pr = await Task.Run<PingResult>(() => { return Run(hostNameOrAddress); }, cancellationToken);
+            
+            return pr;
         }
         catch (OperationCanceledException)
         {
-            throw; 
+            TaskCanceledException taskExc = new();
+            AggregateException AggExc = new(innerExceptions: taskExc);
+            throw AggExc;
         }
-        catch (Exception e)
-        {
-            throw new AggregateException("An error occurred while executing the operation.", e);
-        }
+
     }
 
 
