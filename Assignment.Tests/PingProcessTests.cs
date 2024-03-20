@@ -30,17 +30,17 @@ public class PingProcessTests
         process.WaitForExit();
         Assert.AreEqual<int>(0, process.ExitCode);
     }
-    // For some reason pinging google.com doesn't resolve and no packets are sent back
-    // i don't know if this is a due to GitHub actions because this didn't work on
-    // any other addresses we tried.
-    /*
+
     [TestMethod]
     public void Run_GoogleDotCom_Success()
     {
+
+        int expectedExitCode = Environment.GetEnvironmentVariable("GITHUB_ACTIONS") is null ? 0 : 1;
+
         int exitCode = Sut.Run("google.com").ExitCode;
-        Assert.AreEqual<int>(0, exitCode);
+        Assert.AreEqual<int>(expectedExitCode, exitCode);
     }
-    */
+    
 
     [TestMethod]
     public void Run_LocalHost_Success()
