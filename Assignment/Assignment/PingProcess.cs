@@ -68,41 +68,43 @@ public class PingProcess
     {
         List<Task<PingResult>> tasks = new List<Task<PingResult>>();
         int total = 0;
-        StringBuilder builder = new StringBuilder();
+        StringBuilder? builder = new StringBuilder();
         foreach(var host in hostNameOrAddresses)
         {
             tasks.Add(Task.Run(async () =>
             {
                 PingResult res = await RunAsync(host, cancellationToken);
+                if(res.StdOutput != null)
+                {
                 builder.AppendLine(res.StdOutput?.Trim());
+                }
                 total += res.ExitCode;
                 return res;
             }));
         }
 
         await Task.WhenAll(tasks);
-
+        int totalExitCode = tasks.Sum(task => task.Result.ExitCode);
         //int total = tasks.Sum(task => task.Result.ExitCode);
 
-        return new PingResult(total, builder.ToString().Trim());
+        return new PingResult(totalExitCode, builder.ToString().Trim());
     }
 
-    async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
-    {
-        StringBuilder? stringBuilder = null;
-        ParallelQuery<Task<int>>? all = hostNameOrAddresses.AsParallel().Select(async item =>
-        {
-            Task<PingResult> task = null!;
-            // ...
+    //async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
+    //{
+    //    StringBuilder? stringBuilder = new StringBuilder();
+    //    ParallelQuery<Task<int>>? all = hostNameOrAddresses.AsParallel().Select(async item =>
+    //    {
+    //        Task<PingResult> task = RunAsync(item);
+    //        stringBuilder.AppendLine(task.Result.StdOutput?.Trim());
+    //        //await Task.WaitAll();
+    //        return task.Result.ExitCode;
+    //    });
 
-            await task.WaitAsync(default(CancellationToken));
-            return task.Result.ExitCode;
-        });
-
-        await Task.WhenAll(all);
-        int total = all.Aggregate(0, (total, item) => total + item.Result);
-        return new PingResult(total, stringBuilder?.ToString());
-    }
+    //    await Task.WhenAll(all);
+    //    int total = all.Aggregate(0, (total, item) => total + item.Result);
+    //    return new PingResult(total, stringBuilder?.ToString().Trim());
+    //}
 
    
     public Task<int> RunLongRunningAsync(ProcessStartInfo startInfo, Action<string?>? progressOutput, Action<string?>? progressError, CancellationToken token)
