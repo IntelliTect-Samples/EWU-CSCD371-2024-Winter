@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Assignment;
 
-public record struct PingResult(int ExitCode, string? StdOutput);
+public record struct PingResult(int ExitCode, string? StdOutput, string? StdError);
 
 public class PingProcess
 {
@@ -18,11 +18,14 @@ public class PingProcess
     public PingResult Run(string hostNameOrAddress)
     {
         StartInfo.Arguments = hostNameOrAddress;
-        StringBuilder? stringBuilder = null;
+        StringBuilder? stdOutStringBuilder = null;
+        StringBuilder? stdErrorStringBuilder = null;
         void updateStdOutput(string? line) =>
-            (stringBuilder??=new StringBuilder()).AppendLine(line);
-        Process process = RunProcessInternal(StartInfo, updateStdOutput, default, default);
-        return new PingResult( process.ExitCode, stringBuilder?.ToString());
+            (stdOutStringBuilder??=new StringBuilder()).AppendLine(line);
+        void updateStdError(string? line) => 
+            (stdErrorStringBuilder??=new StringBuilder()).AppendLine(line);
+        Process process = RunProcessInternal(StartInfo, updateStdOutput, updateStdError, default);
+        return new PingResult( process.ExitCode, stdOutStringBuilder?.ToString(), stdErrorStringBuilder?.ToString());
     }
 
     // 1.)
@@ -73,7 +76,7 @@ public class PingProcess
 
         await Task.WhenAll(all);
         //int total = all.Aggregate(0, (total, item) => total + item.Result);
-        return new PingResult(total, stringBuilder?.ToString().Trim());
+        return new PingResult(total, stringBuilder?.ToString().Trim(), null);
     }
 
     // 5.)

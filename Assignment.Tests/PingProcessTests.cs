@@ -40,14 +40,14 @@ public class PingProcessTests
     [TestMethod]
     public void Run_InvalidAddressOutput_Success()
     {
-        (int exitCode, string? stdOutput) = Sut.Run("badaddress");
-        Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
-        stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
+        (int exitCode, string? stdOutput, string? stdError) = Sut.Run("badaddress");
+        Assert.IsFalse(string.IsNullOrWhiteSpace(stdError));
+        stdOutput = WildcardPattern.NormalizeLineEndings(stdError!.Trim());
         Assert.AreEqual<string?>(
-            "Ping request could not find host badaddress. Please check the name and try again.".Trim(),
+            "ping: badaddress: Name or service not known".Trim(),
             stdOutput,
             $"Output is unexpected: {stdOutput}");
-        Assert.AreEqual<int>(1, exitCode);
+        Assert.AreEqual<int>(2, exitCode); //In linux bad address results in exit code 2 not 1
     }
 
     [TestMethod]
