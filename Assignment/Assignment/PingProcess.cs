@@ -9,226 +9,224 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Assignment
+namespace Assignment;
+
+public record struct PingResult(int ExitCode, string? StdOutput);
+
+public class PingProcess
 {
+    private ProcessStartInfo StartInfo { get; } = new("ping");
 
-    public record struct PingResult(int ExitCode, string? StdOutput);
-
-    public class PingProcess
+    public PingResult Run(string hostNameOrAddress)
     {
-        private ProcessStartInfo StartInfo { get; } = new("ping");
+        StartInfo.Arguments = hostNameOrAddress;
+        StringBuilder? stringBuilder = null;
+        void updateStdOutput(string? line) =>
+            (stringBuilder??=new StringBuilder()).AppendLine(line);
+        Process process = RunProcessInternal(StartInfo, updateStdOutput, default, default);
+        return new PingResult( process.ExitCode, stringBuilder?.ToString());
+    }
 
-        public PingResult Run(string hostNameOrAddress)
+    // bullet 1
+    public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
+    {
+        return Task.Run(() => { return Run(hostNameOrAddress); });
+    }
+
+    // bullet 2
+    async public Task<PingResult> RunAsync(string hostNameOrAddress)
+    {       
+        TaskCompletionSource<PingResult> tcs = new TaskCompletionSource<PingResult>();
+
+       return await Task.Run(() =>
         {
-            StartInfo.Arguments = hostNameOrAddress;
-            StringBuilder? stringBuilder = null;
-            void updateStdOutput(string? line) =>
-                (stringBuilder ??= new StringBuilder()).AppendLine(line);
-            Process process = RunProcessInternal(StartInfo, updateStdOutput, default, default);
-            return new PingResult(process.ExitCode, stringBuilder?.ToString());
+            return Run(hostNameOrAddress);
+        });
+    }
+
+
+    public async Task<PingResult> RunAsync(string hostNameOrAddress, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+
+            cancellationToken.ThrowIfCancellationRequested();
+            PingResult pr = await Task.Run<PingResult>(() => { return Run(hostNameOrAddress); }, cancellationToken);
+            
+            return pr;
+        }
+        catch (OperationCanceledException)
+        {
+            TaskCanceledException taskExc = new();
+            AggregateException AggExc = new(innerExceptions: taskExc);
+            throw AggExc;
         }
 
-        // bullet 1
-        public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
+    }
+
+    async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
+    {
+        List<Task<PingResult>> tasks = new List<Task<PingResult>>();
+        int total = 0;
+        StringBuilder? builder = new StringBuilder();
+        foreach(var host in hostNameOrAddresses)
         {
-            return Task.Run(() => { return Run(hostNameOrAddress); });
-        }
-
-        // bullet 2
-        async public Task<PingResult> RunAsync(string hostNameOrAddress)
-        {
-            TaskCompletionSource<PingResult> tcs = new TaskCompletionSource<PingResult>();
-
-            return await Task.Run(() =>
-             {
-                 return Run(hostNameOrAddress);
-             });
-        }
-
-
-        public async Task<PingResult> RunAsync(string hostNameOrAddress, CancellationToken cancellationToken = default)
-        {
-            try
+            tasks.Add(Task.Run(async () =>
             {
-
-                cancellationToken.ThrowIfCancellationRequested();
-                PingResult pr = await Task.Run<PingResult>(() => { return Run(hostNameOrAddress); }, cancellationToken);
-
-                return pr;
-            }
-            catch (OperationCanceledException)
-            {
-                TaskCanceledException taskExc = new();
-                AggregateException AggExc = new(innerExceptions: taskExc);
-                throw AggExc;
-            }
-
-        }
-
-        async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
-        {
-            List<Task<PingResult>> tasks = new List<Task<PingResult>>();
-            int total = 0;
-            StringBuilder? builder = new StringBuilder();
-            foreach (var host in hostNameOrAddresses)
-            {
-                tasks.Add(Task.Run(async () =>
+                PingResult res = await RunAsync(host, cancellationToken);
+                if(res.StdOutput != null)
                 {
-                    PingResult res = await RunAsync(host, cancellationToken);
-                    if (res.StdOutput != null)
-                    {
-                        builder.AppendLine(res.StdOutput?.Trim());
-                    }
-                    total += res.ExitCode;
-                    return res;
-                }));
-            }
-
-            await Task.WhenAll(tasks);
-            int totalExitCode = tasks.Sum(task => task.Result.ExitCode);
-            //int total = tasks.Sum(task => task.Result.ExitCode);
-
-            return new PingResult(totalExitCode, builder.ToString().Trim());
+                builder.AppendLine(res.StdOutput?.Trim());
+                }
+                total += res.ExitCode;
+                return res;
+            }));
         }
 
-        //async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
-        //{
-        //    StringBuilder? stringBuilder = new StringBuilder();
-        //    ParallelQuery<Task<int>>? all = hostNameOrAddresses.AsParallel().Select(async item =>
-        //    {
-        //        Task<PingResult> task = RunAsync(item);
-        //        stringBuilder.AppendLine(task.Result.StdOutput?.Trim());
-        //        //await Task.WaitAll();
-        //        return task.Result.ExitCode;
-        //    });
+        await Task.WhenAll(tasks);
+        int totalExitCode = tasks.Sum(task => task.Result.ExitCode);
+        //int total = tasks.Sum(task => task.Result.ExitCode);
 
-        //    await Task.WhenAll(all);
-        //    int total = all.Aggregate(0, (total, item) => total + item.Result);
-        //    return new PingResult(total, stringBuilder?.ToString().Trim());
-        //}
+        return new PingResult(totalExitCode, builder.ToString().Trim());
+    }
 
+    //async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
+    //{
+    //    StringBuilder? stringBuilder = new StringBuilder();
+    //    ParallelQuery<Task<int>>? all = hostNameOrAddresses.AsParallel().Select(async item =>
+    //    {
+    //        Task<PingResult> task = RunAsync(item);
+    //        stringBuilder.AppendLine(task.Result.StdOutput?.Trim());
+    //        //await Task.WaitAll();
+    //        return task.Result.ExitCode;
+    //    });
 
-        public Task<int> RunLongRunningAsync(ProcessStartInfo startInfo, Action<string?>? progressOutput, Action<string?>? progressError, CancellationToken token)
+    //    await Task.WhenAll(all);
+    //    int total = all.Aggregate(0, (total, item) => total + item.Result);
+    //    return new PingResult(total, stringBuilder?.ToString().Trim());
+    //}
+
+   
+    public Task<int> RunLongRunningAsync(ProcessStartInfo startInfo, Action<string?>? progressOutput, Action<string?>? progressError, CancellationToken token)
+    {
+        //using updateprocessstartinfo
+        ProcessStartInfo processStartInfo = UpdateProcessStartInfo(startInfo);
+        //returning the exit code of the function
+        return Task.Factory.StartNew(() =>
         {
-            //using updateprocessstartinfo
-            ProcessStartInfo processStartInfo = UpdateProcessStartInfo(startInfo);
-            //returning the exit code of the function
-            return Task.Factory.StartNew(() =>
-            {
-                Process running =
-                    RunProcessInternal(processStartInfo, progressOutput, progressError, token);
-                running.WaitForExit();
-                return running.ExitCode;
-            }, token, TaskCreationOptions.LongRunning, TaskScheduler.Current);
+            Process running =
+                RunProcessInternal(processStartInfo, progressOutput, progressError, token);
+            running.WaitForExit();
+            return running.ExitCode;
+        }, token, TaskCreationOptions.LongRunning, TaskScheduler.Current);
 
-        }
+    }
 
         private Process RunProcessInternal(
         ProcessStartInfo startInfo,
         Action<string?>? progressOutput,
         Action<string?>? progressError,
         CancellationToken token)
+    {
+        var process = new Process
         {
-            var process = new Process
-            {
-                StartInfo = UpdateProcessStartInfo(startInfo)
-            };
-            return RunProcessInternal(process, progressOutput, progressError, token);
-        }
+            StartInfo = UpdateProcessStartInfo(startInfo)
+        };
+        return RunProcessInternal(process, progressOutput, progressError, token);
+    }
 
-        private Process RunProcessInternal(
-            Process process,
-            Action<string?>? progressOutput,
-            Action<string?>? progressError,
-            CancellationToken token)
+    private Process RunProcessInternal(
+        Process process,
+        Action<string?>? progressOutput,
+        Action<string?>? progressError,
+        CancellationToken token)
+    {
+        process.EnableRaisingEvents = true;
+        process.OutputDataReceived += OutputHandler;
+        process.ErrorDataReceived += ErrorHandler;
+
+        try
         {
-            process.EnableRaisingEvents = true;
-            process.OutputDataReceived += OutputHandler;
-            process.ErrorDataReceived += ErrorHandler;
-
-            try
+            if (!process.Start())
             {
-                if (!process.Start())
-                {
-                    return process;
-                }
+                return process;
+            }
 
-                token.Register(obj =>
+            token.Register(obj =>
+            {
+                if (obj is Process p && !p.HasExited)
                 {
-                    if (obj is Process p && !p.HasExited)
+                    try
                     {
-                        try
-                        {
-                            p.Kill();
-                        }
-                        catch (Win32Exception ex)
-                        {
-                            throw new InvalidOperationException($"Error cancelling process{Environment.NewLine}{ex}");
-                        }
+                        p.Kill();
                     }
-                }, process);
+                    catch (Win32Exception ex)
+                    {
+                        throw new InvalidOperationException($"Error cancelling process{Environment.NewLine}{ex}");
+                    }
+                }
+            }, process);
 
 
-                if (process.StartInfo.RedirectStandardOutput)
-                {
-                    process.BeginOutputReadLine();
-                }
-                if (process.StartInfo.RedirectStandardError)
-                {
-                    process.BeginErrorReadLine();
-                }
-
-                if (process.HasExited)
-                {
-                    return process;
-                }
-                process.WaitForExit();
-            }
-            catch (Exception e)
+            if (process.StartInfo.RedirectStandardOutput)
             {
-                throw new InvalidOperationException($"Error running '{process.StartInfo.FileName} {process.StartInfo.Arguments}'{Environment.NewLine}{e}");
+                process.BeginOutputReadLine();
             }
-            finally
+            if (process.StartInfo.RedirectStandardError)
             {
-                if (process.StartInfo.RedirectStandardError)
-                {
-                    process.CancelErrorRead();
-                }
-                if (process.StartInfo.RedirectStandardOutput)
-                {
-                    process.CancelOutputRead();
-                }
-                process.OutputDataReceived -= OutputHandler;
-                process.ErrorDataReceived -= ErrorHandler;
-
-                if (!process.HasExited)
-                {
-                    process.Kill();
-                }
-
+                process.BeginErrorReadLine();
             }
-            return process;
 
-            void OutputHandler(object s, DataReceivedEventArgs e)
+            if (process.HasExited)
             {
-                progressOutput?.Invoke(e.Data);
+                return process;
             }
-
-            void ErrorHandler(object s, DataReceivedEventArgs e)
-            {
-                progressError?.Invoke(e.Data);
-            }
+            process.WaitForExit();
         }
-
-        private static ProcessStartInfo UpdateProcessStartInfo(ProcessStartInfo startInfo)
+        catch (Exception e)
         {
-            startInfo.CreateNoWindow = true;
-            startInfo.RedirectStandardError = true;
-            startInfo.RedirectStandardOutput = true;
-            startInfo.UseShellExecute = false;
-            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-
-            return startInfo;
+            throw new InvalidOperationException($"Error running '{process.StartInfo.FileName} {process.StartInfo.Arguments}'{Environment.NewLine}{e}");
         }
+        finally
+        {
+            if (process.StartInfo.RedirectStandardError)
+            {
+                process.CancelErrorRead();
+            }
+            if (process.StartInfo.RedirectStandardOutput)
+            {
+                process.CancelOutputRead();
+            }
+            process.OutputDataReceived -= OutputHandler;
+            process.ErrorDataReceived -= ErrorHandler;
+
+            if (!process.HasExited)
+            {
+                process.Kill();
+            }
+
+        }
+        return process;
+
+        void OutputHandler(object s, DataReceivedEventArgs e)
+        {
+            progressOutput?.Invoke(e.Data);
+        }
+
+        void ErrorHandler(object s, DataReceivedEventArgs e)
+        {
+            progressError?.Invoke(e.Data);
+        }
+    }
+
+    private static ProcessStartInfo UpdateProcessStartInfo(ProcessStartInfo startInfo)
+    {
+        startInfo.CreateNoWindow = true;
+        startInfo.RedirectStandardError = true;
+        startInfo.RedirectStandardOutput = true;
+        startInfo.UseShellExecute = false;
+        startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+
+        return startInfo;
     }
 }
