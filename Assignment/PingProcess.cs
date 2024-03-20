@@ -200,11 +200,11 @@ public class PingProcess
 
         return startInfo;
     }
-    public async Task<PingResult> RunAsync(System.IProgress<string?> progress)
-    {
-        StringBuilder stringBuilder = new StringBuilder();
-        var result = await RunAsync("localhost", CancellationToken.None);
-        progress.Report(result.StdOutput);
-        return result;
-    }
+    //public async Task<PingResult> RunAsync(System.IProgress<string?> progress)
+    //{
+    //    StringBuilder stringBuilder = new StringBuilder();
+    //    var result = await RunAsync("localhost", CancellationToken.None);
+    //    progress.Report(result.StdOutput);
+    //    return result;
+    //}
 }
