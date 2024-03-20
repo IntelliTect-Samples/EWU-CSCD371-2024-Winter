@@ -53,7 +53,7 @@ public class PingProcess
 
 
 
-    async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
+    static async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
     {
         StringBuilder? stringBuilder = null;
         ParallelQuery<Task<int>>? all = hostNameOrAddresses.AsParallel().Select(async item =>
@@ -85,7 +85,7 @@ public class PingProcess
         return new PingResult(totalExitCode, stringBuilder.ToString());
     }
 
-    async public Task<PingResult> RunLongRunningAsync(
+    static async public Task<PingResult> RunLongRunningAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
         Task task = null!;
