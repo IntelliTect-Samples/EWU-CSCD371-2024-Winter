@@ -22,7 +22,10 @@ public class PingProcessTests
     [TestMethod]
     public void Start_PingProcess_Success()
     {
-        Process process = Process.Start("ping", "localhost");
+        Process process = new();
+        process.StartInfo.FileName = "ping";
+        process.StartInfo.Arguments = "-c 4 localhost";
+        process.Start();
         process.WaitForExit();
         Assert.AreEqual<int>(0, process.ExitCode);
     }
@@ -34,6 +37,13 @@ public class PingProcessTests
         Assert.AreEqual<int>(0, exitCode);
     }
 
+
+    [TestMethod]
+    public void Run_LocalHost_Success()
+    {
+        int exitCode = Sut.Run("locahost").ExitCode;
+        Assert.AreEqual<int>(0, exitCode);
+    }
 
     [TestMethod]
     public void Run_InvalidAddressOutput_Success()
