@@ -94,8 +94,7 @@ public class PingProcess
                     try
                     {
                         total += result.ExitCode;
-                        string formattedOutput = $"{result.StdOutput.Trim()}"; // Resolve interpolated string
-                        stringBuilder.AppendLine(formattedOutput);
+                        stringBuilder.AppendLine(result.StdOutput.Trim());
                     }
                     finally
                     {
@@ -121,8 +120,6 @@ public class PingProcess
         await Task.WhenAll(tasks);
         return new PingResult(total, stringBuilder.ToString().Trim());
     }
-
-
 
 
     //5
