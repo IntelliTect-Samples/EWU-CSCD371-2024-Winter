@@ -110,7 +110,8 @@ public class PingProcess
                 await semaphore.WaitAsync(cancellationToken);
                 try
                 {
-                    stringBuilder.AppendLine($"Error pinging {item}: {ex.Message}");
+                    stringBuilder.AppendLine(CultureInfo.InvariantCulture, $"Error pinging {item}: {ex.Message}");
+
                 }
                 finally
                 {
