@@ -76,7 +76,7 @@ public class PingProcessTests
     }
 
     [TestMethod]
-#pragma warning disable CS1998 // Remove this
+
     async public Task RunAsync_UsingTpl_Success()
     {
         var pingProcess = new PingProcess();
@@ -84,7 +84,7 @@ public class PingProcessTests
 
         Assert.IsNotNull(result);
     }
-#pragma warning restore CS1998 // Remove this
+
 
 
     [TestMethod]
