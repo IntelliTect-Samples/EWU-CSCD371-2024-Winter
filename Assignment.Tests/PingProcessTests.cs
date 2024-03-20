@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace Assignment.Tests;
 
 [TestClass]
+[DoNotParallelize]
 public class PingProcessTests
 {
     PingProcess Sut { get; set; } = new();
