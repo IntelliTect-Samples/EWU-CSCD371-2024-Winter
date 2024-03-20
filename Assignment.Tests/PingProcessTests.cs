@@ -1,7 +1,6 @@
 using IntelliTect.TestTools;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -31,10 +30,7 @@ public class PingProcessTests
     [TestMethod]
     public void Start_PingProcess_Success()
     {
-        Process process = new();
-        process.StartInfo.FileName = "ping";
-        process.StartInfo.Arguments = $"{LimitPingArg} 4 localhost";
-        process.Start();
+        Process process = Process.Start("ping", $"{LimitPingArg} 4 localhost");
         process.WaitForExit();
         Assert.AreEqual<int>(0, process.ExitCode);
     }
@@ -72,7 +68,9 @@ public class PingProcessTests
             actualOutput,
             expectedOutput,
             $"Output is unexpected: {stdOutput}");
-        Assert.AreEqual<int>(expectedExitCode, exitCode); // 2 is the exit code for invalid address
+        // 2 is the exit code for invalid address in Unix
+        // 1 is the exit code for invalid address in Windows
+        Assert.AreEqual<int>(expectedExitCode, exitCode);
     }
 
 
@@ -130,21 +128,10 @@ public class PingProcessTests
         CancellationTokenSource cancelSource = new();
         cancelSource.Cancel();
         Task<PingResult> task = Sut.RunAsync("localhost", cancelSource.Token);
-        try
-        {
-            task.Wait();
-        }
-        catch (AggregateException a)
-        {
-            if (a.Flatten().InnerException != null)
-            {
-                throw a.Flatten().InnerException!;
-            }
-            else
-            {
-                Console.WriteLine("No inner exception");
-            }
-        }
+
+        AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>task.Wait());
+
+        throw aggregateException.Flatten().InnerException!;
     }
 
     [TestMethod]
@@ -190,14 +177,14 @@ public class PingProcessTests
         Assert.ThrowsException<AggregateException>(() => numbers.AsParallel().ForAll(item => stringBuilder.AppendLine("")));
     }*/
 
-    //Version of the above test that seems to pass consistenly, but we're not sure if it's actually testing anything
+    //Version of the above test that seems to pass consistenly, but we're in terms of passing the PR, it doesn't help due to its inconsistencies
     [TestMethod]
     public void StringBuilderAppendLine_InParallel_IsNotThreadSafe()
     {
         try
         {
             IEnumerable<int> numbers = Enumerable.Range(0, short.MaxValue);
-            System.Text.StringBuilder stringBuilder = new();
+            StringBuilder stringBuilder = new();
             numbers.AsParallel().ForAll(item => stringBuilder.AppendLine(""));
             int lineCount = stringBuilder.ToString().Split(Environment.NewLine).Length;
             Assert.AreNotEqual(lineCount, numbers.Count() + 1);
