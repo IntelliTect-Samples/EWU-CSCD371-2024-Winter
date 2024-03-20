@@ -39,33 +39,42 @@ public class PingProcess
         return await task;
     }
 
-    async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
+    async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, 
+        CancellationToken cancellationToken = default)
     {
         StringBuilder? stringBuilder = new();
         int total = 0;
         ParallelQuery<Task<int>>? all = hostNameOrAddresses.AsParallel().Select(async item =>
         {
+            cancellationToken.ThrowIfCancellationRequested();
             Task<PingResult> task = Task.Run(() => Run(item));
             lock (stringBuilder)
             {
                 stringBuilder.AppendLine(task.Result.StdOutput?.Trim());
                 total++;
             }
+            cancellationToken.ThrowIfCancellationRequested();
             await task.WaitAsync(default(CancellationToken));
             return task.Result.ExitCode;
         });
-
+        cancellationToken.ThrowIfCancellationRequested();
         await Task.WhenAll(all);
         //int total = all.Aggregate(0, (total, item) => total + item.Result);
         return new PingResult(total, stringBuilder?.ToString().Trim());
     }
 
-    async public static Task<PingResult> RunLongRunningAsync(
-        string hostNameOrAddress, CancellationToken cancellationToken = default)
+    public Task<int> RunLongRunningAsync(ProcessStartInfo startInfo, Action<string?>? progressOutput, 
+        Action<string?>? progressError, CancellationToken token)
     {
-        Task task = null!;
-        await task;
-        throw new NotImplementedException();
+        ProcessStartInfo processStartInfo = UpdateProcessStartInfo(startInfo);
+        Task<int> task = Task.Factory.StartNew(() =>
+        {
+            Process running =
+                RunProcessInternal(processStartInfo, progressOutput, progressError, token);
+            running.WaitForExit();
+            return running.ExitCode;
+        }, token, TaskCreationOptions.LongRunning, TaskScheduler.Current);
+        return task;
     }
 
     private Process RunProcessInternal(
