@@ -96,7 +96,7 @@ public class PingProcess
                     try
                     {
                         total += result.ExitCode;
-                        stringBuilder.AppendLine(result.StdOutput.Trim());
+                        stringBuilder.AppendLine(CultureInfo.InvariantCulture, $"{result.StdOutput.Trim()}");
                     }
                     finally
                     {
