@@ -150,7 +150,7 @@ public class PingProcessTests
           int lineCount = stringBuilder.ToString().Split(Environment.NewLine).Length;
           Assert.AreNotEqual(lineCount, numbers.Count()+1);
         }
-        catch (AggregateException ex)
+        catch (AggregateException)
         {
 
         }
