@@ -146,17 +146,16 @@ public class PingProcessTests
         AssertValidPingOutput(result);*/
     }
 
-    //temporarily commented out to build properly on github
-    /*[TestMethod]
-//#pragma warning disable CS1998 // Remove this
+
+    [TestMethod]
     async public Task RunLongRunningAsync_UsingTpl_Success()
     {
-        // PingResult result = default;
-        PingResult result = await Sut.RunLongRunningAsync("localhost");
-        // Test Sut.RunLongRunningAsync("localhost");
-        AssertValidPingOutput(result);
-    }*/
-//#pragma warning restore CS1998 // Remove this
+        ProcessStartInfo startInfo = new("ping", "localhost");
+
+        int exitCode = await Sut.RunLongRunningAsync(startInfo, null, null, default);
+
+        Assert.AreEqual(0, exitCode);
+    }
 
     [TestMethod]
     public void StringBuilderAppendLine_InParallel_IsNotThreadSafe()
