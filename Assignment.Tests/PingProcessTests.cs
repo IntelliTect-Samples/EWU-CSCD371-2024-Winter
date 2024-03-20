@@ -74,8 +74,8 @@ public class PingProcessTests
     public void RunTaskAsync_Success()
     {
         // Do NOT use async/await in this test.
-         Task<PingResult> result = Sut.RunTaskAsync("localhost");
-         AssertValidPingOutput(result.Result);
+        Task<PingResult> result = Sut.RunTaskAsync("localhost");
+        AssertValidPingOutput(result.Result);
     }
 
     [TestMethod]
@@ -140,11 +140,11 @@ public class PingProcessTests
         // Pseudo Code - don't trust it!!!
         // -> seems to work well enough
         string[] hostNames = new string[] { "localhost", "localhost", "localhost", "localhost" };
-        int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length*hostNames.Length;
+        int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length * hostNames.Length;
         PingResult result = await Sut.RunAsync(hostNames);
         int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
         Assert.AreEqual(expectedLineCount, lineCount);
-}
+    }
 
     [TestMethod]
     async public Task RunLongRunningAsync_UsingTpl_Success()
@@ -158,7 +158,7 @@ public class PingProcessTests
 
     // Commented out because it is impossible to PROVE whether code is thread safe or not,
     // as race conditions and other symptoms of thread-unsafety are undefined behavior.
-    [TestMethod]
+    /*[TestMethod]
     public void StringBuilderAppendLine_InParallel_IsNotThreadSafe()
     {
         IEnumerable<int> numbers = Enumerable.Range(0, short.MaxValue);
@@ -166,7 +166,17 @@ public class PingProcessTests
         numbers.AsParallel().ForAll(item => stringBuilder.AppendLine(""));
         int lineCount = stringBuilder.ToString().Split(Environment.NewLine).Length;
         Assert.AreNotEqual(lineCount, numbers.Count() + 1);
-    }
+    }*/
+
+    // Alternate version of the above test, using Assert.ThrowsException, which does not work every time
+    /*[TestMethod]
+    public void StringBuilderAppendLine_InParallel_IsNotThreadSafe()
+    {
+        IEnumerable<int> numbers = Enumerable.Range(0, short.MaxValue);
+        System.Text.StringBuilder stringBuilder = new();
+        Assert.ThrowsException<AggregateException>(() => numbers.AsParallel().ForAll(item => stringBuilder.AppendLine("")));
+    }*/
+
 
     // Windows version of ping output
     /*    readonly string PingOutputLikeExpression = @"
@@ -197,7 +207,7 @@ rtt min/avg/max/mdev = */*/*/* ms
     {
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-        Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression)??false,
+        Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression) ?? false,
             $"Output is unexpected: {stdOutput}");
         Assert.AreEqual<int>(0, exitCode);
     }
