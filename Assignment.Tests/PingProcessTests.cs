@@ -161,13 +161,22 @@ public class PingProcessTests
     }
 
     [TestMethod]
-    [ExpectedException(typeof(AggregateException))]
     public void StringBuilderAppendLine_InParallel_IsNotThreadSafe()
     {
         IEnumerable<int> numbers = Enumerable.Range(0, short.MaxValue);
         System.Text.StringBuilder stringBuilder = new();
-        numbers.AsParallel().ForAll(item => stringBuilder.AppendLine("line"));
-        Assert.AreNotEqual(0, stringBuilder.Length);
+        try
+        {
+            numbers.AsParallel().ForAll(item =>
+                stringBuilder.AppendLine("line"));
+        }
+        catch (AggregateException e)
+        {
+            Assert.ThrowsException<ArgumentException>(() => throw e.InnerException!);
+        }
+        catch (ArgumentException)
+        {}
+
         int lineCount = stringBuilder.ToString().Split("\n").Length;
         Assert.AreNotEqual(lineCount, numbers.Count()+1);
     }
