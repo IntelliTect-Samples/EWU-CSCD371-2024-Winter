@@ -60,17 +60,6 @@ public class PingProcess
         ParallelQuery<Task<int>>? all = hostNameOrAddresses.AsParallel().Select(async item =>
         {
 
-/*            PingResult result = await RunAsync(item, cancellationToken);
-
-            lock (stringBuilder)
-            {
-                stringBuilder.AppendLine(result.StdOutput);
-            }
-
-            //This is adding outputting twice as many ping results as it should
-
-            return result.ExitCode;*/
-
             Task<PingResult> task = RunAsync(item);
             lock (stringBuilder)
             {
@@ -78,8 +67,6 @@ public class PingProcess
                 ++total;
             }
 
-            //Task<PingResult> task = null!;
-            // ...
             await task.WaitAsync(cancellationToken);
             return task.Result.ExitCode;
         });

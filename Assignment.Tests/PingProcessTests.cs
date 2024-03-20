@@ -31,7 +31,7 @@ public class PingProcessTests
     [TestMethod]
     public void Run_GoogleDotCom_Success()
     {
-        int exitCode = Sut.Run("google.com").ExitCode;
+        int exitCode = Sut.Run("-c 4 google.com").ExitCode;
         Assert.AreEqual<int>(0, exitCode);
     }
 
@@ -68,7 +68,7 @@ public class PingProcessTests
     [TestMethod]
     public void RunAsync_UsingTaskReturn_Success()// 2.)
     {
-        Task<PingResult> testOutput = Sut.RunAsync("localhost");
+        Task<PingResult> testOutput = Sut.RunAsync("-c 4 localhost");
         PingResult result = testOutput.Result;
         AssertValidPingOutput(result);
     }
@@ -76,7 +76,7 @@ public class PingProcessTests
     [TestMethod]
     async public Task RunAsync_UsingTpl_Success()// 2.)
     {
-        PingResult result = await Sut.RunAsync("localhost");
+        PingResult result = await Sut.RunAsync("-c 4 localhost");
         AssertValidPingOutput(result);
     }
 
@@ -90,7 +90,7 @@ public class PingProcessTests
       cancellationTokenSource.Cancel();
 
       // Act
-      Sut.RunAsync("localhost", cancellationTokenSource.Token).Wait();
+      Sut.RunAsync("-c 4 localhost", cancellationTokenSource.Token).Wait();
     }
 
     [TestMethod]
@@ -104,7 +104,7 @@ public class PingProcessTests
       // Act
       try
       {
-        Sut.RunAsync("localhost", cancellationTokenSource.Token).Wait();
+        Sut.RunAsync("-c 4 localhost", cancellationTokenSource.Token).Wait();
       }
       catch (AggregateException ex)
       {
@@ -131,7 +131,7 @@ public class PingProcessTests
     [TestMethod]
     async public Task RunLongRunningAsync_UsingTpl_Success()// 5.)
     {
-        var startInfo = new ProcessStartInfo("ping", "localhost");
+        var startInfo = new ProcessStartInfo("ping", "-c 4 localhost");
         
         int exitCode = await Sut.RunLongRunningAsync(startInfo, null, null, default);
         
