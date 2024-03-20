@@ -32,7 +32,7 @@ public class PingProcessTests
     [TestMethod]
     public void Run_GoogleDotCom_Success()
     {
-        int exitCode = Sut.Run("-c 4 www.google.com").ExitCode;
+        int exitCode = Sut.Run("-c 4 google.com").ExitCode;
         Assert.AreEqual<int>(0, exitCode);
     }
 
@@ -40,7 +40,7 @@ public class PingProcessTests
     [TestMethod]
     public void Run_InvalidAddressOutput_Success()
     {
-        (int exitCode, string? stdOutput) = Sut.Run("badaddress");
+        (int exitCode, string? stdOutput) = Sut.Run("-c 4 badaddress");
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
         Assert.AreEqual<string?>(
