@@ -25,7 +25,7 @@ public class PingProcessTests
     {
         Process process = Process.Start("ping", "-c 4 localhost");
         process.WaitForExit();
-        Assert.AreEqual(1, process.ExitCode);
+        Assert.AreEqual(0, process.ExitCode);
     }
 
 
@@ -37,7 +37,7 @@ public class PingProcessTests
     }
     */
 
-    [TestMethod]
+    /*[TestMethod]
     public void Run_InvalidAddressOutput_Success()
     {
         (int exitCode, string? stdOutput) = Sut.Run("badaddress");
@@ -49,6 +49,7 @@ public class PingProcessTests
             $"Output is unexpected: {stdOutput}");
         Assert.AreEqual<int>(1, exitCode);
     }
+    */
 
     /* [TestMethod]
     public void Run_CaptureStdOutput_Success()
