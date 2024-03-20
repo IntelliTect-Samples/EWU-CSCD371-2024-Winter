@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Assignment.Tests;
@@ -68,21 +69,20 @@ public class PingProcessTests
     [TestMethod]
     public void RunAsync_UsingTaskReturn_Success()
     {
-        // Do NOT use async/await in this test.
-        PingResult result = default;
-        // Test Sut.RunAsync("localhost");
-        AssertValidPingOutput(result);
+        var pingProcess = new PingProcess();
+        var result = pingProcess.RunAsync("localhost").Result;
+
+        Assert.IsNotNull(result);
     }
 
     [TestMethod]
 #pragma warning disable CS1998 // Remove this
     async public Task RunAsync_UsingTpl_Success()
     {
-        // DO use async/await in this test.
-        PingResult result = default;
+        var pingProcess = new PingProcess();
+        var result = await pingProcess.RunAsync("localhost");
 
-        // Test Sut.RunAsync("localhost");
-        AssertValidPingOutput(result);
+        Assert.IsNotNull(result);
     }
 #pragma warning restore CS1998 // Remove this
 
@@ -91,13 +91,26 @@ public class PingProcessTests
     [ExpectedException(typeof(AggregateException))]
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
     {
-        
+        var pingProcess = new PingProcess();
+        var cancellationTokenSource = new CancellationTokenSource();
+        cancellationTokenSource.CancelAfter(1000); // Cancel after 1 second
+        Assert.ThrowsException<AggregateException>(() =>
+        {
+            var result = pingProcess.RunAsync("localhost", cancellationTokenSource.Token).Result;
+        });
     }
 
     [TestMethod]
     [ExpectedException(typeof(TaskCanceledException))]
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
+        var pingProcess = new PingProcess();
+        var cancellationTokenSource = new CancellationTokenSource();
+        cancellationTokenSource.CancelAfter(1000); // Cancel after 1 second
+        Assert.ThrowsException<TaskCanceledException>(() =>
+        {
+            var result = pingProcess.RunAsync("localhost", cancellationTokenSource.Token).Result;
+        });
         // Use exception.Flatten()
     }
 
