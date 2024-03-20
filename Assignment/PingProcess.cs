@@ -73,63 +73,33 @@ public class PingProcess
     }
 
     //4
-    async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
+    public async Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
     {
-        int total = 0;
-        StringBuilder stringBuilder = new StringBuilder();
-
-        // Semaphore to synchronize access to stringBuilder
-        var semaphore = new SemaphoreSlim(1);
-
-        var tasks = hostNameOrAddresses.Select(async item =>
+        StringBuilder stringBuilder = new();
+        int count = 0;
+        await Task.WhenAll(hostNameOrAddresses.Select(async item =>
         {
             try
             {
-                cancellationToken.ThrowIfCancellationRequested();
                 PingResult result = await RunAsync(item, cancellationToken);
-
-                if (result.StdOutput != null)
+                lock (stringBuilder)
                 {
-                    // Enter critical section
-                    await semaphore.WaitAsync(cancellationToken);
-                    try
-                    {
-                        total += result.ExitCode;
-                        var trimmedStdOutput = result.StdOutput?.Trim();
-                        stringBuilder.Append(trimmedStdOutput);
-                        stringBuilder.AppendLine();
-
-
-                    }
-                    finally
-                    {
-                        semaphore.Release(); // Exit critical section
-                    }
+                    stringBuilder.AppendLine(result.StdOutput?.Trim());
+                    count++;
                 }
             }
             catch (Exception ex)
             {
-                // Handle any exceptions from individual ping operations
-                await semaphore.WaitAsync(cancellationToken);
-                try
-                {
-                    stringBuilder.AppendLine($"Error pinging {item}: {ex.Message}");
-                }
-                finally
-                {
-                    semaphore.Release();
-                }
+                Console.WriteLine($"Error occurred for '{item}': {ex.Message}");
             }
-        });
-
-        await Task.WhenAll(tasks);
-        return new PingResult(total, stringBuilder.ToString().Trim());
+        }));
+        return new PingResult(count, stringBuilder.ToString().Trim());
     }
 
 
 
-    //5
-    public Task<int> RunLongRunningAsync(
+        //5
+        public Task<int> RunLongRunningAsync(
     ProcessStartInfo startInfo,
     Action<string?>? progressOutput,
     Action<string?>? progressError,
