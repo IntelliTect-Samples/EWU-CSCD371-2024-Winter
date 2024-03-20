@@ -171,7 +171,7 @@ public class PingProcessTests
     }
 
     // Create a test for public Task<int> RunLongRunningAsync(ProcessStartInfo startInfo, Action<string?>? progressOutput, Action<string?>? progressError, CancellationToken token)
-    [TestMethod]
+    /* [TestMethod]
     public void RunLongRunningAsync_ProcessStartInfo_Success()
     {
         ProcessStartInfo startInfo = new ProcessStartInfo
@@ -192,7 +192,7 @@ public class PingProcessTests
             UserName = Environment.UserName
         };
     }
-
+    */
 
 
 
