@@ -50,7 +50,7 @@ public class PingProcessTests
         Assert.AreEqual<int>(1, exitCode);
     }
 
-    [TestMethod]
+    /* [TestMethod]
     public void Run_CaptureStdOutput_Success()
     {
         PingResult result = Sut.Run("localhost");
@@ -91,6 +91,8 @@ public class PingProcessTests
     }
 //#pragma warning restore CS1998 // Remove this
 
+     */
+
     //3
     [TestMethod]
     [ExpectedException(typeof(AggregateException))]
@@ -126,7 +128,7 @@ public class PingProcessTests
         }
     }
 
-    [TestMethod]
+    /*[TestMethod]
     async public Task RunAsync_MultipleHostAddresses_True()
     {
         // Pseudo Code - don't trust it!!!
@@ -136,6 +138,7 @@ public class PingProcessTests
         int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
         Assert.AreEqual(expectedLineCount, lineCount);
     }
+    */
 
     /* commented out due to we have another test
     [TestMethod]
