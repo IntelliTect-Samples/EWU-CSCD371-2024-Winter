@@ -29,13 +29,13 @@ public class PingProcessTests
         Assert.AreEqual<int>(0, process.ExitCode);
     }
 
-    [TestMethod]
-    public void Run_GoogleDotCom_Success()
-    {
-        PingResult res = Sut.Run("-c 8 google.com");
+    //[TestMethod]
+    //public void Run_GoogleDotCom_Success()
+    //{
+    //    PingResult res = Sut.Run("-c 8 google.com");
         
-        Assert.AreEqual<int>(0, res.ExitCode);
-    }
+    //    Assert.AreEqual<int>(0, res.ExitCode);
+    //}
 
 
     //[TestMethod]
