@@ -164,8 +164,7 @@ public sealed class WildcardPattern
     /// <returns></returns>
     public static WildcardPattern Get(string pattern, WildcardOptions options)
     {
-        if (pattern == null)
-            throw new ArgumentNullException(nameof(pattern));
+        ArgumentNullException.ThrowIfNull(pattern);
 
         if (pattern.Length == 1 && pattern[0] == '*')
             return s_matchAllIgnoreCasePattern;
@@ -223,15 +222,10 @@ public sealed class WildcardPattern
     {
 #pragma warning disable 56506
 
-        if (pattern == null)
-        {
-            throw new ArgumentNullException(nameof(pattern));
-        }
+        ArgumentNullException.ThrowIfNull(pattern);
 
-        if (charsNotToEscape == null)
-        {
-            throw new ArgumentNullException(nameof(charsNotToEscape));
-        }
+        ArgumentNullException.ThrowIfNull(nameof(charsNotToEscape));
+        
 
         char[] temp = new char[(pattern.Length * 2) + 1];
         int tempIndex = 0;
@@ -335,10 +329,8 @@ public sealed class WildcardPattern
     public static string Unescape(
         string pattern, char escapeCharacter)
     {
-        if (pattern == null)
-        {
-            throw new ArgumentNullException(nameof(pattern));
-        }
+       ArgumentNullException.ThrowIfNull(nameof(pattern));
+        
 
         char[] temp = new char[pattern.Length];
         int tempIndex = 0;
@@ -632,7 +624,7 @@ internal abstract class WildcardPatternParser
 
     internal static Exception NewWildcardPatternException(string invalidPattern)
     {
-        return new Exception(
+        return new ArgumentException(
                 $"The wildcard pattern, '{invalidPattern}', is invalid.");
     }
 };
@@ -652,7 +644,7 @@ internal abstract class WildcardPatternParser
 ///
 /// for a more cases see the unit-test file RegexTest.cs
 /// </remarks>
-internal class WildcardPatternToRegexParser : WildcardPatternParser
+internal sealed class WildcardPatternToRegexParser : WildcardPatternParser
 {
     private StringBuilder _regexPattern;
     private RegexOptions _regexOptions;
@@ -821,7 +813,7 @@ internal class WildcardPatternToRegexParser : WildcardPatternParser
     }
 }
 
-internal class WildcardPatternMatcher
+internal sealed class WildcardPatternMatcher
 {
     private readonly PatternElement[] _patternElements;
     private readonly CharacterNormalizer _characterNormalizer;
@@ -893,7 +885,7 @@ internal class WildcardPatternMatcher
         return patternPositionsForCurrentStringPosition.ReachedEndOfPattern;
     }
 
-    private class PatternPositionsVisitor
+    private sealed class PatternPositionsVisitor
     {
         private readonly int _lengthOfPattern;
 
