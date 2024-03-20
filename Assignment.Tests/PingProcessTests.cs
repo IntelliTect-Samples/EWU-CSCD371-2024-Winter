@@ -150,7 +150,7 @@ public class PingProcessTests
     [TestMethod]
     async public Task RunLongRunningAsync_UsingTpl_Success()
     {
-        ProcessStartInfo startInfo = new("ping", "localhost");
+        ProcessStartInfo startInfo = new("ping", "-c 4 localhost");
 
         int exitCode = await Sut.RunLongRunningAsync(startInfo, null, null, default);
 
