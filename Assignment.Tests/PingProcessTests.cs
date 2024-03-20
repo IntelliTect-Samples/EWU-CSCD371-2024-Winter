@@ -1,6 +1,7 @@
 using IntelliTect.TestTools;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -13,10 +14,17 @@ namespace Assignment.Tests;
 public class PingProcessTests
 {
     PingProcess Sut { get; set; } = new();
+    bool IsUnix { get; set; }
+    //Will never be null as its set in TestInitalize
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    string LimitPingArg { get; set; }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
     [TestInitialize]
     public void TestInitialize()
     {
+        IsUnix = Environment.OSVersion.Platform is PlatformID.Unix;
+        LimitPingArg = IsUnix ? "-c" : "-n";
         Sut = new();
     }
 
@@ -25,7 +33,7 @@ public class PingProcessTests
     {
         Process process = new();
         process.StartInfo.FileName = "ping";
-        process.StartInfo.Arguments = "-c 4 localhost";
+        process.StartInfo.Arguments = $"{LimitPingArg} 4 localhost";
         process.Start();
         process.WaitForExit();
         Assert.AreEqual<int>(0, process.ExitCode);
@@ -52,14 +60,16 @@ public class PingProcessTests
     [TestMethod]
     public void Run_InvalidAddressOutput_Success()
     {
+
+        int expectedExitCode = IsUnix ? 2 : 1;
         (int exitCode, string? stdOutput) = Sut.Run("badaddress");
-        Assert.IsTrue(string.IsNullOrWhiteSpace(stdOutput));
+        Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
         Assert.AreEqual<string?>(
-            string.Empty,
+           IsUnix ? string.Empty : "Ping request could not find host badaddress. Please check the name and try again.",
             stdOutput,
             $"Output is unexpected: {stdOutput}");
-        Assert.AreEqual<int>(2, exitCode); // 2 is the exit code for invalid address
+        Assert.AreEqual<int>(expectedExitCode, exitCode); // 2 is the exit code for invalid address
     }
 
 
@@ -140,7 +150,7 @@ public class PingProcessTests
         // Pseudo Code - don't trust it!!!
         // -> seems to work well enough
         string[] hostNames = new string[] { "localhost", "localhost", "localhost", "localhost" };
-        int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length * hostNames.Length;
+        int expectedLineCount = (IsUnix ? PingOutputLikeExpressionUnix : PingOutputLikeExpressionWindows).Split(Environment.NewLine).Length * hostNames.Length;
         PingResult result = await Sut.RunAsync(hostNames);
         int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
         Assert.AreEqual(expectedLineCount, lineCount);
@@ -149,7 +159,7 @@ public class PingProcessTests
     [TestMethod]
     async public Task RunLongRunningAsync_UsingTpl_Success()
     {
-        ProcessStartInfo startInfo = new("ping", "-c 4 localhost");
+        ProcessStartInfo startInfo = new("ping", $"{LimitPingArg} 4 localhost");
 
         int exitCode = await Sut.RunLongRunningAsync(startInfo, null, null, default);
 
@@ -196,20 +206,20 @@ public class PingProcessTests
     }
 
     // Windows version of ping output
-    /*    readonly string PingOutputLikeExpression = @"
-    Pinging * with 32 bytes of data:
-    Reply from ::1: time<*
-    Reply from ::1: time<*
-    Reply from ::1: time<*
-    Reply from ::1: time<*
+    readonly string PingOutputLikeExpressionWindows = @"
+Pinging * with 32 bytes of data:
+Reply from ::1: time<*
+Reply from ::1: time<*
+Reply from ::1: time<*
+Reply from ::1: time<*
 
-    Ping statistics for ::1:
-        Packets: Sent = *, Received = *, Lost = 0 (0% loss),
-    Approximate round trip times in milli-seconds:
-        Minimum = *, Maximum = *, Average = *".Trim();*/
+Ping statistics for ::1:
+    Packets: Sent = *, Received = *, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = *, Maximum = *, Average = *".Trim();
 
     //Linux version of ping output
-    readonly string PingOutputLikeExpression = @"
+    readonly string PingOutputLikeExpressionUnix = @"
 PING * * bytes*
 64 bytes from * (*): icmp_seq=* ttl=* time=* ms
 64 bytes from * (*): icmp_seq=* ttl=* time=* ms
@@ -224,7 +234,7 @@ rtt min/avg/max/mdev = */*/*/* ms
     {
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-        Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression) ?? false,
+        Assert.IsTrue(stdOutput?.IsLike(IsUnix ?  PingOutputLikeExpressionUnix : PingOutputLikeExpressionWindows) ?? false,
             $"Output is unexpected: {stdOutput}");
         Assert.AreEqual<int>(0, exitCode);
     }
