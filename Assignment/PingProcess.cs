@@ -94,7 +94,8 @@ public class PingProcess
                     try
                     {
                         total += result.ExitCode;
-                        stringBuilder.AppendLine(result.StdOutput.Trim());
+                        string formattedOutput = $"{result.StdOutput.Trim()}"; // Resolve interpolated string
+                        stringBuilder.AppendLine(formattedOutput);
                     }
                     finally
                     {
