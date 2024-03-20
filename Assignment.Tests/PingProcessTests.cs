@@ -23,10 +23,11 @@ public class PingProcessTests
     [TestMethod]
     public void Start_PingProcess_Success()
     {
-        Process process = Process.Start("ping", "localhost");
+        Process process = Process.Start("ping", "-c 4 localhost");
         process.WaitForExit();
         Assert.AreEqual<int>(0, process.ExitCode);
     }
+
 
     [TestMethod]
     public void Run_GoogleDotCom_Success()
