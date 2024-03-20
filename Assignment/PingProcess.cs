@@ -94,7 +94,8 @@ public class PingProcess
                     try
                     {
                         total += result.ExitCode;
-                        stringBuilder.AppendLine($"Error pinging {item}: {result.StdOutput.Trim()}");
+                        stringBuilder.AppendFormat("Error pinging {0}: {1}", item, result.StdOutput.Trim());
+                        stringBuilder.AppendLine();
                     }
                     finally
                     {
@@ -108,8 +109,8 @@ public class PingProcess
                 await semaphore.WaitAsync(cancellationToken);
                 try
                 {
-                    string errorMessage = string.Format("Error pinging {0}: {1}", item, ex.Message);
-                    stringBuilder.AppendLine(errorMessage);
+                    stringBuilder.AppendFormat("Error pinging {0}: {1}", item, ex.Message);
+                    stringBuilder.AppendLine();
                 }
                 finally
                 {
@@ -121,6 +122,7 @@ public class PingProcess
         await Task.WhenAll(tasks);
         return new PingResult(total, stringBuilder.ToString().Trim());
     }
+
 
 
 
