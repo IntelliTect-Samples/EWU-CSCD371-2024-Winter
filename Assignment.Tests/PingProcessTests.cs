@@ -44,7 +44,7 @@ public class PingProcessTests
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdError));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdError!.Trim());
         Assert.AreEqual<string?>(
-            "ping: badaddress: Name or service not known".Trim(),
+            "ping: badaddress: Temporary failure in name resolution".Trim(),
             stdOutput,
             $"Output is unexpected: {stdOutput}");
         Assert.AreEqual<int>(2, exitCode); //In linux bad address results in exit code 2 not 1
