@@ -42,7 +42,7 @@ public class PingProcessTests
     public void Run_InvalidAddressOutput_Success()
     {
         (int exitCode, string? stdOutput) = Sut.Run("badaddress");
-        //Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
+        Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
         Assert.AreEqual<string?>(
             "Ping request could not find host badaddress. Please check the name and try again.".Trim(),
@@ -54,7 +54,7 @@ public class PingProcessTests
     [TestMethod]
     public void Run_CaptureStdOutput_Success()
     {
-        PingResult result = Sut.Run("-n 4 localhost");
+        PingResult result = Sut.Run("-c 4 localhost");
         AssertValidPingOutput(result);
     }
 

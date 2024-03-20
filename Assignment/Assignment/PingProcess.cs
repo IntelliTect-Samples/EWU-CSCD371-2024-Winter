@@ -24,7 +24,7 @@ public class PingProcess
         StringBuilder? stringBuilder = null;
         void updateStdOutput(string? line) =>
             (stringBuilder??=new StringBuilder()).AppendLine(line);
-        Process process = RunProcessInternal(StartInfo, updateStdOutput, default, default);
+        Process process = RunProcessInternal(StartInfo, updateStdOutput, updateStdOutput, default);
         return new PingResult( process.ExitCode, stringBuilder?.ToString());
     }
 
