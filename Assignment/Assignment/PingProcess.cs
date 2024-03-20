@@ -33,7 +33,7 @@ public class PingProcess
         return new PingResult(process?.ExitCode ?? 1, output);
     }
 
-    public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
+    public static Task<PingResult> RunTaskAsync(string hostNameOrAddress)
     {
         var tcs = new TaskCompletionSource<PingResult>();
         Ping pingSender = new();
@@ -59,7 +59,7 @@ public class PingProcess
     }
 
 
-    async public Task<PingResult> RunAsync(
+    public static async Task<PingResult> RunAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
         using Ping ping = new();
@@ -71,7 +71,7 @@ public class PingProcess
 
 
 
-    public async Task<PingResult[]> RunAsync(IEnumerable<string> hostNameOrAddress, CancellationToken cancellationToken = default)
+    public static async Task<PingResult[]> RunAsync(IEnumerable<string> hostNameOrAddress, CancellationToken cancellationToken = default)
     {
         var tasks = hostNameOrAddress.Select(hostName => RunAsync(hostName, cancellationToken));
         return await Task.WhenAll(tasks);
@@ -79,7 +79,7 @@ public class PingProcess
 
 
 
-    public Task<int> RunLongRunningAsync(ProcessStartInfo startInfo, Action<string?>? progressOutput, Action<string?>? progressError, CancellationToken token)
+    public static Task<int> RunLongRunningAsync(ProcessStartInfo startInfo, Action<string?>? progressOutput, Action<string?>? progressError, CancellationToken token)
     {
         return Task.Factory.StartNew(() =>
         {
@@ -107,14 +107,5 @@ public class PingProcess
             }
         });
         return process;
-    }
-
-    private static ProcessStartInfo UpdateProcessStartInfo(ProcessStartInfo startInfo)
-    {
-        startInfo.UseShellExecute = false;
-        startInfo.RedirectStandardError = true;
-        startInfo.RedirectStandardOutput = true;
-        startInfo.CreateNoWindow = true;
-        return startInfo;
     }
 }

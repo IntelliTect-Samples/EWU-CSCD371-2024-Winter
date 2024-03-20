@@ -65,7 +65,7 @@ public class PingProcessTests
         string hostNameOrAddress = "localhost";
 
 
-        var pingTask = pingProcess.RunTaskAsync(hostNameOrAddress);
+        var pingTask = PingProcess.RunTaskAsync(hostNameOrAddress);
 
         var result = pingTask.Result;
         Assert.IsNotNull(result.StdOutput);
@@ -79,7 +79,7 @@ public class PingProcessTests
         string hostNameOrAddress = "localhost";
 
 
-        var task = pingProcess.RunTaskAsync(hostNameOrAddress);
+        var task = PingProcess.RunTaskAsync(hostNameOrAddress);
         var res = task.Result;
 
 
@@ -96,7 +96,7 @@ public class PingProcessTests
         string hostNameOrAddress = "localhost";
 
 
-        var result = await pingProcess.RunAsync(hostNameOrAddress);
+        var result = await PingProcess.RunAsync(hostNameOrAddress);
 
 
         Assert.IsNotNull(result.StdOutput);
@@ -112,7 +112,7 @@ public class PingProcessTests
         string hostNameOrAddress = "localhost";
         CancellationTokenSource cancellationTokenSource = new();
 
-        var task = pingProcess.RunAsync(hostNameOrAddress, cancellationTokenSource.Token);
+        var task = PingProcess.RunAsync(hostNameOrAddress, cancellationTokenSource.Token);
         cancellationTokenSource.Cancel();
 
         try
@@ -134,7 +134,7 @@ public class PingProcessTests
         string hostNameOrAddress = "localhost";
         using CancellationTokenSource cancellationTokenSource = new();
 
-        Task<PingResult> task = pingProcess.RunAsync(hostNameOrAddress, cancellationTokenSource.Token);
+        Task<PingResult> task = PingProcess.RunAsync(hostNameOrAddress, cancellationTokenSource.Token);
         cancellationTokenSource.Cancel();
 
         await Assert.ThrowsExceptionAsync<OperationCanceledException>(() => task);
@@ -150,7 +150,7 @@ public class PingProcessTests
 
         foreach (var hostName in hostNames)
         {
-            PingResult result = await pingProcess.RunAsync(hostName);
+            PingResult result = await PingProcess.RunAsync(hostName);
 
             Assert.AreEqual(0, result.ExitCode);
 
@@ -180,7 +180,7 @@ public class PingProcessTests
         PingProcess ping = new();
         CancellationTokenSource tokenSource = new();
 
-        var task = ping.RunLongRunningAsync(startInfo, outputHandler, errorHandler, tokenSource.Token);
+        var task = PingProcess.RunLongRunningAsync(startInfo, outputHandler, errorHandler, tokenSource.Token);
 
         var exitCode = task.Result;
 
@@ -196,8 +196,12 @@ public class PingProcessTests
     public void StringBuilderAppendLine_InParallel_IsNotThreadSafe()
     {
         IEnumerable<int> numbers = Enumerable.Range(0, short.MaxValue);
-        System.Text.StringBuilder stringBuilder = new();
-        numbers.AsParallel().ForAll(item => stringBuilder.AppendLine(""));
+        StringBuilder stringBuilder = new();
+
+        try
+        {
+            numbers.AsParallel().ForAll(item => stringBuilder.AppendLine(""));
+        }catch (AggregateException) { }
         int lineCount = stringBuilder.ToString().Split(Environment.NewLine).Length;
         Assert.AreNotEqual(lineCount, numbers.Count() + 1);
     }
