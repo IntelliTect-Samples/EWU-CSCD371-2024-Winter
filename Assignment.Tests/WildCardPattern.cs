@@ -398,7 +398,7 @@ public sealed class WildcardPattern
     /// <param name="input">The input to normalize</param>
     /// <param name="trimTrailingNewline">True if trailing newlines should be trimmed.</param>
     /// <returns>The normalized input.</returns>
-    public static string NormalizeLineEndings(string input, bool trimTrailingNewline = false)
+    public static string NormalizeLineEndings(string input, /*bool trimTrailingNewline = false*/)
     {
         // https://stackoverflow.com/questions/140926/normalize-newlines-in-c-sharp
         input = Regex.Replace(input, @"\r\n|\n\r|\n|\r", Environment.NewLine);
