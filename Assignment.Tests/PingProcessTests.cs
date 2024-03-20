@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -173,29 +174,27 @@ public class PingProcessTests
     [TestMethod]
     public void RunLongRunningAsync_ProcessStartInfo_Success()
     {
-        ProcessStartInfo startInfo = new("ping", "localhost");
-        startInfo.RedirectStandardOutput = true;
-        startInfo.RedirectStandardError = true;
-        startInfo.UseShellExecute = false;
-        startInfo.CreateNoWindow = true;
-        startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-        startInfo.ErrorDialog = false;
-        startInfo.StandardOutputEncoding = System.Text.Encoding.UTF8;
-        startInfo.StandardErrorEncoding = System.Text.Encoding.UTF8;
-        startInfo.WorkingDirectory = Environment.CurrentDirectory;
-        startInfo.ErrorDialogParentHandle = IntPtr.Zero;
-        startInfo.Verb = "runas";
-        startInfo.UserName = Environment.UserName;
-        startInfo.FileName = "ping";
-        startInfo.Arguments = "localhost";
-        startInfo.Verb = "runas";
-        startInfo.UserName = Environment.UserName;
-        startInfo.FileName = "ping";
-        startInfo.Arguments = "localhost";
-        startInfo.Verb = "runas";
+        ProcessStartInfo startInfo = new ProcessStartInfo
+        {
+            FileName = "ping",
+            Arguments = "localhost",
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            UseShellExecute = false,
+            CreateNoWindow = true,
+            WindowStyle = ProcessWindowStyle.Hidden,
+            ErrorDialog = false,
+            StandardOutputEncoding = Encoding.UTF8,
+            StandardErrorEncoding = Encoding.UTF8,
+            WorkingDirectory = Environment.CurrentDirectory,
+            ErrorDialogParentHandle = IntPtr.Zero,
+            Verb = "runas",
+            UserName = Environment.UserName
+        };
     }
 
-    
+
+
 
 
     readonly string PingOutputLikeExpression = @"
