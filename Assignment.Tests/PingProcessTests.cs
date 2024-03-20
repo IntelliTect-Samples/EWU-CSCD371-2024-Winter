@@ -185,6 +185,24 @@ public class PingProcessTests
         Assert.Fail("Expected TaskCanceledException was not thrown.");
     }
 
+    [TestMethod]
+    public async Task RunLongRunningAsync_Success()
+    {
+        // Arrange
+        ProcessStartInfo startInfo = new ProcessStartInfo("ping", "localhost");
+        CancellationToken cancellationToken = CancellationToken.None; // Or use CancellationTokenSource to cancel
+        Action<string?> progressOutput = null!; // Define progressOutput if needed
+        Action<string?> progressError = null!; // Define progressError if needed
+
+        // Act
+        Task<int> task = Sut.RunLongRunningAsync(startInfo, progressOutput, progressError, cancellationToken);
+        int exitCode = await task;
+
+        // Assert
+        Assert.AreEqual(0, exitCode); // Assert the expected exit code
+    }
+
+
 
 
 
@@ -212,14 +230,19 @@ public class PingProcessTests
 
 
     [TestMethod]
-#pragma warning disable CS1998 // Remove this
-    async public Task RunLongRunningAsync_UsingTpl_Success()
+    public async Task RunLongRunningAsync_UsingTpl_Success()
     {
-        PingResult result = default;
-        // Test Sut.RunLongRunningAsync("localhost");
-        AssertValidPingOutput(result);
+        // Arrange
+        ProcessStartInfo startInfo = new ProcessStartInfo("ping", "localhost");
+        CancellationToken cancellationToken = CancellationToken.None; // Or use CancellationTokenSource to cancel
+
+        // Act
+        int exitCode = await Sut.RunLongRunningAsync(startInfo, null, null, cancellationToken);
+
+        // Assert
+        Assert.AreEqual(0, exitCode); // Assert the expected exit code
     }
-#pragma warning restore CS1998 // Remove this
+
 
     [TestMethod]
     public void StringBuilderAppendLine_InParallel_IsNotThreadSafe()
