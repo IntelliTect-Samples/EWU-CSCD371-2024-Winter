@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -94,7 +95,7 @@ public class PingProcess
                     try
                     {
                         total += result.ExitCode;
-                        stringBuilder.AppendFormat("Error pinging {0}: {1}", item, result.StdOutput.Trim());
+                        stringBuilder.AppendFormat(CultureInfo.InvariantCulture, "Error pinging {0}: {1}", item, result.StdOutput.Trim());
                         stringBuilder.AppendLine();
                     }
                     finally
@@ -109,7 +110,7 @@ public class PingProcess
                 await semaphore.WaitAsync(cancellationToken);
                 try
                 {
-                    stringBuilder.AppendFormat("Error pinging {0}: {1}", item, ex.Message);
+                    stringBuilder.AppendFormat(CultureInfo.InvariantCulture, "Error pinging {0}: {1}", item, ex.Message);
                     stringBuilder.AppendLine();
                 }
                 finally
