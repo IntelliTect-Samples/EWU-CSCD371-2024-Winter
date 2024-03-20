@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+
 namespace Assignment;
 
 public record struct PingResult(int ExitCode, string? StdOutput);
@@ -94,7 +95,11 @@ public class PingProcess
                     try
                     {
                         total += result.ExitCode;
-                        stringBuilder.AppendLine(result.StdOutput.Trim());
+                        var trimmedStdOutput = result.StdOutput?.Trim();
+                        stringBuilder.Append(trimmedStdOutput);
+                        stringBuilder.AppendLine();
+
+
                     }
                     finally
                     {
@@ -120,6 +125,7 @@ public class PingProcess
         await Task.WhenAll(tasks);
         return new PingResult(total, stringBuilder.ToString().Trim());
     }
+
 
 
     //5
