@@ -1,4 +1,4 @@
-﻿using IntelliTect.TestTools;
+using IntelliTect.TestTools;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -143,20 +143,15 @@ public class PingProcessTests
         AssertValidPingOutput(result);*/
     }
 
+
     [TestMethod]
     async public Task RunLongRunningAsync_UsingTpl_Success()
     {
+        ProcessStartInfo startInfo = new("ping", "-c 4 localhost");
 
-        string output;
-        int error;
-        CancellationTokenSource ctx = new();
-        ProcessStartInfo process = new("ping")
-        {
-            Arguments = "-c 4localhost"
-        };
-        int result = await Sut.RunLongRunningAsync( process, (data) => output = data!, (errorData) => error = int.Parse(errorData!),ctx.Token );
-        // Test Sut.RunLongRunningAsync("localhost");
-        Assert.AreEqual(0, result);
+        int exitCode = await Sut.RunLongRunningAsync(startInfo, null, null, default);
+
+        Assert.AreEqual(0, exitCode);
     }
 
     [TestMethod]
