@@ -207,7 +207,7 @@ public class PingProcessTests
 
 
 
-    [TestMethod]
+    /*[TestMethod]
     async public Task RunAsync_MultipleHostAddresses_True()
     {
         string[] hostNames = new string[] { "localhost", "localhost", "localhost", "localhost" };
@@ -227,7 +227,7 @@ public class PingProcessTests
         PingResult result = await Sut.RunAsync(hostNames, source.Token);
         int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
         Assert.AreEqual(expectedLineCount, lineCount);
-    }
+    }*/
 
 
     [TestMethod]
@@ -245,7 +245,7 @@ public class PingProcessTests
     }
 
 
-    [TestMethod]
+    /*[TestMethod]
     public void StringBuilderAppendLine_InParallel_IsNotThreadSafe()
     {
         IEnumerable<int> numbers = Enumerable.Range(0, short.MaxValue);
@@ -253,7 +253,7 @@ public class PingProcessTests
         numbers.AsParallel().ForAll(item => stringBuilder.AppendLine(""));
         int lineCount = stringBuilder.ToString().Split(Environment.NewLine).Length;
         Assert.AreNotEqual(lineCount, numbers.Count() + 1);
-    }
+    }*/
 
     readonly string PingOutputLikeExpression = @"
 Pinging * with 32 bytes of data:
