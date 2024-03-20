@@ -90,6 +90,7 @@ public class PingProcessTests
         Assert.IsNotNull(pingResult);
         // Asserting we have a successful exit code (0)
         Assert.AreEqual(0, pingResult.ExitCode);
+        AssertValidPingOutput(pingResult);
 
     }
 
