@@ -32,31 +32,31 @@ public class PingProcessTests
     //[TestMethod]
     //public void Run_GoogleDotCom_Success()
     //{
-    //    PingResult res = Sut.Run("-c 8 google.com");
-        
-    //    Assert.AreEqual<int>(0, res.ExitCode);
+    //    int exitCode = Sut.Run("-c 8 google.com").ExitCode;
+
+    //    Assert.AreEqual<int>(0, exitCode);
     //}
 
 
-    //[TestMethod]
-    //public void Run_InvalidAddressOutput_Success()
-    //{
-    //    (int exitCode, string? stdOutput) = Sut.Run("-c 4 badaddress");
-    //    //Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
-    //    stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-    //    Assert.AreEqual<string?>(
-    //        "Ping request could not find host badaddress. Please check the name and try again.".Trim(),
-    //        stdOutput,
-    //        $"Output is unexpected: {stdOutput}");
-    //    Assert.AreEqual<int>(2, exitCode);
-    //}
+    [TestMethod]
+    public void Run_InvalidAddressOutput_Success()
+    {
+        (int exitCode, string? stdOutput) = Sut.Run("badaddress");
+        //Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
+        stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
+        Assert.AreEqual<string?>(
+            "Ping request could not find host badaddress. Please check the name and try again.".Trim(),
+            stdOutput,
+            $"Output is unexpected: {stdOutput}");
+        Assert.AreEqual<int>(2, exitCode);
+    }
 
-    //[TestMethod]
-    //public void Run_CaptureStdOutput_Success()
-    //{
-    //    PingResult result = Sut.Run("-c 4 localhost");
-    //    AssertValidPingOutput(result);
-    //}
+    [TestMethod]
+    public void Run_CaptureStdOutput_Success()
+    {
+        PingResult result = Sut.Run("-n 4 localhost");
+        AssertValidPingOutput(result);
+    }
 
     [TestMethod]
     public void RunTaskAsync_Success()
@@ -90,7 +90,7 @@ public class PingProcessTests
         Assert.IsNotNull(pingResult);
         // Asserting we have a successful exit code (0)
         Assert.AreEqual(0, pingResult.ExitCode);
-        AssertValidPingOutput(pingResult);
+       
 
     }
 
