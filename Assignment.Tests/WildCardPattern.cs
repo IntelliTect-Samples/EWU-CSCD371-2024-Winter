@@ -164,14 +164,14 @@ public sealed class WildcardPattern
     /// <returns></returns>
     public static WildcardPattern Get(string pattern, WildcardOptions options)
     {
-        if (pattern == null)
-            throw new ArgumentNullException(nameof(pattern));
+        ArgumentNullException.ThrowIfNull(pattern, nameof(pattern));
 
         if (pattern.Length == 1 && pattern[0] == '*')
             return s_matchAllIgnoreCasePattern;
 
         return new WildcardPattern(pattern, options);
     }
+
 
     /// <summary>
     /// Instantiate internal regex member if not already done.
@@ -219,19 +219,10 @@ public sealed class WildcardPattern
     /// A string of characters with any metacharacters, except for those specified in <paramref name="charsNotToEscape"/>, converted to their escaped form.
     /// </returns>
     internal static string Escape(string pattern,
-        char[] charsNotToEscape, char escapeCharacter)
+    char[] charsNotToEscape, char escapeCharacter)
     {
-#pragma warning disable 56506
-
-        if (pattern == null)
-        {
-            throw new ArgumentNullException(nameof(pattern));
-        }
-
-        if (charsNotToEscape == null)
-        {
-            throw new ArgumentNullException(nameof(charsNotToEscape));
-        }
+        ArgumentNullException.ThrowIfNull(pattern, nameof(pattern));
+        ArgumentNullException.ThrowIfNull(charsNotToEscape, nameof(charsNotToEscape));
 
         char[] temp = new char[(pattern.Length * 2) + 1];
         int tempIndex = 0;
@@ -259,9 +250,8 @@ public sealed class WildcardPattern
         {
             return String.Empty;
         }
-
-#pragma warning restore 56506
     }
+
 
     /// <summary>
     /// Escape special chars in a string by replacing them with their escape codes.
@@ -333,12 +323,9 @@ public sealed class WildcardPattern
     /// If <paramref name="pattern" /> is null.
     /// </exception>
     public static string Unescape(
-        string pattern, char escapeCharacter)
+    string pattern, char escapeCharacter)
     {
-        if (pattern == null)
-        {
-            throw new ArgumentNullException(nameof(pattern));
-        }
+        ArgumentNullException.ThrowIfNull(pattern, nameof(pattern));
 
         char[] temp = new char[pattern.Length];
         int tempIndex = 0;
@@ -390,7 +377,8 @@ public sealed class WildcardPattern
         {
             return String.Empty;
         }
-    } // Unescape
+    }
+
 
     public static bool IsWildcardChar(char ch)
     {
@@ -410,13 +398,14 @@ public sealed class WildcardPattern
         // https://stackoverflow.com/questions/140926/normalize-newlines-in-c-sharp
         input = Regex.Replace(input, @"\r\n|\n\r|\n|\r", Environment.NewLine);
 
-        if (trimTrailingNewline && input.EndsWith(Environment.NewLine))
+        if (trimTrailingNewline && input.EndsWith(Environment.NewLine, StringComparison.CurrentCulture))
         {
             input = input.Substring(0, input.Length - Environment.NewLine.Length);
         }
 
         return input;
     }
+
 }
 
 /// <summary>
@@ -630,11 +619,20 @@ internal abstract class WildcardPatternParser
         parser.EndWildcardPattern();
     }
 
-    internal static Exception NewWildcardPatternException(string invalidPattern)
+    public class WildcardPatternException : Exception
     {
-        return new Exception(
-                $"The wildcard pattern, '{invalidPattern}', is invalid.");
+        public WildcardPatternException(string invalidPattern)
+            : base($"The wildcard pattern, '{invalidPattern}', is invalid.")
+        {
+        }
+
+        internal static WildcardPatternException NewWildcardPatternException(string invalidPattern)
+        {
+            return new WildcardPatternException(invalidPattern);
+        }
+
     }
+
 };
 
 /// <summary>
