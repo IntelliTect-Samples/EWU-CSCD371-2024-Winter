@@ -225,15 +225,9 @@ public sealed class WildcardPattern
     {
 #pragma warning disable 56506
 
-        if (pattern == null)
-        {
-            throw new ArgumentNullException(nameof(pattern));
-        }
+        ArgumentNullException.ThrowIfNull(pattern);
 
-        if (charsNotToEscape == null)
-        {
-            throw new ArgumentNullException(nameof(charsNotToEscape));
-        }
+        ArgumentNullException.ThrowIfNull(charsNotToEscape);
 
         char[] temp = new char[(pattern.Length * 2) + 1];
         int tempIndex = 0;
@@ -337,10 +331,7 @@ public sealed class WildcardPattern
     public static string Unescape(
         string pattern, char escapeCharacter)
     {
-        if (pattern == null)
-        {
-            throw new ArgumentNullException(nameof(pattern));
-        }
+        ArgumentNullException.ThrowIfNull(pattern);
 
         char[] temp = new char[pattern.Length];
         int tempIndex = 0;
@@ -412,7 +403,7 @@ public sealed class WildcardPattern
         // https://stackoverflow.com/questions/140926/normalize-newlines-in-c-sharp
         input = Regex.Replace(input, @"\r\n|\n\r|\n|\r", Environment.NewLine);
 
-        if (trimTrailingNewline && input.EndsWith(Environment.NewLine))
+        if (trimTrailingNewline && input.EndsWith(Environment.NewLine, StringComparison.Ordinal))
         {
             input = input.Substring(0, input.Length - Environment.NewLine.Length);
         }
@@ -634,7 +625,7 @@ internal abstract class WildcardPatternParser
 
     internal static Exception NewWildcardPatternException(string invalidPattern)
     {
-        return new Exception(
+        return new ArgumentException(
                 $"The wildcard pattern, '{invalidPattern}', is invalid.");
     }
 };
@@ -654,7 +645,7 @@ internal abstract class WildcardPatternParser
 ///
 /// for a more cases see the unit-test file RegexTest.cs
 /// </remarks>
-internal class WildcardPatternToRegexParser : WildcardPatternParser
+internal sealed class WildcardPatternToRegexParser : WildcardPatternParser
 {
     private StringBuilder _regexPattern;
     private RegexOptions _regexOptions;
@@ -823,7 +814,7 @@ internal class WildcardPatternToRegexParser : WildcardPatternParser
     }
 }
 
-internal class WildcardPatternMatcher
+internal sealed class WildcardPatternMatcher
 {
     private readonly PatternElement[] _patternElements;
     private readonly CharacterNormalizer _characterNormalizer;
@@ -895,7 +886,7 @@ internal class WildcardPatternMatcher
         return patternPositionsForCurrentStringPosition.ReachedEndOfPattern;
     }
 
-    private class PatternPositionsVisitor
+    private sealed class PatternPositionsVisitor
     {
         private readonly int _lengthOfPattern;
 
@@ -1023,7 +1014,7 @@ internal class WildcardPatternMatcher
         }
     }
 
-    private class LiteralCharacterElement : QuestionMarkElement
+    private sealed class LiteralCharacterElement : QuestionMarkElement
     {
         private readonly char _literalCharacter;
 
@@ -1049,7 +1040,7 @@ internal class WildcardPatternMatcher
         }
     }
 
-    private class BracketExpressionElement : QuestionMarkElement
+    private sealed class BracketExpressionElement : QuestionMarkElement
     {
         private readonly Regex _Regex;
 
@@ -1073,7 +1064,7 @@ internal class WildcardPatternMatcher
         }
     }
 
-    private class AsterixElement : PatternElement
+    private sealed class AsterixElement : PatternElement
     {
         public override void ProcessStringCharacter(
                         char currentStringCharacter,
@@ -1097,7 +1088,7 @@ internal class WildcardPatternMatcher
         }
     }
 
-    private class MyWildcardPatternParser : WildcardPatternParser
+    private sealed class MyWildcardPatternParser : WildcardPatternParser
     {
         private readonly List<PatternElement> _patternElements = new();
         private CharacterNormalizer _characterNormalizer;
@@ -1200,7 +1191,7 @@ internal class WildcardPatternMatcher
 /// <summary>
 /// Translates a <see cref="WildcardPattern"/> into a DOS wildcard
 /// </summary>
-internal class WildcardPatternToDosWildcardParser : WildcardPatternParser
+internal sealed class WildcardPatternToDosWildcardParser : WildcardPatternParser
 {
     private readonly StringBuilder _result = new();
 
