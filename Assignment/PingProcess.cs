@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Globalization;
 
 
 namespace Assignment;
@@ -76,51 +75,23 @@ public class PingProcess
     //4
     async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
     {
+
+        StringBuilder stringBuilder = new();
         int total = 0;
-        StringBuilder stringBuilder = new StringBuilder();
 
-        // Semaphore to synchronize access to stringBuilder
-        var semaphore = new SemaphoreSlim(1);
-
-        var tasks = hostNameOrAddresses.Select(async item =>
+        ParallelQuery<Task<int>> result = hostNameOrAddresses.AsParallel().Select(async item =>
         {
-            try
+            Task<PingResult> tasks = RunAsync(item);
+            lock (stringBuilder)
             {
-                cancellationToken.ThrowIfCancellationRequested();
-                PingResult result = await RunAsync(item, cancellationToken);
-
-                if (result.StdOutput != null)
-                {
-                    // Enter critical section
-                    await semaphore.WaitAsync(cancellationToken);
-                    try
-                    {
-                        total += result.ExitCode;
-                        stringBuilder.AppendLine(CultureInfo.InvariantCulture, $"{result.StdOutput.Trim()}");
-                    }
-                    finally
-                    {
-                        semaphore.Release(); // Exit critical section
-                    }
-                }
+                stringBuilder.AppendLine(tasks.Result.StdOutput?.Trim());
+                ++total;
             }
-            catch (Exception ex)
-            {
-                // Handle any exceptions from individual ping operations
-                await semaphore.WaitAsync(cancellationToken);
-                try
-                {
-                    stringBuilder.AppendLine(CultureInfo.InvariantCulture, $"Error pinging {item}: {ex.Message}");
-
-                }
-                finally
-                {
-                    semaphore.Release();
-                }
-            }
+            await tasks.WaitAsync(cancellationToken);
+            return tasks.Result.ExitCode;
         });
 
-        await Task.WhenAll(tasks);
+        await Task.WhenAll(result);
         return new PingResult(total, stringBuilder.ToString().Trim());
     }
 
