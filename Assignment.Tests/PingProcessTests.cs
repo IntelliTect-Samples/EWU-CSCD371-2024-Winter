@@ -156,7 +156,7 @@ public class PingProcessTests
         Assert.AreEqual(0, exitCode);
     }
 
-    // Commented out because it is impossible to PROVE whether code is thread safe or not,
+    // Commented out because it is not really possible to PROVE whether code is thread safe or not,
     // as race conditions and other symptoms of thread-unsafety are undefined behavior.
     /*[TestMethod]
     public void StringBuilderAppendLine_InParallel_IsNotThreadSafe()
@@ -177,6 +177,23 @@ public class PingProcessTests
         Assert.ThrowsException<AggregateException>(() => numbers.AsParallel().ForAll(item => stringBuilder.AppendLine("")));
     }*/
 
+    //Version of the above test that seems to pass consistenly, but we're not sure if it's actually testing anything
+    [TestMethod]
+    public void StringBuilderAppendLine_InParallel_IsNotThreadSafe()
+    {
+        try
+        {
+            IEnumerable<int> numbers = Enumerable.Range(0, short.MaxValue);
+            System.Text.StringBuilder stringBuilder = new();
+            numbers.AsParallel().ForAll(item => stringBuilder.AppendLine(""));
+            int lineCount = stringBuilder.ToString().Split(Environment.NewLine).Length;
+            Assert.AreNotEqual(lineCount, numbers.Count() + 1);
+        }
+        catch (AggregateException)
+        {
+
+        }
+    }
 
     // Windows version of ping output
     /*    readonly string PingOutputLikeExpression = @"
