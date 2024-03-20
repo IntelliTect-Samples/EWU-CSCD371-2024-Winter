@@ -73,33 +73,50 @@ public class PingProcess
     }
 
     //4
-    public async Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
+    async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
     {
-        StringBuilder stringBuilder = new();
-        int count = 0;
-        await Task.WhenAll(hostNameOrAddresses.Select(async item =>
+
+        StringBuilder stringbuilder = new StringBuilder();
+        var semaphore = new SemaphoreSlim(1);
+        int total = 0;
+
+        var tasks = hostNameOrAddresses.Select(async item =>
         {
             try
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 PingResult result = await RunAsync(item, cancellationToken);
-                lock (stringBuilder)
+                if (result.StdOutput != null)
                 {
-                    stringBuilder.AppendLine(result.StdOutput?.Trim());
-                    count++;
+                    await semaphore.WaitAsync(cancellationToken);
+                    try
+                    {
+                        total = 1;
+                        stringbuilder.AppendLine(result.StdOutput.Trim());
+                    }
+                    finally
+                    {
+                        semaphore.Release();
+                    }
                 }
             }
+
             catch (Exception ex)
             {
-                Console.WriteLine($"Error occurred for '{item}': {ex.Message}");
+                await semaphore.WaitAsync(cancellationToken);
+                try { stringbuilder.AppendLine("Error pinging " + item + ": " + ex.Message + ", "); }
+                finally { semaphore.Release(); }
             }
-        }));
-        return new PingResult(count, stringBuilder.ToString().Trim());
+        });
+
+        await Task.WhenAll(tasks);
+        return new PingResult(total, stringbuilder.ToString());
     }
 
 
 
-        //5
-        public Task<int> RunLongRunningAsync(
+    //5
+    public Task<int> RunLongRunningAsync(
     ProcessStartInfo startInfo,
     Action<string?>? progressOutput,
     Action<string?>? progressError,
