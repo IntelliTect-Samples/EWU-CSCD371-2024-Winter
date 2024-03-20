@@ -77,7 +77,6 @@ public class PingProcess
 
         StringBuilder? stringBuilder = new();
         int total = 0;
-        StringBuilder stringBuilder = new StringBuilder();
 
         // Semaphore to synchronize access to stringBuilder
         var semaphore = new SemaphoreSlim(1);
