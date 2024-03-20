@@ -65,6 +65,21 @@ public class PingProcess
         int total = all.Aggregate(0, (total, item) => total + item.Result);
         return new PingResult(total, stringBuilder?.ToString());
     }
+    public async Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        var tasks = hostNameOrAddresses.Select(async host =>
+        {
+            var result = await RunAsync(host, cancellationToken);
+            stringBuilder.AppendLine(result.StdOutput);
+            return result.ExitCode;
+        });
+
+        await Task.WhenAll(tasks);
+
+        int totalExitCode = tasks.Sum(t => t.Result);
+        return new PingResult(totalExitCode, stringBuilder.ToString());
+    }
 
     async public Task<PingResult> RunLongRunningAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
@@ -180,5 +195,12 @@ public class PingProcess
         startInfo.WindowStyle = ProcessWindowStyle.Hidden;
 
         return startInfo;
+    }
+    public async Task<PingResult> RunAsync(System.IProgress<string?> progress)
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        var result = await RunAsync("localhost", CancellationToken.None);
+        progress.Report(result.StdOutput);
+        return result;
     }
 }
