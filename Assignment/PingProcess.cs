@@ -74,8 +74,7 @@ public class PingProcess
     //4
     async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
     {
-
-        StringBuilder? stringBuilder = new();
+        StringBuilder stringBuilder = new();
         int total = 0;
 
         // Semaphore to synchronize access to stringBuilder
@@ -95,7 +94,7 @@ public class PingProcess
                     try
                     {
                         total += result.ExitCode;
-                        stringBuilder.AppendLine(result.StdOutput.Trim());
+                        stringBuilder.AppendLine($"Error pinging {item}: {result.StdOutput.Trim()}");
                     }
                     finally
                     {
@@ -109,7 +108,8 @@ public class PingProcess
                 await semaphore.WaitAsync(cancellationToken);
                 try
                 {
-                    stringBuilder.AppendLine($"Error pinging {item}: {ex.Message}");
+                    string errorMessage = string.Format("Error pinging {0}: {1}", item, ex.Message);
+                    stringBuilder.AppendLine(errorMessage);
                 }
                 finally
                 {
@@ -120,8 +120,8 @@ public class PingProcess
 
         await Task.WhenAll(tasks);
         return new PingResult(total, stringBuilder.ToString().Trim());
-
     }
+
 
 
     //5
