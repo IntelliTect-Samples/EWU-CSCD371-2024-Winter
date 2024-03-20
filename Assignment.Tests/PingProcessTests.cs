@@ -128,11 +128,16 @@ public class PingProcessTests
         CancellationTokenSource cancelSource = new();
         cancelSource.Cancel();
         Task<PingResult> task = Sut.RunAsync("localhost", cancelSource.Token);
-
-        AggregateException aggregateException = Assert.ThrowsException<AggregateException>(() =>task.Wait());
-
-        throw aggregateException.Flatten().InnerException!;
+        try
+        {
+            task.Wait();
+        }
+        catch (AggregateException a)
+        {
+            throw a.Flatten().InnerException!;
+        }
     }
+
 
     [TestMethod]
     async public Task RunAsync_MultipleHostAddresses_True()
