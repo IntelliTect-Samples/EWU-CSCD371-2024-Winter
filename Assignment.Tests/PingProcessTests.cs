@@ -275,8 +275,8 @@ Approximate round trip times in milli-seconds:
     {
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-        /*Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression) ?? false,
-            $"Output is unexpected: {stdOutput}");*/
+        Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression) ?? false,
+            $"Output is unexpected: {stdOutput}");
         Assert.AreEqual<int>(0, exitCode);
     }
     private void AssertValidPingOutput(PingResult result) =>
