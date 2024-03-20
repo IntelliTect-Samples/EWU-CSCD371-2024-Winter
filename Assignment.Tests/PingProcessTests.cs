@@ -41,7 +41,7 @@ public class PingProcessTests
     [TestMethod]
     public void Run_LocalHost_Success()
     {
-        int exitCode = Sut.Run("locahost").ExitCode;
+        int exitCode = Sut.Run("localhost").ExitCode;
         Assert.AreEqual<int>(0, exitCode);
     }
 
