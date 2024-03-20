@@ -153,10 +153,20 @@ public class PingProcessTests
     {
         IEnumerable<int> numbers = Enumerable.Range(0, short.MaxValue);
         System.Text.StringBuilder stringBuilder = new();
-        numbers.AsParallel().ForAll(item => stringBuilder.AppendLine(""));
+        object lockObject = new(); // Create a lock object
+
+        numbers.AsParallel().ForAll(item =>
+        {
+            lock (lockObject) // Acquire lock before accessing the StringBuilder
+            {
+                stringBuilder.AppendLine("");
+            }
+        });
+
         int lineCount = stringBuilder.ToString().Split(Environment.NewLine).Length;
-        Assert.AreNotEqual(lineCount, numbers.Count()+1);
+        Assert.AreNotEqual(lineCount, numbers.Count() + 1);
     }
+
 
     // Create a test for RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
     [TestMethod]
