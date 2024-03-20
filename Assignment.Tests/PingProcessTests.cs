@@ -116,16 +116,18 @@ public class PingProcessTests
         Assert.IsNotNull(result);
         // Asserting we have a successful exit code (0)
         Assert.AreEqual(0, result.ExitCode);
+        AssertValidPingOutput(result);
 
     }
 
 
-    [TestMethod]
-    public void RunLongRunningAsync_Ping_Succcess()
-    {
-        //Pinresult result = await Sut.RunLongRunningAsync("localhost");
-        //AssertValidPingOutput(result);
-    }
+    //[TestMethod]
+    //public void RunLongRunningAsync_Ping_Succcess()
+    //{
+    //    ProcessStartInfo info = new ProcessStartInfo("-c -4 localhost");
+    //    PingResult result =  Sut.RunLongRunningAsync(info, default, default, default);
+    //    AssertValidPingOutput(result);
+    //}
 
 
 
