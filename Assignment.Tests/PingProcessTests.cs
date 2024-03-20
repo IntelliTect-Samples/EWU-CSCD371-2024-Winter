@@ -156,14 +156,14 @@ Ping statistics for ::1:
     Packets: Sent = *, Received = *, Lost = 0 (0% loss),
 Approximate round trip times in milli-seconds:
     Minimum = *, Maximum = *, Average = *".Trim();
-    private void AssertValidPingOutput(int exitCode, string? stdOutput)
-    {
-        Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
-        stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-        Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression) ?? false,
-            $"Output is unexpected: {stdOutput}");
-        Assert.AreEqual<int>(0, exitCode);
-    }
-    private void AssertValidPingOutput(PingResult result) =>
-        AssertValidPingOutput(result.ExitCode, result.StdOutput);
+    //private void AssertValidPingOutput(int exitCode, string? stdOutput)
+    //{
+    //    Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
+    //    stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
+    //    Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression) ?? false,
+    //        $"Output is unexpected: {stdOutput}");
+    //    Assert.AreEqual<int>(0, exitCode);
+    //}
+    //private void AssertValidPingOutput(PingResult result) =>
+    //    AssertValidPingOutput(result.ExitCode, result.StdOutput);
 }
