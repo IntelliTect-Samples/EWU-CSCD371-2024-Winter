@@ -59,6 +59,10 @@ public class PingProcessTests
     {
         // Do NOT use async/await in this test.
         // Test Sut.RunTaskAsync("localhost");
+        var pingProcess = new PingProcess();
+        var result = pingProcess.RunTaskAsync("localhost").Result;
+
+        Assert.IsNotNull(result);
     }
 
     [TestMethod]
