@@ -135,15 +135,17 @@ public class PingProcessTests
         Assert.AreEqual(expectedLineCount, lineCount);
     }
 
+    /* commented out due to we have another test
     [TestMethod]
-#pragma warning disable CS1998 // Remove this
+//#pragma warning disable CS1998 // Remove this
     async public Task RunLongRunningAsync_UsingTpl_Success()
     {
         PingResult result = default;
         // Test Sut.RunLongRunningAsync("localhost");
         AssertValidPingOutput(result);
     }
-#pragma warning restore CS1998 // Remove this
+//#pragma warning restore CS1998 // Remove this
+    */
 
     [TestMethod]
     public void StringBuilderAppendLine_InParallel_IsNotThreadSafe()
