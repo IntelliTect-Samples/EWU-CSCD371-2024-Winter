@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Globalization;
 
 
 namespace Assignment;
@@ -75,10 +76,11 @@ public class PingProcess
     //4
     async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
     {
-
-        StringBuilder stringbuilder = new StringBuilder();
-        var semaphore = new SemaphoreSlim(1);
         int total = 0;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        // Semaphore to synchronize access to stringBuilder
+        var semaphore = new SemaphoreSlim(1);
 
         var tasks = hostNameOrAddresses.Select(async item =>
         {
@@ -86,33 +88,40 @@ public class PingProcess
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 PingResult result = await RunAsync(item, cancellationToken);
+
                 if (result.StdOutput != null)
                 {
+                    // Enter critical section
                     await semaphore.WaitAsync(cancellationToken);
                     try
                     {
-                        total = 1;
-                        stringbuilder.AppendLine(result.StdOutput.Trim());
+                        total += result.ExitCode;
+                        stringBuilder.AppendLine(result.StdOutput.Trim());
                     }
                     finally
                     {
-                        semaphore.Release();
+                        semaphore.Release(); // Exit critical section
                     }
                 }
             }
-
             catch (Exception ex)
             {
+                // Handle any exceptions from individual ping operations
                 await semaphore.WaitAsync(cancellationToken);
-                try { stringbuilder.AppendLine("Error pinging " + item + ": " + ex.Message + ", "); }
-                finally { semaphore.Release(); }
+                try
+                {
+                    stringBuilder.AppendLine($"Error pinging {item}: {ex.Message}");
+                }
+                finally
+                {
+                    semaphore.Release();
+                }
             }
         });
 
         await Task.WhenAll(tasks);
-        return new PingResult(total, stringbuilder.ToString());
+        return new PingResult(total, stringBuilder.ToString().Trim());
     }
-
 
 
     //5
