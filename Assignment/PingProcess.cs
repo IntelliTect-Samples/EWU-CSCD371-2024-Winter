@@ -67,14 +67,13 @@ public class PingProcess
         Action<string?>? progressError, CancellationToken token)
     {
         ProcessStartInfo processStartInfo = UpdateProcessStartInfo(startInfo);
-        Task<int> task = Task.Factory.StartNew(() =>
+        return Task.Factory.StartNew(() =>
         {
             Process running =
                 RunProcessInternal(processStartInfo, progressOutput, progressError, token);
             running.WaitForExit();
             return running.ExitCode;
         }, token, TaskCreationOptions.LongRunning, TaskScheduler.Current);
-        return task;
     }
 
     private Process RunProcessInternal(
