@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Assignment;
+using System.Xml.Linq;
 
 namespace Assignment.Tests;
 
@@ -23,7 +24,7 @@ public class PingProcessTests
     [TestMethod]
     public void Start_PingProcess_Success()
     {
-        Process process = Process.Start("ping", "localhost");
+        Process process = Process.Start("ping", "-c 4 localhost");
         process.WaitForExit();
         Assert.AreEqual<int>(0, process.ExitCode);
     }
@@ -31,7 +32,7 @@ public class PingProcessTests
     [TestMethod]
     public void Run_GoogleDotCom_Success()
     {
-        int exitCode = Sut.Run("-c 4 'google.com'").ExitCode;
+        int exitCode = Sut.Run("-c 4 www.google.com").ExitCode;
         Assert.AreEqual<int>(0, exitCode);
     }
 
@@ -46,13 +47,13 @@ public class PingProcessTests
             "Ping request could not find host badaddress. Please check the name and try again.".Trim(),
             stdOutput,
             $"Output is unexpected: {stdOutput}");
-        Assert.AreEqual<int>(1, exitCode);
+        Assert.AreEqual<int>(2, exitCode);
     }
 
     [TestMethod]
     public void Run_CaptureStdOutput_Success()
     {
-        PingResult result = Sut.Run("localhost");
+        PingResult result = Sut.Run("-c 4 localhost");
         AssertValidPingOutput(result);
     }
 
@@ -60,9 +61,9 @@ public class PingProcessTests
     public void RunTaskAsync_Success()
     {
         // Arrange
-        string hostName = "localhost";
+        string hostName = "-c 4 localhost";
         // Act
-        Task<PingResult> task = Sut.RunTaskAsync(hostName);
+        Task<PingResult> task = Sut.RunTaskAsync($"-c 4 {hostName}");
         PingResult pingResult = task.Result;
         // Assert
         //Asserting that we got something back from the ping
@@ -77,8 +78,8 @@ public class PingProcessTests
     public void RunAsync_UsingTaskReturn_Success()
     {
         // Arrange
-        string hostName = "localhost";
-        Task<PingResult> task = Sut.RunAsync(hostName);
+        string hostName = "-c 4 localhost";
+        Task<PingResult> task = Sut.RunAsync($"-c 4 {hostName}");
 
         // Act
         PingResult pingResult = task.Result;
@@ -105,10 +106,10 @@ public class PingProcessTests
     public async Task RunAsync_UsingTpl_Success()
     {
         // Arrange
-        string hostName = "localhost";
+        string hostName = "-c 4 localhost";
 
         // Act
-        PingResult result = await Sut.RunAsync(hostName);
+        PingResult result = await Sut.RunAsync($"-c 4 {hostName}");
 
         // Assert
         // Asserting that we got something back from the ping
@@ -145,7 +146,7 @@ public class PingProcessTests
     [ExpectedException(typeof(AggregateException))]
     public async Task RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
     {
-        string hostName = "localhost";
+        string hostName = "-c 4 localhost";
         CancellationTokenSource token = new CancellationTokenSource();
         token.Cancel();
         await Sut.RunAsync(hostName, token.Token);
@@ -157,11 +158,11 @@ public class PingProcessTests
         // Arrange
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         cancellationTokenSource.Cancel();
-
+        string hostName = "-c 4 localhost";
         // Act & Assert
         try
         {
-            await Sut.RunAsync("::1", cancellationTokenSource.Token);
+            await Sut.RunAsync(hostName, cancellationTokenSource.Token);
         }
         catch (AggregateException ex)
         {
@@ -190,7 +191,7 @@ public class PingProcessTests
     public async Task RunLongRunningAsync_Success()
     {
         // Arrange
-        ProcessStartInfo startInfo = new ProcessStartInfo("ping", "localhost");
+        ProcessStartInfo startInfo = new ProcessStartInfo("ping", "-c 4 localhost");
         CancellationToken cancellationToken = CancellationToken.None; // Or use CancellationTokenSource to cancel
         Action<string?> progressOutput = null!; // Define progressOutput if needed
         Action<string?> progressError = null!; // Define progressError if needed
@@ -234,7 +235,7 @@ public class PingProcessTests
     public async Task RunLongRunningAsync_UsingTpl_Success()
     {
         // Arrange
-        ProcessStartInfo startInfo = new ProcessStartInfo("ping", "localhost");
+        ProcessStartInfo startInfo = new ProcessStartInfo("ping", "-c 4 localhost");
         CancellationToken cancellationToken = CancellationToken.None; // Or use CancellationTokenSource to cancel
 
         // Act
