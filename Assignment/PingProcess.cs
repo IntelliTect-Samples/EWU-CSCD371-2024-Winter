@@ -14,10 +14,11 @@ public record struct PingResult(int ExitCode, string? StdOutput);
 public class PingProcess
 {
     private ProcessStartInfo StartInfo { get; } = new("ping");
+    
 
     public PingResult Run(string hostNameOrAddress)
     {
-        StartInfo.Arguments = hostNameOrAddress;
+        StartInfo.Arguments = $"-c 4 {hostNameOrAddress}";
         StringBuilder? stringBuilder = null;
         void updateStdOutput(string? line) =>
             (stringBuilder??=new StringBuilder()).AppendLine(line);
