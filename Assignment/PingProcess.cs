@@ -119,8 +119,13 @@ public class PingProcess
             }
         });
 
+<<<<<<< HEAD
         await Task.WhenAll(result);
         return new PingResult(total, stringBuilder?.ToString().Trim());
+=======
+        await Task.WhenAll(tasks);
+        return new PingResult(total, stringBuilder.ToString().Trim());
+>>>>>>> 23ea4e477da9d6cbd018105c94cc030527f8260e
     }
 
 
