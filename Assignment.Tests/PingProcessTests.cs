@@ -21,42 +21,42 @@ public class PingProcessTests
     {
         Assert.AreEqual("CAT", "CAT");
     }
-    //PingProcess Sut { get; set; } = new();
+    PingProcess Sut { get; set; } = new();
 
-    //[TestInitialize]
-    //public void TestInitialize()
-    //{
-    //    Sut = new();
-    //}
+    [TestInitialize]
+    public void TestInitialize()
+    {
+        Sut = new();
+    }
 
-    //[TestMethod]
-    //public void Start_PingProcess_Success()
-    //{
-    //    Process process = Process.Start("ping", "localhost");
-    //    process.WaitForExit();
-    //    Assert.AreEqual<int>(0, process.ExitCode);
-    //}
+    [TestMethod]
+    public void Start_PingProcess_Success()
+    {
+        Process process = Process.Start("ping", "localhost");
+        process.WaitForExit();
+        Assert.AreEqual<int>(0, process.ExitCode);
+    }
 
-    //[TestMethod]
-    //public void Run_GoogleDotCom_Success()
-    //{
-    //    int exitCode = Sut.Run("google.com").ExitCode;
-    //    Assert.AreEqual<int>(0, exitCode);
-    //}
+    [TestMethod]
+    public void Run_GoogleDotCom_Success()
+    {
+        int exitCode = Sut.Run("google.com").ExitCode;
+        Assert.AreEqual<int>(0, exitCode);
+    }
 
 
-    //[TestMethod]
-    //public void Run_InvalidAddressOutput_Success()
-    //{
-    //    (int exitCode, string? stdOutput) = Sut.Run("badaddress");
-    //    Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
-    //    stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-    //    Assert.AreEqual<string?>(
-    //        "Ping request could not find host badaddress. Please check the name and try again.".Trim(),
-    //        stdOutput,
-    //        $"Output is unexpected: {stdOutput}");
-    //    Assert.AreEqual<int>(1, exitCode);
-    //}
+    [TestMethod]
+    public void Run_InvalidAddressOutput_Success()
+    {
+        (int exitCode, string? stdOutput) = Sut.Run("badaddress");
+        Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
+        stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
+        Assert.AreEqual<string?>(
+            "Ping request could not find host badaddress. Please check the name and try again.".Trim(),
+            stdOutput,
+            $"Output is unexpected: {stdOutput}");
+        Assert.AreEqual<int>(1, exitCode);
+    }
 
     //[TestMethod]
     //public void Run_CaptureStdOutput_Success()
@@ -65,35 +65,35 @@ public class PingProcessTests
     //    AssertValidPingOutput(result);
     //}
 
-    //[TestMethod]
-    //public void RunTaskAsync_Success()
-    //{
-    //    // Do NOT use async/await in this test.
-    //    // Test Sut.RunTaskAsync("localhost");
-    //    var pingProcess = new PingProcess();
-    //    var result = pingProcess.RunTaskAsync("localhost").Result;
+    [TestMethod]
+    public void RunTaskAsync_Success()
+    {
+        // Do NOT use async/await in this test.
+        // Test Sut.RunTaskAsync("localhost");
+        var pingProcess = new PingProcess();
+        var result = pingProcess.RunTaskAsync("localhost").Result;
 
-    //    Assert.IsNotNull(result);
-    //}
+        Assert.IsNotNull(result);
+    }
 
-    //[TestMethod]
-    //public void RunAsync_UsingTaskReturn_Success()
-    //{
-    //    var pingProcess = new PingProcess();
-    //    var result = pingProcess.RunAsync("localhost").Result;
+    [TestMethod]
+    public void RunAsync_UsingTaskReturn_Success()
+    {
+        var pingProcess = new PingProcess();
+        var result = pingProcess.RunAsync("localhost").Result;
 
-    //    Assert.IsNotNull(result);
-    //}
+        Assert.IsNotNull(result);
+    }
 
-    //[TestMethod]
+    [TestMethod]
 
-    //async public Task RunAsync_UsingTpl_Success()
-    //{
-    //    var pingProcess = new PingProcess();
-    //    var result = await pingProcess.RunAsync("localhost");
+    async public Task RunAsync_UsingTpl_Success()
+    {
+        var pingProcess = new PingProcess();
+        var result = await pingProcess.RunAsync("localhost");
 
-    //    Assert.IsNotNull(result);
-    //}
+        Assert.IsNotNull(result);
+    }
 
 
 
@@ -155,25 +155,25 @@ public class PingProcessTests
     //    Assert.AreNotEqual(lineCount, numbers.Count() + 1);
     //}
 
-    //    readonly string PingOutputLikeExpression = @"
-    //Pinging * with 32 bytes of data:
-    //Reply from ::1: time<*
-    //Reply from ::1: time<*
-    //Reply from ::1: time<*
-    //Reply from ::1: time<*
+    readonly string PingOutputLikeExpression = @"
+    Pinging * with 32 bytes of data:
+    Reply from ::1: time<*
+    Reply from ::1: time<*
+    Reply from ::1: time<*
+    Reply from ::1: time<*
 
-    //Ping statistics for ::1:
-    //    Packets: Sent = *, Received = *, Lost = 0 (0% loss),
-    //Approximate round trip times in milli-seconds:
-    //    Minimum = *, Maximum = *, Average = *".Trim();
-    //    private void AssertValidPingOutput(int exitCode, string? stdOutput)
-    //    {
-    //        Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
-    //        stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-    //        Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression) ?? false,
-    //            $"Output is unexpected: {stdOutput}");
-    //        Assert.AreEqual<int>(0, exitCode);
-    //    }
-    //    private void AssertValidPingOutput(PingResult result) =>
-    //        AssertValidPingOutput(result.ExitCode, result.StdOutput);
+    Ping statistics for ::1:
+        Packets: Sent = *, Received = *, Lost = 0 (0% loss),
+    Approximate round trip times in milli-seconds:
+        Minimum = *, Maximum = *, Average = *".Trim();
+    private void AssertValidPingOutput(int exitCode, string? stdOutput)
+    {
+        Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
+        stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
+        Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression) ?? false,
+            $"Output is unexpected: {stdOutput}");
+        Assert.AreEqual<int>(0, exitCode);
+    }
+    private void AssertValidPingOutput(PingResult result) =>
+        AssertValidPingOutput(result.ExitCode, result.StdOutput);
 }

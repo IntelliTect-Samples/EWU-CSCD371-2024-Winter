@@ -25,18 +25,18 @@ public class PingProcess
         return new PingResult(process.ExitCode, stringBuilder?.ToString());
     }
 
-    //public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
-    //{
-    //    return Task.Run(() =>
-    //    {
-    //        var result = Run(hostNameOrAddress);
-    //        return result;
-    //    });
-    //}
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
     {
-        return Task.Run(() => Run(hostNameOrAddress));
+        return Task.Run(() =>
+        {
+            var result = Run(hostNameOrAddress);
+            return result;
+        });
     }
+    //public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
+    //{
+    //    return Task.Run(() => Run(hostNameOrAddress));
+    //}
 
     async public Task<PingResult> RunAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
