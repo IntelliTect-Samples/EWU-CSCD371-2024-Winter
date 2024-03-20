@@ -62,12 +62,15 @@ public class PingProcessTests
     {
 
         int expectedExitCode = IsUnix ? 2 : 1;
-        (int exitCode, string? stdOutput) = Sut.Run("badaddress");
-        Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
-        stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
+        string expectedOutput = IsUnix ? "ping: badaddress: Temporary failure in name resolution" : "Ping request could not find host badaddress. Please check the name and try again.";
+        (int exitCode, string? stdOutput, string? stdError) = Sut.Run("badaddress");
+        string actualOutput = IsUnix ? stdError! : stdOutput!;
+        //In Unix, error is logged to StdError, not StdOutput
+        Assert.IsFalse(string.IsNullOrWhiteSpace(IsUnix ? stdError : stdOutput));
+        actualOutput = WildcardPattern.NormalizeLineEndings(actualOutput!.Trim());
         Assert.AreEqual<string?>(
-           IsUnix ? string.Empty : "Ping request could not find host badaddress. Please check the name and try again.",
-            stdOutput,
+            actualOutput,
+            expectedOutput,
             $"Output is unexpected: {stdOutput}");
         Assert.AreEqual<int>(expectedExitCode, exitCode); // 2 is the exit code for invalid address
     }

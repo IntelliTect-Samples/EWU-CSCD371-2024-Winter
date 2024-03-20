@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Assignment;
 
-public record struct PingResult(int ExitCode, string? StdOutput);
+public record struct PingResult(int ExitCode, string? StdOutput, string? StdError);
 
 public class PingProcess
 {
@@ -22,11 +22,14 @@ public class PingProcess
         string pingArg = Environment.OSVersion.Platform is PlatformID.Unix ? "-c" : "-n";
 
         StartInfo.Arguments = $"{pingArg} 4 {hostNameOrAddress}";
-        StringBuilder? stringBuilder = null;
+        StringBuilder? stdOutput = null;
+        StringBuilder? stdError = null;
         void updateStdOutput(string? line) =>
-            (stringBuilder??=new StringBuilder()).AppendLine(line);
-        Process process = RunProcessInternal(StartInfo, updateStdOutput, default, default);
-        return new PingResult( process.ExitCode, stringBuilder?.ToString());
+            (stdOutput??=new StringBuilder()).AppendLine(line);
+        void updateStdError(string? line) =>
+            (stdError ??= new StringBuilder()).AppendLine(line);
+        Process process = RunProcessInternal(StartInfo, updateStdOutput, updateStdError, default);
+        return new PingResult( process.ExitCode, stdOutput?.ToString(), stdError?.ToString());
     }
 
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
@@ -63,7 +66,7 @@ public class PingProcess
         cancellationToken.ThrowIfCancellationRequested();
         await Task.WhenAll(all);
         //int total = all.Aggregate(0, (total, item) => total + item.Result);
-        return new PingResult(total, stringBuilder?.ToString().Trim());
+        return new PingResult(total, stringBuilder?.ToString().Trim(),default);
     }
 
     public Task<int> RunLongRunningAsync(ProcessStartInfo startInfo, Action<string?>? progressOutput, 
