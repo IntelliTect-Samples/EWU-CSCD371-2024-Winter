@@ -521,7 +521,7 @@ internal abstract class WildcardPatternParser
 
                 if (lowerBound > upperBound)
                 {
-                    throw NewWildcardPatternException(pattern);
+                    throw new WildcardPatternException(pattern);
                 }
 
                 this.AppendCharacterRangeToBracketExpression(lowerBound, upperBound);
@@ -535,6 +535,7 @@ internal abstract class WildcardPatternParser
 
         this.EndBracketExpression();
     }
+
 
     /// <summary>
     /// Parses <paramref name="pattern"/>, calling appropriate overloads
@@ -605,7 +606,7 @@ internal abstract class WildcardPatternParser
 
         if (insideCharacterRange)
         {
-            throw NewWildcardPatternException(pattern.Pattern);
+            throw new WildcardPatternException(pattern.Pattern);
         }
 
         if (previousCharacterIsAnEscape)
@@ -626,10 +627,6 @@ internal abstract class WildcardPatternParser
         {
         }
 
-        internal static WildcardPatternException NewWildcardPatternException(string invalidPattern)
-        {
-            return new WildcardPatternException(invalidPattern);
-        }
 
     }
 
@@ -814,7 +811,7 @@ internal class WildcardPatternToRegexParser : WildcardPatternParser
         }
         catch (ArgumentException)
         {
-            throw WildcardPatternParser.NewWildcardPatternException(wildcardPattern.Pattern);
+            throw new WildcardPatternParser.WildcardPatternException(wildcardPattern.Pattern);
         }
     }
 }
