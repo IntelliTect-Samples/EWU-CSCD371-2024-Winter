@@ -49,13 +49,10 @@ public class PingProcessTests
     [TestMethod]
     public void Run_GoogleDotCom_Success()
     {
-        int exitCode = 0;
-
-        if(Environment.GetEnvironmentVariable("GITHUB_ACTIONS") != null)
-        {
-            // GitHub actions can't ping remote addresses
-            exitCode = Sut.Run("google.com").ExitCode;
-        }
+        // GitHub actions can't ping remote addresses
+        string host = (Environment.GetEnvironmentVariable("GITHUB_ACTIONS") == null)?
+            "google.com":"::1";
+        int exitCode = Sut.Run(host).ExitCode;
         Assert.AreEqual(0, exitCode);
     }
 
