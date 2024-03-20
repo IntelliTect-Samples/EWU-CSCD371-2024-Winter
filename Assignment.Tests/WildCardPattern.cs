@@ -620,7 +620,7 @@ internal abstract class WildcardPatternParser
         parser.EndWildcardPattern();
     }
 
-    public class WildcardPatternException : Exception
+    public sealed class WildcardPatternException : Exception
     {
         public WildcardPatternException(string invalidPattern)
             : base($"The wildcard pattern, '{invalidPattern}', is invalid.")
