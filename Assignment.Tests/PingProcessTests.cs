@@ -265,10 +265,8 @@ public class PingProcessTests
     readonly string PingOutputLikeExpression = @"
 PING *(* (::1)) * data bytes
 64 bytes from * (::1): icmp_seq=* ttl=* time=* ms
-64 bytes from * (::1): icmp_seq=* ttl=* time=* ms
-64 bytes from * (::1): icmp_seq=* ttl=* time=* ms
-64 bytes from * (::1): icmp_seq=* ttl=* time=* ms
---- * ping statistics ---
+64 bytes from * (::1): icmp_seq=* ttl=* time=* ms64 bytes from localhost (::1): icmp_seq=3 ttl=64 time=0.023 ms
+64 bytes from * (::1): icmp_seq=* ttl=* time=* ms--- localhost ping statistics ---
 * packets transmitted, * received, *% packet loss, time *ms
 rtt min/avg/max/mdev = */*/*/* ms
 ".Trim();
