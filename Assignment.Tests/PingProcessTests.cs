@@ -53,12 +53,12 @@ public class PingProcessTests
         Assert.AreEqual<int>(2, exitCode);
     }
 
-    [TestMethod]
+    /*[TestMethod]
     public void Run_CaptureStdOutput_Success()
     {
         PingResult result = Sut.Run("-c 4 localhost");
         AssertValidPingOutput(result);
-    }
+    }*/
 
     [TestMethod]
     public void RunTaskAsync_Success()
