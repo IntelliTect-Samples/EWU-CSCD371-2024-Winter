@@ -29,11 +29,11 @@ public class PingProcessTests
         string args = PingProcess.CrossPlatformNumPingFlags(numPings);
         if(PingProcess.IsWindows)
         {
-            Assert.AreEqual($"-n {numPings}", args);
+            Assert.AreEqual<string>($"-n {numPings}", args);
         }
         else
         {
-            Assert.AreEqual($"-c {numPings}", args);
+            Assert.AreEqual<string>($"-c {numPings}", args);
         }
     }
 
