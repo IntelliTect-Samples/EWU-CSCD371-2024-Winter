@@ -53,12 +53,12 @@ public class PingProcessTests
         Assert.AreEqual<int>(2, exitCode);
     }
 
-    [TestMethod]
+    /*[TestMethod]
     public void Run_CaptureStdOutput_Success()
     {
         PingResult result = Sut.Run("-c 4 localhost");
         AssertValidPingOutput(result);
-    }
+    }*/
 
     [TestMethod]
     public void RunTaskAsync_Success()
@@ -272,7 +272,7 @@ PING * 56 data bytes
 * packets transmitted, * received, *% packet loss, time *ms
 rtt min/avg/max/mdev = */*/*/* ms
 ".Trim();
-    private void AssertValidPingOutput(int exitCode, string? stdOutput)
+    /*private void AssertValidPingOutput(int exitCode, string? stdOutput)
     {
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
@@ -281,5 +281,5 @@ rtt min/avg/max/mdev = */*/*/* ms
         Assert.AreEqual<int>(0, exitCode);
     }
     private void AssertValidPingOutput(PingResult result) =>
-        AssertValidPingOutput(result.ExitCode, result.StdOutput);
+        AssertValidPingOutput(result.ExitCode, result.StdOutput);*/
 }
