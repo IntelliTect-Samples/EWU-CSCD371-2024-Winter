@@ -89,6 +89,17 @@ public class PingProcessTests
     }
 
     [TestMethod]
+    async public Task RunTaskAsync_WithProgress_Success()
+    {
+        var progress = new Progress<string>();
+        string progressAppended = "";
+        progress.ProgressChanged += (sender, output) => progressAppended += output + Environment.NewLine;
+        PingResult result = await Sut.RunAsync("localhost", progress);
+        // result.StdOutput will not be null
+        Assert.AreEqual<string>(result.StdOutput!.Trim(), progressAppended.Trim());
+    }
+
+    [TestMethod]
     public void RunAsync_UsingTaskReturn_Success()
     {
 
@@ -115,7 +126,7 @@ public class PingProcessTests
     {
         CancellationTokenSource cancelSource = new();
         cancelSource.Cancel();
-        Task<PingResult> task = Sut.RunAsync("localhost", cancelSource.Token);
+        Task<PingResult> task = Sut.RunAsync("localhost", null, cancelSource.Token);
         task.Wait();
     }
 
@@ -126,7 +137,7 @@ public class PingProcessTests
         // Use exception.Flatten()
         CancellationTokenSource cancelSource = new();
         cancelSource.Cancel();
-        Task<PingResult> task = Sut.RunAsync("localhost", cancelSource.Token);
+        Task<PingResult> task = Sut.RunAsync("localhost", null, cancelSource.Token);
         try
         {
             task.Wait();

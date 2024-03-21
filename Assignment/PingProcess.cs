@@ -16,7 +16,7 @@ public class PingProcess
     private ProcessStartInfo StartInfo { get; } = new("ping");
     
 
-    public PingResult Run(string hostNameOrAddress)
+    public PingResult Run(string hostNameOrAddress, IProgress<string>? progress = null)
     {
 
         string pingArg = Environment.OSVersion.Platform is PlatformID.Unix ? "-c" : "-n";
@@ -24,8 +24,11 @@ public class PingProcess
         StartInfo.Arguments = $"{pingArg} 4 {hostNameOrAddress}";
         StringBuilder? stdOutput = null;
         StringBuilder? stdError = null;
-        void updateStdOutput(string? line) =>
-            (stdOutput??=new StringBuilder()).AppendLine(line);
+        void updateStdOutput(string? line)
+        {
+            (stdOutput ??= new StringBuilder()).AppendLine(line);
+            if(line is not null && progress is not null) progress?.Report(line);
+        }
         void updateStdError(string? line) =>
             (stdError ??= new StringBuilder()).AppendLine(line);
         Process process = RunProcessInternal(StartInfo, updateStdOutput, updateStdError, default);
@@ -39,11 +42,11 @@ public class PingProcess
     }
 
     async public Task<PingResult> RunAsync(
-        string hostNameOrAddress, CancellationToken cancellationToken = default)
+        string hostNameOrAddress, IProgress<string>? progress = null, CancellationToken cancellationToken = default)
     {
         // Throw if the token is already cancelled by the time RunAsync starts
         cancellationToken.ThrowIfCancellationRequested();
-        Task<PingResult> task = Task.Run(() => Run(hostNameOrAddress), cancellationToken);
+        Task<PingResult> task = Task.Run(() => Run(hostNameOrAddress, progress), cancellationToken);
         return await task;
     }
 
