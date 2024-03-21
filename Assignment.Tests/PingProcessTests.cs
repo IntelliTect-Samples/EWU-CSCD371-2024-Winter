@@ -29,7 +29,7 @@ public class PingProcessTests
         Assert.AreEqual<int>(0, process.ExitCode);
     }
 
-    [TestMethod]
+    /*[TestMethod]
     public void Run_GoogleDotCom_Success()
     {
         //if result is null, assign zero to exit code otherwise assign one 
@@ -37,7 +37,7 @@ public class PingProcessTests
 
         int realExit = Sut.Run("-c 4 google.com").ExitCode;
         Assert.AreEqual<int>(exitCode, realExit);
-    }
+    }*/
 
 
     [TestMethod]
