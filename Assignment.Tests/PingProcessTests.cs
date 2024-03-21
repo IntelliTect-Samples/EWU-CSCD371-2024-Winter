@@ -46,10 +46,10 @@ public class PingProcessTests
         (int exitCode, string? stdOutput) = Sut.Run("badaddress");
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-        /*Assert.AreEqual<string?>(
-            "Ping request could not find host badaddress. Please check the name and try again.".Trim(),
+        Assert.AreEqual<string?>(
+            "ping: badaddress: Temporary failure in name resolution".Trim(),
             stdOutput,
-            $"Output is unexpected: {stdOutput}");*/
+            $"Output is unexpected: {stdOutput}");
         Assert.AreEqual<int>(2, exitCode);
     }
 
@@ -263,10 +263,12 @@ public class PingProcessTests
     }*/
 
     readonly string PingOutputLikeExpression = @"
-PING *(* (::1)) * data bytes
+PING * 56 data bytes
 64 bytes from * (::1): icmp_seq=* ttl=* time=* ms
-64 bytes from * (::1): icmp_seq=* ttl=* time=* ms64 bytes from localhost (::1): icmp_seq=3 ttl=64 time=0.023 ms
-64 bytes from * (::1): icmp_seq=* ttl=* time=* ms--- localhost ping statistics ---
+64 bytes from * (::1): icmp_seq=* ttl=* time=* ms
+64 bytes from * (::1): icmp_seq=* ttl=* time=* ms
+64 bytes from * (::1): icmp_seq=* ttl=* time=* ms
+--- * ping statistics ---
 * packets transmitted, * received, *% packet loss, time *ms
 rtt min/avg/max/mdev = */*/*/* ms
 ".Trim();
