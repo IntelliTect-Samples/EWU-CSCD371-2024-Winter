@@ -37,7 +37,7 @@ public class PingProcessTests
     }
     */
 
-    /*[TestMethod]
+    [TestMethod]
     public void Run_InvalidAddressOutput_Success()
     {
         (int exitCode, string? stdOutput) = Sut.Run("badaddress");
@@ -49,9 +49,9 @@ public class PingProcessTests
             $"Output is unexpected: {stdOutput}");
         Assert.AreEqual<int>(1, exitCode);
     }
-    */
+    
 
-    /* [TestMethod]
+     [TestMethod]
     public void Run_CaptureStdOutput_Success()
     {
         PingResult result = Sut.Run("localhost");
@@ -92,7 +92,7 @@ public class PingProcessTests
     }
 //#pragma warning restore CS1998 // Remove this
 
-     */
+     
 
     //3
     [TestMethod]
@@ -153,7 +153,7 @@ public class PingProcessTests
 //#pragma warning restore CS1998 // Remove this
     */
 
-    /*[TestMethod]
+    [TestMethod]
     public void StringBuilderAppendLine_InParallel_IsNotThreadSafe()
     {
         IEnumerable<int> numbers = Enumerable.Range(0, short.MaxValue);
@@ -171,11 +171,11 @@ public class PingProcessTests
         int lineCount = stringBuilder.ToString().Split(Environment.NewLine).Length;
         Assert.AreNotEqual(lineCount, numbers.Count() + 1);
     }
-    */
+    
 
 
     // Create a test for RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
-    /*[TestMethod]
+    [TestMethod]
     public void RunAsync_MultipleHostAddressesWithCancellation_True()
     {
         CancellationTokenSource cancellationTokenSource = new();
@@ -185,10 +185,10 @@ public class PingProcessTests
         int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
         Assert.AreEqual(expectedLineCount, lineCount);
     }
-    */
+    
 
     // Create a test for public Task<int> RunLongRunningAsync(ProcessStartInfo startInfo, Action<string?>? progressOutput, Action<string?>? progressError, CancellationToken token)
-    /* [TestMethod]
+     [TestMethod]
     public void RunLongRunningAsync_ProcessStartInfo_Success()
     {
         ProcessStartInfo startInfo = new ProcessStartInfo
@@ -209,7 +209,7 @@ public class PingProcessTests
             UserName = Environment.UserName
         };
     }
-    */
+    
 
 
 
@@ -224,7 +224,7 @@ PING * 56 data bytes
 * packets transmitted, * received, *% packet loss, time *ms
 rtt min/avg/max/mdev = */*/*/* ms
 ".Trim();
-    /*private void AssertValidPingOutput(int exitCode, string? stdOutput)
+    private void AssertValidPingOutput(int exitCode, string? stdOutput)
     {
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
@@ -234,5 +234,5 @@ rtt min/avg/max/mdev = */*/*/* ms
     }
     private void AssertValidPingOutput(PingResult result) =>
         AssertValidPingOutput(result.ExitCode, result.StdOutput);
-    */
+    
 }
