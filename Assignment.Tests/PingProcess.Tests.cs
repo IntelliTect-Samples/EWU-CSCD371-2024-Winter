@@ -79,7 +79,7 @@ public class PingProcessTests
         string hostNameOrAddress = "localhost";
 
 
-        var task = PingProcess.RunTaskAsync(hostNameOrAddress);
+        var task = PingProcess.RunAsync(hostNameOrAddress);
         var res = task.Result;
 
 
