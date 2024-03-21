@@ -40,7 +40,8 @@ public class PingProcessTests
         }
 
         PingResult result = Sut.Run("google.com");
-        Assert.AreEqual(0, result.ExitCode);
+        // Assert.AreEqual(0, result.ExitCode);
+        AssertValidPingOutput(result);
     }
 
 
@@ -89,8 +90,9 @@ public class PingProcessTests
         var result = await PingProcess.RunAsync(hostNameOrAddress);
 
 
-        Assert.IsNotNull(result.StdOutput);
-        Assert.IsTrue(result.ExitCode == 0);
+        // Assert.IsNotNull(result.StdOutput);
+        // Assert.IsTrue(result.ExitCode == 0);
+        AssertValidPingOutput(result);
     }
 
 
@@ -142,9 +144,10 @@ public class PingProcessTests
         {
             PingResult result = await PingProcess.RunAsync(hostName);
 
-            Assert.AreEqual(0, result.ExitCode);
+            //Assert.AreEqual(0, result.ExitCode);
 
-            Assert.AreEqual("Success", result.StdOutput);
+            //Assert.AreEqual("Success", result.StdOutput);
+            AssertValidPingOutput(result);
         }
     }
 
@@ -176,7 +179,7 @@ public class PingProcessTests
 
         Assert.AreEqual(0, exitCode);
         Assert.IsFalse(string.IsNullOrEmpty(outputBuilder.ToString()));
-
+        
 
     }
 
