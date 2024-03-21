@@ -41,6 +41,8 @@ public class PingProcess
     async public Task<PingResult> RunAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
+        // Throw if the token is already cancelled by the time RunAsync starts
+        cancellationToken.ThrowIfCancellationRequested();
         Task<PingResult> task = Task.Run(() => Run(hostNameOrAddress), cancellationToken);
         return await task;
     }
@@ -48,6 +50,8 @@ public class PingProcess
     async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, 
         CancellationToken cancellationToken = default)
     {
+        // Throw if the token is already cancelled by the time RunAsync starts
+        cancellationToken.ThrowIfCancellationRequested();
         StringBuilder? stringBuilder = new();
         int total = 0;
         ParallelQuery<Task<int>>? all = hostNameOrAddresses.AsParallel().Select(async item =>
