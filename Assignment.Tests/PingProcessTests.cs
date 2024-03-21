@@ -1,4 +1,5 @@
 ﻿using IntelliTect.TestTools;
+using Microsoft.VisualStudio.TestPlatform.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -91,9 +92,9 @@ public class PingProcessTests
     [TestMethod]
     async public Task RunTaskAsync_WithProgress_Success()
     {
-        var progress = new Progress<string>();
         string progressAppended = "";
-        progress.ProgressChanged += (sender, output) => progressAppended += output + Environment.NewLine;
+        var progress = new Progress<string>((output) => progressAppended += output + Environment.NewLine);
+
         PingResult result = await Sut.RunAsync("localhost", progress);
         // result.StdOutput will not be null
         Assert.AreEqual<string>(result.StdOutput!.Trim(), progressAppended.Trim());
