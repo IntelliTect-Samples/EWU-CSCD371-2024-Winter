@@ -62,7 +62,7 @@ public class PingProcessTests
         (int exitCode, string? stdOutput, string? stdError) = Sut.Run("badaddress");
         string actualOutput = IsUnix ? stdError! : stdOutput!;
         //In Unix, error is logged to StdError, not StdOutput
-        Assert.IsFalse(string.IsNullOrWhiteSpace(IsUnix ? stdError : stdOutput));
+        Assert.IsFalse(string.IsNullOrWhiteSpace(actualOutput));
         actualOutput = WildcardPattern.NormalizeLineEndings(actualOutput!.Trim());
         Assert.AreEqual<string?>(expectedOutput, actualOutput, $"Output is unexpected: {stdOutput}");
         // 2 is the exit code for invalid address in Unix
