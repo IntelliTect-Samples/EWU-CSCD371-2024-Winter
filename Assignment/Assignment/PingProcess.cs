@@ -29,31 +29,21 @@ public class PingProcess
         return new PingResult(process?.ExitCode ?? 1, output);
     }
 
-    public static Task<PingResult> RunTaskAsync(string hostNameOrAddress)
+    public static PingResult RunTask(string hostNameOrAddress)
     {
-        var tcs = new TaskCompletionSource<PingResult>();
-        Ping pingSender = new();
-
-        pingSender.PingCompleted += (obj, eventArgs) =>
+        using (Ping pingSender = new Ping())
         {
-            if (eventArgs.Error != null)
+            var reply = pingSender.Send(hostNameOrAddress);
+            if (reply.Status == IPStatus.Success)
             {
-                tcs.SetException(eventArgs.Error);
+                return new PingResult(0, reply.ToString());
             }
-            else if (eventArgs.Cancelled)
+            else
             {
-                tcs.SetCanceled();
+                return new PingResult(1, reply.Status.ToString());
             }
-            else if(eventArgs.Reply != null)
-            {
-                tcs.SetResult(new PingResult(0, eventArgs.Reply.ToString()));
-            }
-        };
-
-        pingSender.SendAsync(hostNameOrAddress, new object());
-        return tcs.Task;
+        }
     }
-
 
     public static async Task<PingResult> RunAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
