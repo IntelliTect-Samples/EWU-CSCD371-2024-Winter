@@ -69,7 +69,7 @@ public class PingProcessTests
     public void RunTaskAsync_Success()
     {
         string hostNameOrAddress = "localhost";
-        var res = PingProcess.RunTaskAsync(hostNameOrAddress).Result;
+        var res = PingProcess.RunTaskAsync(hostNameOrAddress);
         AssertValidPingOutput(res);
     }
     [TestMethod]

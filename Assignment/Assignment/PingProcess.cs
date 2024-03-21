@@ -29,7 +29,7 @@ public class PingProcess
         return new PingResult(process?.ExitCode ?? 1, output);
     }
 
-    public static PingResult RunTask(string hostNameOrAddress)
+    public static PingResult RunTaskAsync(string hostNameOrAddress)
     {
         using (Ping pingSender = new Ping())
         {
@@ -40,6 +40,7 @@ public class PingProcess
             }
             else
             {
+
                 return new PingResult(1, reply.Status.ToString());
             }
         }
