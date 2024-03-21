@@ -106,23 +106,23 @@ public class PingProcessTests
     }*/
 
 
-    //[TestMethod]
-    //public async Task RunAsync_UsingTpl_Success()
-    //{
-    //    // Arrange
-    //    string hostName = "-c 4 localhost";
+    [TestMethod]
+    public async Task RunAsync_UsingTpl_Success()
+    {
+        // Arrange
+        string hostName = "-c 4 localhost";
 
-    //    // Act
-    //    PingResult result = await Sut.RunAsync($"-c 4 {hostName}");
+        // Act
+        PingResult result = await Sut.RunAsync($"-c 4 {hostName}");
 
-    //    // Assert
-    //    // Asserting that we got something back from the ping
-    //    Assert.IsNotNull(result);
-    //    // Asserting we have a successful exit code (0)
-    //    Assert.AreEqual(0, result.ExitCode);
-    //    AssertValidPingOutput(result);
+        // Assert
+        // Asserting that we got something back from the ping
+        Assert.IsNotNull(result);
+        // Asserting we have a successful exit code (0)
+        Assert.AreEqual(0, result.ExitCode);
+        AssertValidPingOutput(result);
 
-    //}
+    }
 
 
     //[TestMethod]
@@ -272,7 +272,7 @@ PING * 56 data bytes
 * packets transmitted, * received, *% packet loss, time *ms
 rtt min/avg/max/mdev = */*/*/* ms
 ".Trim();
-    /*private void AssertValidPingOutput(int exitCode, string? stdOutput)
+    private void AssertValidPingOutput(int exitCode, string? stdOutput)
     {
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
@@ -281,5 +281,5 @@ rtt min/avg/max/mdev = */*/*/* ms
         Assert.AreEqual<int>(0, exitCode);
     }
     private void AssertValidPingOutput(PingResult result) =>
-        AssertValidPingOutput(result.ExitCode, result.StdOutput);*/
+        AssertValidPingOutput(result.ExitCode, result.StdOutput);
 }
