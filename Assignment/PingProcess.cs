@@ -65,7 +65,6 @@ public class PingProcess
         });
         cancellationToken.ThrowIfCancellationRequested();
         await Task.WhenAll(all);
-        //int total = all.Aggregate(0, (total, item) => total + item.Result);
         return new PingResult(total, stringBuilder?.ToString().Trim(),default);
     }
 
