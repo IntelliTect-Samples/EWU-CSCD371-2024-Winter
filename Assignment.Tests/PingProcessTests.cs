@@ -17,13 +17,16 @@ public class PingProcessTests
     //Will never be null as its set in TestInitalize
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     string LimitPingArg { get; set; }
+    string PingOutputLikeExpression {get; set;}
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
     [TestInitialize]
     public void TestInitialize()
     {
         IsUnix = Environment.OSVersion.Platform is PlatformID.Unix;
-        LimitPingArg = IsUnix ? "-c" : "-n";
+        (string arg, string exp)  = IsUnix ? ("-c", PingOutputLikeExpressionUnix) : ("-n", PingOutputLikeExpressionWindows);
+        LimitPingArg = arg;
+        PingOutputLikeExpression = exp;
         Sut = new();
     }
 
@@ -57,8 +60,7 @@ public class PingProcessTests
     public void Run_InvalidAddressOutput_Success()
     {
 
-        int expectedExitCode = IsUnix ? 2 : 1;
-        string expectedOutput = IsUnix ? "ping: badaddress: Temporary failure in name resolution" : "Ping request could not find host badaddress. Please check the name and try again.";
+        (string expectedOutput, int expectedExitCode)  = IsUnix ? ("ping: badaddress: Temporary failure in name resolution", 2) : ("Ping request could not find host badaddress. Please check the name and try again.",1);
         (int exitCode, string? stdOutput, string? stdError) = Sut.Run("badaddress");
         string actualOutput = IsUnix ? stdError! : stdOutput!;
         //In Unix, error is logged to StdError, not StdOutput
@@ -142,9 +144,9 @@ public class PingProcessTests
         // Pseudo Code - don't trust it!!!
         // -> seems to work well enough
         string[] hostNames = new string[] { "localhost", "localhost", "localhost", "localhost" };
-        int expectedLineCount = (IsUnix ? PingOutputLikeExpressionUnix : PingOutputLikeExpressionWindows).Split(Environment.NewLine).Length * hostNames.Length;
+        int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length * hostNames.Length;
         PingResult result = await Sut.RunAsync(hostNames);
-        int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
+        int lineCount = result.StdOutput!.Split(Environment.NewLine).Length;
         Assert.AreEqual(expectedLineCount, lineCount);
     }
 
@@ -226,7 +228,7 @@ rtt min/avg/max/mdev = */*/*/* ms
     {
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-        Assert.IsTrue(stdOutput?.IsLike(IsUnix ?  PingOutputLikeExpressionUnix : PingOutputLikeExpressionWindows) ?? false,
+        Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression) ?? false,
             $"Output is unexpected: {stdOutput}");
         Assert.AreEqual<int>(0, exitCode);
     }
