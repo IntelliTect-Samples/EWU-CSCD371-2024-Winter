@@ -1,4 +1,4 @@
-using IntelliTect.TestTools;
+﻿using IntelliTect.TestTools;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -39,7 +39,7 @@ public class PingProcessTests
     public void Run_GoogleDotCom_Success()
     {
 
-        int expectedExitCode = Environment.GetEnvironmentVariable("GITHUB_ACTIONS") is null ? 0 : 1;
+        int expectedExitCode = Environment.GetEnvironmentVariable("GITHUB_ACTIONS") is not null || IsUnix ? 1 : 0;
 
         int exitCode = Sut.Run("google.com").ExitCode;
         Assert.AreEqual<int>(expectedExitCode, exitCode);
@@ -64,10 +64,7 @@ public class PingProcessTests
         //In Unix, error is logged to StdError, not StdOutput
         Assert.IsFalse(string.IsNullOrWhiteSpace(IsUnix ? stdError : stdOutput));
         actualOutput = WildcardPattern.NormalizeLineEndings(actualOutput!.Trim());
-        Assert.AreEqual<string?>(
-            actualOutput,
-            expectedOutput,
-            $"Output is unexpected: {stdOutput}");
+        Assert.AreEqual<string?>(expectedOutput, actualOutput, $"Output is unexpected: {stdOutput}");
         // 2 is the exit code for invalid address in Unix
         // 1 is the exit code for invalid address in Windows
         Assert.AreEqual<int>(expectedExitCode, exitCode);
