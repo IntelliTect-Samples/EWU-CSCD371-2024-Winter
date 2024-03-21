@@ -37,7 +37,6 @@ public class PingProcess
     // bullet 2
     async public Task<PingResult> RunAsync(string hostNameOrAddress)
     {       
-        TaskCompletionSource<PingResult> tcs = new TaskCompletionSource<PingResult>();
 
        return await Task.Run(() =>
         {
