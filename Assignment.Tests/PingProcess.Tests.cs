@@ -84,7 +84,7 @@ public class PingProcessTests
 
 
         Assert.IsNotNull(res.StdOutput);
-        Assert.IsTrue(res.ExitCode == 0);
+        AssertValidPingOutput(task.Result);
     }
 
     [TestMethod]
