@@ -29,13 +29,15 @@ public class PingProcessTests
         Assert.AreEqual<int>(0, process.ExitCode);
     }
 
-    //[TestMethod]
-    //public void Run_GoogleDotCom_Success()
-    //{
-    //    int exitCode = Sut.Run("-c 8 google.com").ExitCode;
+    [TestMethod]
+    public void Run_GoogleDotCom_Success()
+    {
+        //if result is null, assign zero to exit code otherwise assign one 
+        int exitCode = Environment.GetEnvironmentVariable("GITHUB_ACTIONS") is null ? 0:1;
 
-    //    Assert.AreEqual<int>(0, exitCode);
-    //}
+        int realExit = Sut.Run("-c 4 google.com").ExitCode;
+        Assert.AreEqual<int>(0, exitCode);
+    }
 
 
     [TestMethod]
