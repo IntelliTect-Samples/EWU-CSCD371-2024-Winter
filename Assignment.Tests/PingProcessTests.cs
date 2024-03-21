@@ -107,21 +107,13 @@ public class PingProcessTests
 
 
     [TestMethod]
-    public async Task RunAsync_UsingTpl_Success()
+    async public Task RunAsync_UsingTpl_Success()
     {
-        // Arrange
-        string hostName = "-c 4 localhost";
+        // DO use async/await in this test.
+        PingResult result = await Sut.RunAsync("localhost");
 
-        // Act
-        PingResult result = await Sut.RunAsync($"-c 4 {hostName}");
-
-        // Assert
-        // Asserting that we got something back from the ping
-        Assert.IsNotNull(result);
-        // Asserting we have a successful exit code (0)
-        Assert.AreEqual(0, result.ExitCode);
+        // Test Sut.RunAsync("localhost");
         AssertValidPingOutput(result);
-
     }
 
 
