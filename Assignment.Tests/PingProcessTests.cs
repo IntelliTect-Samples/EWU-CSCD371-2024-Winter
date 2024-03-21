@@ -35,7 +35,7 @@ public class PingProcessTests
         //if result is null, assign zero to exit code otherwise assign one 
         int exitCode = Environment.GetEnvironmentVariable("GITHUB_ACTIONS") is null ? 0:1;
 
-        int realExit = Sut.Run("-c 4 google.com").ExitCode;
+        int realExit = Sut.Run("google.com").ExitCode;
         Assert.AreEqual<int>(0, exitCode);
     }
 
