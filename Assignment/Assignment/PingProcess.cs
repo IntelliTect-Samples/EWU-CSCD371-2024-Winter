@@ -1,12 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Net;
-using System.Net.Http.Headers;
 using System.Net.NetworkInformation;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -73,8 +69,7 @@ public class PingProcess
 
     public static async Task<PingResult[]> RunAsync(IEnumerable<string> hostNameOrAddress, CancellationToken cancellationToken = default)
     {
-        var tasks = hostNameOrAddress.Select(hostName => RunAsync(hostName, cancellationToken));
-        return await Task.WhenAll(tasks);
+        return await Task.WhenAll(hostNameOrAddress.Select(hostName => RunAsync(hostName, cancellationToken)));
     }
 
 

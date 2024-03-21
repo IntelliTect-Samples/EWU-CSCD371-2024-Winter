@@ -41,7 +41,7 @@ public class PingProcessTests
     [TestMethod]
     public void Run_InvalidAddressOutput_Success()
     {
-        (int exitCode, string? stdOutput) = Sut.Run("badaddress");
+        (int exitCode, var stdOutput) = Sut.Run("badaddress");
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
         Assert.AreEqual<string?>(
@@ -79,7 +79,7 @@ public class PingProcessTests
         string hostNameOrAddress = "localhost";
 
 
-        var task = PingProcess.RunTaskAsync(hostNameOrAddress);
+        var task = PingProcess.RunAsync(hostNameOrAddress);
         var res = task.Result;
 
 
