@@ -267,7 +267,11 @@ PING * * bytes*
 64 bytes from * (*): icmp_seq=* ttl=* time=* ms
 64 bytes from * (*): icmp_seq=* ttl=* time=* ms
 64 bytes from * (*): icmp_seq=* ttl=* time=* ms
-64 bytes from * (*): icmp_seq=* ttl=* time=* ms".Trim();
+64 bytes from * (*): icmp_seq=* ttl=* time=* ms
+--- * ping statistics ---
+* packets transmitted, * received, *% packet loss, time *ms
+rtt min/avg/max/mdev = */*/*/* ms
+".Trim();
     private void AssertValidPingOutput(int exitCode, string? stdOutput)
     {
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
