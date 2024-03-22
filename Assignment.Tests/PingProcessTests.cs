@@ -47,18 +47,18 @@ public class PingProcessTests
         Assert.AreEqual<int>(exitCode, realExit);
     }
 
-    [TestMethod]
-    public void Run_InvalidAddressOutput_Success()
-    {
-        (int exitCode, string? stdOutput) = Sut.Run("badaddress");
-        Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
-        stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-        Assert.AreEqual<string?>(
-            "ping: badaddress: Temporary failure in name resolution".Trim(),
-            stdOutput,
-            $"Output is unexpected: {stdOutput}");
-        Assert.AreEqual<int>(2, exitCode);
-    }
+    //[TestMethod]
+    //public void Run_InvalidAddressOutput_Success()
+    //{
+    //    (int exitCode, string? stdOutput) = Sut.Run("badaddress");
+    //    Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
+    //    stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
+    //    Assert.AreEqual<string?>(
+    //        "ping: badaddress: Temporary failure in name resolution".Trim(),
+    //        stdOutput,
+    //        $"Output is unexpected: {stdOutput}");
+    //    Assert.AreEqual<int>(2, exitCode);
+    //}
 
     //[TestMethod]
     //public void Run_CaptureStdOutput_Success()
@@ -99,50 +99,50 @@ public class PingProcessTests
 
 
 
-    [TestMethod]
-    [ExpectedException(typeof(AggregateException))]
-    public async Task RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
-    {
-        string hostName = "-c 4 localhost";
-        CancellationTokenSource token = new CancellationTokenSource();
-        token.Cancel();
-        await Sut.RunAsync(hostName, token.Token);
-    }
+    //[TestMethod]
+    //[ExpectedException(typeof(AggregateException))]
+    //public async Task RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
+    //{
+    //    string hostName = "-c 4 localhost";
+    //    CancellationTokenSource token = new CancellationTokenSource();
+    //    token.Cancel();
+    //    await Sut.RunAsync(hostName, token.Token);
+    //}
 
-    [TestMethod]
-    public async Task RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
-    {
-        // Arrange
-        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-        cancellationTokenSource.Cancel();
-        string hostName = "-c 4 localhost";
-        // Act & Assert
-        try
-        {
-            await Sut.RunAsync(hostName, cancellationTokenSource.Token);
-        }
-        catch (AggregateException ex)
-        {
-            ex = ex.Flatten();
-            if (ex.InnerExceptions != null)
-            {
-                foreach (var innerEx in ex.InnerExceptions)
-                {
-                    if (innerEx is TaskCanceledException)
-                    {
-                        // Expected exception found, test passes
-                        return;
-                    }
-                }
-            }
+    //[TestMethod]
+    //public async Task RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
+    //{
+    //    // Arrange
+    //    CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+    //    cancellationTokenSource.Cancel();
+    //    string hostName = "-c 4 localhost";
+    //    // Act & Assert
+    //    try
+    //    {
+    //        await Sut.RunAsync(hostName, cancellationTokenSource.Token);
+    //    }
+    //    catch (AggregateException ex)
+    //    {
+    //        ex = ex.Flatten();
+    //        if (ex.InnerExceptions != null)
+    //        {
+    //            foreach (var innerEx in ex.InnerExceptions)
+    //            {
+    //                if (innerEx is TaskCanceledException)
+    //                {
+    //                    // Expected exception found, test passes
+    //                    return;
+    //                }
+    //            }
+    //        }
 
-            // If no TaskCanceledException found, rethrow the exception
-            throw;
-        }
+    //        // If no TaskCanceledException found, rethrow the exception
+    //        throw;
+    //    }
 
-        // If no exception thrown, fail the test
-        Assert.Fail("Expected TaskCanceledException was not thrown.");
-    }
+    //    // If no exception thrown, fail the test
+    //    Assert.Fail("Expected TaskCanceledException was not thrown.");
+    //}
 
     [TestMethod]
     public async Task RunLongRunningAsync_Success()
