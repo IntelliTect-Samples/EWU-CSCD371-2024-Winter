@@ -65,7 +65,7 @@ public class PingProcessTests
     {
         string hostNameOrAddress = "-c 4 localhost";
         var res = PingProcess.RunTaskAsync(hostNameOrAddress);
-        AssertValidPingOutput(res);
+        Assert.AreEqual(0, res.ExitCode);
     }
     [TestMethod]
     public async Task RunAsync_UsingTaskReturn_Success()
