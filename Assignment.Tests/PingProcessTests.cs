@@ -1,4 +1,4 @@
-﻿using IntelliTect.TestTools;
+using IntelliTect.TestTools;
 using Microsoft.VisualStudio.TestPlatform.Utilities;
 using System;
 using System.Collections.Generic;
@@ -89,16 +89,13 @@ public class PingProcessTests
         AssertValidPingOutput(result.Result);
     }
 
-
-
     [TestMethod]
     async public Task RunTaskAsync_WithProgress_Success()
     {
         string progressAppended = "";
-        var progress = new PingProgress<string?>((output) => progressAppended += output + Environment.NewLine);
+        var progress = new Progress<string?>((output) => progressAppended += output + Environment.NewLine);
 
         PingResult result = await Sut.RunAsync("localhost", progress);
-
         // result.StdOutput will not be null
         Assert.AreEqual<string>(result.StdOutput!.Trim(), progressAppended.Trim());
     }
@@ -216,29 +213,29 @@ public class PingProcessTests
 
     // Windows version of ping output
     readonly string PingOutputLikeExpressionWindows = @"
-    Pinging * with 32 bytes of data:
-    Reply from ::1: time<*
-    Reply from ::1: time<*
-    Reply from ::1: time<*
-    Reply from ::1: time<*
+Pinging * with 32 bytes of data:
+Reply from ::1: time<*
+Reply from ::1: time<*
+Reply from ::1: time<*
+Reply from ::1: time<*
 
-    Ping statistics for ::1:
+Ping statistics for ::1:
     Packets: Sent = *, Received = *, Lost = 0 (0% loss),
-    Approximate round trip times in milli-seconds:
+Approximate round trip times in milli-seconds:
     Minimum = *, Maximum = *, Average = *".Trim();
 
     //Linux version of ping output
     readonly string PingOutputLikeExpressionUnix = @"
-    PING * * bytes*
-    64 bytes from * (*): icmp_seq=* ttl=* time=* ms
-    64 bytes from * (*): icmp_seq=* ttl=* time=* ms
-    64 bytes from * (*): icmp_seq=* ttl=* time=* ms
-    64 bytes from * (*): icmp_seq=* ttl=* time=* ms
+PING * * bytes*
+64 bytes from * (*): icmp_seq=* ttl=* time=* ms
+64 bytes from * (*): icmp_seq=* ttl=* time=* ms
+64 bytes from * (*): icmp_seq=* ttl=* time=* ms
+64 bytes from * (*): icmp_seq=* ttl=* time=* ms
 
-    --- * ping statistics ---
-    * packets transmitted, * received, *% packet loss, time *ms
-    rtt min/avg/max/mdev = */*/*/* ms
-    ".Trim();
+--- * ping statistics ---
+* packets transmitted, * received, *% packet loss, time *ms
+rtt min/avg/max/mdev = */*/*/* ms
+".Trim();
     private void AssertValidPingOutput(int exitCode, string? stdOutput)
     {
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
