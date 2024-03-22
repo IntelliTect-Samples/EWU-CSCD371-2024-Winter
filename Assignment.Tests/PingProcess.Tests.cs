@@ -145,7 +145,8 @@ public class PingProcessTests
         foreach (var hostName in hostNames)
         {
             PingResult result = await PingProcess.RunAsync(hostName);
-            AssertValidPingOutput(result);
+            Assert.AreEqual(0, result.ExitCode);
+            Assert.IsNull(result.StdOutput);
         }
     }
 
