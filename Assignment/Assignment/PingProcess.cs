@@ -31,19 +31,8 @@ public class PingProcess
 
     public static PingResult RunTaskAsync(string hostNameOrAddress)
     {
-        using (Ping pingSender = new Ping())
-        {
-            var reply = pingSender.Send(hostNameOrAddress);
-            if (reply.Status == IPStatus.Success)
-            {
-                return new PingResult(0, reply.ToString());
-            }
-            else
-            {
-
-                return new PingResult(1, reply.Status.ToString());
-            }
-        }
+        PingProcess pingProcess = new PingProcess();
+        return pingProcess.Run(hostNameOrAddress);
     }
 
     public static async Task<PingResult> RunAsync(
@@ -58,10 +47,19 @@ public class PingProcess
 
 
 
-    public static async Task<PingResult[]> RunAsync(IEnumerable<string> hostNameOrAddress, CancellationToken cancellationToken = default)
+    public static async Task<PingResult[]> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
     {
-        return await Task.WhenAll(hostNameOrAddress.Select(hostName => RunAsync(hostName, cancellationToken)));
+        var tasks = hostNameOrAddresses.Select(async hostName =>
+        {
+            return await PingProcess.RunAsync(hostName, cancellationToken);
+        });
+
+        return await Task.WhenAll(tasks);
     }
+
+
+
+
 
 
 
