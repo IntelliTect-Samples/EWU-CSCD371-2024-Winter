@@ -95,7 +95,7 @@ public class PingProcessTests
 
 
     [TestMethod]
-    public async Task RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
+    public async Task RunAsync_UsingTplWithCancellation_CatchTaskCanceledException()
     {
         PingProcess pingProcess = new PingProcess();
         string hostNameOrAddress = "localhost";
@@ -103,18 +103,19 @@ public class PingProcessTests
 
         var task = PingProcess.RunAsync(hostNameOrAddress, cancellationTokenSource.Token);
 
-        // Await the task before cancelling the token
-        await Task.Delay(100); // Delay to ensure the task has started
+      
+        await Task.Delay(100);
+
         cancellationTokenSource.Cancel();
 
         try
         {
-            await task; // Wait for the task to complete
-            Assert.Fail("Expected an AggregateException to be thrown.");
+            await task; 
+            Assert.Fail("Expected a TaskCanceledException to be thrown.");
         }
-        catch (AggregateException ex)
+        catch (TaskCanceledException)
         {
-            Assert.IsTrue(ex.InnerExceptions.Any(innerEx => innerEx is TaskCanceledException));
+            Assert.IsTrue(task.IsCanceled);
         }
     }
 
