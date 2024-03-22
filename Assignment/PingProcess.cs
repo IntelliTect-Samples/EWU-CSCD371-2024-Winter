@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.NetworkInformation;
@@ -63,41 +64,122 @@ public class PingProcess
     }
 
 
-
-
-
-
-
     public static Task<int> RunLongRunningAsync(ProcessStartInfo startInfo, Action<string?>? progressOutput, Action<string?>? progressError, CancellationToken token)
     {
         return Task.Factory.StartNew(() =>
         {
-            var process = RunProcessInternal(startInfo, progressOutput, progressError, token);
+            PingProcess ping = new();
+            var process = ping.RunProcessInternal(startInfo, progressOutput, progressError, token);
             process.WaitForExit();
             return process.ExitCode;
         }, token, TaskCreationOptions.LongRunning, TaskScheduler.Current);
     }
 
-    private static Process RunProcessInternal(ProcessStartInfo startInfo, Action<string?>? progressOutput, Action<string?>? progressError, CancellationToken token)
+    private Process RunProcessInternal(
+    ProcessStartInfo startInfo,
+    Action<string?>? progressOutput,
+    Action<string?>? progressError,
+    CancellationToken token)
     {
-        var process = new Process { StartInfo = startInfo };
-        process.Start();
-        //process.EnableRaisingEvents = true;
-        //process.OutputDataReceived += OutputHandler;
-        //process.ErrorDataReceived += ErrorHandler;
-        process.BeginOutputReadLine();
-        process.BeginErrorReadLine();
-
-        process.OutputDataReceived += (sender, e) => progressOutput?.Invoke(e.Data);
-        process.ErrorDataReceived += (sender, e) => progressError?.Invoke(e.Data);
-
-        token.Register(() =>
+        var process = new Process
         {
+            StartInfo = UpdateProcessStartInfo(startInfo)
+        };
+        return RunProcessInternal(process, progressOutput, progressError, token);
+    }
+
+    private Process RunProcessInternal(
+        Process process,
+        Action<string?>? progressOutput,
+        Action<string?>? progressError,
+        CancellationToken token)
+    {
+        process.EnableRaisingEvents = true;
+        process.OutputDataReceived += OutputHandler;
+        process.ErrorDataReceived += ErrorHandler;
+
+        try
+        {
+            if (!process.Start())
+            {
+                return process;
+            }
+
+            token.Register(obj =>
+            {
+                if (obj is Process p && !p.HasExited)
+                {
+                    try
+                    {
+                        p.Kill();
+                    }
+                    catch (Win32Exception ex)
+                    {
+                        throw new InvalidOperationException($"Error cancelling process{Environment.NewLine}{ex}");
+                    }
+                }
+            }, process);
+
+
+            if (process.StartInfo.RedirectStandardOutput)
+            {
+                process.BeginOutputReadLine();
+            }
+            if (process.StartInfo.RedirectStandardError)
+            {
+                process.BeginErrorReadLine();
+            }
+
+            if (process.HasExited)
+            {
+                return process;
+            }
+            process.WaitForExit();
+        }
+        catch (Exception e)
+        {
+            throw new InvalidOperationException($"Error running '{process.StartInfo.FileName} {process.StartInfo.Arguments}'{Environment.NewLine}{e}");
+        }
+        finally
+        {
+            if (process.StartInfo.RedirectStandardError)
+            {
+                process.CancelErrorRead();
+            }
+            if (process.StartInfo.RedirectStandardOutput)
+            {
+                process.CancelOutputRead();
+            }
+            process.OutputDataReceived -= OutputHandler;
+            process.ErrorDataReceived -= ErrorHandler;
+
             if (!process.HasExited)
             {
                 process.Kill();
             }
-        });
+
+        }
         return process;
+
+        void OutputHandler(object s, DataReceivedEventArgs e)
+        {
+            progressOutput?.Invoke(e.Data);
+        }
+
+        void ErrorHandler(object s, DataReceivedEventArgs e)
+        {
+            progressError?.Invoke(e.Data);
+        }
+    }
+
+    private static ProcessStartInfo UpdateProcessStartInfo(ProcessStartInfo startInfo)
+    {
+        startInfo.CreateNoWindow = true;
+        startInfo.RedirectStandardError = true;
+        startInfo.RedirectStandardOutput = true;
+        startInfo.UseShellExecute = false;
+        startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+
+        return startInfo;
     }
 }
