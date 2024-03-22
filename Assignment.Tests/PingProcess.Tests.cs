@@ -200,6 +200,7 @@ public class PingProcessTests
     {
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
+        PingOutputLikeExpression = WildcardPattern.NormalizeLineEndings(PingOutputLikeExpression.Trim());
        Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression) ?? false,
         $"Output is unexpected: {stdOutput}");
         Assert.AreEqual<int>(0, exitCode);
@@ -207,15 +208,15 @@ public class PingProcessTests
     private void AssertValidPingOutput(PingResult result) =>
         AssertValidPingOutput(result.ExitCode, result.StdOutput);
 
-    private readonly string PingOutputLikeExpression = @"
-Pinging * with 32 bytes of data:
-Reply from ::1: time<*
-Reply from ::1: time<*
-Reply from ::1: time<*
-Reply from ::1: time<*
+     string PingOutputLikeExpression = @"
+PING * * bytes*
+64 bytes from * (): icmp_seq= ttl=* time=* ms
+64 bytes from * (): icmp_seq= ttl=* time=* ms
+64 bytes from * (): icmp_seq= ttl=* time=* ms
+64 bytes from * (): icmp_seq= ttl=* time=* ms
 
-Ping statistics for ::1:
-    Packets: Sent = *, Received = *, Lost = 0 (0% loss),
-Approximate round trip times in milli-seconds:
-    Minimum = *, Maximum = *, Average = *".Trim();
+--- * ping statistics ---
+packets transmitted, * received, % packet loss, timems
+rtt min/avg/max/mdev = /// ms
+".Trim();
 }
