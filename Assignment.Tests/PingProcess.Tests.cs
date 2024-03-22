@@ -136,10 +136,6 @@ public class PingProcessTests
         foreach (var hostName in hostNames)
         {
             PingResult result = await PingProcess.RunAsync(hostName);
-
-            //Assert.AreEqual(0, result.ExitCode);
-
-            //Assert.AreEqual("Success", result.StdOutput);
             AssertValidPingOutput(result);
         }
     }
@@ -171,7 +167,6 @@ public class PingProcessTests
         var exitCode = task.Result;
 
         Assert.AreEqual(0, exitCode);
-       // Assert.IsFalse(string.IsNullOrEmpty(outputBuilder.ToString()));
         
 
     }
@@ -193,7 +188,7 @@ public class PingProcessTests
     }
 
     
-    private void AssertValidPingOutput(int exitCode, string? stdOutput)
+    private static void AssertValidPingOutput(int exitCode, string? stdOutput)
     {
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
