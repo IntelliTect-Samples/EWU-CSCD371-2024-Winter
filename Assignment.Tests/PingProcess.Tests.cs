@@ -152,7 +152,7 @@ public class PingProcessTests
         var startInfo = new ProcessStartInfo
         {
             FileName = "ping",
-            Arguments = "localhost -n 5",
+            Arguments = "localhost -c 4",
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             UseShellExecute = false,
@@ -194,28 +194,28 @@ public class PingProcessTests
         Assert.AreNotEqual(lineCount, numbers.Count() + 1);
     }
 
+    string PingOutputLikeExpression = @"
+PING * * bytes*
+64 bytes from * (*): icmp_seq=* ttl=* time=* ms
+64 bytes from * (*): icmp_seq=* ttl=* time=* ms
+64 bytes from * (*): icmp_seq=* ttl=* time=* ms
+64 bytes from * (*): icmp_seq=* ttl=* time=* ms
 
+--- * ping statistics ---
+* packets transmitted, * received, *% packet loss, time *ms
+rtt min/avg/max/mdev = */*/*/* ms
+".Trim();
     private void AssertValidPingOutput(int exitCode, string? stdOutput)
     {
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-        PingOutputLikeExpression = WildcardPattern.NormalizeLineEndings(PingOutputLikeExpression.Trim());
-        Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression) ?? false,
+        PingOutputLikeExpression = WildcardPattern.NormalizeLineEndings(PingOutputLikeExpression);
+        Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression.Trim()) ?? false,
          $"Output is unexpected: {stdOutput}");
         Assert.AreEqual<int>(0, exitCode);
     }
     private void AssertValidPingOutput(PingResult result) =>
         AssertValidPingOutput(result.ExitCode, result.StdOutput);
 
-    string PingOutputLikeExpression = @"
-PING * * bytes*
-64 bytes from * (): icmp_seq= ttl=* time=* ms
-64 bytes from * (): icmp_seq= ttl=* time=* ms
-64 bytes from * (): icmp_seq= ttl=* time=* ms
-64 bytes from * (): icmp_seq= ttl=* time=* ms
 
---- * ping statistics ---
-packets transmitted, * received, % packet loss, timems
-rtt min/avg/max/mdev = /// ms
-".Trim();
 }
