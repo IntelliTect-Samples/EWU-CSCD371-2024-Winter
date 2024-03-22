@@ -64,7 +64,7 @@ public class PingProcessTests
     public void RunTaskAsync_Success()
     {
         string hostNameOrAddress = "-c 4 localhost";
-        var res = PingProcess.RunTaskAsync(hostNameOrAddress);
+       var res = PingProcess.RunTaskAsync(hostNameOrAddress);
         Assert.AreEqual(0, res.ExitCode);
         Assert.IsNull(res.StdOutput);
     }
@@ -94,47 +94,45 @@ public class PingProcessTests
 
 
 
-   /* [TestMethod]
-    public async Task RunAsync_UsingTplWithCancellation_CatchTaskCanceledException()
+    [TestMethod]
+    
+    [ExpectedException(typeof(TaskCanceledException))]
+    public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
         PingProcess pingProcess = new PingProcess();
         string hostNameOrAddress = "localhost";
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-
-        var task = PingProcess.RunAsync(hostNameOrAddress, cancellationTokenSource.Token);
-
-      
-        await Task.Delay(100);
-
         cancellationTokenSource.Cancel();
+        var task = PingProcess.RunAsync(hostNameOrAddress, cancellationTokenSource.Token);
 
         try
         {
-            await task; 
+            task.Wait();
             Assert.Fail("Expected a TaskCanceledException to be thrown.");
         }
-        catch (TaskCanceledException)
+        catch (AggregateException ex)
         {
-            Assert.IsTrue(task.IsCanceled);
+            throw ex.Flatten().InnerException!;
         }
     }
 
 
     [TestMethod]
-    public async Task RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
+    [ExpectedException(typeof(AggregateException))]
+    public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
     {
+        PingProcess pingProcess = new PingProcess();
         string hostNameOrAddress = "localhost";
-        using CancellationTokenSource cancellationTokenSource = new();
-
-        Task<PingResult> task = PingProcess.RunAsync(hostNameOrAddress, cancellationTokenSource.Token);
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         cancellationTokenSource.Cancel();
+        var task = PingProcess.RunAsync(hostNameOrAddress, cancellationTokenSource.Token);
 
-        AggregateException exception = await Assert.ThrowsExceptionAsync<AggregateException>(() => task);
-        Assert.IsInstanceOfType(exception.Flatten().InnerException, typeof(TaskCanceledException));
-    }*/
+        task.Wait();
+        
+    }
 
 
-    [TestMethod]
+        [TestMethod]
     async public Task RunAsync_MultipleHostAddresses_True()
     {
 

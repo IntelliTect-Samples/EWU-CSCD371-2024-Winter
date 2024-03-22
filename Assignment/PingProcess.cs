@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -22,19 +23,16 @@ public class PingProcess
 
     public PingResult Run(string hostNameOrAddress)
     {
-        StartInfo.Arguments = hostNameOrAddress;
-        var process = Process.Start(StartInfo);
-        process?.WaitForExit();
+        string pingArg = Environment.OSVersion.Platform is PlatformID.Unix ? "-c" : "-n";
 
-        if (process != null && process.ExitCode == 0)
-        {
-            return new PingResult(0, null); 
-        }
-        else
-        {
-            string errorMessage = process != null ? process.StandardOutput.ReadToEnd() : "Process failed to execute.";
-            return new PingResult(1, errorMessage); 
-        }
+        StartInfo.Arguments = $"{pingArg} 4 {hostNameOrAddress}";
+        StartInfo.Arguments = hostNameOrAddress;
+        StringBuilder? stringBuilder = null;
+        void updateStdOutput(string? line) =>
+            (stringBuilder ??= new StringBuilder()).AppendLine(line);
+        Process process = RunProcessInternal(StartInfo, updateStdOutput, default, default);
+        return new PingResult(process.ExitCode, stringBuilder?.ToString());
+
     }
 
     public static PingResult RunTaskAsync(string hostNameOrAddress)
@@ -46,25 +44,10 @@ public class PingProcess
     public static async Task<PingResult> RunAsync(
     string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
-        using (Ping ping = new Ping())
-        {
-            try
-            {
-                var reply = await ping.SendPingAsync(hostNameOrAddress);
-                if (reply.Status == IPStatus.Success)
-                {
-                    return new PingResult(0, null);
-                }
-                else
-                {
-                    return new PingResult(1, $"Ping failed with status: {reply.Status}");
-                }
-            }
-            catch (PingException ex)
-            {
-                return new PingResult(1, $"Ping failed: {ex.Message}");
-            }
-        }
+        cancellationToken.ThrowIfCancellationRequested();
+        PingProcess ping = new();
+        Task<PingResult> task = Task.Run(() => ping.Run(hostNameOrAddress), cancellationToken);
+        return await task;
     }
 
 
@@ -95,7 +78,8 @@ public class PingProcess
         }, token, TaskCreationOptions.LongRunning, TaskScheduler.Current);
     }
 
-    private static Process RunProcessInternal(ProcessStartInfo startInfo, Action<string?>? progressOutput, Action<string?>? progressError, CancellationToken token) {
+    private static Process RunProcessInternal(ProcessStartInfo startInfo, Action<string?>? progressOutput, Action<string?>? progressError, CancellationToken token)
+    {
         var process = new Process { StartInfo = startInfo };
         process.Start();
         //process.EnableRaisingEvents = true;
