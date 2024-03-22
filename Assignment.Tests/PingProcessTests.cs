@@ -253,7 +253,7 @@ public class PingProcessTests
 
     public class PingProgress<T>(Action<T> Update) : IProgress<T>
     {
-        public Action<T> Update = Update;
+        public Action<T> Update { get;} = Update;
         public void Report(T value)
         {
             Update(value);
