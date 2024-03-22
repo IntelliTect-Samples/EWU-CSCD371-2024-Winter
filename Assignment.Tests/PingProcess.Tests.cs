@@ -33,7 +33,7 @@ public class PingProcessTests
     [TestMethod]
     public void Run_GoogleDotCom_Success()
     {
-        if(Environment.GetEnvironmentVariable("GITHUB_ACTIONS") == "true")
+        if (Environment.GetEnvironmentVariable("GITHUB_ACTIONS") == "true")
         {
             Console.WriteLine("Skipping test in GitHub Actions environment.");
             return;
@@ -55,15 +55,15 @@ public class PingProcessTests
     [TestMethod]
     public void Run_CaptureStdOutput_Success()
     {
-        PingResult result = Sut.Run("-c 4 localhost");
+        PingResult result = Sut.Run("localhost");
         AssertValidPingOutput(result);
     }
 
     [TestMethod]
     public void RunTaskAsync_Success()
     {
-        string hostNameOrAddress = "-c 4 localhost";
-       var result = PingProcess.RunTaskAsync(hostNameOrAddress);
+        string hostNameOrAddress = "localhost";
+        var result = PingProcess.RunTaskAsync(hostNameOrAddress);
         AssertValidPingOutput(result);
 
     }
@@ -93,7 +93,7 @@ public class PingProcessTests
 
 
     [TestMethod]
-    
+
     [ExpectedException(typeof(TaskCanceledException))]
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
@@ -126,11 +126,11 @@ public class PingProcessTests
         var task = PingProcess.RunAsync(hostNameOrAddress, cancellationTokenSource.Token);
 
         task.Wait();
-        
+
     }
 
 
-        [TestMethod]
+    [TestMethod]
     async public Task RunAsync_MultipleHostAddresses_True()
     {
 
@@ -173,7 +173,7 @@ public class PingProcessTests
         var exitCode = task.Result;
 
         Assert.AreEqual(0, exitCode);
-        
+
 
     }
 
@@ -188,25 +188,26 @@ public class PingProcessTests
         try
         {
             numbers.AsParallel().ForAll(item => stringBuilder.AppendLine(""));
-        }catch (AggregateException) { }
+        }
+        catch (AggregateException) { }
         int lineCount = stringBuilder.ToString().Split(Environment.NewLine).Length;
         Assert.AreNotEqual(lineCount, numbers.Count() + 1);
     }
 
-    
+
     private void AssertValidPingOutput(int exitCode, string? stdOutput)
     {
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
         PingOutputLikeExpression = WildcardPattern.NormalizeLineEndings(PingOutputLikeExpression.Trim());
-       Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression) ?? false,
-        $"Output is unexpected: {stdOutput}");
+        Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression) ?? false,
+         $"Output is unexpected: {stdOutput}");
         Assert.AreEqual<int>(0, exitCode);
     }
     private void AssertValidPingOutput(PingResult result) =>
         AssertValidPingOutput(result.ExitCode, result.StdOutput);
 
-     string PingOutputLikeExpression = @"
+    string PingOutputLikeExpression = @"
 PING * * bytes*
 64 bytes from * (): icmp_seq= ttl=* time=* ms
 64 bytes from * (): icmp_seq= ttl=* time=* ms
