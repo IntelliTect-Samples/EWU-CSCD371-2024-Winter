@@ -29,15 +29,15 @@ public class PingProcessTests
         Assert.AreEqual<int>(0, process.ExitCode);
     }
 
-    /*[TestMethod]
+    [TestMethod]
     public void Run_GoogleDotCom_Success()
     {
         //if result is null, assign zero to exit code otherwise assign one 
-        int exitCode = Environment.GetEnvironmentVariable("GITHUB_ACTIONS") is null ? 1 : 0;
+        int exitCode = Environment.GetEnvironmentVariable("GITHUB_ACTIONS") is null ? 0 : 1;
 
         int realExit = Sut.Run("-c 4 google.com").ExitCode;
         Assert.AreEqual<int>(exitCode, realExit);
-    }*/
+    }
 
 
     [TestMethod]
@@ -53,12 +53,12 @@ public class PingProcessTests
         Assert.AreEqual<int>(2, exitCode);
     }
 
-    /*[TestMethod]
+    [TestMethod]
     public void Run_CaptureStdOutput_Success()
     {
         PingResult result = Sut.Run("-c 4 localhost");
         AssertValidPingOutput(result);
-    }*/
+    }
 
     [TestMethod]
     public void RunTaskAsync_Success()
@@ -96,15 +96,6 @@ public class PingProcessTests
 
     }
 
-    /*[TestMethod]
-    public void RunAsync_UsingTaskReturn_Success()
-    {
-        // Do NOT use async/await in this test.
-        PingResult result = default;
-        // Test Sut.RunAsync("localhost");
-        AssertValidPingOutput(result);
-    }*/
-
 
     [TestMethod]
     async public Task RunAsync_UsingTpl_Success()
@@ -121,20 +112,6 @@ public class PingProcessTests
     //    PingResult result =  Sut.RunLongRunningAsync(info, default, default, default);
     //    AssertValidPingOutput(result);
     //}
-
-
-
-    /*[TestMethod]
-#pragma warning disable CS1998 // Remove this
-    async public Task RunAsync_UsingTpl_Success()
-    {
-        // DO use async/await in this test.
-        PingResult result = default;
-
-        // Test Sut.RunAsync("localhost");
-        AssertValidPingOutput(result);
-    }*/
-#pragma warning restore CS1998 // Remove this
 
 
     [TestMethod]
