@@ -76,7 +76,9 @@ public class PingProcess
     private static Process RunProcessInternal(ProcessStartInfo startInfo, Action<string?>? progressOutput, Action<string?>? progressError, CancellationToken token) {
         var process = new Process { StartInfo = startInfo };
         process.Start();
-
+        //process.EnableRaisingEvents = true;
+        //process.OutputDataReceived += OutputHandler;
+        //process.ErrorDataReceived += ErrorHandler;
         process.BeginOutputReadLine();
         process.BeginErrorReadLine();
 
