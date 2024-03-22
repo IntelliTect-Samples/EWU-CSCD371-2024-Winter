@@ -188,15 +188,15 @@ public class PingProcessTests
     }
 
     
-    private static void AssertValidPingOutput(int exitCode, string? stdOutput)
+    private void AssertValidPingOutput(int exitCode, string? stdOutput)
     {
-        //Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
+        Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-       // Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression) ?? false,
-         //   $"Output is unexpected: {stdOutput}");
+       Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression) ?? false,
+        $"Output is unexpected: {stdOutput}");
         Assert.AreEqual<int>(0, exitCode);
     }
-    private static void AssertValidPingOutput(PingResult result) =>
+    private void AssertValidPingOutput(PingResult result) =>
         AssertValidPingOutput(result.ExitCode, result.StdOutput);
 
     private readonly string PingOutputLikeExpression = @"
