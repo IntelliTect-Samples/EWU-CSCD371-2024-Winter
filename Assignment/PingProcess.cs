@@ -27,7 +27,7 @@ public class PingProcess
         string pingArg = Environment.OSVersion.Platform is PlatformID.Unix ? "-c" : "-n";
 
         StartInfo.Arguments = $"{pingArg} 4 {hostNameOrAddress}";
-        StartInfo.Arguments = hostNameOrAddress;
+        
         StringBuilder? stringBuilder = null;
         void updateStdOutput(string? line) =>
             (stringBuilder ??= new StringBuilder()).AppendLine(line);
