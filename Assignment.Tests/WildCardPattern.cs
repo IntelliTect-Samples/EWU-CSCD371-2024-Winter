@@ -43,7 +43,7 @@ public enum WildcardOptions
 /// <summary>
 /// Represents a wildcard pattern.
 /// </summary>
-public sealed class WildcardPattern
+public class WildcardPattern
 {
     //
     // char that escapes special chars
@@ -620,7 +620,7 @@ internal abstract class WildcardPatternParser
         parser.EndWildcardPattern();
     }
 
-    public sealed class WildcardPatternException : Exception
+    public class WildcardPatternException : Exception
     {
         public WildcardPatternException(string invalidPattern)
             : base($"The wildcard pattern, '{invalidPattern}', is invalid.")
@@ -647,7 +647,7 @@ internal abstract class WildcardPatternParser
 ///
 /// for a more cases see the unit-test file RegexTest.cs
 /// </remarks>
-internal sealed class WildcardPatternToRegexParser : WildcardPatternParser
+internal class WildcardPatternToRegexParser : WildcardPatternParser
 {
     private StringBuilder _regexPattern;
     private RegexOptions _regexOptions;
@@ -816,7 +816,7 @@ internal sealed class WildcardPatternToRegexParser : WildcardPatternParser
     }
 }
 
-internal sealed class WildcardPatternMatcher
+internal class WildcardPatternMatcher
 {
     private readonly PatternElement[] _patternElements;
     private readonly CharacterNormalizer _characterNormalizer;
@@ -888,7 +888,7 @@ internal sealed class WildcardPatternMatcher
         return patternPositionsForCurrentStringPosition.ReachedEndOfPattern;
     }
 
-    private sealed class PatternPositionsVisitor
+    private class PatternPositionsVisitor
     {
         private readonly int _lengthOfPattern;
 
@@ -1016,7 +1016,7 @@ internal sealed class WildcardPatternMatcher
         }
     }
 
-    private sealed class LiteralCharacterElement : QuestionMarkElement
+    private class LiteralCharacterElement : QuestionMarkElement
     {
         private readonly char _literalCharacter;
 
@@ -1042,7 +1042,7 @@ internal sealed class WildcardPatternMatcher
         }
     }
 
-    private sealed class BracketExpressionElement : QuestionMarkElement
+    private class BracketExpressionElement : QuestionMarkElement
     {
         private readonly Regex _Regex;
 
@@ -1066,7 +1066,7 @@ internal sealed class WildcardPatternMatcher
         }
     }
 
-    private sealed class AsterixElement : PatternElement
+    private class AsterixElement : PatternElement
     {
         public override void ProcessStringCharacter(
                         char currentStringCharacter,
@@ -1090,7 +1090,7 @@ internal sealed class WildcardPatternMatcher
         }
     }
 
-    private sealed class MyWildcardPatternParser : WildcardPatternParser
+    private class MyWildcardPatternParser : WildcardPatternParser
     {
         private readonly List<PatternElement> _patternElements = new();
         private CharacterNormalizer _characterNormalizer;
@@ -1193,7 +1193,7 @@ internal sealed class WildcardPatternMatcher
 /// <summary>
 /// Translates a <see cref="WildcardPattern"/> into a DOS wildcard
 /// </summary>
-internal sealed class WildcardPatternToDosWildcardParser : WildcardPatternParser
+internal class WildcardPatternToDosWildcardParser : WildcardPatternParser
 {
     private readonly StringBuilder _result = new();
 

@@ -32,13 +32,7 @@ public class PingProcess
         return new Task<PingResult>(() => Run(hostNameOrAddress));
     }
 
-    //2
-    async public Task<PingResult> RunAsync(string hostNameOrAddress)
-    {
-        return await Task.Run(() => Run(hostNameOrAddress));
-    }
-
-    //3
+    //2 and 3
     async public Task<PingResult> RunAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
@@ -76,53 +70,23 @@ public class PingProcess
     //4
     async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
     {
-        StringBuilder stringBuilder = new();
+        StringBuilder? stringBuilder = new();
         int total = 0;
-
-        // Semaphore to synchronize access to stringBuilder
-        var semaphore = new SemaphoreSlim(1);
-
-        var tasks = hostNameOrAddresses.Select(async item =>
+        ParallelQuery<Task<int>>? all = hostNameOrAddresses.AsParallel().Select(async item =>
         {
-            try
+            Task<PingResult> task = RunAsync(item);
+            lock (stringBuilder)
             {
-                cancellationToken.ThrowIfCancellationRequested();
-                PingResult result = await RunAsync(item, cancellationToken);
+                stringBuilder.AppendLine(task.Result.StdOutput?.Trim());
+                total++;
+            }
 
-                if (result.StdOutput != null)
-                {
-                    // Enter critical section
-                    await semaphore.WaitAsync(cancellationToken);
-                    try
-                    {
-                        total += result.ExitCode;
-                        stringBuilder.AppendFormat(CultureInfo.InvariantCulture, "Error pinging {0}: {1}", item, result.StdOutput.Trim());
-                        stringBuilder.AppendLine();
-                    }
-                    finally
-                    {
-                        semaphore.Release(); // Exit critical section
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // Handle any exceptions from individual ping operations
-                await semaphore.WaitAsync(cancellationToken);
-                try
-                {
-                    stringBuilder.AppendFormat(CultureInfo.InvariantCulture, "Error pinging {0}: {1}", item, ex.Message);
-                    stringBuilder.AppendLine();
-                }
-                finally
-                {
-                    semaphore.Release();
-                }
-            }
+            await task.WaitAsync(cancellationToken);
+            return task.Result.ExitCode;
         });
 
-        await Task.WhenAll(tasks);
-        return new PingResult(total, stringBuilder.ToString().Trim());
+        await Task.WhenAll(all);
+        return new PingResult(total, stringBuilder?.ToString().Trim());
     }
 
 
