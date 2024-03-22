@@ -93,19 +93,6 @@ public class PingProcess
       return exitCode;
     }
 
-/*
-    async public Task<PingResult> RunLongRunningAsync(string hostNameOrAddress, CancellationToken cancellationToken = default)
-    {
-        //NOTE: This method does NOT use Task.Ru      
-        Task<PingResult> task = Task.Factory.StartNew<PingResult>(() =>
-        {
-          var process = RunAsync(hostNameOrAddress, cancellationToken).Result;
-        }, cancellationToken, TaskCreationOptions.LongRunning, TaskScheduler.Current);
-
-        return await task;
-    }
-
-  */
 
     private Process RunProcessInternal(
         ProcessStartInfo startInfo,

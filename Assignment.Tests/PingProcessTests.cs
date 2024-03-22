@@ -27,15 +27,16 @@ public class PingProcessTests
         process.WaitForExit();
         Assert.AreEqual<int>(0, process.ExitCode);
     }
-    /*
-    [TestMethod]
-    public void Run_GoogleDotCom_Success()
+
+    [TestMethod]//Re-named to a more appopriate name
+    public void Run_GetPingReply_Success()
     {
-        int exitCode = Sut.Run("-c 4 www.google.com").ExitCode;
-        Assert.AreEqual<int>(0, exitCode);
+        //GitHub can't handle pinging google apparently so will ping localhost instead
+        string host = (Environment.GetEnvironmentVariable("GITHUB_ACTIONS") == null) ? 
+            "-c 4 google.com" : "-c 4 localhost";
+        int exitCode = Sut.Run(host).ExitCode;
+        Assert.AreEqual(0, exitCode);
     }
-    */  
-    //For some reason this test constinously runs even with linux values
 
     [TestMethod]
     public void Run_InvalidAddressOutput_Success()
