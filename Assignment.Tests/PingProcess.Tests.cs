@@ -127,8 +127,10 @@ public class PingProcessTests
         Task<PingResult> task = PingProcess.RunAsync(hostNameOrAddress, cancellationTokenSource.Token);
         cancellationTokenSource.Cancel();
 
-        await Assert.ThrowsExceptionAsync<OperationCanceledException>(() => task).Flatten();
+        AggregateException exception = await Assert.ThrowsExceptionAsync<AggregateException>(() => task);
+        Assert.IsInstanceOfType(exception.Flatten().InnerException, typeof(TaskCanceledException));
     }
+
 
     [TestMethod]
     async public Task RunAsync_MultipleHostAddresses_True()
