@@ -56,7 +56,7 @@ public class PingProcessTests
     [TestMethod]
     public void Run_CaptureStdOutput_Success()
     {
-        PingResult result = Sut.Run("-c 4 localhost");
+        PingResult result = Sut.Run("-n 4 localhost");
         AssertValidPingOutput(result);
     }
 
