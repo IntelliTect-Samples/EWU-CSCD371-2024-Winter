@@ -35,23 +35,34 @@ public class PingProcess
         return Task.Run(() => { return Run(hostNameOrAddress); });
     }
 
-    // bullet 2
-    async public Task<PingResult> RunAsync(string hostNameOrAddress)
-    {
+    //// bullet 2
+    //async public Task<PingResult> RunAsync(string hostNameOrAddress)
+    //{
 
-        return await Task.Run(() =>
-         {
-             return Run(hostNameOrAddress);
-         });
-    }
+    //    return await Task.Run(() =>
+    //     {
+    //         return Run(hostNameOrAddress);
+    //     });
+    //}
 
 
     public async Task<PingResult> RunAsync(string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
-        cancellationToken.ThrowIfCancellationRequested();
-        Task<PingResult> task = Task.Run(() => Run(hostNameOrAddress), cancellationToken);
-        //PingResult pr = await task;
-        return await task;
+        try
+        {
+
+            cancellationToken.ThrowIfCancellationRequested();
+            PingResult pr = await Task.Run<PingResult>(() => { return Run(hostNameOrAddress); }, cancellationToken);
+
+            return pr;
+        }
+        catch (OperationCanceledException)
+        {
+            TaskCanceledException taskExc = new();
+            AggregateException AggExc = new(innerExceptions: taskExc);
+            throw AggExc;
+        }
+
     }
 
     async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
