@@ -52,7 +52,7 @@ public class PingProcess
         {
 
             cancellationToken.ThrowIfCancellationRequested();
-            PingResult pr = await Task.Run<PingResult>(() => { return Run(hostNameOrAddress); }, cancellationToken);
+            PingResult pr = await Task.Run(() => { return Run(hostNameOrAddress); }, cancellationToken);
             
             return pr;
         }
