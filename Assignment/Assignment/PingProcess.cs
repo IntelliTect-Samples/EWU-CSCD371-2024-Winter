@@ -29,20 +29,20 @@ public class PingProcess
         return new PingResult( process.ExitCode, stringBuilder?.ToString());
     }
 
-    // bullet 1
-    //public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
-    //{
-    //    return Task.Run(() => { return Run(hostNameOrAddress); });
-    //}
+    //bullet 1
+    public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
+    {
+        return Task.Run(() => { return Run(hostNameOrAddress); });
+    }
 
     //// bullet 2
     //async public Task<PingResult> RunAsync(string hostNameOrAddress)
-    //{       
+    //{
 
-    //   return await Task.Run(() =>
-    //    {
-    //        return Run(hostNameOrAddress);
-    //    });
+    //    return await Task.Run(() =>
+    //     {
+    //         return Run(hostNameOrAddress);
+    //     });
     //}
 
 
