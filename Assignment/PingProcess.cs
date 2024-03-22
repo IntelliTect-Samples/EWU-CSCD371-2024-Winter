@@ -113,8 +113,6 @@ public class PingProcess
     }
 
 
-
-
     private Process RunProcessInternal(
         ProcessStartInfo startInfo,
         Action<string?>? progressOutput,
