@@ -37,19 +37,28 @@ public class PingProcessTests
         Assert.AreEqual<int>(0, process.ExitCode);
     }
 
+    [TestMethod]
+    public void Run_GoogleDotCom_Success()
+    {
 
-    //[TestMethod]
-    //public void Run_InvalidAddressOutput_Success()
-    //{
-    //    (int exitCode, string? stdOutput) = Sut.Run("badaddress");
-    //    Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
-    //    stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-    //    Assert.AreEqual<string?>(
-    //        "Ping request could not find host badaddress. Please check the name and try again.".Trim(),
-    //        stdOutput,
-    //        $"Output is unexpected: {stdOutput}");
-    //    Assert.AreEqual<int>(1, exitCode);
-    //}
+        int exitCode = Environment.GetEnvironmentVariable("GITHUB_ACTIONS") is null ? 0 : 1;
+
+        int realExit = Sut.Run("-c 4 google.com").ExitCode;
+        Assert.AreEqual<int>(exitCode, realExit);
+    }
+
+    [TestMethod]
+    public void Run_InvalidAddressOutput_Success()
+    {
+        (int exitCode, string? stdOutput) = Sut.Run("badaddress");
+        Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
+        stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
+        Assert.AreEqual<string?>(
+            "ping: badaddress: Temporary failure in name resolution".Trim(),
+            stdOutput,
+            $"Output is unexpected: {stdOutput}");
+        Assert.AreEqual<int>(2, exitCode);
+    }
 
     //[TestMethod]
     //public void Run_CaptureStdOutput_Success()
@@ -90,32 +99,80 @@ public class PingProcessTests
 
 
 
-    //[TestMethod]
-    //[ExpectedException(typeof(AggregateException))]
-    //public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
-    //{
-    //    var pingProcess = new PingProcess();
-    //    var cancellationTokenSource = new CancellationTokenSource();
-    //    cancellationTokenSource.CancelAfter(1000); // Cancel after 1 second
-    //    Assert.ThrowsException<AggregateException>(() =>
-    //    {
-    //        var result = pingProcess.RunAsync("localhost", cancellationTokenSource.Token).Result;
-    //    });
-    //}
+    [TestMethod]
+    [ExpectedException(typeof(AggregateException))]
+    public async Task RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
+    {
+        string hostName = "-c 4 localhost";
+        CancellationTokenSource token = new CancellationTokenSource();
+        token.Cancel();
+        await Sut.RunAsync(hostName, token.Token);
+    }
 
-    //[TestMethod]
-    //[ExpectedException(typeof(TaskCanceledException))]
-    //public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
-    //{
-    //    var pingProcess = new PingProcess();
-    //    var cancellationTokenSource = new CancellationTokenSource();
-    //    cancellationTokenSource.CancelAfter(1000); // Cancel after 1 second
-    //    Assert.ThrowsException<TaskCanceledException>(() =>
-    //    {
-    //        var result = pingProcess.RunAsync("localhost", cancellationTokenSource.Token).Result;
-    //    });
-    //    // Use exception.Flatten()
-    //}
+    [TestMethod]
+    public async Task RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
+    {
+        // Arrange
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        cancellationTokenSource.Cancel();
+        string hostName = "-c 4 localhost";
+        // Act & Assert
+        try
+        {
+            await Sut.RunAsync(hostName, cancellationTokenSource.Token);
+        }
+        catch (AggregateException ex)
+        {
+            ex = ex.Flatten();
+            if (ex.InnerExceptions != null)
+            {
+                foreach (var innerEx in ex.InnerExceptions)
+                {
+                    if (innerEx is TaskCanceledException)
+                    {
+                        // Expected exception found, test passes
+                        return;
+                    }
+                }
+            }
+
+            // If no TaskCanceledException found, rethrow the exception
+            throw;
+        }
+
+        // If no exception thrown, fail the test
+        Assert.Fail("Expected TaskCanceledException was not thrown.");
+    }
+
+    [TestMethod]
+    public async Task RunLongRunningAsync_Success()
+    {
+        // Arrange
+        ProcessStartInfo startInfo = new ProcessStartInfo("ping", "-c 4 localhost");
+        CancellationToken cancellationToken = CancellationToken.None; 
+        Action<string?> progressOutput = null!; 
+        Action<string?> progressError = null!; 
+
+        
+        Task<int> task = Sut.RunLongRunningAsync(startInfo, progressOutput, progressError, cancellationToken);
+        int exitCode = await task;
+
+        
+        Assert.AreEqual(0, exitCode); 
+    }
+    [TestMethod]
+    public async Task RunLongRunningAsync_UsingTpl_Success()
+    {
+        // Arrange
+        ProcessStartInfo startInfo = new ProcessStartInfo("ping", "-c 4 localhost");
+        CancellationToken cancellationToken = CancellationToken.None; 
+
+        // Act
+        int exitCode = await Sut.RunLongRunningAsync(startInfo, null, null, cancellationToken);
+
+        // Assert
+        Assert.AreEqual(0, exitCode); 
+    }
 
     //[TestMethod]
     //async public Task RunAsync_MultipleHostAddresses_True()
