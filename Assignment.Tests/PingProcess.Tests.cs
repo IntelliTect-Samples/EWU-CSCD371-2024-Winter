@@ -121,15 +121,13 @@ public class PingProcessTests
     [TestMethod]
     public async Task RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
-
-        PingProcess pingProcess = new();
         string hostNameOrAddress = "localhost";
         using CancellationTokenSource cancellationTokenSource = new();
 
         Task<PingResult> task = PingProcess.RunAsync(hostNameOrAddress, cancellationTokenSource.Token);
         cancellationTokenSource.Cancel();
 
-        await Assert.ThrowsExceptionAsync<OperationCanceledException>(() => task);
+        await Assert.ThrowsExceptionAsync<OperationCanceledException>(() => task).Flatten();
     }
 
     [TestMethod]
