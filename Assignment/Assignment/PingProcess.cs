@@ -24,9 +24,17 @@ public class PingProcess
     {
         StartInfo.Arguments = hostNameOrAddress;
         var process = Process.Start(StartInfo);
-        var output = process?.StandardOutput.ReadToEnd();
         process?.WaitForExit();
-        return new PingResult(process?.ExitCode ?? 1, output);
+
+        if (process != null && process.ExitCode == 0)
+        {
+            return new PingResult(0, null); 
+        }
+        else
+        {
+            string errorMessage = process != null ? process.StandardOutput.ReadToEnd() : "Process failed to execute.";
+            return new PingResult(1, errorMessage); 
+        }
     }
 
     public static PingResult RunTaskAsync(string hostNameOrAddress)
