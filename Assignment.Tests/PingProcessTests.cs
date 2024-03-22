@@ -13,19 +13,29 @@ namespace Assignment.Tests;
 public class PingProcessTests
 {
     PingProcess Sut { get; set; } = new();
+    bool IsUnix { get; set; }
+    //Will never be null as its set in TestInitalize
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    string LimitPingArg { get; set; }
+    string PingOutputLikeExpression { get; set; }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
     [TestInitialize]
     public void TestInitialize()
     {
+        IsUnix = Environment.OSVersion.Platform is PlatformID.Unix;
+        (string arg, string exp) = IsUnix ? ("-c", PingOutputLikeExpressionUnix) : ("-n", PingOutputLikeExpressionWindows);
+        LimitPingArg = arg;
+        PingOutputLikeExpression = exp;
         Sut = new();
     }
 
     [TestMethod]
     public void Start_PingProcess_Success()
     {
-        Process process = Process.Start("ping", "-c 4 localhost");
+        Process process = Process.Start("ping", $"{LimitPingArg} 4 localhost");
         process.WaitForExit();
-        Assert.AreEqual(0, process.ExitCode);
+        Assert.AreEqual<int>(0, process.ExitCode);
     }
 
 
@@ -40,14 +50,16 @@ public class PingProcessTests
     [TestMethod]
     public void Run_InvalidAddressOutput_Success()
     {
-        (int exitCode, string? stdOutput) = Sut.Run("badaddress");
-        Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
-        stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-        Assert.AreEqual<string?>(
-            "Ping request could not find host badaddress. Please check the name and try again.".Trim(),
-            stdOutput,
-            $"Output is unexpected: {stdOutput}");
-        Assert.AreEqual<int>(1, exitCode);
+        (string expectedOutput, int expectedExitCode) = IsUnix ? ("ping: badaddress: Temporary failure in name resolution", 2) : ("Ping request could not find host badaddress. Please check the name and try again.", 1);
+        (int exitCode, string? stdOutput, string? stdError) = Sut.Run("badaddress");
+        string actualOutput = IsUnix ? stdError! : stdOutput!;
+        //In Unix, error is logged to StdError, not StdOutput
+        Assert.IsFalse(string.IsNullOrWhiteSpace(actualOutput));
+        actualOutput = WildcardPattern.NormalizeLineEndings(actualOutput!.Trim());
+        Assert.AreEqual<string?>(expectedOutput, actualOutput, $"Output is unexpected: {stdOutput}");
+        // 2 is the exit code for invalid address in Unix
+        // 1 is the exit code for invalid address in Windows
+        Assert.AreEqual<int>(expectedExitCode, exitCode);
     }
     
 
@@ -195,12 +207,9 @@ public class PingProcessTests
             UserName = Environment.UserName
         };
     }
-    
 
-
-
-
-        readonly string PingOutputLikeExpression = @"
+    // Windows version of ping output
+    readonly string PingOutputLikeExpressionWindows = @"
 Pinging * with 32 bytes of data:
 Reply from ::1: time<*
 Reply from ::1: time<*
@@ -210,6 +219,18 @@ Ping statistics for ::1:
     Packets: Sent = *, Received = *, Lost = 0 (0% loss),
 Approximate round trip times in milli-seconds:
     Minimum = *, Maximum = *, Average = *".Trim();
+
+    //Linux version of ping output
+    readonly string PingOutputLikeExpressionUnix = @"
+PING * * bytes*
+64 bytes from * (*): icmp_seq=* ttl=* time=* ms
+64 bytes from * (*): icmp_seq=* ttl=* time=* ms
+64 bytes from * (*): icmp_seq=* ttl=* time=* ms
+64 bytes from * (*): icmp_seq=* ttl=* time=* ms
+--- * ping statistics ---
+* packets transmitted, * received, *% packet loss, time *ms
+rtt min/avg/max/mdev = */*/*/* ms
+".Trim();
     private void AssertValidPingOutput(int exitCode, string? stdOutput)
     {
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
