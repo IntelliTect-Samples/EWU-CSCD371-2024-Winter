@@ -29,20 +29,20 @@ public class PingProcessTests
         Sut = new();
     }
 
-    //[TestMethod]
-    //public void Start_PingProcess_Success()
-    //{
-    //    Process process = Process.Start("ping", "localhost");
-    //    process.WaitForExit();
-    //    Assert.AreEqual<int>(0, process.ExitCode);
-    //}
-
     [TestMethod]
-    public void Run_GoogleDotCom_Success()
+    public void Start_PingProcess_Success()
     {
-        int exitCode = Sut.Run("google.com").ExitCode;
-        Assert.AreEqual<int>(0, exitCode);
+        Process process = Process.Start("ping", "localhost");
+        process.WaitForExit();
+        Assert.AreEqual<int>(0, process.ExitCode);
     }
+
+    //[TestMethod]
+    //public void Run_GoogleDotCom_Success()
+    //{
+    //    int exitCode = Sut.Run("google.com").ExitCode;
+    //    Assert.AreEqual<int>(0, exitCode);
+    //}
 
 
     [TestMethod]
