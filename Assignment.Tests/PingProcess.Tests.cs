@@ -63,17 +63,17 @@ public class PingProcessTests
     public void RunTaskAsync_Success()
     {
         string hostNameOrAddress = "-c 4 localhost";
-       var res = PingProcess.RunTaskAsync(hostNameOrAddress);
-        Assert.AreEqual(0, res.ExitCode);
-        Assert.IsNull(res.StdOutput);
+       var result = PingProcess.RunTaskAsync(hostNameOrAddress);
+        AssertValidPingOutput(result);
+
     }
     [TestMethod]
     public async Task RunAsync_UsingTaskReturn_Success()
     {
         string hostNameOrAddress = "localhost";
-        var res = await PingProcess.RunAsync(hostNameOrAddress);
-        Assert.AreEqual(0, res.ExitCode);
-        Assert.IsNull(res.StdOutput);
+        var result = await PingProcess.RunAsync(hostNameOrAddress);
+        AssertValidPingOutput(result);
+
 
     }
 
@@ -86,9 +86,8 @@ public class PingProcessTests
 
         var result = await PingProcess.RunAsync(hostNameOrAddress);
 
+        AssertValidPingOutput(result);
 
-        Assert.AreEqual(0, result.ExitCode);
-        Assert.IsNull(result.StdOutput);
     }
 
 
