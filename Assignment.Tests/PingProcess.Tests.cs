@@ -95,18 +95,21 @@ public class PingProcessTests
 
 
     [TestMethod]
-    public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
+    public async Task RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
     {
-        PingProcess pingProcess = new();
-        string hostNameOrAddress = "-c 4 localhost";
-        CancellationTokenSource cancellationTokenSource = new();
+        PingProcess pingProcess = new PingProcess();
+        string hostNameOrAddress = "localhost";
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
         var task = PingProcess.RunAsync(hostNameOrAddress, cancellationTokenSource.Token);
+
+        // Await the task before cancelling the token
+        await Task.Delay(100); // Delay to ensure the task has started
         cancellationTokenSource.Cancel();
 
         try
         {
-            task.Wait();
+            await task; // Wait for the task to complete
             Assert.Fail("Expected an AggregateException to be thrown.");
         }
         catch (AggregateException ex)
@@ -115,10 +118,11 @@ public class PingProcessTests
         }
     }
 
+
     [TestMethod]
     public async Task RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
-        string hostNameOrAddress = "-c 4 localhost";
+        string hostNameOrAddress = "localhost";
         using CancellationTokenSource cancellationTokenSource = new();
 
         Task<PingResult> task = PingProcess.RunAsync(hostNameOrAddress, cancellationTokenSource.Token);
@@ -134,7 +138,7 @@ public class PingProcessTests
     {
 
         var pingProcess = new PingProcess();
-        string[] hostNames = new string[] { "-c 4 localhost", "-c 4 localhost", "-c 4 localhost", "-c 4 localhost" };
+        string[] hostNames = new string[] { "localhost", "localhost", "localhost", "localhost" };
 
 
         foreach (var hostName in hostNames)
