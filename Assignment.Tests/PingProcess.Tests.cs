@@ -40,7 +40,6 @@ public class PingProcessTests
         }
 
         PingResult result = Sut.Run("google.com");
-        // Assert.AreEqual(0, result.ExitCode);
         AssertValidPingOutput(result);
     }
 
@@ -58,6 +57,7 @@ public class PingProcessTests
     {
         PingResult result = Sut.Run("-c 4 localhost");
         Assert.AreEqual<int>(0, result.ExitCode);
+        Assert.IsNull(result.StdOutput);
     }
 
     [TestMethod]
@@ -66,13 +66,15 @@ public class PingProcessTests
         string hostNameOrAddress = "-c 4 localhost";
         var res = PingProcess.RunTaskAsync(hostNameOrAddress);
         Assert.AreEqual(0, res.ExitCode);
+        Assert.IsNull(res.StdOutput);
     }
     [TestMethod]
     public async Task RunAsync_UsingTaskReturn_Success()
     {
-        string hostNameOrAddress = "-c 4 localhost";
+        string hostNameOrAddress = "localhost";
         var res = await PingProcess.RunAsync(hostNameOrAddress);
         Assert.AreEqual(0, res.ExitCode);
+
     }
 
     [TestMethod]
