@@ -30,20 +30,20 @@ public class PingProcess
     }
 
     // bullet 1
-    public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
-    {
-        return Task.Run(() => { return Run(hostNameOrAddress); });
-    }
+    //public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
+    //{
+    //    return Task.Run(() => { return Run(hostNameOrAddress); });
+    //}
 
-    // bullet 2
-    async public Task<PingResult> RunAsync(string hostNameOrAddress)
-    {       
+    //// bullet 2
+    //async public Task<PingResult> RunAsync(string hostNameOrAddress)
+    //{       
 
-       return await Task.Run(() =>
-        {
-            return Run(hostNameOrAddress);
-        });
-    }
+    //   return await Task.Run(() =>
+    //    {
+    //        return Run(hostNameOrAddress);
+    //    });
+    //}
 
 
     public async Task<PingResult> RunAsync(string hostNameOrAddress, CancellationToken cancellationToken = default)
