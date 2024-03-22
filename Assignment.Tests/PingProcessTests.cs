@@ -58,12 +58,12 @@ public class PingProcessTests
         AssertValidPingOutput(result);
     }
 
-    [TestMethod]
+    [TestMethod, TestCategory("RequiresAdmin")]
     public void RunTaskAsync_Success()
     {
         // Do NOT use async/await in this test.
         // Test Sut.RunTaskAsync("localhost");
-        Task<PingResult> task = Sut.RunTaskAsync(" -c 4 localhost");
+        Task<PingResult> task = Sut.RunTaskAsync("localhost");
         task.Start();
         AssertValidPingOutput(task.Result);
     }
@@ -156,23 +156,25 @@ public class PingProcessTests
 
         }
     }
-    
+
 
 
     // Create a test for RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
     [TestMethod]
-    public async void RunAsync_MultipleHostAddresses_True()
+    public async Task RunAsync_MultipleHostAddresses_True()
     {
-        string[] hostNames = ["localhost", "localhost", "localhost", "localhost"];
-        int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length*hostNames.Length;
+        string[] hostNames = { "localhost", "localhost", "localhost", "localhost" };
+        int expectedLineCount = 10 * hostNames.Length;
         PingResult result = await Sut.RunAsync(hostNames);
         int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
         Assert.AreEqual<int?>(expectedLineCount, lineCount);
     }
-    
+
+
+
 
     // Create a test for public Task<int> RunLongRunningAsync(ProcessStartInfo startInfo, Action<string?>? progressOutput, Action<string?>? progressError, CancellationToken token)
-     [TestMethod]
+    [TestMethod]
     public void RunLongRunningAsync_ProcessStartInfo_Success()
     {
         ProcessStartInfo startInfo = new ProcessStartInfo
@@ -198,17 +200,16 @@ public class PingProcessTests
 
 
 
-    readonly string PingOutputLikeExpression = @"
-PING * 56 data bytes
-64 bytes from * (::1): icmp_seq=* ttl=* time=* ms
-64 bytes from * (::1): icmp_seq=* ttl=* time=* ms
-64 bytes from * (::1): icmp_seq=* ttl=* time=* ms
-64 bytes from * (::1): icmp_seq=* ttl=* time=* ms
-
---- * ping statistics ---
-* packets transmitted, * received, *% packet loss, time *ms
-rtt min/avg/max/mdev = */*/*/* ms
-".Trim();
+        readonly string PingOutputLikeExpression = @"
+Pinging * with 32 bytes of data:
+Reply from ::1: time<*
+Reply from ::1: time<*
+Reply from ::1: time<*
+Reply from ::1: time<*
+Ping statistics for ::1:
+    Packets: Sent = *, Received = *, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = *, Maximum = *, Average = *".Trim();
     private void AssertValidPingOutput(int exitCode, string? stdOutput)
     {
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
@@ -219,5 +220,4 @@ rtt min/avg/max/mdev = */*/*/* ms
     }
     private void AssertValidPingOutput(PingResult result) =>
         AssertValidPingOutput(result.ExitCode, result.StdOutput);
-    
 }
