@@ -74,6 +74,7 @@ public class PingProcessTests
         string hostNameOrAddress = "localhost";
         var res = await PingProcess.RunAsync(hostNameOrAddress);
         Assert.AreEqual(0, res.ExitCode);
+        Assert.IsNull(res.StdOutput);
 
     }
 
@@ -87,7 +88,8 @@ public class PingProcessTests
         var result = await PingProcess.RunAsync(hostNameOrAddress);
 
 
-        AssertValidPingOutput(result);
+        Assert.AreEqual(0, result.ExitCode);
+        Assert.IsNull(result.StdOutput);
     }
 
 
