@@ -25,7 +25,7 @@ public class PingProcessTests
     {
         Process process = Process.Start("ping", "-c 4 localhost");
         process.WaitForExit();
-        Assert.AreEqual(1, process.ExitCode);
+        Assert.AreEqual(0, process.ExitCode);
     }
 
 
