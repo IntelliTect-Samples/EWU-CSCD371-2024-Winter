@@ -93,7 +93,7 @@ public class PingProcessTests
     async public Task RunTaskAsync_WithProgress_Success()
     {
         string progressAppended = "";
-        var progress = new Progress<string>((output) => progressAppended += output + Environment.NewLine);
+        var progress = new Progress<string?>((output) => progressAppended += output + Environment.NewLine);
 
         PingResult result = await Sut.RunAsync("localhost", progress);
         // result.StdOutput will not be null
