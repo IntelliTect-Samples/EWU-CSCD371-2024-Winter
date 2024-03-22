@@ -235,6 +235,7 @@ rtt min/avg/max/mdev = */*/*/* ms
     {
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
+        PingOutputLikeExpression = WildcardPattern.NormalizeLineEndings(PingOutputLikeExpression);
         Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression)??false,
             $"Output is unexpected: {stdOutput}");
         Assert.AreEqual<int>(0, exitCode);
