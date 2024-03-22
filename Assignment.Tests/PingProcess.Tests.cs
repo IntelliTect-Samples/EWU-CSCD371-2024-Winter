@@ -82,7 +82,7 @@ public class PingProcessTests
 
     async public Task RunAsync_UsingTpl_Success()
     {
-        string hostNameOrAddress = "-c 4 localhost";
+        string hostNameOrAddress = "localhost";
 
 
         var result = await PingProcess.RunAsync(hostNameOrAddress);
