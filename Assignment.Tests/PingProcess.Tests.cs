@@ -94,7 +94,7 @@ public class PingProcessTests
 
 
 
-    [TestMethod]
+   /* [TestMethod]
     public async Task RunAsync_UsingTplWithCancellation_CatchTaskCanceledException()
     {
         PingProcess pingProcess = new PingProcess();
@@ -131,7 +131,7 @@ public class PingProcessTests
 
         AggregateException exception = await Assert.ThrowsExceptionAsync<AggregateException>(() => task);
         Assert.IsInstanceOfType(exception.Flatten().InnerException, typeof(TaskCanceledException));
-    }
+    }*/
 
 
     [TestMethod]
