@@ -49,7 +49,7 @@ public class PingProcessTests
     {
         (int exitCode, var stdOutput) = Sut.Run("badaddress");
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-        Assert.AreEqual<int>(1, exitCode);
+        Assert.AreEqual<int>(2, exitCode);
     }
 
     [TestMethod]
