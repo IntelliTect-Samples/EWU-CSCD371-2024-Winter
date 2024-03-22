@@ -196,7 +196,7 @@ public class PingProcessTests
          //   $"Output is unexpected: {stdOutput}");
         Assert.AreEqual<int>(0, exitCode);
     }
-    private void AssertValidPingOutput(PingResult result) =>
+    private static void AssertValidPingOutput(PingResult result) =>
         AssertValidPingOutput(result.ExitCode, result.StdOutput);
 
     private readonly string PingOutputLikeExpression = @"
