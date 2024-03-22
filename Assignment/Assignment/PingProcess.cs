@@ -44,13 +44,27 @@ public class PingProcess
     }
 
     public static async Task<PingResult> RunAsync(
-        string hostNameOrAddress, CancellationToken cancellationToken = default)
+    string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
-        using Ping ping = new();
-        var reply = await ping.SendPingAsync(hostNameOrAddress);
-        cancellationToken.ThrowIfCancellationRequested();
-        return new PingResult(reply.Status == IPStatus.Success ? 0 : 1, reply.Status.ToString());
-
+        using (Ping ping = new Ping())
+        {
+            try
+            {
+                var reply = await ping.SendPingAsync(hostNameOrAddress);
+                if (reply.Status == IPStatus.Success)
+                {
+                    return new PingResult(0, null);
+                }
+                else
+                {
+                    return new PingResult(1, $"Ping failed with status: {reply.Status}");
+                }
+            }
+            catch (PingException ex)
+            {
+                return new PingResult(1, $"Ping failed: {ex.Message}");
+            }
+        }
     }
 
 
